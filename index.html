@@ -2,26 +2,56 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>ORBAT — Инструменты мира</title>
+<title>ORBAT — Главная</title>
 <style>
-body{font-family:Arial,sans-serif;background:#1a1a18;color:#d4d2cc;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:600px;padding:20px}
-h1{text-align:center;color:#f1efe8;font-size:20px;margin-bottom:4px;grid-column:1/-1}
-p{text-align:center;color:#555;font-size:11px;margin-bottom:16px;grid-column:1/-1}
-a{display:block;background:#242422;border:0.5px solid #444;border-radius:6px;padding:20px;text-decoration:none;color:#d4d2cc;transition:all 0.15s}
-a:hover{border-color:#888;background:#2c2c2a}
-a h2{font-size:14px;color:#f1efe8;margin-bottom:6px}
-a p{text-align:left;font-size:10px;color:#666;margin:0;grid-column:auto}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#1a1a18;color:#d4d2cc;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px}
+h1{font-size:22px;font-weight:500;color:#f1efe8;letter-spacing:0.05em;margin-bottom:4px;text-align:center}
+.sub{font-size:10px;color:#555;margin-bottom:32px;text-align:center}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:560px;width:100%}
+.card{display:block;background:#242422;border:0.5px solid #333;border-radius:6px;padding:18px;text-decoration:none;color:#d4d2cc;transition:all 0.15s}
+.card:hover{border-color:#888;background:#2c2c2a;transform:translateY(-1px)}
+.card.orbat{border-color:#5f5e5a;grid-column:1/-1}
+.card.orbat:hover{border-color:#c87840}
+.card h2{font-size:13px;font-weight:500;color:#f1efe8;margin-bottom:5px;display:flex;align-items:center;gap:8px}
+.card p{font-size:10px;color:#555;line-height:1.5}
+.badge{font-size:8px;padding:1px 6px;border-radius:2px;background:#2c2c2a;border:0.5px solid #444;color:#888;font-weight:400}
+.badge.ext{border-color:#5f5e5a;color:#888}
+.divider{width:100%;max-width:560px;border:none;border-top:0.5px solid #2a2a28;margin:8px 0}
+.section-label{font-size:9px;color:#444;text-transform:uppercase;letter-spacing:0.08em;max-width:560px;width:100%;margin-bottom:4px}
 </style>
 </head>
 <body>
+<h1>ORBAT</h1>
+<p class="sub">Стратегическая война · Лор · Мир · 1952 н.э.</p>
+
+<div class="section-label">Движок игры</div>
 <div class="grid">
-  <h1>ORBAT — Инструменты мира</h1>
-  <p>Доисторическая эра · -100 000 до н.э. → 1952</p>
-  <a href="orbat_codex.html"><h2>📋 Живой Кодекс</h2><p>Культуры, климат и события по эпохам</p></a>
-  <a href="orbat_namegen.html"><h2>🔤 Генератор имён</h2><p>Топонимы и имена по namesbase культур</p></a>
-  <a href="orbat_timeline.html"><h2>📅 Таймлайн</h2><p>Шкала народов от -100 000 до 1952</p></a>
-  <a href="orbat_tree.html"><h2>🌳 Дерево народов</h2><p>Origins и детали каждой культуры</p></a>
+  <a href="orbat_engine.html" class="card orbat">
+    <h2>⚙️ ORBAT Engine <span class="badge ext">Godot · Lua · XML</span></h2>
+    <p>Фреймворк управления боем. BattleState, Commander, ROE, Perception, Net Data. Дизайн-документ и архитектура системы.</p>
+  </a>
+</div>
+
+<hr class="divider">
+<div class="section-label" style="margin-top:8px">Инструменты мира</div>
+<div class="grid">
+  <a href="orbat_codex.html" class="card">
+    <h2>📋 Живой Кодекс</h2>
+    <p>Культуры, климат и события по эпохам. От -100 000 до н.э. до 1952.</p>
+  </a>
+  <a href="orbat_namegen.html" class="card">
+    <h2>🔤 Генератор имён</h2>
+    <p>Топонимы и имена персонажей по namesbase каждой культуры.</p>
+  </a>
+  <a href="orbat_timeline.html" class="card">
+    <h2>📅 Таймлайн</h2>
+    <p>Шкала народов от первых людей до 1952. Эволюция и исчезновения.</p>
+  </a>
+  <a href="orbat_tree.html" class="card">
+    <h2>🌳 Дерево народов</h2>
+    <p>Origins и детали каждой культуры. Языки, население, религия.</p>
+  </a>
 </div>
 </body>
 </html>
