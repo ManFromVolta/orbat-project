@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>ORBAT — Движок</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;font-size:12px;background:#1a1a18;color:#d4d2cc;min-height:100vh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a18;border-bottom:0.5px solid #333;padding:6px 16px;display:flex;align-items:center;gap:12px;z-index:1000}
+.nav a{text-decoration:none;color:#888;font-size:10px;padding:3px 10px;border:0.5px solid #444;border-radius:3px;background:#2c2c2a;transition:all 0.15s}
+.nav a:hover{color:#f1efe8;border-color:#888}
+.nav span{color:#555;font-size:10px}
+.spacer{height:28px}
+.layout{display:flex;height:calc(100vh - 28px)}
+.sidebar{width:200px;min-width:200px;background:#242422;border-right:0.5px solid #2a2a28;overflow-y:auto;position:sticky;top:28px;height:calc(100vh - 28px)}
+.sidebar-item{padding:7px 14px;font-size:10px;color:#666;cursor:pointer;border-left:2px solid transparent;transition:all 0.1s}
+.sidebar-item:hover{color:#d4d2cc;background:#2c2c2a}
+.sidebar-item.active{color:#c87840;border-left-color:#c87840;background:#1a1a18}
+.sidebar-section{padding:10px 14px 4px;font-size:9px;color:#444;text-transform:uppercase;letter-spacing:0.08em}
+.main{flex:1;overflow-y:auto;padding:28px 32px}
+.section{display:none;max-width:760px}
+.section.active{display:block}
+h2{font-size:16px;font-weight:500;color:#f1efe8;margin-bottom:4px}
+h3{font-size:13px;font-weight:500;color:#c87840;margin:20px 0 8px}
+h4{font-size:11px;font-weight:500;color:#aaa;margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.06em}
+.subtitle{font-size:10px;color:#555;margin-bottom:20px}
+p{font-size:11px;color:#aaa;line-height:1.7;margin-bottom:10px}
+.note{background:#242422;border-left:2px solid #c87840;padding:8px 12px;border-radius:0 4px 4px 0;margin:10px 0;font-size:10px;color:#888;font-style:italic;line-height:1.6}
+table{width:100%;border-collapse:collapse;margin:10px 0 16px;font-size:10px}
+th{background:#2c2c2a;padding:6px 10px;text-align:left;color:#888;font-weight:500;border-bottom:1px solid #333}
+td{padding:6px 10px;border-bottom:0.5px solid #2a2a28;color:#aaa;vertical-align:top}
+tr:hover td{background:#242422}
+td:first-child{color:#c87840;font-family:monospace;white-space:nowrap}
+.code{background:#242422;border:0.5px solid #2a2a28;border-radius:4px;padding:12px 14px;font-family:monospace;font-size:10px;color:#a0c880;margin:10px 0;line-height:1.7;overflow-x:auto;white-space:pre}
+.tag{display:inline-block;font-size:9px;padding:1px 6px;border-radius:2px;margin:1px;background:#2c2c2a;border:0.5px solid #444;color:#888}
+.tag-lua{border-color:#4a7040;color:#7aba60}
+.tag-xml{border-color:#40607a;color:#60a0c0}
+.tag-todo{border-color:#7a4040;color:#c06060}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0}
+.card{background:#242422;border:0.5px solid #2a2a28;border-radius:4px;padding:12px 14px}
+.card h4{margin-top:0;color:#888}
+</style>
+</head>
+<body>
+<div class="nav">
+  <a href="index.html">← Главная</a>
+  <span>ORBAT Engine — Дизайн-документ v0.2</span>
+  <span style="margin-left:auto;color:#444">Teardown · Lua · XML</span>
+</div>
+<div class="spacer"></div>
+<div class="layout">
+
+<div class="sidebar">
+  <div class="sidebar-section">Обзор</div>
+  <div class="sidebar-item active" onclick="show('concept')">Концепция</div>
+  <div class="sidebar-item" onclick="show('stack')">Стек технологий</div>
+  <div class="sidebar-section">Архитектура</div>
+  <div class="sidebar-item" onclick="show('unit')">Юнит</div>
+  <div class="sidebar-item" onclick="show('orders')">Приказы</div>
+  <div class="sidebar-item" onclick="show('assets')">Ассеты</div>
+  <div class="sidebar-item" onclick="show('perception')">Восприятие</div>
+  <div class="sidebar-item" onclick="show('priority')">Приоритеты</div>
+  <div class="sidebar-section">Системы</div>
+  <div class="sidebar-item" onclick="show('worlddata')">World Data & ZoneMap</div>
+  <div class="sidebar-item" onclick="show('roe')">ROE</div>
+  <div class="sidebar-item" onclick="show('commander')">Commander</div>
+  <div class="sidebar-item" onclick="show('netdata')">Net Data</div>
+  <div class="sidebar-section">Интеграция</div>
+  <div class="sidebar-item" onclick="show('teardown')">Teardown / XML</div>
+  <div class="sidebar-item" onclick="show('todo')">Что не закрыто</div>
+</div>
+
+<div class="main">
+
+<div class="section active" id="s-concept">
+  <h2>Концепция</h2>
+  <p class="subtitle">ORBAT v0.2 — В разработке</p>
+  <p>ORBAT — игронезависимый фреймворк управления боем двух и более сторон. Логика боя полностью абстрагирована от движка и ассетов, что позволяет подключать её к любой игре через адаптерный слой.</p>
+  <div class="note">Принцип: одна и та же логика должна описывать и общевойсковой бой дивизии NATO, и битву при Хельмовой пади.</div>
+  <h3>Цепочка</h3>
+  <p>Общая логика → Интерпретация в движке → Подключение ассетов</p>
+  <div class="code">BattleState (Lua)
+  └── Commander (роль в каждом юните)
+        └── Unit (листовой узел)
+              ├── Order      (приказ = намерение)
+              ├── ROE        (поведение при выполнении)
+              ├── Perception (что знает юнит)
+              └── Assets     (изменяют capability)</div>
+</div>
+
+<div class="section" id="s-stack">
+  <h2>Стек технологий</h2>
+  <table>
+    <thead><tr><th>Слой</th><th>Технология</th><th>Роль</th></tr></thead>
+    <tbody>
+      <tr><td>Логика боя</td><td><span class="tag tag-lua">Lua</span></td><td>BattleState, Commander, ROE, Perception</td></tr>
+      <tr><td>Карта / среда</td><td><span class="tag tag-xml">XML</span> + Teardown</td><td>Объекты, теги, триггерные зоны</td></tr>
+      <tr><td>Юниты</td><td>TABS XML + <span class="tag tag-lua">Lua</span></td><td>Спаун, управление, анимация</td></tr>
+      <tr><td>ИИ-расширение</td><td>Кастомный мод</td><td>Принятие решений Commander'а</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section" id="s-unit">
+  <h2>Архитектура юнита</h2>
+  <p>Юнит — листовой узел графа командования. Атомарная единица исполнения приказов.</p>
+  <h3>Четыре механических действия</h3>
+  <div class="note">Тип юнита определяется комбинацией флагов, не жёстким enum. Танк = MOVE+SHOOT+SEE. Разведка = MOVE+SEE. САУ = MOVE+BLAST.</div>
+  <table>
+    <thead><tr><th>Действие</th><th>Описание</th><th>Пример</th></tr></thead>
+    <tbody>
+      <tr><td>MOVE</td><td>Перемещается в пространстве</td><td>Пехота, танки, кавалерия</td></tr>
+      <tr><td>SEE</td><td>Обнаруживает объекты в радиусе</td><td>Разведка, наблюдатель</td></tr>
+      <tr><td>SHOOT</td><td>Атакует прямым огнём (LOS)</td><td>Стрелки, танки, лучники</td></tr>
+      <tr><td>BLAST</td><td>Атакует зону без LOS</td><td>Артиллерия, катапульта, авиация</td></tr>
+    </tbody>
+  </table>
+  <h3>Контракт юнита</h3>
+  <div class="code">Unit {
+  id, side, domain          -- ground / air / sea
+  state                     -- idle / moving / engaging / suppressed / dead
+  hp                        -- 0.0 – 1.0
+  position                  -- {x, y, z}
+  facing                    -- 0 – 360°
+  actions                   -- [MOVE, SEE, SHOOT, BLAST]
+  move_speed
+  vision_range
+  attack_range
+  attack_damage
+  engage_targets            -- ground / air / sea
+  logistics {
+    supply                  -- 0.0 – 1.0
+    supply_rate
+    threshold
+  }
+  parent                    -- id командира
+  order                     -- текущий приказ
+  report                    -- пакет наверх
+  perception { ... }
+}</div>
+</div>
+
+<div class="section" id="s-orders">
+  <h2>Система приказов</h2>
+  <div class="note">Ключевое решение: приказ = намерение. Поведение при выполнении определяет ROE, а не приказ.</div>
+  <table>
+    <thead><tr><th>Тип</th><th>Параметры</th><th>Смысл</th></tr></thead>
+    <tbody>
+      <tr><td>MOVE</td><td>position {x,z}</td><td>Выдвинуться в точку</td></tr>
+      <tr><td>HOLD</td><td>position {x,z}</td><td>Удерживать точку</td></tr>
+      <tr><td>SUPPORT</td><td>target: unit_id │ {x,z}</td><td>Поддержать юнит или зону</td></tr>
+    </tbody>
+  </table>
+  <div class="code">Order {
+  L1: type        -- MOVE │ HOLD │ SUPPORT
+  L2: target      -- unit_id или {x,z}
+  L3: radius      -- для SUPPORT по зоне
+  L4: expire      -- секунды до протухания │ null
+}</div>
+  <table>
+    <thead><tr><th>Что</th><th>Где живёт</th></tr></thead>
+    <tbody>
+      <tr><td>Что делать</td><td>Order (приказ)</td></tr>
+      <tr><td>Как себя вести</td><td>ROE (доктрина, каскадная)</td></tr>
+      <tr><td>Что знает юнит</td><td>Perception</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section" id="s-assets">
+  <h2>Ассеты</h2>
+  <p>Ассет — пассивный объект который меняет capability юнита.</p>
+  <table>
+    <thead><tr><th>Тип</th><th>Поведение</th><th>Пример</th></tr></thead>
+    <tbody>
+      <tr><td>Consumable</td><td>Уничтожается</td><td>Боеприпасы, топливо, еда</td></tr>
+      <tr><td>Attached</td><td>Следует за юнитом</td><td>Грузовик, БТР, лошадь</td></tr>
+      <tr><td>Static</td><td>Остаётся на месте</td><td>Мост, база, укрепление</td></tr>
+    </tbody>
+  </table>
+  <div class="code">Asset {
+  id
+  type              -- consumable / attached / static
+  state             -- available / in_use / destroyed
+  owner, assigned_to
+  capacity
+  payload {
+    speed_bonus, supply_amount, supply_type
+    armor, comms_bonus
+  }
+  on_owner_destroyed:
+    if assigned_to.state = dead → assigned_to = null, state = available
+}</div>
+</div>
+
+<div class="section" id="s-perception">
+  <h2>Восприятие (Perception)</h2>
+  <table>
+    <thead><tr><th>Источник</th><th>Что даёт</th></tr></thead>
+    <tbody>
+      <tr><td>self</td><td>Позиция, supply, state — всегда доступно</td></tr>
+      <tr><td>SEE</td><td>spotted[] в vision_range, terrain рядом</td></tr>
+      <tr><td>net_data</td><td>Report'ы юнитов, данные Commander'а</td></tr>
+    </tbody>
+  </table>
+  <table>
+    <thead><tr><th>Режим</th><th>Условие</th><th>Источник решений</th></tr></thead>
+    <tbody>
+      <tr><td>Connected</td><td>comms = online</td><td>Приказы + ROE + net_data</td></tr>
+      <tr><td>Degraded</td><td>comms = degraded</td><td>Последний приказ + ROE + частичный net_data</td></tr>
+      <tr><td>Autonomous</td><td>comms = offline</td><td>Только ROE + личное восприятие</td></tr>
+    </tbody>
+  </table>
+  <div class="note">Autonomous — инициатива снизу. Именно здесь партизан решает выдвинуться на помощь без приказа.</div>
+</div>
+
+<div class="section" id="s-priority">
+  <h2>Система приоритетов</h2>
+  <table>
+    <thead><tr><th>Приоритет</th><th>Уровень</th><th>Описание</th></tr></thead>
+    <tbody>
+      <tr><td>1 — Objective</td><td>Высший</td><td>Главная задача. Не меняется никогда.</td></tr>
+      <tr><td>2 — Order</td><td>Средний</td><td>Текущий приказ от Commander'а.</td></tr>
+      <tr><td>3 — Survival</td><td>Условный</td><td>Только когда выполнение физически невозможно.</td></tr>
+    </tbody>
+  </table>
+  <div class="note">Survival не перебивает Objective. Юнит не убегает при первом выстреле.</div>
+</div>
+
+<div class="section" id="s-worlddata">
+  <h2>World Data и ZoneMap</h2>
+  <div class="grid2">
+    <div class="card"><h4>World Data — объективная</h4><p style="font-size:10px;color:#666">Один, общий, движок. terrain_map, passability, connections. В Teardown динамический — мост снесли, connections обновился.</p></div>
+    <div class="card"><h4>ZoneMap — субъективная</h4><p style="font-size:10px;color:#666">Своя у каждой стороны. Два противника видят разное. Green / Yellow / Red. Confidence + expires.</p></div>
+  </div>
+  <div class="code">Любой contact report           → green → yellow
+Подтверждённый, confidence>0.7 → yellow → red
+Верификация чистая             → red → yellow → green</div>
+  <table>
+    <thead><tr><th>Зона маршрута</th><th>Режим</th><th>Механика</th></tr></thead>
+    <tbody>
+      <tr><td>Green</td><td>Pull по расписанию</td><td>Commander запрашивает периодически</td></tr>
+      <tr><td>Yellow</td><td>Push по событиям</td><td>Юнит докладывает при контакте</td></tr>
+      <tr><td>Red</td><td>Push + верификация</td><td>Максимальное внимание</td></tr>
+    </tbody>
+  </table>
+  <div class="note">spotted[] всегда перекрывает zone_cache. Вижу сам — доверяю глазам, не карте.</div>
+</div>
+
+<div class="section" id="s-roe">
+  <h2>ROE — Правила применения силы</h2>
+  <div class="note">Ключевое решение: stance не является частью приказа. ROE наследуется каскадом от HQ вниз до юнита.</div>
+  <table>
+    <thead><tr><th>Параметр</th><th>Диапазон</th><th>Описание</th></tr></thead>
+    <tbody>
+      <tr><td>risk_tolerance</td><td>0.0–1.0</td><td>Готовность действовать при угрозе</td></tr>
+      <tr><td>loyalty</td><td>0.0–1.0</td><td>Реакция на состояние союзников</td></tr>
+      <tr><td>initiative</td><td>0.0–1.0</td><td>Автономия при degraded/offline comms</td></tr>
+    </tbody>
+  </table>
+  <div class="code">can_execute  = path существует AND supply > threshold AND цель достижима
+threat_level = threat_raw * (1 - risk_tolerance)
+social       = priority_delta * loyalty
+search_drive = priority_delta * initiative * (1 - best_asset_score)</div>
+  <h3>Дерево решений</h3>
+  <div class="code">Шаг 0: нет приказа + comms offline
+  initiative > 0.7 AND priority_delta > 0.6 → AUTO_ORDER │ HOLD
+
+Шаг 1: can_execute > 0.6 AND threat < 0.7 → EXECUTE
+
+Шаг 2: почему не можем?
+  supply < threshold   → SEEK_ASSET
+  path blocked         → FIND_ALT_PATH
+  capability = 0       → HOLD
+  search_drive > 0.3   → MOVE(search_area)
+
+Шаг 3: threat > 0.7
+  can_execute > 0.5 → ENGAGE │ FALLBACK
+
+Шаг 4: social_delta > order.weight → SUPPORT/MOVE
+
+Шаг 5: comms offline
+  initiative * can_execute > 0.5 → автономно │ HOLD</div>
+</div>
+
+<div class="section" id="s-commander">
+  <h2>Commander</h2>
+  <p>Commander — роль в каждом юните, не отдельная сущность. При гибели — следующий по рангу принимает командование автоматически.</p>
+  <div class="note">Уничтожение командиров — легитимная тактика. Система деградирует органически.</div>
+  <div class="code">CommanderRole {
+  is_commander, rank, group_id
+  baseline_threat, roe_overrides
+}
+next = max(rank) среди unit.state != dead в group_id</div>
+  <h3>Цикл Commander'а (каждые 30 тиков)</h3>
+  <div class="code">1. aggregate(spotted[]) → update(group_state)
+2. combat_power < fallback_threshold → FALLBACK всей группе
+3. unit.asset_score < 0.3 → назначить ассет через asset_policy
+4. known_enemies изменились → пересчитать приказы
+5. send_report(parent)</div>
+  <h3>Конфликт разведданных</h3>
+  <table>
+    <thead><tr><th>Шаг</th><th>Условие</th><th>Действие</th></tr></thead>
+    <tbody>
+      <tr><td>Верификация</td><td>Есть свободный юнит с SEE</td><td>MOVE к спорной зоне, пометить unverified</td></tr>
+      <tr><td>Взвешивание</td><td>Нет свободного юнита</td><td>winner = max(confidence × qualification)</td></tr>
+      <tr><td>Неопределённость</td><td>Данные критичны</td><td>planning_uncertainty = true, худший сценарий</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section" id="s-netdata">
+  <h2>Net Data</h2>
+  <div class="grid2">
+    <div class="card"><h4>Задержка</h4><p style="font-size:10px;color:#666">Commander передаёт позицию — враг уже не там.</p></div>
+    <div class="card"><h4>Деградация</h4><p style="font-size:10px;color:#666">Контакт 60 сек назад → stale. Не удаляется — помечается.</p></div>
+  </div>
+  <div class="card" style="margin:8px 0 12px"><h4>Искажение</h4><p style="font-size:10px;color:#666">Усталый юнит под огнём докладывает 10 танков. Их было 3.</p></div>
+  <div class="code">qualification = base_skill * unit.hp * (1-threat_level) * logistics.supply</div>
+  <div class="code">Report {
+  L1: sender_id       L2: timestamp
+  L3: type            -- push_event │ pull_response
+  L4: priority        -- 1 критично │ 2 важно │ 3 рутина
+  L5: content         L6: confidence
+  L7: expires         L8: delivery { method, carrier_id, delivered }
+}</div>
+  <table>
+    <thead><tr><th>Канал</th><th>Триггер</th><th>События</th></tr></thead>
+    <tbody>
+      <tr><td>Push</td><td>Немедленно</td><td>contact, destroyed, order_complete, asset_found, comms_changed, commander_down</td></tr>
+      <tr><td>Pull</td><td>По расписанию</td><td>position, supply, order_status, terrain_cache</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section" id="s-teardown">
+  <h2>Интеграция с Teardown</h2>
+  <div class="note">В Teardown terrain разрушаем. Снесли мост — connections обновился. Пробили стену — новый проход.</div>
+  <div class="code">&lt;group name="ORBAT"&gt;
+  &lt;group name="SIDES"&gt;
+  &lt;group name="ASSETS"&gt;
+  &lt;group name="NAV_GRAPH"&gt;
+  &lt;group name="TERRAIN_DATA"&gt;
+  &lt;group name="ZONE_MAP"&gt;
+&lt;/group&gt;</div>
+  <div class="code">&lt;!-- Юнит --&gt;
+&lt;location name="unit_pz4_crew_01"
+  tags="unit side:lockelle domain:ground actions:MOVE,SHOOT,SEE"
+  prop0="hp=1.0" prop1="supply=1.0" prop2="rank=3"
+  pos="211.6 14.5 -20.2"/&gt;
+
+&lt;!-- Ассет закреплён за юнитом --&gt;
+&lt;instance
+  tags="asset type:attached side:lockelle assigned_to:unit_pz4_crew_01"
+  prop0="speed_bonus=1.2" prop1="armor=0.8" prop2="comms_bonus=0.5"
+  file="MOD/TABS/vehicles/pz IV J.xml"
+  pos="211.6 14.5 -20.2"/&gt;</div>
+</div>
+
+<div class="section" id="s-todo">
+  <h2>Что ещё не закрыто</h2>
+  <table>
+    <thead><tr><th>Компонент</th><th>Статус</th></tr></thead>
+    <tbody>
+      <tr><td>Pathfinding</td><td><span class="tag tag-todo">не начат</span> — NAV граф в XML, A* / raycast steering не написан</td></tr>
+      <tr><td>BattleState</td><td><span class="tag tag-todo">не начат</span> — верхний уровень игрового цикла</td></tr>
+      <tr><td>Lua адаптер для TABS</td><td><span class="tag tag-todo">не начат</span></td></tr>
+      <tr><td>Параметризация ROE</td><td><span class="tag tag-todo">хардкод</span> — 0.6/0.7/0.5, нужен override из Commander</td></tr>
+      <tr><td>Asset score (несколько ассетов)</td><td><span class="tag tag-todo">описан</span> — не реализован</td></tr>
+      <tr><td>HQ модуль</td><td><span class="tag tag-todo">не начат</span> — отслеживание юнитов, управление ZoneMap</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+</div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.sidebar-item').forEach(s=>s.classList.remove('active'));
+  document.getElementById('s-'+id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
