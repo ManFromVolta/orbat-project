@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>ORBAT — Таймлайн</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;font-size:12px;background:#1a1a18;color:#d4d2cc;overflow-x:auto}
+.header{background:#2c2c2a;padding:16px 20px;border-bottom:1px solid #444;position:sticky;left:0}
+.header h1{font-size:18px;font-weight:500;color:#f1efe8}
+.header p{font-size:10px;color:#888;margin-top:4px}
+.timeline-wrap{padding:20px;min-width:900px}
+.axis{display:flex;border-bottom:1px solid #444;margin-bottom:0;position:relative;height:32px}
+.axis-label{flex:1;text-align:center;font-size:9px;color:#555;padding-top:6px;border-left:0.5px solid #333;position:relative}
+.axis-label.current{color:#c87840;border-left-color:#c87840}
+.axis-label span{display:block;font-size:8px;color:#444;margin-top:2px}
+.rows{position:relative}
+.row{display:flex;align-items:center;border-bottom:0.5px solid #2a2a28;min-height:28px}
+.row-label{width:140px;min-width:140px;font-size:10px;color:#888;padding:4px 10px 4px 0;text-align:right;white-space:nowrap;flex-shrink:0}
+.row-label .dot{display:inline-block;width:8px;height:8px;border-radius:1px;margin-right:5px;vertical-align:middle}
+.row-timeline{flex:1;position:relative;height:28px}
+.bar{position:absolute;top:6px;height:16px;border-radius:3px;cursor:pointer;transition:opacity 0.15s;display:flex;align-items:center;padding:0 6px;font-size:8px;white-space:nowrap;overflow:hidden;opacity:0.85}
+.bar:hover{opacity:1;z-index:10}
+.bar-label{color:rgba(255,255,255,0.8);overflow:hidden;text-overflow:ellipsis}
+.event-marker{position:absolute;top:0;width:2px;height:28px;z-index:5}
+.event-dot{position:absolute;width:6px;height:6px;border-radius:50%;top:50%;transform:translateY(-50%);left:-2px;cursor:pointer}
+.tooltip{position:fixed;background:#2c2c2a;border:0.5px solid #555;border-radius:4px;padding:8px 10px;font-size:10px;color:#d4d2cc;pointer-events:none;z-index:100;max-width:220px;display:none;line-height:1.6}
+.tooltip h4{color:#f1efe8;margin-bottom:4px;font-size:11px}
+.legend{display:flex;gap:12px;flex-wrap:wrap;padding:12px 0 0;border-top:0.5px solid #333;margin-top:16px}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:9px;color:#666}
+.legend-dot{width:10px;height:10px;border-radius:2px}
+.era-divider{position:absolute;top:0;width:1px;background:#444;height:100%;z-index:2}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>ORBAT — Таймлайн эпох</h1>
+  <p>Эволюция народов от первых людей до игрового времени</p>
+</div>
+<div class="timeline-wrap">
+  <div id="timeline"></div>
+  <div class="legend" id="legend"></div>
+</div>
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+// Временная шкала: от -100000 до +1780
+// Эпохи
+const ERAS = [
+  {label:'-100 000', sublabel:'Доисторич.', year:-100000, current:false},
+  {label:'-80 000', sublabel:'Расхожд.', year:-80000, current:false},
+  {label:'-60 000', sublabel:'Похолод.', year:-60000, current:false},
+  {label:'-40 000', sublabel:'Оттепель', year:-40000, current:true},
+  {label:'-20 000', sublabel:'Приход Б', year:-20000, current:false},
+  {label:'-10 000', sublabel:'Неолит', year:-10000, current:false},
+  {label:'-3 000', sublabel:'Бронза', year:-3000, current:false},
+  {label:'0', sublabel:'н.э.', year:0, current:false},
+  {label:'+1780', sublabel:'Игровое вр.', year:1780, current:false},
+];
+
+// Народы: {name, hex, start, end (null=продолжается), events, desc}
+const PEOPLES = [
+  {
+    name:'Шум', hex:'A89878',
+    start:-100000, end:-5000,
+    desc:'Бескультурный фон. Деградируют и исчезают.',
+    events:[{year:-40000, label:'Финальная стадия'}]
+  },
+  {
+    name:'Уллам ⚰', hex:'C4855A',
+    start:-100000, end:-60000,
+    desc:'Праматерь всех культур. Язык Корень.',
+    events:[
+      {year:-100000, label:'Аммаи-куттам'},
+      {year:-80000, label:'Рост до 80 000'},
+    ]
+  },
+  {
+    name:'Протоярви ⚰', hex:'8AAFC0',
+    start:-95000, end:-60000,
+    desc:'Отколовшиеся на север. Ледник.',
+    events:[]
+  },
+  {
+    name:'Протоаларои ⚰', hex:'4A8C7A',
+    start:-80000, end:-60000,
+    desc:'Береговой путь на запад.',
+    events:[{year:-80000, label:'Открыли море Аала'}]
+  },
+  {
+    name:'Аммаи', hex:'C4855A',
+    start:-60000, end:null,
+    desc:'Хранители Аммаи-куттам. Первое поселение.',
+    events:[{year:-40000, label:'Разделение труда'}]
+  },
+  {
+    name:'Аруви', hex:'C87840',
+    start:-60000, end:null,
+    desc:'Набожные южные. Демографический пик 95 000.',
+    events:[
+      {year:-40000, label:'Пик населения'},
+      {year:-40000, label:'Каам на горизонте'},
+    ]
+  },
+  {
+    name:'Вееру', hex:'B8703A',
+    start:-60000, end:null,
+    desc:'Западные кочевники. Первые воины.',
+    events:[{year:-40000, label:'У перевалов Аттаи'}]
+  },
+  {
+    name:'Де-Уллам', hex:'7A6850',
+    start:-60000, end:null,
+    desc:'Мёртвые в болотах. Изолят.',
+    events:[{year:-40000, label:'Болотное железо'}]
+  },
+  {
+    name:'Хаару', hex:'8AAFC0',
+    start:-60000, end:null,
+    desc:'Охотники у ледника. Тайга.',
+    events:[{year:-40000, label:'Авангард на север'}]
+  },
+  {
+    name:'Аала-Хаару ⚰', hex:'6A9FB0',
+    start:-60000, end:-42000,
+    desc:'Растворились в Аала.',
+    events:[{year:-42000, label:'Ассимиляция'}]
+  },
+  {
+    name:'Аала', hex:'4A8C7A',
+    start:-60000, end:null,
+    desc:'Морской народ. 15 деревень.',
+    events:[{year:-40000, label:'Звёздная навигация'}]
+  },
+  {
+    name:'Каам', hex:'5C3D2E',
+    start:-42000, end:null,
+    desc:'Беглецы с юга. Банту-язык. Группа В.',
+    events:[{year:-42000, label:'Первый контакт с Аруви'}]
+  },
+];
+
+const MIN_YEAR = -105000;
+const MAX_YEAR = 2000;
+const RANGE = MAX_YEAR - MIN_YEAR;
+
+function yearToPercent(year) {
+  return ((year - MIN_YEAR) / RANGE) * 100;
+}
+
+function render() {
+  const tl = document.getElementById('timeline');
+
+  // Ось
+  let axisHtml = '<div class="axis">';
+  ERAS.forEach(era => {
+    const pct = yearToPercent(era.year);
+    axisHtml += `<div class="axis-label ${era.current?'current':''}" style="position:absolute;left:${pct}%;transform:translateX(-50%);border-left:none">
+      <div style="border-left:1px solid ${era.current?'#c87840':'#333'};padding-left:4px">
+        ${era.label}<span>${era.sublabel}</span>
+      </div>
+    </div>`;
+  });
+  axisHtml += '</div>';
+
+  // Ряды
+  let rowsHtml = '<div class="rows" style="position:relative">';
+
+  PEOPLES.forEach(p => {
+    const startPct = yearToPercent(p.start);
+    const endPct = p.end ? yearToPercent(p.end) : yearToPercent(1780);
+    const widthPct = endPct - startPct;
+    const isLocked = p.name.includes('⚰');
+
+    const eventsHtml = p.events.map(ev => {
+      const evPct = yearToPercent(ev.year);
+      return `<div class="event-dot" style="left:${evPct}%;background:#f1efe8;width:6px;height:6px;border-radius:50%;position:absolute;top:50%;transform:translateY(-50%)"
+        onmouseenter="showTip(event,'${ev.label}')" onmouseleave="hideTip()"></div>`;
+    }).join('');
+
+    rowsHtml += `
+      <div class="row">
+        <div class="row-label">
+          <span class="dot" style="background:#${p.hex};opacity:${isLocked?0.4:1}"></span>
+          <span style="color:${isLocked?'#555':'#aaa'}">${p.name}</span>
+        </div>
+        <div class="row-timeline">
+          <div class="bar" style="left:${startPct}%;width:${widthPct}%;background:#${p.hex};opacity:${isLocked?0.3:0.75}"
+            onmouseenter="showTipFull(event,'${p.name}','${p.desc}')" onmouseleave="hideTip()">
+            <span class="bar-label">${widthPct > 5 ? p.name : ''}</span>
+          </div>
+          ${eventsHtml}
+        </div>
+      </div>
+    `;
+  });
+
+  // Текущий момент
+  const currentPct = yearToPercent(-40000);
+  rowsHtml += `<div style="position:absolute;top:0;left:${currentPct}%;width:1px;background:#c87840;height:100%;opacity:0.4;pointer-events:none"></div>`;
+  rowsHtml += '</div>';
+
+  tl.innerHTML = axisHtml + rowsHtml;
+
+  // Легенда
+  const legend = document.getElementById('legend');
+  const unique = [...new Set(PEOPLES.map(p=>p.hex))];
+  legend.innerHTML = PEOPLES.filter((p,i)=>PEOPLES.findIndex(q=>q.hex===p.hex)===i).map(p=>`
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#${p.hex}"></div>
+      ${p.name}
+    </div>
+  `).join('');
+}
+
+function showTip(e, label) {
+  const t = document.getElementById('tooltip');
+  t.innerHTML = `<h4>${label}</h4>`;
+  t.style.display = 'block';
+  t.style.left = e.clientX + 10 + 'px';
+  t.style.top = e.clientY - 30 + 'px';
+}
+
+function showTipFull(e, name, desc) {
+  const t = document.getElementById('tooltip');
+  t.innerHTML = `<h4>${name}</h4><p>${desc}</p>`;
+  t.style.display = 'block';
+  t.style.left = e.clientX + 10 + 'px';
+  t.style.top = e.clientY - 30 + 'px';
+}
+
+function hideTip() {
+  document.getElementById('tooltip').style.display = 'none';
+}
+
+render();
+</script>
+</body>
+</html>

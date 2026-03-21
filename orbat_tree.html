@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>ORBAT — Дерево народов</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;font-size:12px;background:#1a1a18;color:#d4d2cc;min-height:100vh}
+.header{background:#2c2c2a;padding:16px 20px;border-bottom:1px solid #444}
+.header h1{font-size:18px;font-weight:500;color:#f1efe8}
+.header p{font-size:10px;color:#888;margin-top:4px}
+.wrap{display:flex;height:calc(100vh - 70px)}
+.tree-panel{flex:1;overflow:auto;padding:20px;position:relative}
+.detail-panel{width:280px;min-width:280px;background:#242422;border-left:0.5px solid #333;padding:16px;overflow-y:auto}
+.detail-panel h2{font-size:13px;font-weight:500;color:#f1efe8;margin-bottom:12px}
+.detail-empty{color:#444;font-size:11px;padding:20px 0;text-align:center}
+svg{overflow:visible}
+.node-rect{cursor:pointer;transition:all 0.15s}
+.node-rect:hover{filter:brightness(1.3)}
+.node-text{font-family:Arial,sans-serif;font-size:10px;fill:#f1efe8;pointer-events:none}
+.node-sub{font-family:Arial,sans-serif;font-size:8px;fill:rgba(255,255,255,0.5);pointer-events:none}
+.edge{fill:none;stroke:#444;stroke-width:1.5}
+.edge-group-b{stroke:#6a9fb0;stroke-dasharray:4,3}
+.locked-badge{font-family:Arial,sans-serif;font-size:8px;fill:#555}
+.detail-row{margin-bottom:8px}
+.detail-label{font-size:9px;color:#555;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px}
+.detail-value{font-size:11px;color:#d4d2cc}
+.swatch-lg{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:middle;margin-right:6px;border:0.5px solid rgba(255,255,255,0.15)}
+.tag{display:inline-block;font-size:9px;padding:2px 6px;border-radius:3px;margin:1px}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>ORBAT — Дерево народов</h1>
+  <p>Origins · Языковые семьи · Кликни на узел для деталей</p>
+</div>
+<div class="wrap">
+  <div class="tree-panel">
+    <svg id="treeSvg" width="820" height="600"></svg>
+  </div>
+  <div class="detail-panel" id="detail">
+    <h2>Детали</h2>
+    <div class="detail-empty">Кликни на народ чтобы увидеть подробности</div>
+  </div>
+</div>
+
+<script>
+const NODES = [
+  // Праматери
+  {id:'ullam', label:'Уллам', sublabel:'-100 000', hex:'C4855A', x:400, y:30, locked:true,
+   lang:'Корень — агглютинативный, ретрофлексные тт/дд/нн/лл, долгие аа/ии/уу', pop:0,
+   type:'Generic', exp:0, desc:'Праматерь всех народов континента. Главный вопрос: «Есть ли у тебя уллам?»', origins:null},
+  {id:'proyarvi', label:'Протоярви', sublabel:'-95 000', hex:'8AAFC0', x:220, y:120, locked:true,
+   lang:'Корень северный: ретрофлексные исчезли, гармония гласных начинается', pop:0,
+   type:'Hunting', exp:0, desc:'Охотники ушедшие на север за льдом.', origins:'ullam'},
+  {id:'proalaroi', label:'Протоаларои', sublabel:'-80 000', hex:'4A8C7A', x:580, y:120, locked:true,
+   lang:'Корень береговой: первое слово вне Корня — Аала (море)', pop:0,
+   type:'Naval', exp:0, desc:'Береговой путь на запад. Открыли море.', origins:'ullam'},
+
+  // Ветки Уллам
+  {id:'ammai', label:'Аммаи', sublabel:'-60 000', hex:'C4855A', x:160, y:240, locked:false,
+   lang:'Корень чистый + оседлая лексика: Вилл, Куттал, Валаи, Толил', pop:25000,
+   type:'River', exp:0.3, desc:'Хранители Аммаи-куттам. Первое постоянное поселение. Культ места.', origins:'ullam'},
+  {id:'aruvi', label:'Аруви', sublabel:'-60 000', hex:'C87840', x:300, y:240, locked:false,
+   lang:'Корень южный + тропическая лексика: Пазам, Пулли, Каду, Виттай', pop:95000,
+   type:'River', exp:0.5, desc:'Набожные южные. Демографический пик. Обратная миграция. Религиозный раскол надвигается.', origins:'ullam'},
+  {id:'veeru', label:'Вееру', sublabel:'-60 000', hex:'B8703A', x:440, y:240, locked:false,
+   lang:'Корень + заимствования Хаару: Хаарру, Миирам, Каарру, Эллаи', pop:20000,
+   type:'Nomadic', exp:0.7, desc:'Первые воины. Территориальная концепция. У перевалов Аттаи.', origins:'ullam'},
+  {id:'deullam', label:'Де-Уллам', sublabel:'-60 000', hex:'7A6850', x:570, y:240, locked:false,
+   lang:'Корень изолят + болотная лексика: Нилли, Аннам, Маннаи, Мааннам', pop:4000,
+   type:'Generic', exp:0.1, desc:'Мёртвые в болотах. Болотный огонь священен. Болотное железо известно.', origins:'ullam'},
+
+  // Ветки Протоярви
+  {id:'haaru', label:'Хаару', sublabel:'-60 000', hex:'8AAFC0', x:130, y:360, locked:false,
+   lang:'Протоярви развитый: гармония гласных, нг/мн, Хаару/Луми/Пеура', pop:1500,
+   type:'Hunting', exp:0.4, desc:'Охотники у ледника. Культ выживания. Авангард пошёл на север.', origins:'proyarvi'},
+  {id:'aalahaaru', label:'Аала-Хаару', sublabel:'-60→-42 000', hex:'6A9FB0', x:270, y:360, locked:true,
+   lang:'Протоярви + морская Аала: смешение двух систем', pop:0,
+   type:'Naval', exp:0, desc:'Растворились в Аала. Первое исчезновение культуры через ассимиляцию.', origins:'proyarvi'},
+
+  // Ветки Протоаларои
+  {id:'aala', label:'Аала', sublabel:'-60 000', hex:'4A8C7A', x:430, y:360, locked:false,
+   lang:'Корень морской + навигация: Аала/Нерос/Лимнос/Тенгер-аала', pop:3000,
+   type:'Naval', exp:0.6, desc:'15 деревень на западном берегу. Звёздная навигация. Первая торговля.', origins:'proalaroi'},
+
+  // Группа В
+  {id:'kaam', label:'Каам', sublabel:'-42 000', hex:'5C3D2E', x:660, y:360, locked:false,
+   lang:'Банту-тип: классы существительных (Ба-/Му-/Ки-), назальные мб/нд/нг, тональность', pop:8000,
+   type:'Generic', exp:1.5, desc:'Группа В. Беглецы с юга. Тёмнокожие. Не знают уллам. Банту-язык.', origins:null},
+
+  // Шум
+  {id:'shum', label:'Шум', sublabel:'изначально', hex:'A89878', x:740, y:240, locked:false,
+   lang:'Сигнальная система: 1 слог = 1 понятие, ~200 корней, нет абстракций', pop:5500,
+   type:'Hunting', exp:0.2, desc:'Бескультурный фон. Финальная стадия. Деградируют.', origins:null},
+];
+
+const EDGES = [
+  {from:'ullam', to:'proyarvi'},
+  {from:'ullam', to:'proalaroi'},
+  {from:'ullam', to:'ammai'},
+  {from:'ullam', to:'aruvi'},
+  {from:'ullam', to:'veeru'},
+  {from:'ullam', to:'deullam'},
+  {from:'proyarvi', to:'haaru'},
+  {from:'proyarvi', to:'aalahaaru'},
+  {from:'proalaroi', to:'aala'},
+  {from:'aalahaaru', to:'aala', dashed:true, label:'ассимиляция'},
+];
+
+const W = 60, H = 28;
+
+function render() {
+  const svg = document.getElementById('treeSvg');
+  let html = '';
+
+  // Edges
+  EDGES.forEach(e => {
+    const from = NODES.find(n=>n.id===e.from);
+    const to = NODES.find(n=>n.id===e.to);
+    if (!from||!to) return;
+    const x1 = from.x, y1 = from.y + H;
+    const x2 = to.x, y2 = to.y;
+    const mx = (x1+x2)/2, my = (y1+y2)/2;
+    const cls = e.dashed ? 'edge edge-group-b' : 'edge';
+    html += `<path class="${cls}" d="M${x1},${y1} C${x1},${my} ${x2},${my} ${x2},${y2}" ${e.dashed?'stroke-dasharray="4,3"':''}/>`;
+    if (e.label) {
+      html += `<text x="${mx}" y="${my-4}" font-size="8" fill="#6a9fb0" text-anchor="middle" font-family="Arial">${e.label}</text>`;
+    }
+  });
+
+  // Nodes
+  NODES.forEach(n => {
+    const x = n.x - W/2, y = n.y;
+    const col = '#'+n.hex;
+    const opacity = n.locked ? 0.4 : 0.85;
+    const r = parseInt(n.hex.substring(0,2),16);
+    const g = parseInt(n.hex.substring(2,4),16);
+    const b = parseInt(n.hex.substring(4,6),16);
+    const bright = (r*299+g*587+b*114)/1000;
+    const textCol = bright < 128 ? '#ffffff' : '#1a1a18';
+
+    html += `<g onclick="showDetail('${n.id}')" transform="translate(${x},${y})">
+      <rect class="node-rect" width="${W}" height="${H}" rx="4" fill="${col}" opacity="${opacity}" stroke="${n.locked?'#333':'rgba(255,255,255,0.2)'}" stroke-width="0.5"/>
+      <text class="node-text" x="${W/2}" y="${H*0.5}" text-anchor="middle" dominant-baseline="middle" fill="${textCol}" opacity="${n.locked?0.5:1}">${n.label}</text>
+      ${n.locked ? `<text x="${W-4}" y="8" text-anchor="end" font-size="8" fill="${textCol}" opacity="0.4" font-family="Arial">⚰</text>` : ''}
+    </g>`;
+  });
+
+  // Группа В лейбл
+  html += `<text x="660" y="320" font-size="9" fill="#5C3D2E" text-anchor="middle" font-family="Arial" font-style="italic">Группа В</text>`;
+  html += `<text x="740" y="200" font-size="9" fill="#555" text-anchor="middle" font-family="Arial" font-style="italic">Фон</text>`;
+
+  svg.innerHTML = html;
+}
+
+function showDetail(id) {
+  const n = NODES.find(x=>x.id===id);
+  if (!n) return;
+  const panel = document.getElementById('detail');
+  const typeColors = {Generic:'#a0a060',River:'#40a0a0',Hunting:'#a060a0',Naval:'#4080c0',Nomadic:'#c87840'};
+  const tc = typeColors[n.type]||'#888';
+  panel.innerHTML = `
+    <h2><span class="swatch-lg" style="background:#${n.hex}"></span>${n.label} ${n.locked?'⚰':''}</h2>
+    <div style="font-size:9px;color:#555;margin-bottom:12px">${n.sublabel}</div>
+
+    <div class="detail-row">
+      <div class="detail-label">Описание</div>
+      <div class="detail-value" style="font-size:10px;color:#aaa;line-height:1.5">${n.desc}</div>
+    </div>
+
+    <div class="detail-row">
+      <div class="detail-label">Язык</div>
+      <div class="detail-value" style="font-size:10px;color:#8aafc0;line-height:1.5">${n.lang}</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
+      <div class="detail-row">
+        <div class="detail-label">Тип</div>
+        <span class="tag" style="background:#1a1a18;color:${tc};border:0.5px solid ${tc}">${n.type}</span>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Exp</div>
+        <div class="detail-value">${n.exp}</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Население</div>
+        <div class="detail-value" style="color:#a0c880">${n.pop ? n.pop.toLocaleString() : '—'}</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">HEX</div>
+        <div class="detail-value" style="font-family:monospace;font-size:10px;color:#555">#${n.hex}</div>
+      </div>
+    </div>
+
+    <div class="detail-row" style="margin-top:8px">
+      <div class="detail-label">Origins</div>
+      <div class="detail-value" style="color:#666">${n.origins ? NODES.find(x=>x.id===n.origins)?.label || n.origins : '— (прародитель)'}</div>
+    </div>
+
+    ${n.locked ? '<div style="margin-top:12px;padding:6px 8px;background:#1a1a18;border:0.5px solid #333;border-radius:3px;font-size:9px;color:#555">Залочена. Территория убрана. Сохранена для дерева Origins.</div>' : ''}
+  `;
+}
+
+render();
+</script>
+</body>
+</html>

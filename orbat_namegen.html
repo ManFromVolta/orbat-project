@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>ORBAT — Генератор имён</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;font-size:12px;background:#1a1a18;color:#d4d2cc;min-height:100vh}
+.header{background:#2c2c2a;padding:16px 20px;border-bottom:1px solid #444}
+.header h1{font-size:18px;font-weight:500;color:#f1efe8}
+.header p{font-size:10px;color:#888;margin-top:4px}
+.content{padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.panel{background:#242422;border:0.5px solid #333;border-radius:6px;padding:16px}
+.panel h2{font-size:12px;font-weight:500;color:#aaa;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.06em}
+.culture-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:16px}
+.cult-btn{padding:5px 8px;border:0.5px solid #444;border-radius:4px;cursor:pointer;font-size:10px;background:#2c2c2a;color:#888;text-align:center;transition:all 0.15s}
+.cult-btn:hover{border-color:#888;color:#ddd}
+.cult-btn.active{color:#f1efe8;border-color:#888}
+.swatch{display:inline-block;width:8px;height:8px;border-radius:1px;margin-right:4px;vertical-align:middle}
+.controls{display:flex;gap:8px;margin-bottom:12px;align-items:center;flex-wrap:wrap}
+.controls label{font-size:10px;color:#666}
+.controls input[type=range]{width:80px;accent-color:#c87840}
+.controls select{background:#2c2c2a;border:0.5px solid #444;color:#d4d2cc;padding:3px 6px;border-radius:3px;font-size:10px}
+.btn{padding:6px 14px;background:#5f5e5a;border:none;border-radius:4px;color:#f1efe8;cursor:pointer;font-size:10px;transition:all 0.15s}
+.btn:hover{background:#888}
+.btn-primary{background:#c87840;color:#fff}
+.btn-primary:hover{background:#d4884a}
+.results{min-height:120px}
+.name-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.name-item{background:#2c2c2a;border:0.5px solid #333;border-radius:3px;padding:5px 8px;font-size:11px;cursor:pointer;transition:all 0.15s;position:relative}
+.name-item:hover{border-color:#888;color:#fff}
+.name-item.copied::after{content:'✓';position:absolute;right:6px;top:50%;transform:translateY(-50%);color:#a0c880;font-size:9px}
+.textarea-wrap textarea{width:100%;height:120px;background:#2c2c2a;border:0.5px solid #444;border-radius:4px;color:#d4d2cc;padding:8px;font-size:10px;font-family:monospace;resize:vertical}
+.textarea-wrap textarea:focus{outline:none;border-color:#888}
+.hint{font-size:9px;color:#555;margin-top:6px}
+.sep{height:1px;background:#333;margin:12px 0}
+.type-select{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.type-btn{padding:3px 8px;border:0.5px solid #444;border-radius:3px;cursor:pointer;font-size:9px;background:#2c2c2a;color:#666}
+.type-btn.active{background:#2c2c2a;color:#c87840;border-color:#c87840}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>ORBAT — Генератор имён</h1>
+  <p>Топонимы · Имена персонажей · Названия мест</p>
+</div>
+<div class="content">
+  <div class="panel">
+    <h2>Культура</h2>
+    <div class="culture-grid" id="cultGrid"></div>
+    <div class="sep"></div>
+    <h2>Тип генерации</h2>
+    <div class="type-select" id="typeSelect">
+      <div class="type-btn active" data-type="town" onclick="setType(this)">Город/Поселение</div>
+      <div class="type-btn" data-type="person" onclick="setType(this)">Имя человека</div>
+      <div class="type-btn" data-type="river" onclick="setType(this)">Река</div>
+      <div class="type-btn" data-type="mountain" onclick="setType(this)">Гора/Место</div>
+    </div>
+    <div class="sep"></div>
+    <div class="controls">
+      <label>Количество:</label>
+      <input type="range" min="6" max="30" value="12" id="countRange" oninput="document.getElementById('countVal').textContent=this.value">
+      <span id="countVal" style="font-size:10px;color:#c87840;min-width:20px">12</span>
+      <label style="margin-left:8px">Длина:</label>
+      <select id="lenSel">
+        <option value="short">Короткие (3-5)</option>
+        <option value="med" selected>Средние (5-8)</option>
+        <option value="long">Длинные (7-12)</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" onclick="generate()" style="width:100%">Генерировать</button>
+    <div class="hint">Клик по имени — копировать в буфер</div>
+  </div>
+
+  <div class="panel">
+    <h2>Результат</h2>
+    <div class="results" id="results">
+      <div style="color:#444;font-size:11px;padding:20px 0;text-align:center">Выбери культуру и нажми «Генерировать»</div>
+    </div>
+    <div class="sep"></div>
+    <h2>Свой неймбейз</h2>
+    <div class="textarea-wrap">
+      <textarea id="customBase" placeholder="Вставь корни через запятую&#10;Например: Мара,Нгоро,Симба,Тана..."></textarea>
+    </div>
+    <div style="margin-top:8px;display:flex;gap:8px">
+      <button class="btn" onclick="generateCustom()" style="flex:1">Генерировать из своего</button>
+      <button class="btn" onclick="clearResults()">Очистить</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const CULTURES = [
+  {name:'Уллам/Аммаи', hex:'C4855A', base:'Маллаи,Аруви,Ниллам,Уллам,Аттаи,Аммаи,Маккал,Тии,Мирам,Веттаи,Паанаи,Каттам,Вееру,Уйир,Минну,Нааттам,Муттааи,Пулли,Маарбу,Уттиру,Каийи,Веллаи,Мазаи,Варуттам,Каалаи,Маалаи,Иллаи,Перум,Каннну,Вааи,Вилл,Куттал,Валаи,Падаку'},
+  {name:'Аруви', hex:'C87840', base:'Аруви,Аммаи,Уллам,Маллаи,Ниллам,Тии,Мирам,Минну,Пазам,Пулли,Каду,Вааналам,Мааи,Колам,Виттай,Вайял,Перум'},
+  {name:'Вееру', hex:'B8703A', base:'Вееру,Хаарру,Миирам,Тиинг,Уллем,Каарру,Аллаи,Верру,Талайвар,Велли,Порр,Эллаи,Коол,Хааруу,Миирра,Маллаи,Аттаи'},
+  {name:'Де-Уллам', hex:'7A6850', base:'Нилла,Аннаи,Уллани,Маннаи,Нимму,Аммани,Таниир,Нилланни,Нинни,Намму,Нилли,Аннам,Маннам,Мааннам,Аннанни,Уллааннаи'},
+  {name:'Хаару', hex:'8AAFC0', base:'Хаару,Миррам,Тиинг,Уллем,Йоки,Коол,Луми,Ранта,Мери,Пеура,Хирви,Карху,Сууси,Линту,Пилви,Кивее,Метса,Суо,Ниеми,Лахти,Саари,Нгаал,Метсяя,Карьяла,Йоутсен'},
+  {name:'Аала', hex:'4A8C7A', base:'Аала,Аалас,Тои,Каелос,Меас,Полеи,Наосос,Демос,Аркос,Нерос,Талос,Лимнос,Родос,Фарос,Дорос,Уллаи,Аттаи,Аммаи'},
+  {name:'Каам', hex:'5C3D2E', base:'Ба,Му,Ки,Ку,Ви,Ни,Па,Ма,Каам,Мара,Маранго,Нгоро,Симба,Поро,Мбуга,Тана,Гиру,Кибо,Руаха,Мзее,Кабила,Ндугу,Хама,Мунгу,Рохо,Нгома,Мбара,Ндала,Нзиги,Нгала,Руву,Кагера,Ньяса,Замбе,Луба'},
+  {name:'Шум', hex:'A89878', base:'Ба,Ка,Та,Му,Ди,Го,Ну,Ти,Бо,Ма,Па,На,Да,Ко,Ни,Гу,До,Бе,Ге,Ту,Ки,Но,Де,Пи,Бу,Бака,Тади,Муко,Гоба,Нута'},
+];
+
+const SUFFIXES = {
+  town: ['куттам','тал','гол','вен','кент','град','пур','мар','нор','дал'],
+  person: ['аи','ви','ру','ни','ту','ма','ко','ла'],
+  river: ['аруви','гол','йоки','тана','руву','суу'],
+  mountain: ['маллаи','гиру','тау','уул','кибо','нгоро'],
+};
+
+let selectedCulture = 0;
+let selectedType = 'town';
+
+function renderCultures() {
+  const grid = document.getElementById('cultGrid');
+  grid.innerHTML = CULTURES.map((c,i) => `
+    <div class="cult-btn ${i===selectedCulture?'active':''}" onclick="selectCulture(${i})"
+         style="${i===selectedCulture?'border-color:#'+c.hex+';background:#1a1a18':''}">
+      <span class="swatch" style="background:#${c.hex}"></span>${c.name}
+    </div>
+  `).join('');
+}
+
+function selectCulture(i) {
+  selectedCulture = i;
+  renderCultures();
+}
+
+function setType(el) {
+  document.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  selectedType = el.dataset.type;
+}
+
+function buildName(roots, lenMode, type) {
+  const lenRanges = {short:[3,5], med:[5,8], long:[7,12]};
+  const [minL, maxL] = lenRanges[lenMode];
+  
+  let name = '';
+  let attempts = 0;
+  
+  while ((name.length < minL || name.length > maxL) && attempts < 50) {
+    attempts++;
+    const r1 = roots[Math.floor(Math.random()*roots.length)];
+    
+    if (Math.random() > 0.4) {
+      // Составное имя
+      const r2 = roots[Math.floor(Math.random()*roots.length)];
+      name = r1 + r2.toLowerCase();
+    } else if (Math.random() > 0.5) {
+      // С суффиксом
+      const suffs = SUFFIXES[type] || SUFFIXES.town;
+      const suf = suffs[Math.floor(Math.random()*suffs.length)];
+      name = r1 + suf;
+    } else {
+      name = r1;
+    }
+    
+    // Капитализация
+    name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+  }
+  
+  return name;
+}
+
+function generate() {
+  const cult = CULTURES[selectedCulture];
+  const roots = cult.base.split(',').map(s=>s.trim()).filter(Boolean);
+  const count = parseInt(document.getElementById('countRange').value);
+  const lenMode = document.getElementById('lenSel').value;
+  
+  const names = new Set();
+  let attempts = 0;
+  while (names.size < count && attempts < count * 10) {
+    attempts++;
+    names.add(buildName(roots, lenMode, selectedType));
+  }
+  
+  renderNames([...names]);
+}
+
+function generateCustom() {
+  const raw = document.getElementById('customBase').value;
+  if (!raw.trim()) return;
+  const roots = raw.split(',').map(s=>s.trim()).filter(Boolean);
+  const count = parseInt(document.getElementById('countRange').value);
+  const lenMode = document.getElementById('lenSel').value;
+  
+  const names = new Set();
+  let attempts = 0;
+  while (names.size < count && attempts < count * 10) {
+    attempts++;
+    names.add(buildName(roots, lenMode, selectedType));
+  }
+  renderNames([...names]);
+}
+
+function renderNames(names) {
+  const results = document.getElementById('results');
+  results.innerHTML = `<div class="name-grid">${names.map(n=>`
+    <div class="name-item" onclick="copyName(this,'${n}')">${n}</div>
+  `).join('')}</div>`;
+}
+
+function copyName(el, name) {
+  navigator.clipboard.writeText(name).catch(()=>{});
+  el.classList.add('copied');
+  setTimeout(()=>el.classList.remove('copied'), 1500);
+}
+
+function clearResults() {
+  document.getElementById('results').innerHTML = '<div style="color:#444;font-size:11px;padding:20px 0;text-align:center">Очищено</div>';
+}
+
+renderCultures();
+</script>
+</body>
+</html>
