@@ -62,7 +62,7 @@ const EPOCHS = [
     ],
     cultures: [
       {i:0, name:'Уллам ⚰', type:'Generic', exp:0, pop:0, hex:'C4855A', origins:'—', locked:true, desc:'Праматерь. Язык Корень.'},
-      {i:13, name:'Шум', type:'Hunting', exp:0.3, pop:20000, hex:'A89878', origins:'null', locked:false, desc:'Бескультурный фон. Сигнальная система.'},
+      {i:13, name:'Шум', type:'Hunting', exp:0.3, pop:20000, hex:'FFFFFF', origins:'null', locked:false, shum:true, desc:'Фоновое население. Всегда присутствует.'},
     ]
   },
   {
@@ -78,7 +78,7 @@ const EPOCHS = [
       {i:1, name:'Протоярви ⚰', type:'Hunting', exp:0, pop:0, hex:'8AAFC0', origins:'Уллам', locked:true, desc:'Северная ветка.'},
       {i:2, name:'Протоаларои ⚰', type:'Naval', exp:0, pop:0, hex:'4A8C7A', origins:'Уллам', locked:true, desc:'Береговая ветка.'},
       {i:3, name:'Уллам (ядро)', type:'Generic', exp:1.5, pop:60000, hex:'C4855A', origins:'Уллам', locked:false, desc:'Три диалектные группы. Аммаи-куттам.'},
-      {i:13, name:'Шум', type:'Hunting', exp:0.3, pop:17000, hex:'A89878', origins:'null', locked:false, desc:'Деградируют.'},
+      {i:13, name:'Шум', type:'Hunting', exp:0.3, pop:17000, hex:'FFFFFF', origins:'null', locked:false, shum:true, desc:'Фоновое население.'},
     ]
   },
   {
@@ -100,7 +100,7 @@ const EPOCHS = [
       {i:8, name:'Хаару', type:'Hunting', exp:1.0, pop:500, hex:'8AAFC0', origins:'Протоярви', locked:false, desc:'У ледника. Культ выживания.'},
       {i:9, name:'Аала-Хаару ⚰', type:'Naval', exp:0, pop:0, hex:'6A9FB0', origins:'Протоярви', locked:true, desc:''},
       {i:10, name:'Аала', type:'Naval', exp:1.8, pop:600, hex:'4A8C7A', origins:'Протоаларои', locked:false, desc:'Первая оседлость. Лодки.'},
-      {i:13, name:'Шум', type:'Hunting', exp:0.3, pop:10000, hex:'A89878', origins:'null', locked:false, desc:''},
+      {i:13, name:'Шум', type:'Hunting', exp:0.3, pop:10000, hex:'FFFFFF', origins:'null', locked:false, shum:true, desc:'Фоновое население.'},
     ]
   },
   {
@@ -125,7 +125,7 @@ const EPOCHS = [
       {i:8, name:'Хаару', type:'Hunting', exp:0.4, pop:1500, hex:'8AAFC0', origins:'Протоярви', locked:false, desc:'Авангард на севере. Тайга.'},
       {i:10, name:'Аала', type:'Naval', exp:0.6, pop:3000, hex:'4A8C7A', origins:'Протоаларои', locked:false, desc:'15 деревень. Звёздная навигация. Торговля.'},
       {i:11, name:'Каам', type:'Generic', exp:1.5, pop:8000, hex:'5C3D2E', origins:'null (Группа В)', locked:false, desc:'Беглецы с юга. Банту-язык. Не знают уллам.'},
-      {i:13, name:'Шум', type:'Hunting', exp:0.2, pop:5500, hex:'A89878', origins:'null', locked:false, desc:'Финальная стадия.'},
+      {i:13, name:'Шум', type:'Hunting', exp:0.2, pop:5500, hex:'FFFFFF', origins:'null', locked:false, shum:true, desc:'Фоновое население.'},
     ]
   }
 ];
@@ -159,9 +159,11 @@ function renderContent() {
   const epoch = EPOCHS.find(e => e.id === currentEpoch);
   const content = document.getElementById('content');
 
-  const activeCultures = epoch.cultures.filter(c => !c.locked);
+  const shumCulture = epoch.cultures.find(c => c.shum);
+  const activeCultures = epoch.cultures.filter(c => !c.locked && !c.shum);
   const lockedCultures = epoch.cultures.filter(c => c.locked);
   const totalPop = activeCultures.reduce((s,c)=>s+c.pop,0);
+  const shumPop = shumCulture ? shumCulture.pop : 0;
 
   content.innerHTML = `
     <div class="section-title">Климат</div>
@@ -218,6 +220,13 @@ function renderContent() {
         </tbody>
       </table>
     ` : ''}
+  ${shumCulture ? `
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 8px;background:#111;border:0.5px solid #2a2a28;border-radius:4px;margin-top:4px">
+      <span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#fff;opacity:0.3;flex-shrink:0"></span>
+      <span style="color:#444;font-size:10px;flex:1"><b style="color:#555">Шум</b> — фоновое население, нередактируемо. Всегда составляет ~½ от общего числа людей на континенте. Рассеяны везде, деградируют.</span>
+      <span style="color:#555;font-size:10px;font-family:monospace">${shumCulture.pop.toLocaleString()}</span>
+    </div>
+  ` : ''}
   `;
 }
 
