@@ -90,7 +90,7 @@ const NODES = [
    type:'Generic', exp:1.5, desc:'Группа В. Беглецы с юга. Тёмнокожие. Не знают уллам. Банту-язык.', origins:null},
 
   // Шум
-  {id:'shum', label:'Шум', sublabel:'изначально', hex:'A89878', x:740, y:240, locked:false,
+  {id:'shum', label:'Шум', sublabel:'изначально', hex:'444444', x:740, y:240, locked:false, shum:true,
    lang:'Сигнальная система: 1 слог = 1 понятие, ~200 корней, нет абстракций', pop:5500,
    type:'Hunting', exp:0.2, desc:'Бескультурный фон. Финальная стадия. Деградируют.', origins:null},
 ];
@@ -140,10 +140,15 @@ function render() {
     const bright = (r*299+g*587+b*114)/1000;
     const textCol = bright < 128 ? '#ffffff' : '#1a1a18';
 
-    html += `<g onclick="showDetail('${n.id}')" transform="translate(${x},${y})">
-      <rect class="node-rect" width="${W}" height="${H}" rx="4" fill="${col}" opacity="${opacity}" stroke="${n.locked?'#333':'rgba(255,255,255,0.2)'}" stroke-width="0.5"/>
-      <text class="node-text" x="${W/2}" y="${H*0.5}" text-anchor="middle" dominant-baseline="middle" fill="${textCol}" opacity="${n.locked?0.5:1}">${n.label}</text>
+    const nodeStroke = n.shum ? '#333' : (n.locked?'#333':'rgba(255,255,255,0.2)');
+    const nodeFill = n.shum ? 'none' : col;
+    const nodeTextFill = n.shum ? '#555' : textCol;
+    const nodeOp = n.shum ? 0.6 : opacity;
+    html += `<g onclick="showDetail('${n.id}')" transform="translate(${x},${y})" style="${n.shum?'cursor:default':''}">
+      <rect class="node-rect" width="${W}" height="${H}" rx="4" fill="${nodeFill}" opacity="${nodeOp}" stroke="${nodeStroke}" stroke-width="${n.shum?'0.5 stroke-dasharray=4,3':0.5}" ${n.shum?'stroke-dasharray="3,2"':''}/>
+      <text class="node-text" x="${W/2}" y="${H*0.5}" text-anchor="middle" dominant-baseline="middle" fill="${nodeTextFill}" opacity="${n.locked?0.5:1}">${n.label}</text>
       ${n.locked ? `<text x="${W-4}" y="8" text-anchor="end" font-size="8" fill="${textCol}" opacity="0.4" font-family="Arial">⚰</text>` : ''}
+      ${n.shum ? `<text x="${W/2}" y="${H*0.5+10}" text-anchor="middle" font-size="7" fill="#444" font-family="Arial">фон</text>` : ''}
     </g>`;
   });
 
@@ -158,6 +163,15 @@ function showDetail(id) {
   const n = NODES.find(x=>x.id===id);
   if (!n) return;
   const panel = document.getElementById('detail');
+  if (n.shum) {
+    panel.innerHTML = `<h2><span class="swatch-lg" style="background:#444;border:0.5px dashed #666"></span>${n.label}</h2>
+      <div style="font-size:9px;color:#c87840;margin-bottom:12px">⚠ Фоновое население — нередактируемо</div>
+      <div class="detail-row"><div class="detail-label">Статус</div>
+      <div class="detail-value" style="font-size:10px;color:#555;line-height:1.5">Шум существует параллельно всем культурам с начала времён. Всегда составляет ~½ от суммарного населения континента. Рассеяны везде группами по 10-15 человек. Деградируют и исчезают к ~5 000 до н.э.</div></div>
+      <div class="detail-row"><div class="detail-label">Язык</div>
+      <div class="detail-value" style="font-size:10px;color:#555">Сигнальная система. 1 слог = 1 понятие. ~200 корней. Нет абстракций. Не знают слова уллам.</div></div>`;
+    return;
+  }
   const typeColors = {Generic:'#a0a060',River:'#40a0a0',Hunting:'#a060a0',Naval:'#4080c0',Nomadic:'#c87840'};
   const tc = typeColors[n.type]||'#888';
   panel.innerHTML = `
