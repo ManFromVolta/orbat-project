@@ -113,7 +113,11 @@ let selectedType = 'town';
 
 function renderCultures() {
   const grid = document.getElementById('cultGrid');
-  grid.innerHTML = CULTURES.map((c,i) => `
+  grid.innerHTML = CULTURES.map((c,i) => c.shum ? `
+    <div class="cult-btn" style="opacity:0.3;cursor:not-allowed;color:#555;border-color:#2a2a28" title="Фоновое население — недоступно для генерации">
+      <span class="swatch" style="background:#888"></span>${c.name}
+    </div>
+  ` : `
     <div class="cult-btn ${i===selectedCulture?'active':''}" onclick="selectCulture(${i})"
          style="${i===selectedCulture?'border-color:#'+c.hex+';background:#1a1a18':''}">
       <span class="swatch" style="background:#${c.hex}"></span>${c.name}
