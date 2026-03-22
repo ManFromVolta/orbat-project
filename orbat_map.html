@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ORBAT — Карта мира</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;font-size:12px;background:#1a1a18;color:#d4d2cc;min-height:100vh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a18;border-bottom:0.5px solid #333;padding:6px 16px;display:flex;align-items:center;gap:12px;z-index:1000}
+.nav a{text-decoration:none;color:#888;font-size:10px;padding:3px 10px;border:0.5px solid #444;border-radius:3px;background:#2c2c2a}
+.nav a:hover{color:#f1efe8;border-color:#888}
+.spacer{height:36px}
+.header{background:#2c2c2a;padding:14px 20px;border-bottom:1px solid #444}
+.header h1{font-size:16px;font-weight:500;color:#f1efe8}
+.header p{font-size:10px;color:#888;margin-top:3px}
+.era-bar{display:flex;gap:6px;padding:10px 16px;background:#242422;border-bottom:1px solid #333;flex-wrap:wrap}
+.era-btn{padding:6px 14px;border:0.5px solid #555;border-radius:4px;cursor:pointer;font-size:10px;background:#2c2c2a;color:#aaa;flex-shrink:0;min-height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.era-btn.active{background:#5f5e5a;color:#f1efe8;border-color:#888}
+.era-btn span{font-size:8px;color:#555}
+.era-btn.active span{color:#aaa}
+.content{padding:16px;max-width:100%}
+.map-wrap{position:relative;background:#111;border:0.5px solid #2a2a28;border-radius:6px;overflow:hidden;margin-bottom:16px}
+.map-wrap img{width:100%;height:auto;display:block;cursor:crosshair}
+.map-placeholder{display:flex;align-items:center;justify-content:center;min-height:300px;color:#333;font-size:11px;flex-direction:column;gap:8px;padding:20px;text-align:center}
+.map-placeholder .icon{font-size:32px;opacity:0.3}
+.map-placeholder code{font-size:10px;color:#444;background:#1a1a18;padding:3px 8px;border-radius:3px;font-family:monospace}
+.map-caption{font-size:10px;color:#555;padding:8px 12px;border-top:0.5px solid #1e1e1c;background:#0e0e0c}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+@media(min-width:600px){.info-grid{grid-template-columns:repeat(4,1fr)}}
+.info-card{background:#242422;border:0.5px solid #2a2a28;border-radius:4px;padding:8px 10px}
+.info-card .label{font-size:9px;color:#444;margin-bottom:2px;text-transform:uppercase;letter-spacing:0.05em}
+.info-card .value{font-size:11px;color:#a0c880}
+.section-title{font-size:10px;font-weight:500;color:#555;text-transform:uppercase;letter-spacing:0.08em;margin:14px 0 8px;padding-bottom:4px;border-bottom:0.5px solid #1e1e1c}
+.note-grid{display:grid;grid-template-columns:1fr;gap:6px}
+@media(min-width:480px){.note-grid{grid-template-columns:1fr 1fr}}
+.note-card{background:#242422;border:0.5px solid #2a2a28;border-left:2px solid #444;border-radius:0 4px 4px 0;padding:8px 12px}
+.note-card h4{font-size:10px;font-weight:500;color:#d4d2cc;margin-bottom:3px}
+.note-card p{font-size:10px;color:#666;line-height:1.5}
+.how-to{background:#1a1a14;border:0.5px solid #443a20;border-radius:4px;padding:12px 14px;margin-bottom:16px;font-size:10px;color:#776040;line-height:1.7}
+.how-to b{color:#c87840}
+</style>
+</head>
+<body>
+<div class="nav">
+  <a href="index.html">← Главная</a>
+  <span style="color:#333;font-size:10px">Карта мира</span>
+</div>
+<div class="spacer"></div>
+<div class="header">
+  <h1>ORBAT — Карта мира</h1>
+  <p>Azgaar Fantasy Map Generator · Доисторическая эра</p>
+</div>
+<div class="era-bar" id="eraBar"></div>
+<div class="content" id="content"></div>
+
+<script>
+const ERAS=[
+  {id:'e100k',label:'-100 000',sublabel:'Доисторическая',
+   img:'maps/map_100k.png',
+   caption:'Ок. 100 000 до н. э. Один народ, одна зона. Аммаи-куттам у северного подножия Аттаи.',
+   stats:{pop:'~25 000',cultures:'1 (Уллам)',climate:'Экватор 9°C',ледник:'До 40°N'},
+   notes:[
+     {h:'Аммаи-куттам',p:'Первое и единственное постоянное место на континенте. Слияние двух рек у подножия Аттаи.'},
+     {h:'Массив Аттаи',p:'Непреодолим. Восток континента полностью закрыт на следующие 80 000 лет.'},
+     {h:'Дикари',p:'~20 000 человек везде и нигде. Деградируют. На карте — белые пятна.'},
+   ]},
+  {id:'e80k',label:'-80 000',sublabel:'Расхождение',
+   img:'maps/map_80k.png',
+   caption:'Ок. 80 000 до н. э. Ледник отступил. Протоярви на севере, Протоаларои на западном берегу.',
+   stats:{pop:'~90 000',cultures:'3',climate:'Экватор 9°C',ледник:'До 35°N'},
+   notes:[
+     {h:'Протоярви у ледника',p:'500-1000 человек у кромки льда. Язык уже другой. Озеро ещё подо льдом.'},
+     {h:'Протоаларои открыли море',p:'Первое слово вне Корня — Аала. Береговые стоянки.'},
+     {h:'Уллам',p:'70 000 человек. Три диалектные группы. Первые трещины.'},
+   ]},
+  {id:'e60k',label:'-60 000',sublabel:'Похолодание',
+   img:'maps/map_60k.png',
+   caption:'Ок. 60 000 до н. э. Ледник наступил. Уллам распался. Шесть народов.',
+   stats:{pop:'~81 000',cultures:'7',climate:'Экватор 7°C',ледник:'До 30°N'},
+   notes:[
+     {h:'Раскол Уллам',p:'Аммаи — хранители, Аруви — юг, Вееру — запад, Де-Уллам — болота.'},
+     {h:'Хаару и Аала',p:'Протоярви стал двумя народами. Первые постоянные поселения Аала на берегу.'},
+     {h:'Восток закрыт',p:'Перевалы Аттаи засыпаны снегом. Недостижимо.'},
+   ]},
+  {id:'e40k',label:'-40 000',sublabel:'Оттепель',
+   img:'maps/map_40k.png',
+   caption:'Ок. 40 000 до н. э. Аала-Хаару растворились. Аммаи-куттам — первое постоянное поселение. Появились Каам.',
+   stats:{pop:'~175 000',cultures:'8',climate:'Экватор 10°C',ледник:'До 40°N'},
+   notes:[
+     {h:'Аммаи-куттам',p:'500-1000 постоянных жителей. Первое разделение труда. Зачаток Муттааи.'},
+     {h:'Каам с юга',p:'Беглецы от пустыни. Не знают уллам. Не нападают. Аруви в растерянности.'},
+     {h:'Аала-Хаару ⚰',p:'Растворились в Аала. Первое исчезновение через ассимиляцию.'},
+   ]},
+  {id:'e20k',label:'-20 000',sublabel:'Основания',
+   img:'maps/map_20k.png',
+   caption:'Ок. 20 000 до н. э. Перевалы Аттаи открылись. Хаджар в дельте. Тенгир за горами.',
+   stats:{pop:'~500 000',cultures:'11',climate:'Экватор 15°C',ледник:'До 55°N'},
+   notes:[
+     {h:'Тенгир на востоке',p:'Первые люди за Аттаи. Восточные равнины открыты. Тенгиркол.'},
+     {h:'Аруви распались',p:'Маккал, Мараи, и (в Аммаи). Три народа из одного.'},
+     {h:'Хаджар в дельте',p:'Народ флотилии. Обогнули мир. До контакта с Аалои — тысячи лет.'},
+     {h:'Де-Уллам',p:'Первая игла из болотного железа. Никто не понял что произошло.'},
+   ]},
+];
+
+let cur='e20k';
+
+function renderBar(){
+  document.getElementById('eraBar').innerHTML=ERAS.map(e=>`
+    <button class="era-btn ${e.id===cur?'active':''}" onclick="go('${e.id}')">
+      ${e.label}<span>${e.sublabel}</span>
+    </button>`).join('');
+}
+
+function go(id){cur=id;renderBar();render();}
+
+function render(){
+  const era=ERAS.find(e=>e.id===cur);
+  const hasImg=era.img;
+
+  document.getElementById('content').innerHTML=`
+    <div class="how-to">
+      <b>Как обновить карту:</b> загрузи файл <code style="background:#1a1a18;padding:1px 5px;border-radius:2px;font-family:monospace;color:#888">${era.img}</code> в репозиторий GitHub — страница обновится автоматически при следующем открытии.
+    </div>
+
+    <div class="map-wrap">
+      <img src="${era.img}" alt="Карта ${era.label}"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+        style="display:block">
+      <div class="map-placeholder" style="display:none">
+        <div class="icon">🗺</div>
+        <div>Карта для этой эпохи ещё не загружена</div>
+        <code>${era.img}</code>
+        <div style="color:#2a2a28;margin-top:4px">Загрузи файл в репозиторий GitHub</div>
+      </div>
+      <div class="map-caption">${era.caption}</div>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-card"><div class="label">Население</div><div class="value">${era.stats.pop}</div></div>
+      <div class="info-card"><div class="label">Культур</div><div class="value">${era.stats.cultures}</div></div>
+      <div class="info-card"><div class="label">Климат</div><div class="value">${era.stats.climate}</div></div>
+      <div class="info-card"><div class="label">Ледник</div><div class="value">${era.stats.ледник}</div></div>
+    </div>
+
+    <div class="section-title">Ключевые факты эпохи</div>
+    <div class="note-grid">
+      ${era.notes.map(n=>`
+        <div class="note-card"><h4>${n.h}</h4><p>${n.p}</p></div>`).join('')}
+    </div>
+  `;
+}
+
+renderBar();render();
+</script>
+</body>
+</html>
