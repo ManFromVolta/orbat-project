@@ -58,7 +58,7 @@ const NODES = [
   {id:'proyarvi', label:'Протоярви', sublabel:'-95 000', hex:'8AAFC0', x:220, y:120, locked:true,
    lang:'Корень северный: ретрофлексные исчезли, гармония гласных начинается', pop:0,
    type:'Hunting', exp:0, desc:'Охотники ушедшие на север за льдом.', origins:'ullam'},
-  {id:'proalaroi', label:'Протоаларои', sublabel:'-80 000', hex:'4A8C7A', x:580, y:120, locked:true,
+  {id:'proalaroi', label:'Протоаларои', sublabel:'-80 000', hex:'3A8C78', x:580, y:120, locked:true,
    lang:'Корень береговой: первое слово вне Корня — Аала (море)', pop:0,
    type:'Naval', exp:0, desc:'Береговой путь на запад. Открыли море.', origins:'ullam'},
 
@@ -66,13 +66,13 @@ const NODES = [
   {id:'ammai', label:'Аммаи', sublabel:'-60 000', hex:'C4855A', x:160, y:240, locked:false,
    lang:'Корень чистый + оседлая лексика: Вилл, Куттал, Валаи, Толил', pop:25000,
    type:'River', exp:0.3, desc:'Хранители Аммаи-куттам. Первое постоянное поселение. Культ места.', origins:'ullam'},
-  {id:'aruvi', label:'Аруви', sublabel:'-60 000', hex:'C87840', x:300, y:240, locked:false,
+  {id:'aruvi', label:'Аруви', sublabel:'-60 000', hex:'C8502A', x:300, y:240, locked:false,
    lang:'Корень южный + тропическая лексика: Пазам, Пулли, Каду, Виттай', pop:95000,
    type:'River', exp:0.5, desc:'Набожные южные. Демографический пик. Обратная миграция. Религиозный раскол надвигается.', origins:'ullam'},
-  {id:'veeru', label:'Вееру', sublabel:'-60 000', hex:'B8703A', x:440, y:240, locked:false,
+  {id:'veeru', label:'Вееру', sublabel:'-60 000', hex:'A86030', x:440, y:240, locked:false,
    lang:'Корень + заимствования Хаару: Хаарру, Миирам, Каарру, Эллаи', pop:20000,
    type:'Nomadic', exp:0.7, desc:'Первые воины. Территориальная концепция. У перевалов Аттаи.', origins:'ullam'},
-  {id:'deullam', label:'Де-Уллам', sublabel:'-60 000', hex:'7A6850', x:570, y:240, locked:false,
+  {id:'deullam', label:'Де-Уллам', sublabel:'-60 000', hex:'4A5A38', x:570, y:240, locked:false,
    lang:'Корень изолят + болотная лексика: Нилли, Аннам, Маннаи, Мааннам', pop:4000,
    type:'Generic', exp:0.1, desc:'Мёртвые в болотах. Болотный огонь священен. Болотное железо известно.', origins:'ullam'},
 
@@ -85,12 +85,12 @@ const NODES = [
    type:'Naval', exp:0, desc:'Растворились в Аала. Первое исчезновение культуры через ассимиляцию.', origins:'proyarvi'},
 
   // Ветки Протоаларои
-  {id:'aala', label:'Аала', sublabel:'-60 000', hex:'4A8C7A', x:430, y:360, locked:false,
+  {id:'aala', label:'Аала', sublabel:'-60 000', hex:'3A8C78', x:430, y:360, locked:false,
    lang:'Корень морской + навигация: Аала/Нерос/Лимнос/Тенгер-аала', pop:3000,
    type:'Naval', exp:0.6, desc:'15 деревень на западном берегу. Звёздная навигация. Первая торговля.', origins:'proalaroi'},
 
   // Группа В
-  {id:'kaam', label:'Каам', sublabel:'-42 000', hex:'5C3D2E', x:660, y:360, locked:false,
+  {id:'kaam', label:'Каам', sublabel:'-42 000', hex:'9A4030', x:660, y:360, locked:false,
    lang:'Банту-тип: классы существительных (Ба-/Му-/Ки-), назальные мб/нд/нг, тональность', pop:8000,
    type:'Generic', exp:1.5, desc:'Группа В. Беглецы с юга. Тёмнокожие. Не знают уллам. Банту-язык.', origins:null},
 
@@ -158,7 +158,7 @@ function render() {
   });
 
   // Группа В лейбл
-  html += `<text x="660" y="320" font-size="9" fill="#5C3D2E" text-anchor="middle" font-family="Arial" font-style="italic">Группа В</text>`;
+  html += `<text x="660" y="320" font-size="9" fill="#9A4030" text-anchor="middle" font-family="Arial" font-style="italic">Группа В</text>`;
   html += `<text x="740" y="200" font-size="9" fill="#555" text-anchor="middle" font-family="Arial" font-style="italic">Фон</text>`;
 
   svg.innerHTML = html;
