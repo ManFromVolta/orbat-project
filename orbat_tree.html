@@ -2,224 +2,181 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>ORBAT — Дерево народов</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ORBAT — Таймлайн</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,sans-serif;font-size:12px;background:#1a1a18;color:#d4d2cc;min-height:100vh}
-.header{background:#2c2c2a;padding:16px 20px;border-bottom:1px solid #444}
-.header h1{font-size:18px;font-weight:500;color:#f1efe8}
-.header p{font-size:10px;color:#888;margin-top:4px}
-.wrap{display:flex;height:calc(100vh - 70px)}
-.tree-panel{flex:1;overflow:auto;padding:20px;position:relative}
-.detail-panel{width:280px;min-width:280px;background:#242422;border-left:0.5px solid #333;padding:16px;overflow-y:auto}
-.detail-panel h2{font-size:13px;font-weight:500;color:#f1efe8;margin-bottom:12px}
-.detail-empty{color:#444;font-size:11px;padding:20px 0;text-align:center}
-svg{overflow:visible}
-.node-rect{cursor:pointer;transition:all 0.15s}
-.node-rect:hover{filter:brightness(1.3)}
-.node-text{font-family:Arial,sans-serif;font-size:10px;fill:#f1efe8;pointer-events:none}
-.node-sub{font-family:Arial,sans-serif;font-size:8px;fill:rgba(255,255,255,0.5);pointer-events:none}
-.edge{fill:none;stroke:#444;stroke-width:1.5}
-.edge-group-b{stroke:#6a9fb0;stroke-dasharray:4,3}
-.locked-badge{font-family:Arial,sans-serif;font-size:8px;fill:#555}
-.detail-row{margin-bottom:8px}
-.detail-label{font-size:9px;color:#555;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px}
-.detail-value{font-size:11px;color:#d4d2cc}
-.swatch-lg{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:middle;margin-right:6px;border:0.5px solid rgba(255,255,255,0.15)}
-.tag{display:inline-block;font-size:9px;padding:2px 6px;border-radius:3px;margin:1px}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a18;border-bottom:0.5px solid #333;padding:6px 16px;display:flex;align-items:center;gap:12px;z-index:1000}
+.nav a{text-decoration:none;color:#888;font-size:10px;padding:3px 10px;border:0.5px solid #444;border-radius:3px;background:#2c2c2a}
+.nav a:hover{color:#f1efe8;border-color:#888}
+.spacer{height:36px}
+.header{background:#2c2c2a;padding:14px 20px;border-bottom:1px solid #444}
+.header h1{font-size:16px;font-weight:500;color:#f1efe8}
+.header p{font-size:10px;color:#888;margin-top:3px}
+.wrap{padding:16px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tl-inner{min-width:700px}
+.axis{height:36px;position:relative;margin-bottom:0;border-bottom:1px solid #333}
+.era-tick{position:absolute;top:0;transform:translateX(-50%);text-align:center;font-size:9px;color:#555;padding-top:4px}
+.era-tick.cur{color:#c87840}
+.era-tick .sub{font-size:8px;color:#444;display:block;margin-top:1px}
+.era-tick.cur .sub{color:#886020}
+.era-line{position:absolute;top:0;bottom:0;width:1px;background:#2a2a28}
+.era-line.cur{background:rgba(200,120,64,0.3)}
+.rows{position:relative}
+.row{display:flex;align-items:center;border-bottom:0.5px solid #222;min-height:32px}
+.row-label{width:120px;min-width:120px;font-size:10px;color:#888;padding:4px 10px 4px 0;text-align:right;white-space:nowrap;flex-shrink:0;display:flex;align-items:center;justify-content:flex-end;gap:5px}
+.dot{width:8px;height:8px;border-radius:1px;flex-shrink:0}
+.row-tl{flex:1;position:relative;height:32px}
+.bar{position:absolute;top:8px;height:16px;border-radius:3px;overflow:hidden;opacity:0.8;cursor:pointer;transition:opacity 0.1s}
+.bar:hover{opacity:1;z-index:5}
+.bar-inner{position:absolute;inset:0;display:flex;align-items:center;padding:0 6px;font-size:8px;color:rgba(255,255,255,0.75);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.evt{position:absolute;top:50%;transform:translate(-50%,-50%);width:14px;height:14px;border-radius:50%;border:2px solid #1a1a18;cursor:pointer;z-index:6;display:flex;align-items:center;justify-content:center}
+.evt:hover{z-index:10}
+.tt{position:fixed;background:#2c2c2a;border:0.5px solid #555;border-radius:4px;padding:8px 10px;font-size:10px;pointer-events:none;z-index:200;max-width:200px;display:none;line-height:1.5;color:#d4d2cc}
+.tt h4{color:#f1efe8;margin-bottom:3px;font-size:11px}
+.footnote{padding:12px 0 4px;border-top:0.5px solid #2a2a28;margin-top:12px;font-size:9px;color:#444;line-height:1.6}
+.legend{display:flex;gap:10px;flex-wrap:wrap;padding:10px 0;margin-top:4px}
+.li{display:flex;align-items:center;gap:5px;font-size:9px;color:#555}
+.li-dot{width:10px;height:10px;border-radius:2px}
 </style>
 </head>
 <body>
-<div style="position:fixed;top:0;left:0;right:0;background:#1a1a18;border-bottom:0.5px solid #333;padding:6px 16px;display:flex;align-items:center;gap:12px;z-index:1000">
-  <a href="index.html" style="text-decoration:none;color:#888;font-size:10px;padding:3px 10px;border:0.5px solid #444;border-radius:3px;background:#2c2c2a;transition:all 0.15s" onmouseover="this.style.color='#f1efe8';this.style.borderColor='#888'" onmouseout="this.style.color='#888';this.style.borderColor='#444'">← Главная</a>
-  <span style="color:#333;font-size:10px" id="navTitle">Дерево народов</span>
+<div class="nav">
+  <a href="index.html">← Главная</a>
+  <span style="color:#333;font-size:10px">Таймлайн</span>
 </div>
-<div style="height:28px"></div>
+<div class="spacer"></div>
 <div class="header">
-  <h1>ORBAT — Дерево народов</h1>
-  <p>Origins · Языковые семьи · Кликни на узел для деталей</p>
+  <h1>ORBAT — Таймлайн эпох</h1>
+  <p>Эволюция народов от первых людей до 1952 н.э.</p>
 </div>
 <div class="wrap">
-  <div class="tree-panel">
-    <svg id="treeSvg" width="820" height="600"></svg>
-  </div>
-  <div class="detail-panel" id="detail">
-    <h2>Детали</h2>
-    <div class="detail-empty">Кликни на народ чтобы увидеть подробности</div>
+  <div class="tl-inner">
+    <div class="axis" id="axis"></div>
+    <div class="rows" id="rows"></div>
+    <div class="legend" id="legend"></div>
+    <div class="footnote">* Дикари не отображаются на таймлайне — неорганизованные полудикие группы без культуры, рассеяны по всему континенту на протяжении всей истории. В -20 000 до н.э. составляют ~315 000 чел. из ~500 000 всего населения.</div>
   </div>
 </div>
+<div class="tt" id="tt"></div>
 
 <script>
-const NODES = [
-  // Праматери
-  {id:'ullam', label:'Уллам', sublabel:'-100 000', hex:'C4855A', x:400, y:30, locked:true,
-   lang:'Корень — агглютинативный, ретрофлексные тт/дд/нн/лл, долгие аа/ии/уу', pop:0,
-   type:'Generic', exp:0, desc:'Праматерь всех народов континента. Главный вопрос: «Есть ли у тебя уллам?»', origins:null},
-  {id:'proyarvi', label:'Протоярви', sublabel:'-95 000', hex:'8AAFC0', x:220, y:120, locked:true,
-   lang:'Корень северный: ретрофлексные исчезли, гармония гласных начинается', pop:0,
-   type:'Hunting', exp:0, desc:'Охотники ушедшие на север за льдом.', origins:'ullam'},
-  {id:'proalaroi', label:'Протоаларои', sublabel:'-80 000', hex:'3A8C78', x:580, y:120, locked:true,
-   lang:'Корень береговой: первое слово вне Корня — Аала (море)', pop:0,
-   type:'Naval', exp:0, desc:'Береговой путь на запад. Открыли море.', origins:'ullam'},
-
-  // Ветки Уллам
-  {id:'ammai', label:'Аммаи', sublabel:'-60 000', hex:'C4855A', x:160, y:240, locked:false,
-   lang:'Корень чистый + оседлая лексика: Вилл, Куттал, Валаи, Толил', pop:25000,
-   type:'River', exp:0.3, desc:'Хранители Аммаи-куттам. Первое постоянное поселение. Культ места.', origins:'ullam'},
-  {id:'aruvi', label:'Аруви', sublabel:'-60 000', hex:'C8502A', x:300, y:240, locked:false,
-   lang:'Корень южный + тропическая лексика: Пазам, Пулли, Каду, Виттай', pop:95000,
-   type:'River', exp:0.5, desc:'Набожные южные. Демографический пик. Обратная миграция. Религиозный раскол надвигается.', origins:'ullam'},
-  {id:'veeru', label:'Вееру', sublabel:'-60 000', hex:'A86030', x:440, y:240, locked:false,
-   lang:'Корень + заимствования Хаару: Хаарру, Миирам, Каарру, Эллаи', pop:20000,
-   type:'Nomadic', exp:0.7, desc:'Первые воины. Территориальная концепция. У перевалов Аттаи.', origins:'ullam'},
-  {id:'deullam', label:'Де-Уллам', sublabel:'-60 000', hex:'4A5A38', x:570, y:240, locked:false,
-   lang:'Корень изолят + болотная лексика: Нилли, Аннам, Маннаи, Мааннам', pop:4000,
-   type:'Generic', exp:0.1, desc:'Мёртвые в болотах. Болотный огонь священен. Болотное железо известно.', origins:'ullam'},
-
-  // Ветки Протоярви
-  {id:'haaru', label:'Хаару', sublabel:'-60 000', hex:'8AAFC0', x:130, y:360, locked:false,
-   lang:'Протоярви развитый: гармония гласных, нг/мн, Хаару/Луми/Пеура', pop:1500,
-   type:'Hunting', exp:0.4, desc:'Охотники у ледника. Культ выживания. Авангард пошёл на север.', origins:'proyarvi'},
-  {id:'aalahaaru', label:'Аала-Хаару', sublabel:'-60→-42 000', hex:'6A9FB0', x:270, y:360, locked:true,
-   lang:'Протоярви + морская Аала: смешение двух систем', pop:0,
-   type:'Naval', exp:0, desc:'Растворились в Аала. Первое исчезновение культуры через ассимиляцию.', origins:'proyarvi'},
-
-  // Ветки Протоаларои
-  {id:'aala', label:'Аала', sublabel:'-60 000', hex:'3A8C78', x:430, y:360, locked:false,
-   lang:'Корень морской + навигация: Аала/Нерос/Лимнос/Тенгер-аала', pop:3000,
-   type:'Naval', exp:0.6, desc:'15 деревень на западном берегу. Звёздная навигация. Первая торговля.', origins:'proalaroi'},
-
-  // Группа В
-  {id:'kaam', label:'Каам', sublabel:'-42 000', hex:'9A4030', x:660, y:360, locked:false,
-   lang:'Банту-тип: классы существительных (Ба-/Му-/Ки-), назальные мб/нд/нг, тональность', pop:8000,
-   type:'Generic', exp:1.5, desc:'Группа В. Беглецы с юга. Тёмнокожие. Не знают уллам. Банту-язык.', origins:null},
-
-  // Шум
-  {id:'shum', label:'Шум', sublabel:'изначально', hex:'444444', x:740, y:240, locked:false, shum:true,
-   lang:'Сигнальная система: 1 слог = 1 понятие, ~200 корней, нет абстракций', pop:5500,
-   type:'Hunting', exp:0.2, desc:'Бескультурный фон. Финальная стадия. Деградируют.', origins:null},
+const ERAS=[
+  {y:-100000,l:'-100k',s:'Доисторич.',cur:false},
+  {y:-80000,l:'-80k',s:'Расхожд.',cur:false},
+  {y:-60000,l:'-60k',s:'Похолод.',cur:false},
+  {y:-40000,l:'-40k',s:'Оттепель',cur:false},
+  {y:-20000,l:'-20k',s:'Основания',cur:true},
+  {y:-10000,l:'-10k',s:'Неолит',cur:false},
+  {y:-3000,l:'-3k',s:'Бронза',cur:false},
+  {y:0,l:'0',s:'н.э.',cur:false},
+  {y:1952,l:'1952',s:'Игровое',cur:false},
 ];
 
-const EDGES = [
-  {from:'ullam', to:'proyarvi'},
-  {from:'ullam', to:'proalaroi'},
-  {from:'ullam', to:'ammai'},
-  {from:'ullam', to:'aruvi'},
-  {from:'ullam', to:'veeru'},
-  {from:'ullam', to:'deullam'},
-  {from:'proyarvi', to:'haaru'},
-  {from:'proyarvi', to:'aalahaaru'},
-  {from:'proalaroi', to:'aala'},
-  {from:'aalahaaru', to:'aala', dashed:true, label:'ассимиляция'},
+const PEOPLES=[
+  {name:'Уллам ⚰',hex:'C4855A',start:-100000,end:-60000,desc:'Праматерь всех культур. Язык Корень.',events:[{y:-100000,l:'Аммаи-куттам'},{y:-80000,l:'Рост до 80 000'}]},
+  {name:'Протоярви ⚰',hex:'8AAFC0',start:-95000,end:-60000,desc:'Откол на север. Ледник.',events:[]},
+  {name:'Протоаларои ⚰',hex:'3A8C78',start:-80000,end:-60000,desc:'Береговой путь. Открыли море.',events:[{y:-80000,l:'Открыли море Аала'}]},
+  {name:'Аммаи',hex:'C4855A',start:-60000,end:null,desc:'Хранители Аммаи-куттам.',events:[{y:-40000,l:'Первое поселение'},{y:-20000,l:'Первый город'}]},
+  {name:'Аруви',hex:'C8502A',start:-60000,end:-20000,desc:'Набожные южные. Распались в -20 000.',events:[{y:-40000,l:'Пик 95 000'},{y:-20000,l:'Распад'}]},
+  {name:'Вееру',hex:'A86030',start:-60000,end:-20000,desc:'Западные кочевники. Стали Тенгир.',events:[{y:-20000,l:'Прошли Аттаи'}]},
+  {name:'Де-Уллам',hex:'4A5A38',start:-60000,end:null,desc:'Мёртвые в болотах. Изолят.',events:[{y:-20000,l:'Первая игла'}]},
+  {name:'Хаару',hex:'8AAFC0',start:-60000,end:-20000,desc:'Охотники у ледника. Стали Ярви.',events:[{y:-20000,l:'Стали Ярви'}]},
+  {name:'Аала-Хаару ⚰',hex:'6A9FB0',start:-60000,end:-40000,desc:'Растворились в Аала.',events:[{y:-40000,l:'Ассимиляция'}]},
+  {name:'Аала / Аалои',hex:'3A8C78',start:-60000,end:null,desc:'Морской народ. Аркос.',events:[{y:-40000,l:'Звёздная навигация'},{y:-20000,l:'Аркос'}]},
+  {name:'Каам',hex:'9A4030',start:-42000,end:null,desc:'Группа В. Беглецы с юга.',events:[{y:-42000,l:'Первый контакт'}]},
+  {name:'Ярви',hex:'6A9FB0',start:-20000,end:null,desc:'Потомки Хаару. Священное озеро.',events:[{y:-20000,l:'Яарви-ранта'}]},
+  {name:'Тенгир',hex:'C8A040',start:-20000,end:null,desc:'Потомки Вееру. Восточные равнины.',events:[{y:-20000,l:'За Аттаи'}]},
+  {name:'Велды',hex:'6B7A3A',start:-20000,end:null,desc:'Хаару + Вееру. Протославяне.',events:[]},
+  {name:'Маккал',hex:'A83020',start:-20000,end:null,desc:'Военная фракция Аруви.',events:[]},
+  {name:'Мараи',hex:'7A5030',start:-20000,end:null,desc:'Аруви + Каам. Синкретический народ.',events:[]},
+  {name:'Хаджар',hex:'4A6080',start:-20000,end:null,desc:'Группа Б. Народ флотилии.',events:[{y:-20000,l:'Высадка в дельте'}]},
 ];
 
-const W = 60, H = 28;
+const MIN=-105000,MAX=2100,RNG=MAX-MIN;
+function pct(y){return ((y-MIN)/RNG)*100;}
 
-function render() {
-  const svg = document.getElementById('treeSvg');
-  let html = '';
+function render(){
+  const axis=document.getElementById('axis');
+  const rows=document.getElementById('rows');
+  const legend=document.getElementById('legend');
 
-  // Edges
-  EDGES.forEach(e => {
-    const from = NODES.find(n=>n.id===e.from);
-    const to = NODES.find(n=>n.id===e.to);
-    if (!from||!to) return;
-    const x1 = from.x, y1 = from.y + H;
-    const x2 = to.x, y2 = to.y;
-    const mx = (x1+x2)/2, my = (y1+y2)/2;
-    const cls = e.dashed ? 'edge edge-group-b' : 'edge';
-    html += `<path class="${cls}" d="M${x1},${y1} C${x1},${my} ${x2},${my} ${x2},${y2}" ${e.dashed?'stroke-dasharray="4,3"':''}/>`;
-    if (e.label) {
-      html += `<text x="${mx}" y="${my-4}" font-size="8" fill="#6a9fb0" text-anchor="middle" font-family="Arial">${e.label}</text>`;
-    }
+  // Axis
+  let ah='';
+  ERAS.forEach(e=>{
+    const p=pct(e.y);
+    ah+=`<div class="era-line ${e.cur?'cur':''}" style="left:${p}%"></div>
+         <div class="era-tick ${e.cur?'cur':''}" style="left:${p}%">${e.l}<span class="sub">${e.s}</span></div>`;
   });
+  axis.innerHTML=ah;
 
-  // Nodes
-  NODES.forEach(n => {
-    const x = n.x - W/2, y = n.y;
-    const col = '#'+n.hex;
-    const opacity = n.locked ? 0.4 : 0.85;
-    const r = parseInt(n.hex.substring(0,2),16);
-    const g = parseInt(n.hex.substring(2,4),16);
-    const b = parseInt(n.hex.substring(4,6),16);
-    const bright = (r*299+g*587+b*114)/1000;
-    const textCol = bright < 128 ? '#ffffff' : '#1a1a18';
+  // Rows
+  let rh='<div style="position:relative">';
+  // Current line
+  rh+=`<div style="position:absolute;top:0;bottom:0;left:${pct(-20000)}%;width:1px;background:rgba(200,120,64,0.25);pointer-events:none;z-index:1"></div>`;
 
-    const nodeStroke = n.shum ? '#333' : (n.locked?'#333':'rgba(255,255,255,0.2)');
-    const nodeFill = n.shum ? 'none' : col;
-    const nodeTextFill = n.shum ? '#555' : textCol;
-    const nodeOp = n.shum ? 0.6 : opacity;
-    html += `<g onclick="showDetail('${n.id}')" transform="translate(${x},${y})" style="${n.shum?'cursor:default':''}">
-      <rect class="node-rect" width="${W}" height="${H}" rx="4" fill="${nodeFill}" opacity="${nodeOp}" stroke="${nodeStroke}" stroke-width="${n.shum?'0.5 stroke-dasharray=4,3':0.5}" ${n.shum?'stroke-dasharray="3,2"':''}/>
-      <text class="node-text" x="${W/2}" y="${H*0.5}" text-anchor="middle" dominant-baseline="middle" fill="${nodeTextFill}" opacity="${n.locked?0.5:1}">${n.label}</text>
-      ${n.locked ? `<text x="${W-4}" y="8" text-anchor="end" font-size="8" fill="${textCol}" opacity="0.4" font-family="Arial">⚰</text>` : ''}
-      ${n.shum ? `<text x="${W/2}" y="${H*0.5+10}" text-anchor="middle" font-size="7" fill="#444" font-family="Arial">фон</text>` : ''}
-    </g>`;
+  PEOPLES.forEach(p=>{
+    const isLocked=p.name.includes('⚰');
+    const sp=pct(p.start);
+    const ep=p.end?pct(p.end):pct(1952);
+    const wp=ep-sp;
+    const op=isLocked?0.3:0.75;
+
+    const evts=p.events.map(ev=>{
+      const ep2=pct(ev.y);
+      return `<div class="evt" style="left:${ep2}%;background:#${p.hex};opacity:${isLocked?0.4:1}"
+        onmouseenter="st(event,'${ev.l.replace(/'/g,'\\'')}')" onmouseleave="ht()"
+        ontouchstart="st(event,'${ev.l.replace(/'/g,'\\'')}')" ontouchend="ht()">
+        <span style="width:5px;height:5px;border-radius:50%;background:#1a1a18;display:block"></span>
+      </div>`;
+    }).join('');
+
+    rh+=`<div class="row">
+      <div class="row-label">
+        <span class="dot" style="background:#${p.hex};opacity:${isLocked?0.3:1}"></span>
+        <span style="color:${isLocked?'#444':'#888'}">${p.name}</span>
+      </div>
+      <div class="row-tl">
+        <div class="bar" style="left:${sp}%;width:${wp}%;background:#${p.hex};opacity:${op}"
+          onmouseenter="sf(event,'${p.name.replace(/'/g,'\\'').replace(/⚰/g,'(ист.)')}','${p.desc.replace(/'/g,'\\'')}')" onmouseleave="ht()">
+          <div class="bar-inner">${wp>6?p.name.replace(' ⚰',''):''}</div>
+        </div>
+        ${evts}
+      </div>
+    </div>`;
   });
+  rh+='</div>';
+  rows.innerHTML=rh;
 
-  // Группа В лейбл
-  html += `<text x="660" y="320" font-size="9" fill="#9A4030" text-anchor="middle" font-family="Arial" font-style="italic">Группа В</text>`;
-  html += `<text x="740" y="200" font-size="9" fill="#555" text-anchor="middle" font-family="Arial" font-style="italic">Фон</text>`;
-
-  svg.innerHTML = html;
+  // Legend — unique colors only, no Шум
+  const seen=new Set();
+  legend.innerHTML=PEOPLES.filter(p=>{
+    if(seen.has(p.hex))return false;
+    seen.add(p.hex);return true;
+  }).map(p=>`<div class="li"><div class="li-dot" style="background:#${p.hex};opacity:${p.name.includes('⚰')?0.4:1}"></div><span>${p.name}</span></div>`).join('');
 }
 
-function showDetail(id) {
-  const n = NODES.find(x=>x.id===id);
-  if (!n) return;
-  const panel = document.getElementById('detail');
-  if (n.shum) {
-    panel.innerHTML = `<h2><span class="swatch-lg" style="background:#444;border:0.5px dashed #666"></span>${n.label}</h2>
-      <div style="font-size:9px;color:#c87840;margin-bottom:12px">⚠ Фоновое население — нередактируемо</div>
-      <div class="detail-row"><div class="detail-label">Статус</div>
-      <div class="detail-value" style="font-size:10px;color:#555;line-height:1.5">Шум существует параллельно всем культурам с начала времён. Всегда составляет ~½ от суммарного населения континента. Рассеяны везде группами по 10-15 человек. Деградируют и исчезают к ~5 000 до н.э.</div></div>
-      <div class="detail-row"><div class="detail-label">Язык</div>
-      <div class="detail-value" style="font-size:10px;color:#555">Сигнальная система. 1 слог = 1 понятие. ~200 корней. Нет абстракций. Не знают слова уллам.</div></div>`;
-    return;
-  }
-  const typeColors = {Generic:'#a0a060',River:'#40a0a0',Hunting:'#a060a0',Naval:'#4080c0',Nomadic:'#c87840'};
-  const tc = typeColors[n.type]||'#888';
-  panel.innerHTML = `
-    <h2><span class="swatch-lg" style="background:#${n.hex}"></span>${n.label} ${n.locked?'⚰':''}</h2>
-    <div style="font-size:9px;color:#555;margin-bottom:12px">${n.sublabel}</div>
-
-    <div class="detail-row">
-      <div class="detail-label">Описание</div>
-      <div class="detail-value" style="font-size:10px;color:#aaa;line-height:1.5">${n.desc}</div>
-    </div>
-
-    <div class="detail-row">
-      <div class="detail-label">Язык</div>
-      <div class="detail-value" style="font-size:10px;color:#8aafc0;line-height:1.5">${n.lang}</div>
-    </div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
-      <div class="detail-row">
-        <div class="detail-label">Тип</div>
-        <span class="tag" style="background:#1a1a18;color:${tc};border:0.5px solid ${tc}">${n.type}</span>
-      </div>
-      <div class="detail-row">
-        <div class="detail-label">Exp</div>
-        <div class="detail-value">${n.exp}</div>
-      </div>
-      <div class="detail-row">
-        <div class="detail-label">Население</div>
-        <div class="detail-value" style="color:#a0c880">${n.pop ? n.pop.toLocaleString() : '—'}</div>
-      </div>
-      <div class="detail-row">
-        <div class="detail-label">HEX</div>
-        <div class="detail-value" style="font-family:monospace;font-size:10px;color:#555">#${n.hex}</div>
-      </div>
-    </div>
-
-    <div class="detail-row" style="margin-top:8px">
-      <div class="detail-label">Origins</div>
-      <div class="detail-value" style="color:#666">${n.origins ? NODES.find(x=>x.id===n.origins)?.label || n.origins : '— (прародитель)'}</div>
-    </div>
-
-    ${n.locked ? '<div style="margin-top:12px;padding:6px 8px;background:#1a1a18;border:0.5px solid #333;border-radius:3px;font-size:9px;color:#555">Залочена. Территория убрана. Сохранена для дерева Origins.</div>' : ''}
-  `;
+function st(e,label){
+  const t=document.getElementById('tt');
+  t.innerHTML=`<h4>${label}</h4>`;
+  t.style.display='block';
+  const x=e.touches?e.touches[0].clientX:e.clientX;
+  const y=e.touches?e.touches[0].clientY:e.clientY;
+  t.style.left=Math.min(x+12,window.innerWidth-220)+'px';
+  t.style.top=Math.max(y-40,4)+'px';
 }
+function sf(e,name,desc){
+  const t=document.getElementById('tt');
+  t.innerHTML=`<h4>${name}</h4><p>${desc}</p>`;
+  t.style.display='block';
+  const x=e.touches?e.touches[0].clientX:e.clientX;
+  const y=e.touches?e.touches[0].clientY:e.clientY;
+  t.style.left=Math.min(x+12,window.innerWidth-220)+'px';
+  t.style.top=Math.max(y-40,4)+'px';
+}
+function ht(){document.getElementById('tt').style.display='none';}
+document.addEventListener('click',ht);
 
 render();
 </script>
