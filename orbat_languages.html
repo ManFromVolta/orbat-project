@@ -2,188 +2,501 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ORBAT — Языки</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,sans-serif;font-size:12px;background:#1a1a18;color:#d4d2cc;min-height:100vh}
 .nav{position:fixed;top:0;left:0;right:0;background:#1a1a18;border-bottom:0.5px solid #333;padding:6px 16px;display:flex;align-items:center;gap:12px;z-index:1000}
-.nav a{text-decoration:none;color:#888;font-size:10px;padding:3px 10px;border:0.5px solid #444;border-radius:3px;background:#2c2c2a;transition:all 0.15s}
+.nav a{text-decoration:none;color:#888;font-size:10px;padding:3px 10px;border:0.5px solid #444;border-radius:3px;background:#2c2c2a}
 .nav a:hover{color:#f1efe8;border-color:#888}
-.nav span{color:#555;font-size:10px}
-.spacer{height:28px}
-.layout{display:flex;min-height:calc(100vh - 28px)}
-.sidebar{width:190px;min-width:190px;background:#242422;border-right:0.5px solid #2a2a28;overflow-y:auto;position:sticky;top:28px;height:calc(100vh - 28px)}
-.sb-section{padding:10px 14px 4px;font-size:9px;color:#444;text-transform:uppercase;letter-spacing:0.08em}
-.sb-item{display:flex;align-items:center;gap:8px;padding:7px 14px;font-size:10px;color:#666;cursor:pointer;border-left:2px solid transparent;transition:all 0.1s}
+.spacer{height:36px}
+.header{background:#2c2c2a;padding:14px 20px;border-bottom:1px solid #444}
+.header h1{font-size:16px;font-weight:500;color:#f1efe8}
+.header p{font-size:10px;color:#888;margin-top:3px}
+.layout{display:flex;min-height:calc(100vh - 80px);flex-direction:column}
+@media(min-width:640px){.layout{flex-direction:row}}
+.sidebar{background:#1e1e1c;border-bottom:0.5px solid #2a2a28;overflow-x:auto}
+@media(min-width:640px){.sidebar{width:180px;min-width:180px;border-bottom:none;border-right:0.5px solid #2a2a28;overflow-x:visible;overflow-y:auto}}
+.sidebar-inner{display:flex;flex-direction:row;padding:8px;gap:4px}
+@media(min-width:640px){.sidebar-inner{flex-direction:column;padding:0;gap:0}}
+.sb-section{padding:10px 14px 4px;font-size:9px;color:#333;text-transform:uppercase;letter-spacing:0.08em;display:none}
+@media(min-width:640px){.sb-section{display:block}}
+.sb-item{padding:8px 14px;font-size:10px;cursor:pointer;border-left:2px solid transparent;color:#555;transition:all 0.1s;white-space:nowrap;display:flex;align-items:center;gap:6px;border-radius:3px;flex-shrink:0}
+@media(min-width:640px){.sb-item{border-radius:0;flex-shrink:1}}
 .sb-item:hover{color:#d4d2cc;background:#2c2c2a}
-.sb-item.active{color:#f1efe8;border-left-color:#c87840}
-.sb-item .dot{width:8px;height:8px;border-radius:1px;flex-shrink:0}
-.sb-item.dead{opacity:0.45}
-.main{flex:1;overflow-y:auto;padding:24px 28px;max-width:900px}
-.lang-header{display:flex;align-items:center;gap:12px;margin-bottom:6px}
-.lang-header h2{font-size:16px;font-weight:500;color:#f1efe8}
-.dead-badge{font-size:9px;padding:2px 8px;border-radius:3px;border:0.5px solid #444;color:#555;background:#1a1a18}
-.subtitle{font-size:10px;color:#555;margin-bottom:20px;font-style:italic}
-.section{margin-bottom:22px}
-.section h3{font-size:11px;font-weight:500;color:#666;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px;padding-bottom:5px;border-bottom:0.5px solid #242422}
+.sb-item.active{color:#f1efe8;border-left-color:#c87840;background:#242422}
+.sb-swatch{width:8px;height:8px;border-radius:1px;flex-shrink:0}
+.main{flex:1;overflow-y:auto}
+.panel{display:none;padding:20px}
+.panel.active{display:block}
+.p-header{display:flex;align-items:center;gap:10px;margin-bottom:4px;flex-wrap:wrap}
+.p-header h2{font-size:15px;font-weight:500;color:#f1efe8}
+.p-meta{font-size:10px;color:#444;margin-bottom:18px}
+.section-title{font-size:10px;font-weight:500;color:#555;text-transform:uppercase;letter-spacing:0.07em;margin:16px 0 8px;padding-bottom:4px;border-bottom:0.5px solid #1e1e1c}
+.ph-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+@media(min-width:480px){.ph-grid{grid-template-columns:repeat(3,1fr)}}
+.ph-card{background:#242422;border:0.5px solid #2a2a28;border-radius:4px;padding:8px 10px}
+.ph-card .l{font-size:9px;color:#444;margin-bottom:3px;text-transform:uppercase;letter-spacing:0.05em}
+.ph-card .v{font-size:11px;color:#a0c880;font-family:monospace}
+.note{background:#242422;border-left:2px solid #444;padding:8px 12px;border-radius:0 3px 3px 0;font-size:10px;color:#666;line-height:1.6;margin:8px 0;font-style:italic}
+.ex-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.ex-card{background:#242422;border:0.5px solid #2a2a28;border-radius:4px;padding:8px 10px}
+.ex-card .w{font-size:13px;color:#f1efe8;font-family:monospace;margin-bottom:2px}
+.ex-card .m{font-size:10px;color:#555}
+.ex-card .n{font-size:9px;color:#444;margin-top:2px;font-style:italic}
+.nb-block{background:#111;border:0.5px solid #2a2a28;border-radius:4px;padding:12px;margin-bottom:8px}
+.nb-params{display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.nb-p{background:#1e1e1c;border:0.5px solid #2a2a28;border-radius:3px;padding:4px 10px;font-size:10px}
+.nb-p .l{color:#444;font-size:9px}
+.nb-p .v{color:#c87840;font-family:monospace}
+.nb-words{font-family:monospace;font-size:10px;color:#666;line-height:1.8;word-break:break-all;background:#0e0e0c;border:0.5px solid #1e1e1c;border-radius:3px;padding:10px;position:relative;max-height:200px;overflow-y:auto}
+.copy-btn{position:sticky;top:0;float:right;background:#2c2c2a;border:0.5px solid #444;border-radius:3px;padding:3px 8px;font-size:9px;color:#888;cursor:pointer;margin-bottom:4px}
+.copy-btn:hover{color:#f1efe8;border-color:#888}
+.dead-badge{font-size:9px;padding:1px 6px;background:#1a1a18;border:0.5px solid #333;color:#444;border-radius:2px;margin-left:4px}
 p{font-size:11px;color:#888;line-height:1.7;margin-bottom:8px}
-.ph-wrap{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px}
-.ph{background:#242422;border:0.5px solid #2a2a28;border-radius:3px;padding:2px 7px;font-family:monospace;font-size:10px;color:#c87840}
-.ph.absent{color:#444;text-decoration:line-through;background:#1a1a18}
-.wgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:8px}
-.wcard{background:#242422;border:0.5px solid #2a2a28;border-radius:3px;padding:6px 8px}
-.wcard .w{font-family:monospace;font-size:11px;color:#f1efe8;margin-bottom:2px}
-.wcard .m{font-size:9px;color:#555}
-.rule{display:flex;gap:8px;margin-bottom:5px;font-size:10px}
-.rule .rl{color:#555;min-width:150px;flex-shrink:0}
-.rule .rv{color:#aaa}
-.ex{background:#242422;border-left:2px solid #333;padding:7px 10px;margin:5px 0;font-family:monospace;font-size:10px;color:#888;border-radius:0 3px 3px 0}
-.ex .tr{color:#555;font-style:italic;margin-top:2px}
-.nbblock{background:#1a1a18;border:0.5px solid #2a2a28;border-radius:4px;padding:12px 14px;margin-top:6px}
-.nbparams{display:flex;gap:16px;margin-bottom:8px}
-.nbparams span{font-size:10px;color:#666}
-.nbparams b{color:#c87840}
-.nbwords{font-family:monospace;font-size:9px;color:#555;line-height:1.8;word-break:break-all;cursor:pointer;border:0.5px dashed #242422;border-radius:3px;padding:8px;background:#242422;transition:all 0.15s}
-.nbwords:hover{color:#d4d2cc;border-color:#444}
-.hint{font-size:9px;color:#333;margin-top:4px}
+.hex-badge{font-family:monospace;font-size:9px;padding:2px 6px;border-radius:2px;color:#555;border:0.5px solid #2a2a28}
 </style>
 </head>
 <body>
 <div class="nav">
-  <a href="index.html">&#8592; Главная</a>
-  <span>Языки и словари</span>
+  <a href="index.html">← Главная</a>
+  <span style="color:#333;font-size:10px">Языки и словари</span>
 </div>
 <div class="spacer"></div>
+<div class="header">
+  <h1>ORBAT — Языки и словари</h1>
+  <p>Фонетика · Словообразование · Примеры · Namesbase</p>
+</div>
 <div class="layout">
 <div class="sidebar">
-  <div class="sb-section">Живые языки</div>
-  <div class="sb-item active" onclick="show('ullam')" id="sb-ullam"><span class="dot" style="background:#C4855A"></span>Уллам / Аммаи</div>
-  <div class="sb-item" onclick="show('aruvi')" id="sb-aruvi"><span class="dot" style="background:#C8502A"></span>Аруви</div>
-  <div class="sb-item" onclick="show('veeru')" id="sb-veeru"><span class="dot" style="background:#A86030"></span>Вееру</div>
-  <div class="sb-item" onclick="show('deullam')" id="sb-deullam"><span class="dot" style="background:#4A5A38"></span>Де-Уллам</div>
-  <div class="sb-item" onclick="show('haaru')" id="sb-haaru"><span class="dot" style="background:#8AAFC0"></span>Хаару</div>
-  <div class="sb-item" onclick="show('aala')" id="sb-aala"><span class="dot" style="background:#3A8C78"></span>Аала</div>
-  <div class="sb-item" onclick="show('kaam')" id="sb-kaam"><span class="dot" style="background:#9A4030"></span>Каам</div>
-  <div class="sb-section">Мёртвые языки</div>
-  <div class="sb-item dead" onclick="show('proyarvi')" id="sb-proyarvi"><span class="dot" style="background:#8AAFC0;opacity:0.4"></span>Протоярви</div>
-  <div class="sb-item dead" onclick="show('proalaroi')" id="sb-proalaroi"><span class="dot" style="background:#3A8C78;opacity:0.4"></span>Протоаларои</div>
-  <div class="sb-item dead" onclick="show('aalahaaru')" id="sb-aalahaaru"><span class="dot" style="background:#6A9FB0;opacity:0.4"></span>Аала-Хаару</div>
-  <div class="sb-section">Прочее</div>
-  <div class="sb-item" onclick="show('shum')" id="sb-shum"><span class="dot" style="background:#666"></span>Шум (сигнальная)</div>
+  <div class="sidebar-inner">
+    <div class="sb-section">Корень-семья</div>
+    <div class="sb-item active" onclick="show('ullam')"><span class="sb-swatch" style="background:#C4855A"></span>Уллам / Аммаи</div>
+    <div class="sb-item" onclick="show('makkal')"><span class="sb-swatch" style="background:#A83020"></span>Маккал</div>
+    <div class="sb-item" onclick="show('marai')"><span class="sb-swatch" style="background:#7A5030"></span>Мараи</div>
+    <div class="sb-item" onclick="show('deullam')"><span class="sb-swatch" style="background:#4A5A38"></span>Де-Уллам</div>
+    <div class="sb-section">Протоярви-семья</div>
+    <div class="sb-item" onclick="show('yarvi')"><span class="sb-swatch" style="background:#6A9FB0"></span>Ярви</div>
+    <div class="sb-item" onclick="show('veldy')"><span class="sb-swatch" style="background:#6B7A3A"></span>Велды</div>
+    <div class="sb-section">Тюркская ветка</div>
+    <div class="sb-item" onclick="show('tengir')"><span class="sb-swatch" style="background:#C8A040"></span>Тенгир</div>
+    <div class="sb-section">Морские</div>
+    <div class="sb-item" onclick="show('aala')"><span class="sb-swatch" style="background:#3A8C78"></span>Аалои</div>
+    <div class="sb-item" onclick="show('hadjar')"><span class="sb-swatch" style="background:#4A6080"></span>Хаджар</div>
+    <div class="sb-section">Группа В</div>
+    <div class="sb-item" onclick="show('kaam')"><span class="sb-swatch" style="background:#9A4030"></span>Каам</div>
+    <div class="sb-section">Мёртвые</div>
+    <div class="sb-item" onclick="show('proyarvi')"><span class="sb-swatch" style="background:#8AAFC0;opacity:0.4"></span>Протоярви ⚰</div>
+    <div class="sb-item" onclick="show('proalaroi')"><span class="sb-swatch" style="background:#3A8C78;opacity:0.4"></span>Протоаларои ⚰</div>
+    <div class="sb-item" onclick="show('aalahaaru')"><span class="sb-swatch" style="background:#6A9FB0;opacity:0.4"></span>Аала-Хаару ⚰</div>
+    <div class="sb-section">Фон</div>
+    <div class="sb-item" onclick="show('dikari')"><span class="sb-swatch" style="background:#666"></span>Дикари</div>
+  </div>
 </div>
-<div class="main" id="main"></div>
+
+<div class="main">
+
+<!-- УЛЛАМ / АММАИ -->
+<div class="panel active" id="l-ullam">
+  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#C4855A;flex-shrink:0"></div><h2>Уллам / Аммаи</h2><span class="hex-badge">#C4855A</span></div>
+  <div class="p-meta">Корень — архаичный агглютинативный · Праоснова · -100 000 до н.э. — настоящее время</div>
+  <div class="section-title">Фонетика</div>
+  <div class="ph-grid">
+    <div class="ph-card"><div class="l">Гласные</div><div class="v">а аа и ии у уу е</div></div>
+    <div class="ph-card"><div class="l">Ретрофлексные</div><div class="v">тт дд нн лл</div></div>
+    <div class="ph-card"><div class="l">Согласные</div><div class="v">к г т д н л р в м с ч п</div></div>
+    <div class="ph-card"><div class="l">Структура слога</div><div class="v">открытые CV / CVV</div></div>
+    <div class="ph-card"><div class="l">Порядок слов</div><div class="v">SOV — глагол в конце</div></div>
+    <div class="ph-card"><div class="l">Морфология</div><div class="v">агглютинативная, послелоги</div></div>
+  </div>
+  <div class="note">Долгие гласные (аа, ии, уу) и ретрофлексные согласные — главные маркеры. Топонимы строятся сложением через дефис: Аммаи-куттам, Тии-куттам.</div>
+  <div class="section-title">Примеры слов</div>
+  <div class="ex-grid">
+    <div class="ex-card"><div class="w">уллам</div><div class="m">внутренний человек, душа, намерение</div><div class="n">главное философское понятие</div></div>
+    <div class="ex-card"><div class="w">аммаи</div><div class="m">мать, мать-река</div></div>
+    <div class="ex-card"><div class="w">аттаи</div><div class="m">отец, отец-гора</div></div>
+    <div class="ex-card"><div class="w">тии</div><div class="m">огонь (ритуальный)</div></div>
+    <div class="ex-card"><div class="w">нааттам</div><div class="m">наши люди, народ</div></div>
+    <div class="ex-card"><div class="w">муттааи</div><div class="m">хранитель памяти</div><div class="n">первая жреческая каста</div></div>
+    <div class="ex-card"><div class="w">аммаи-куттам</div><div class="m">слияние рек матери</div><div class="n">первое священное место</div></div>
+    <div class="ex-card"><div class="w">уримаи</div><div class="m">право на место, принадлежность</div><div class="n">появилось у Аммаи как оседлых</div></div>
+  </div>
+  <div class="section-title">Namesbase</div>
+  <div class="nb-block">
+    <div class="nb-params">
+      <div class="nb-p"><div class="l">Length</div><div class="v">5 — 10</div></div>
+      <div class="nb-p"><div class="l">Doubled</div><div class="v">аи</div></div>
+    </div>
+    <div class="nb-words" id="nb-ullam"><button class="copy-btn" onclick="copyNb('nb-ullam',this)">Копировать</button>Маллаи,Аруви,Ниллам,Уллам,Аттаи,Аммаи,Маккал,Тии,Мирам,Веттаи,Паанаи,Каттам,Вееру,Уйир,Минну,Нааттам,Муттааи,Пулли,Маарбу,Уттиру,Каийи,Веллаи,Мазаи,Варуттам,Каалаи,Маалаи,Иллаи,Перум,Каннну,Вааи,Паайи,Кааду,Ираву,Паккал,Куллир,Таниир,Удаймаи,Коллаи,Вилл,Куттал,Валаи,Падаку,Толил,Уримаи,Кааппу,Нааллу,Мунпу,Пинпу,Пуллималлаи,Аммаикуттам,Тиикуттам,Перумаммаи,Маллаиуллам,Нилламаккал,Арувиуллам,Муттааивааи,Перуматтаи,Перумуллам,Аттаималлаи,Аммаиаруви,Каттаммирам,Нааттамтии,Маккалуйир,Веттаимирам,Паанаиаттаи,Маллаитии,Нилламаруви,Перумкаттам,Каийивалаи,Вааиуллам,Маарбутии,Уттирунааттам,Муттааималлаи,Иллаиуйир,Перумветтаи,Аммаитии,Аттаиуллам,Нааттамаруви,Маллаикаттам,Нилламуйир,Тиивилл,Кутталаруви,Валаиминну,Уримаиниллам,Перумнааттам,Каалаитии,Маалаиуллам,Мазаиаруви,Веллаималлаи,Иравумирам,Паккалуйир,Куллиртаниир,Удаймаинааттам,Маккаларуви,Муттааиуллам,Аммаиниллам,Аттаималлаи,Перумтии,Нааттаммаккал,Уйираруви</div>
+  </div>
+</div>
+
+<!-- МАККАЛ -->
+<div class="panel" id="l-makkal">
+  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#A83020;flex-shrink:0"></div><h2>Маккал</h2><span class="hex-badge">#A83020</span></div>
+  <div class="p-meta">Корень военный · Origins: Аруви → Уллам · -20 000 до н.э.</div>
+  <div class="section-title">Фонетика</div>
+  <div class="ph-grid">
+    <div class="ph-card"><div class="l">Основа</div><div class="v">Корень (Уллам)</div></div>
+    <div class="ph-card"><div class="l">Новая лексика</div><div class="v">военная, территориальная</div></div>
+    <div class="ph-card"><div class="l">Особенность</div><div class="v">короткие ударные слоги</div></div>
+  </div>
+  <div class="note">Аруви набожные — Маккал воинственные. Один язык, разный словарь. Понятие «эллаи» (граница) стало центральным. Язык жёстче, меньше дифтонгов, больше закрытых слогов.</div>
+  <div class="section-title">Примеры слов</div>
+  <div class="ex-grid">
+    <div class="ex-card"><div class="w">маккал</div><div class="m">люди, народ (самоназвание)</div></div>
+    <div class="ex-card"><div class="w">порран</div><div class="m">война, столкновение</div></div>
+    <div class="ex-card"><div class="w">эллаи</div><div class="m">граница, предел территории</div></div>
+    <div class="ex-card"><div class="w">талайвар</div><div class="m">командир отряда</div></div>
+    <div class="ex-card"><div class="w">велли</div><div class="m">победа</div></div>
+    <div class="ex-card"><div class="w">чолан</div><div class="m">испытание воина</div></div>
+  </div>
+  <div class="section-title">Namesbase</div>
+  <div class="nb-block">
+    <div class="nb-params">
+      <div class="nb-p"><div class="l">Length</div><div class="v">4 — 9</div></div>
+      <div class="nb-p"><div class="l">Doubled</div><div class="v">аи</div></div>
+    </div>
+    <div class="nb-words" id="nb-makkal"><button class="copy-btn" onclick="copyNb('nb-makkal',this)">Копировать</button>Маккал,Маккала,Маккалви,Маккалан,Порран,Порранаи,Велланаи,Велли,Веллан,Веллаан,Каттан,Каттанаи,Каттаан,Тилан,Тилаан,Тилви,Налан,Налаан,Налви,Паттан,Паттаан,Коллан,Коллаан,Иллан,Иллаан,Мирам,Мираан,Аттан,Аттаан,Вираан,Виран,Натан,Натаан,Мутан,Мутаан,Тираан,Тиран,Чолан,Чолаан,Пандан,Пандаан,Маккалпорран,Велланмаккал,Каттантилан,Тиланмаккал,Налавеллан,Паттанпорран,Колланмаккал,Мирамтилан,Аттанвеллан,Виранмаккал,Натанкаттан,Мутанпорран,Тиранвеллан,Чоланмаккал,Пандантилан,Маккаланпорран,Веллаанкаттан,Каттааннала,Тилааанмаккал,Паттаанвира,Коллааннатан,Мирааммута,Аттааатира,Вираанчола,Натаанпанда,Маккалвипорран,Веллвикаттан,Маккалнала,Веллантила,Каттаннала,Тиланвела,Налавела,Паттанвела,Колланвела,Иллавела,Мирамвела,Аттанвела,Виранвела,Натанвела,Мутанвела,Тиранвела,Чоланвела,Маккалтила,Веллатила</div>
+  </div>
+</div>
+
+<!-- МАРАИ -->
+<div class="panel" id="l-marai">
+  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#7A5030;flex-shrink:0"></div><h2>Мараи</h2><span class="hex-badge">#7A5030</span></div>
+  <div class="p-meta">Пиджин Корень + Банту · Origins: Аруви + Каам · -20 000 до н.э.</div>
+  <div class="section-title">Фонетика</div>
+  <div class="ph-grid">
+    <div class="ph-card"><div class="l">Основа</div><div class="v">смесь Корня и Банту</div></div>
+    <div class="ph-card"><div class="l">Гласные</div><div class="v">а е и о у (тональные слабо)</div></div>
+    <div class="ph-card"><div class="l">Особенность</div><div class="v">первый межсемейный язык</div></div>
+  </div>
+  <div class="note">Первый пиджин континента. Около ста слов которые понимают оба народа. Слова Корня с банту-суффиксами. Не ни то ни другое — новое.</div>
+  <div class="section-title">Примеры слов</div>
+  <div class="ex-grid">
+    <div class="ex-card"><div class="w">мараи</div><div class="m">равнина, открытое место (самоназвание)</div></div>
+    <div class="ex-card"><div class="w">аруни</div><div class="m">течение, вода (от Аруви)</div></div>
+    <div class="ex-card"><div class="w">нгомаи</div><div class="m">барабан-ритуал (от Каам)</div></div>
+    <div class="ex-card"><div class="w">симани</div><div class="m">большой зверь (от Каам симба)</div></div>
+    <div class="ex-card"><div class="w">тиини</div><div class="m">огонь (от Корень тии)</div></div>
+    <div class="ex-card"><div class="w">аммаи</div><div class="m">мать (Корень, сохранилось)</div></div>
+  </div>
+  <div class="section-title">Namesbase</div>
+  <div class="nb-block">
+    <div class="nb-params">
+      <div class="nb-p"><div class="l">Length</div><div class="v">4 — 9</div></div>
+      <div class="nb-p"><div class="l">Doubled</div><div class="v">аоу</div></div>
+    </div>
+    <div class="nb-words" id="nb-marai"><button class="copy-btn" onclick="copyNb('nb-marai',this)">Копировать</button>Мараи,Марани,Маранго,Мараан,Марави,Тании,Таниго,Таниан,Аруни,Арунго,Арунан,Каамви,Каамго,Каамаи,Симаи,Симани,Симанго,Нгомаи,Нгомани,Нгоман,Пулаи,Пулани,Пулан,Аммаи,Аммани,Тиини,Тиинго,Тиинан,Маккаи,Маккани,Руахаи,Руахани,Руахан,Колами,Коламго,Коламан,Пазами,Пазамго,Пазаман,Кадуи,Кадуни,Кадуго,Нгалаи,Нгалани,Нгалан,Мбугаи,Мбугани,Мбуган,Мараитании,Симанингома,Арунакаам,Пулунимараи,Аммаимаран,Тиинимараи,Нгомааруни,Руахатании,Коламимараи,Пазамиаруни,Кадуингома,Нгалаимараи,Мбугааруни,Марангтиини,Симангокаам,Арунгомараи,Каамгонгома,Нгомангоаруни,Пулангомараи,Аммаготании,Руахамараи,Коламаруни,Нгаланаруни,Марайнгомаи,Симайаммаи,Арунипулани,Тиинингома</div>
+  </div>
+</div>
+
+<!-- ДЕ-УЛЛАМ -->
+<div class="panel" id="l-deullam">
+  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#4A5A38;flex-shrink:0"></div><h2>Де-Уллам</h2><span class="hex-badge">#4A5A38</span></div>
+  <div class="p-meta">Корень изолят — болотная ветка · Origins: Уллам · -60 000 до н.э. · 40 000 лет изоляции</div>
+  <div class="section-title">Фонетика</div>
+  <div class="ph-grid">
+    <div class="ph-card"><div class="l">Доминируют</div><div class="v">носовые нн мм ан нни аан</div></div>
+    <div class="ph-card"><div class="l">Гласные</div><div class="v">а аа и н (слоговое)</div></div>
+    <div class="ph-card"><div class="l">Посторонним</div><div class="v">звучит как вой или плач</div></div>
+  </div>
+  <div class="note">«Де-Уллам» — внешнее прозвище. Сами себя они Нааннаи — «те кто между» живыми и мёртвыми. Это не самоуничижение — это онтология.</div>
+  <div class="section-title">Примеры слов</div>
+  <div class="ex-grid">
+    <div class="ex-card"><div class="w">нааннаи</div><div class="m">те кто между (самоназвание)</div></div>
+    <div class="ex-card"><div class="w">нилли</div><div class="m">мягкая трясина</div></div>
+    <div class="ex-card"><div class="w">аннам</div><div class="m">утренний туман</div></div>
+    <div class="ex-card"><div class="w">маннааннам</div><div class="m">болотный газ, горящий сам по себе</div><div class="n">священное явление</div></div>
+    <div class="ex-card"><div class="w">уллани</div><div class="m">предок живущий в воде</div></div>
+    <div class="ex-card"><div class="w">нааллааннам</div><div class="m">состояние между живым и мёртвым</div></div>
+  </div>
+  <div class="section-title">Namesbase</div>
+  <div class="nb-block">
+    <div class="nb-params">
+      <div class="nb-p"><div class="l">Length</div><div class="v">5 — 11</div></div>
+      <div class="nb-p"><div class="l">Doubled</div><div class="v">ан</div></div>
+    </div>
+    <div class="nb-words" id="nb-deullam"><button class="copy-btn" onclick="copyNb('nb-deullam',this)">Копировать</button>Нилла,Аннаи,Уллани,Маннаи,Нимму,Аммани,Таниир,Нилланни,Нинни,Намму,Нилли,Аннам,Маннам,Мааннам,Аннанни,Уллааннаи,Нааннаи,Маннааннам,Ниллаанни,Аннааннам,Уллааннам,Нилламаннаи,Аммааннаи,Нааллааннам,Маннааллаи,Ниннааннаи,Аннааллам,Нилла-аннаи,Маннаи-нилли,Нимму-таниир,Аммани-нилла,Уллани-маннам,Нилланни-нимму,Нинни-аннам,Намму-нилла,Нилли-маннаи,Мааннам-аннаи,Аннанни-нилла,Уллааннаи-намму,Нааннаи-маннам,Маннааннам-нилли,Ниллаанни-аннаи,Аннааннам-нимму,Уллааннам-таниир,Нилламаннаи-нинни,Аммааннаи-нилла,Нааллааннам-маннаи,Маннааллаи-нимму,Ниннааннаи-аннам,Аннааллам-нилли</div>
+  </div>
+</div>
+
+<!-- ЯРВИ -->
+<div class="panel" id="l-yarvi">
+  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#6A9FB0;flex-shrink:0"></div><h2>Ярви</h2><span class="hex-badge">#6A9FB0</span></div>
+  <div class="p-meta">Финский тип · Origins: Хаару → Протоярви → Уллам · -20 000 до н.э.</div>
+  <div class="section-title">Фонетика</div>
+  <div class="ph-grid">
+    <div class="ph-card"><div class="l">Гласные</div><div class="v">а аа е о оо у уу</div></div>
+    <div class="ph-card"><div class="l">Ретрофлексные</div><div class="v">исчезли полностью</div></div>
+    <div class="ph-card"><div class="l">Гармония гласных</div><div class="v">жёсткая — задние/передние</div></div>
+    <div class="ph-card"><div class="l">Носовые</div><div class="v">нг мн — отдельные звуки</div></div>
+    <div class="ph-card"><div class="l">Удвоение</div><div class="v">аоу (не е)</div></div>
+    <div class="ph-card"><div class="l">Тип</div><div class="v">протофинский, агглютинативный</div></div>
+  </div>
+  <div class="note">Ярви назвали себя по священному озеру. Богатейшая природная и озёрная лексика. Жертвенные слова для воды — отдельная семантическая группа.</div>
+  <div class="section-title">Примеры слов</div>
+  <div class="ex-grid">
+    <div class="ex-card"><div class="w">яарви</div><div class="m">священное озеро (самоназвание)</div></div>
+    <div class="ex-card"><div class="w">ранта</div><div class="m">берег</div></div>
+    <div class="ex-card"><div class="w">луми</div><div class="m">снег</div></div>
+    <div class="ex-card"><div class="w">нгаал</div><div class="m">ледяная стена</div></div>
+    <div class="ex-card"><div class="w">йоутсен</div><div class="m">лебедь</div><div class="n">птица священного озера</div></div>
+    <div class="ex-card"><div class="w">метсяя</div><div class="m">тайга</div><div class="n">новое слово когда лёд отступил</div></div>
+  </div>
+  <div class="section-title">Namesbase</div>
+  <div class="nb-block">
+    <div class="nb-params">
+      <div class="nb-p"><div class="l">Length</div><div class="v">4 — 8</div></div>
+      <div class="nb-p"><div class="l">Doubled</div><div class="v">аоу</div></div>
+    </div>
+    <div class="nb-words" id="nb-yarvi"><button class="copy-btn" onclick="copyNb('nb-yarvi',this)">Копировать</button>Яарви,Ярви,Ранта,Йоки,Луми,Мери,Саари,Ниеми,Лахти,Уома,Хаару,Суо,Метса,Карху,Пеура,Хирви,Линту,Пилви,Кивее,Талви,Коол,Нгаал,Суооми,Яарвила,Рантала,Йокила,Лумила,Мерила,Саарила,Ниемила,Лахтила,Уомала,Карила,Пеурала,Хирвила,Линтула,Пилвила,Кивила,Талвила,Хаарула,Суола,Метсала,Яарвиранта,Яарвийоки,Рантайоки,Луминиеми,Мериниеми,Саариранта,Лахтиранта,Суониеми,Метсайоки,Карихаару,Пеураметса,Хирвиранта,Линтуниеми,Пилвисаари,Кивиранта,Талвийоки,Нгаалранта,Хаарусаари,Яарвиметса,Луминранта,Мерисаари,Рантакиви,Йокиметса,Лахтисаари,Нгаалйоки,Суомиранта,Хирвийоки,Пеурасаари,Карухаару,Талвиниеми,Кивисаари,Линтуранта,Метсаниеми,Яарвикиви,Рантасуо,Хааруранта,Суосаари,Лахтийоки,Пилвиранта,Нгаалметса,Яарвисуо,Рантаниеми,Кивийоки,Луминсаари</div>
+  </div>
+</div>
+
+<!-- ВЕЛДЫ -->
+<div class="panel" id="l-veldy">
+  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#6B7A3A;flex-shrink:0"></div><h2>Велды</h2><span class="hex-badge">#6B7A3A</span></div>
+  <div class="p-meta">Протославянский тип · Origins: Хаару + Вееру · -20 000 до н.э.</div>
+  <div class="section-title">Фонетика</div>
+  <div class="ph-grid">
+    <div class="ph-card"><div class="l">Основа</div><div class="v">Корень + финский + степной</div></div>
+    <div class="ph-card"><div class="l">Особенность</div><div class="v">падежная система зарождается</div></div>
+    <div class="ph-card"><div class="l">Гласные</div><div class="v">а е и о у аа ее</div></div>
+  </div>
+  <div class="note">Три языка в одном. Корень от Уллам, финская фонетика от Хаару, степная лексика от Вееру. Первый язык на континенте с зачатком падежей — пространственные отношения начинают различаться.</div>
+  <div class="section-title">Примеры слов</div>
+  <div class="ex-grid">
+    <div class="ex-card"><div class="w">велд</div><div class="m">открытое поле, земля (самоназвание)</div></div>
+    <div class="ex-card"><div class="w">велдава</div><div class="m">место у реки, поселение</div></div>
+    <div class="ex-card"><div class="w">каалви</div><div class="m">холодная вода</div></div>
+    <div class="ex-card"><div class="w">суолдав</div><div class="m">болотное место</div></div>
+    <div class="ex-card"><div class="w">ранталви</div><div class="m">зимний берег</div></div>
+    <div class="ex-card"><div class="w">метсавел</div><div class="m">лесное поле</div></div>
+  </div>
+  <div class="section-title">Namesbase</div>
+  <div class="nb-block">
+    <div class="nb-params">
+      <div class="nb-p"><div class="l">Length</div><div class="v">4 — 9</div></div>
+      <div class="nb-p"><div class="l">Doubled</div><div class="v">еа</div></div>
+    </div>
+    <div class="nb-words" id="nb-veldy"><button class="copy-btn" onclick="copyNb('nb-veldy',this)">Копировать</button>Велд,Велда,Велдава,Каалви,Маллви,Арвела,Коолдав,Веелдас,Ранталви,Метсавел,Суолдав,Велдаран,Каалвела,Маллвела,Арвелас,Коолдава,Веелдава,Ранталвас,Метсавела,Суолдава,Вела,Велас,Велар,Велдас,Маллас,Каалас,Арвас,Коолас,Веелас,Ранталас,Велдавела,Каалдав,Маллдав,Арвдав,Коолвел,Веелвел,Ранталвел,Суолвел,Велдакаал,Маллвелд,Арвелавел,Коолдавел,Веелдавел,Ранталвелд,Велдаранта,Каалвелд,Маллвелда,Велдасуол,Маллметса,Каалранта,Арвесуол,Коолметса,Веелранта,Суолметса,Велдавелд,Маллкаал,Арверанта,Коолвелда,Маллсуол,Каалметса,Велдакоол,Арвевелд,Суолкаал,Велдаметса,Маллранта,Каалвелда,Велдасаар,Маллвелдас,Коолрант,Суолранта,Метсакаал,Рантавелд,Каалсуол,Маллвелдава,Велдаметсал,Арвекаал,Коолвелдав,Суолвелд,Метсарант</div>
+  </div>
+</div>
+
+<!-- ТЕНГИР -->
+<div class="panel" id="l-tengir">
+  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#C8A040;flex-shrink:0"></div><h2>Тенгир</h2><span class="hex-badge">#C8A040</span></div>
+  <div class="p-meta">Тюркский тип · Origins: Вееру → Уллам · -20 000 до н.э.</div>
+  <div class="section-title">Фонетика</div>
+  <div class="ph-grid">
+    <div class="ph-card"><div class="l">Гласные</div><div class="v">а е и о у ы</div></div>
+    <div class="ph-card"><div class="l">Топонимика</div><div class="v">Сары- Кара- Ак- Кок- Кызыл-</div></div>
+    <div class="ph-card"><div class="l">Суффиксы</div><div class="v">-таш (камень) -кол (озеро) -су (вода) -тау (гора)</div></div>
+    <div class="ph-card"><div class="l">Особенность</div><div class="v">цветовые префиксы в топонимах</div></div>
+    <div class="ph-card"><div class="l">Порядок слов</div><div class="v">SOV сохранён</div></div>
+    <div class="ph-card"><div class="l">Тип</div><div class="v">агглютинативный, суффиксальный</div></div>
+  </div>
+  <div class="note">За Аттаи небо другое — выше, ближе. Тенгри — небо как живое существо. Степная топонимика строится из цвета + природного объекта: Сарытау (жёлтая гора), Каракол (чёрное озеро).</div>
+  <div class="section-title">Примеры слов</div>
+  <div class="ex-grid">
+    <div class="ex-card"><div class="w">тенгир</div><div class="m">небо, бог-небо (самоназвание)</div></div>
+    <div class="ex-card"><div class="w">тенгиркол</div><div class="m">небесное озеро (священная стоянка)</div></div>
+    <div class="ex-card"><div class="w">сарыташ</div><div class="m">жёлтый камень</div></div>
+    <div class="ex-card"><div class="w">каратау</div><div class="m">чёрная гора</div></div>
+    <div class="ex-card"><div class="w">актенгир</div><div class="m">белое небо (рассвет)</div></div>
+    <div class="ex-card"><div class="w">орду</div><div class="m">временный лагерь-стоянка</div></div>
+  </div>
+  <div class="section-title">Namesbase</div>
+  <div class="nb-block">
+    <div class="nb-params">
+      <div class="nb-p"><div class="l">Length</div><div class="v">5 — 10</div></div>
+      <div class="nb-p"><div class="l">Doubled</div><div class="v">аоу</div></div>
+    </div>
+    <div class="nb-words" id="nb-tengir"><button class="copy-btn" onclick="copyNb('nb-tengir',this)">Копировать</button>Тенгир,Тенгри,Тенгел,Тенгул,Сарыташ,Сарыкол,Сарыгол,Сарысу,Сарытау,Караташ,Каракол,Карагол,Карасу,Каратау,Акташ,Аккол,Аксу,Актау,Кызылкол,Кызылгол,Кызылсу,Кызылтау,Кокташ,Коккол,Коксу,Коктау,Таштау,Ташкол,Тоохта,Тооктамыс,Тооктакол,Тооктасу,Башташ,Башкол,Башсу,Баштау,Терсташ,Терскол,Терсмыс,Ататаш,Атакол,Атасу,Ярташ,Яркол,Ярсу,Борташ,Боркол,Борсу,Талташ,Талкол,Талсу,Нарташ,Наркол,Нарсу,Булакташ,Булаксу,Курганташ,Кургангол,Ордуташ,Ордугол,Монхташ,Монхгол,Тенгирташ,Тенгиркол,Тенгирсу,Тенгиртау,Тенгиргол,Сарытенгир,Каратенгир,Актенгир,Кызылтенгир,Коктенгир,Баштенгир,Тенгиркент,Тенгирорду,Сарыорду,Кокорду,Акорду,Кызылорду,Карабаш,Акбаш,Сарыбулак,Акбулак,Каракурган,Тенгиркурган,Коккурган,Акмонх,Сарымонх,Тенгирнар,Акнар,Сарынар,Каранар,Тенгирбулак,Сарыатакол</div>
+  </div>
+</div>
+
+<!-- ААЛОИ -->
+<div class="panel" id="l-aala">
+  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#3A8C78;flex-shrink:0"></div><h2>Аалои</h2><span class="hex-badge">#3A8C78</span></div>
+  <div class="p-meta">Протоэллинский тип · Origins: Протоаларои → Уллам · -60 000 до н.э.</div>
+  <div class="section-title">Фонетика</div>
+  <div class="ph-grid">
+    <div class="ph-card"><div class="l">Гласные</div><div class="v">а е и о у аи ои еу</div></div>
+    <div class="ph-card"><div class="l">Дифтонги</div><div class="v">аи ои еу — характерная черта</div></div>
+    <div class="ph-card"><div class="l">Суффикс</div><div class="v">-ос -ас -ои — имена мест и существ</div></div>
+    <div class="ph-card"><div class="l">Ритм</div><div class="v">короткий + длинный слог</div></div>
+    <div class="ph-card"><div class="l">Мутация</div><div class="v">к → ч перед е, и</div></div>
+    <div class="ph-card"><div class="l">Тип</div><div class="v">флексия зарождается</div></div>
+  </div>
+  <div class="note">Обогатилась навигационной лексикой от Аала-Хаару — звёздные названия, типы течений, виды берегов. Первые имена для небесных объектов.</div>
+  <div class="section-title">Примеры слов</div>
+  <div class="ex-grid">
+    <div class="ex-card"><div class="w">аала</div><div class="m">море (первое слово вне Корня)</div></div>
+    <div class="ex-card"><div class="w">нерос</div><div class="m">течение</div></div>
+    <div class="ex-card"><div class="w">лимнос</div><div class="m">бухта, закрытая вода</div></div>
+    <div class="ex-card"><div class="w">аркос</div><div class="m">начало пути (первый порт)</div></div>
+    <div class="ex-card"><div class="w">тенгераала</div><div class="m">звёздное море (ночное небо)</div></div>
+    <div class="ex-card"><div class="w">нгарукаал</div><div class="m">время волн, прилив</div></div>
+  </div>
+  <div class="section-title">Namesbase</div>
+  <div class="nb-block">
+    <div class="nb-params">
+      <div class="nb-p"><div class="l">Length</div><div class="v">4 — 8</div></div>
+      <div class="nb-p"><div class="l">Doubled</div><div class="v">аои</div></div>
+    </div>
+    <div class="nb-words" id="nb-aala"><button class="copy-btn" onclick="copyNb('nb-aala',this)">Копировать</button>Аала,Аалас,Тои,Каелос,Меас,Полеи,Наосос,Демос,Аркос,Нерос,Талос,Карос,Пелос,Миносс,Криос,Аргос,Лимнос,Родос,Корос,Патос,Тирос,Элос,Кастос,Марос,Велос,Гелос,Фарос,Аксос,Дорос,Уллаи,Аттаи,Аммаи,Тии,Маллаи,Аруви,Минну,Ниллам,Перум,Тенгераала,Ааласвака,Нгарукаал,Аркоснерос,Аалосниллам,Неросаруви,Лимностии,Фаросмаллаи,Ааласполеи,Талоснерос,Каелосаала,Меаснерос,Демосаала,Аркосаала,Кароснерос,Пелосаала,Аргоснерос,Лимносаала,Родоснерос,Коросаала,Патоснерос,Тиросаала,Элоснерос,Кастосаала,Маросаала,Велоснерос,Фаросаала,Аксоснерос,Доросаала,Аалакаелос,Неростои,Ааласнерос,Тоиаала,Полеинерос</div>
+  </div>
+</div>
+
+<!-- ХАДЖАР -->
+<div class="panel" id="l-hadjar">
+  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#4A6080;flex-shrink:0"></div><h2>Хаджар</h2><span class="hex-badge">#4A6080</span></div>
+  <div class="p-meta">Венгерский тип · Origins: Группа Б (независимая) · -20 000 до н.э.</div>
+  <div class="section-title">Фонетика</div>
+  <div class="ph-grid">
+    <div class="ph-card"><div class="l">Гласные</div><div class="v">а е и о у ё — и долгие аа ее ии оо</div></div>
+    <div class="ph-card"><div class="l">Характерные</div><div class="v">дь нь ч ш ж — маркеры языка</div></div>
+    <div class="ph-card"><div class="l">Гармония</div><div class="v">передние или задние — не вместе</div></div>
+    <div class="ph-card"><div class="l">Суффиксы</div><div class="v">-вар (место) -фёлд (земля) -бан (внутри)</div></div>
+    <div class="ph-card"><div class="l">Предлоги</div><div class="v">нет — всё через суффиксы к слову</div></div>
+    <div class="ph-card"><div class="l">Тип</div><div class="v">агглютинативный, суффиксальный</div></div>
+  </div>
+  <div class="note">Посторонним звучит как будто каждое слово длиннее чем нужно. Короткий корень несёт смысл, суффиксный хвост — всё остальное. Реев-бан (на лодке), реев-бол (с лодки), реев-хоз (к лодке).</div>
+  <div class="section-title">Примеры слов</div>
+  <div class="ex-grid">
+    <div class="ex-card"><div class="w">хаджар</div><div class="m">те кто идут по воде (самоназвание)</div></div>
+    <div class="ex-card"><div class="w">добош</div><div class="m">ритм, бог-принцип, барабанщик</div></div>
+    <div class="ex-card"><div class="w">реев</div><div class="m">большая лодка флотилии</div></div>
+    <div class="ex-card"><div class="w">чёнд</div><div class="m">тишина между ударами (священный момент)</div></div>
+    <div class="ex-card"><div class="w">виз</div><div class="m">вода</div></div>
+    <div class="ex-card"><div class="w">эреш</div><div class="m">сила, мощь гребца</div></div>
+  </div>
+  <div class="section-title">Namesbase</div>
+  <div class="nb-block">
+    <div class="nb-params">
+      <div class="nb-p"><div class="l">Length</div><div class="v">4 — 9</div></div>
+      <div class="nb-p"><div class="l">Doubled</div><div class="v">еоа</div></div>
+    </div>
+    <div class="nb-words" id="nb-hadjar"><button class="copy-btn" onclick="copyNb('nb-hadjar',this)">Копировать</button>Хаджар,Добош,Реев,Чёнд,Виз,Тенгер,Иген,Эреш,Дьёр,Мишч,Эштер,Чёпел,Нэпош,Кёреш,Хаддош,Дьёнд,Кённьу,Рееввиз,Добошреев,Хаджарвиз,Тенгердош,Визтенгер,Эрешдош,Кённьудош,Чёндреев,Дьёрдош,Мишчреев,Эштердош,Чёпелреев,Хаджардош,Добошвиз,Тенгерреев,Кёрешреев,Нэпошреев,Дьёндреев,Хаджартенгер,Добоштенгер,Эрешреев,Кённьуреев,Чёндвиз,Дьёрвиз,Мишчвиз,Эштерреев,Чёпелдош,Хаджарчёнд,Добошчёнд,Тенгерчёнд,Визчёнд,Кёрешчёнд,Эрешчёнд,Кённьучёнд,Дьёрчёнд,Нэпошчёнд,Визвар,Рееввар,Тенгервар,Добошвар,Хаджарвар,Дьёрвар,Мишчвар,Эштервар,Визфёлд,Тенгерфёлд,Добошфёлд,Хаджарфёлд,Дьёрфёлд,Мишчфёлд,Эштерфёлд,Визбан,Тенгербан,Добошбан,Хаджарбан,Дьёрбан,Мишчбан,Эштербан,Дьёнддош,Хаддошвиз,Эрешвиз,Кённьувиз,Чёндтенгер,Хаджаркённьу,Нэпоштенгер,Добошкённьу,Тенгеркёреш,Хаджаркёреш</div>
+  </div>
+</div>
+
+<!-- КААМ -->
+<div class="panel" id="l-kaam">
+  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#9A4030;flex-shrink:0"></div><h2>Каам</h2><span class="hex-badge">#9A4030</span></div>
+  <div class="p-meta">Банту тип · Origins: Группа В (южный материк) · -42 000 до н.э.</div>
+  <div class="section-title">Фонетика</div>
+  <div class="ph-grid">
+    <div class="ph-card"><div class="l">Гласные</div><div class="v">а е и о у — тональные</div></div>
+    <div class="ph-card"><div class="l">Назальные кластеры</div><div class="v">мб нд нг нз — в начале слова</div></div>
+    <div class="ph-card"><div class="l">Структура</div><div class="v">открытые слоги — всё на гласную</div></div>
+    <div class="ph-card"><div class="l">Классы существ.</div><div class="v">ба- (люди) ки- (вещи) му- (места)</div></div>
+    <div class="ph-card"><div class="l">Тональность</div><div class="v">высокий/низкий меняют смысл</div></div>
+    <div class="ph-card"><div class="l">Посторонним</div><div class="v">звучит как пение, не речь</div></div>
+  </div>
+  <div class="note">«Каам» — «мы, наши люди». Посторонние не слышат разницы между тонами — не понимают ничего. Именно поэтому первый контакт с Аруви был в тишине и жестах.</div>
+  <div class="section-title">Примеры слов</div>
+  <div class="ex-grid">
+    <div class="ex-card"><div class="w">каам</div><div class="m">мы, наши люди (самоназвание)</div></div>
+    <div class="ex-card"><div class="w">мунгу</div><div class="m">высшая сила, бог</div></div>
+    <div class="ex-card"><div class="w">нгома</div><div class="m">барабан, ритуал</div></div>
+    <div class="ex-card"><div class="w">хама</div><div class="m">уходить, мигрировать</div></div>
+    <div class="ex-card"><div class="w">амани</div><div class="m">мир, покой</div><div class="n">первое слово которое Аруви поняли</div></div>
+    <div class="ex-card"><div class="w">рохо</div><div class="m">дух, дыхание</div></div>
+  </div>
+  <div class="section-title">Namesbase</div>
+  <div class="nb-block">
+    <div class="nb-params">
+      <div class="nb-p"><div class="l">Length</div><div class="v">5 — 9</div></div>
+      <div class="nb-p"><div class="l">Doubled</div><div class="v">аоу</div></div>
+    </div>
+    <div class="nb-words" id="nb-kaam"><button class="copy-btn" onclick="copyNb('nb-kaam',this)">Копировать</button>Каам,Маранго,Нгоронго,Симбани,Пороно,Мбугани,Танани,Гируни,Кибони,Руахани,Мзеени,Кабилани,Ндугуни,Хамани,Мунгуни,Рохони,Нгомани,Тумбани,Кезани,Бинтини,Мбарани,Ндалани,Нзигини,Мбитани,Нгалани,Рувуни,Кагерани,Ньясани,Замбени,Лубани,Конгони,Суахини,Макуани,Лимпони,Квангони,Кубангони,Лоангони,Умояни,Кимбани,Амании,Хуруни,Имарани,Нгапини,Пвании,Бондони,Мпакани,Баранго,Мукаам,Кикибо,Купоро,Вимбуга,Нитана,Памунгу,Марогиру,Кааммаранго,Симбанитана,Нгоронгогиру,Мбуганируаха,Кибонимаранго,Гирунисимбани,Мзееннгома,Кабиланикаам,Мунгунитана,Нгоманируаха,Тумбаникибо,Кезанимаранго,Мбаранисимбани,Нданитана,Нзигинигиру,Нгаланимаранго,Рувунисимбани,Ньясанигиру,Замберуаха,Конгонисимбани</div>
+  </div>
+</div>
+
+<!-- ПРОТОЯРВИ -->
+<div class="panel" id="l-proyarvi">
+  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#8AAFC0;opacity:0.5;flex-shrink:0"></div><h2>Протоярви <span class="dead-badge">⚰ мёртв</span></h2></div>
+  <div class="p-meta">Корень северный — переходная форма · -95 000 — -60 000 до н.э. · Потомки: Хаару, Аала-Хаару</div>
+  <div class="note">Промежуточная форма между Корнем и Хаару. Ретрофлексные исчезли, гармония гласных начала формироваться, нг/мн появились. Потомком является Ярви через Хаару.</div>
+  <div class="section-title">Namesbase</div>
+  <div class="nb-block">
+    <div class="nb-params">
+      <div class="nb-p"><div class="l">Length</div><div class="v">4 — 9</div></div>
+      <div class="nb-p"><div class="l">Doubled</div><div class="v">аеоу</div></div>
+    </div>
+    <div class="nb-words" id="nb-proyarvi"><button class="copy-btn" onclick="copyNb('nb-proyarvi',this)">Копировать</button>Маллее,Арви,Тиинг,Миррам,Уллем,Аттее,Аммее,Ираво,Яарв,Коол,Хаару,Меети,Йоки,Таало,Каала,Вееси,Луми,Талви,Кеси,Ранта,Мери,Юоки,Хару,Пеура,Хирви,Карху,Сууси,Линту,Пилви,Таиваас,Кивее,Метса,Суо,Ниеми,Лахти,Саари,Уома,Нгаал,Мнаар,Тиилу,Хаарви,Коолви,Арвии</div>
+  </div>
+</div>
+
+<!-- ПРОТОАЛАРОИ -->
+<div class="panel" id="l-proalaroi">
+  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#3A8C78;opacity:0.5;flex-shrink:0"></div><h2>Протоаларои <span class="dead-badge">⚰ мёртв</span></h2></div>
+  <div class="p-meta">Корень береговой — переходная форма · -80 000 — -60 000 до н.э. · Потомки: Аала</div>
+  <div class="note">Корень с первым словом вне системы — «Аала». Дифтонги только начали формироваться. Прямой предок языка Аалои.</div>
+  <div class="section-title">Namesbase</div>
+  <div class="nb-block">
+    <div class="nb-params">
+      <div class="nb-p"><div class="l">Length</div><div class="v">4 — 9</div></div>
+      <div class="nb-p"><div class="l">Doubled</div><div class="v">аои</div></div>
+    </div>
+    <div class="nb-words" id="nb-proalaroi"><button class="copy-btn" onclick="copyNb('nb-proalaroi',this)">Копировать</button>Аала,Маллаи,Аруви,Уллам,Аттаи,Аммаи,Тии,Мирам,Нааттам,Минну,Ниллам,Каттам,Вееру,Паанаи,Уйир,Веллаи,Мазаи,Перум,Вааи,Аалас,Нерос,Талос,Каелос,Полеи,Лимнос,Миносс,Криос,Дорос,Аргос</div>
+  </div>
+</div>
+
+<!-- ААЛА-ХААРУ -->
+<div class="panel" id="l-aalahaaru">
+  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#6A9FB0;opacity:0.5;flex-shrink:0"></div><h2>Аала-Хаару <span class="dead-badge">⚰ мёртв</span></h2></div>
+  <div class="p-meta">Протоярви + морская Аала · -60 000 — -40 000 до н.э. · Растворился в Аала</div>
+  <div class="note">Смешанный язык. Носовые нг/мн от Хаару, дифтонги от Аала. К -40 000 полностью ассимилировался. Вклад — звёздная навигация и морская охота.</div>
+  <div class="section-title">Namesbase</div>
+  <div class="nb-block">
+    <div class="nb-params">
+      <div class="nb-p"><div class="l">Length</div><div class="v">4 — 8</div></div>
+      <div class="nb-p"><div class="l">Doubled</div><div class="v">аои</div></div>
+    </div>
+    <div class="nb-words" id="nb-aalahaaru"><button class="copy-btn" onclick="copyNb('nb-aalahaaru',this)">Копировать</button>Аалви,Хаарос,Тиинг,Йоаал,Каалос,Миррос,Уллос,Ранта,Мерви,Хаарви,Нгаал,Луми,Таалос,Веелос,Сааро,Кивос,Пелви,Йоки,Арвос,Аала,Нгару,Вака,Ранги,Хаару,Коол,Миррам,Мери,Ниеми,Лахти,Аалос,Хааруо,Мирраал,Нгаалви,Хааранта,Коолаал,Луминг</div>
+  </div>
+</div>
+
+<!-- ДИКАРИ -->
+<div class="panel" id="l-dikari">
+  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#555;flex-shrink:0"></div><h2>Дикари</h2><span class="dead-badge">нередактируемо</span></div>
+  <div class="p-meta">Сигнальная система — не язык · С начала времён</div>
+  <div class="note">Не язык в лингвистическом смысле. ~200 корней, один слог = одно конкретное понятие. Нет абстракций, нет времени, нет имён собственных. Деградируют.</div>
+  <div class="section-title">Namesbase</div>
+  <div class="nb-block">
+    <div class="nb-params">
+      <div class="nb-p"><div class="l">Length</div><div class="v">2 — 4</div></div>
+      <div class="nb-p"><div class="l">Doubled</div><div class="v">пусто</div></div>
+    </div>
+    <div class="nb-words" id="nb-dikari"><button class="copy-btn" onclick="copyNb('nb-dikari',this)">Копировать</button>Ба,Ка,Та,Му,Ди,Го,Ну,Ти,Бо,Ма,Па,На,Да,Ко,Ни,Гу,До,Бе,Ге,Ту,Ки,Но,Де,Пи,Бу,Бака,Тади,Муко,Гоба,Нута,Дика,Боге,Таму,Кабо,Пиму,Кади,Бому,Тако,Гени,Дабо,Муба,Ноти,Кобе,Тагу,Баму,Диго,Пани,Гота,Буко,Мади</div>
+  </div>
+</div>
+
+</div>
 </div>
 <script>
-const D={
-ullam:{name:'Уллам / Аммаи',hex:'C4855A',dead:false,family:'Корень — агглютинативный',period:'-100 000 до н.э. — настоящее время',
-desc:'Праязык всех народов континента. Аммаи — живые хранители Корня. Агглютинативная структура: слово строится из корня + цепочки суффиксов. Глагол всегда в конце. Главный вопрос на этом языке: есть ли у тебя уллам?',
-ph:{y:['тт','дд','нн','лл','аа','ии','уу','а','и','у','е','к','г','т','д','н','л','р','в','м','с','ч','п'],n:['х','ф','б','з','ш','нг','мн']},
-rules:[['Порядок слов','SOV — субъект + объект + глагол'],['Падежи','Послелоги, не предлоги. «К реке» = «река-к»'],['Ретрофлексные','тт,дд,нн,лл — язык прижат к нёбу'],['Долгие гласные','аа,ии,уу — принципиально другой смысл'],['Словообразование','Корень + суффикс: Аммаи+куттам = место слияния матери'],['Множественное','Суффикс -лар / -аар']],
-words:[{w:'уллам',m:'душа, внутренний человек'},{w:'аттаи',m:'отец, горный массив'},{w:'аммаи',m:'мать, река'},{w:'куттам',m:'место слияния, собрание'},{w:'нааттам',m:'наш народ, свои'},{w:'муттааи',m:'хранитель памяти'},{w:'тии',m:'огонь, священный огонь'},{w:'маллаи',m:'холм'},{w:'ниллам',m:'земля, почва'},{w:'маккал',m:'люди, группа'},{w:'уйир',m:'жизнь, дыхание'},{w:'перум',m:'великий, большой'},{w:'вилл',m:'постройка'},{w:'уримаи',m:'право на место'},{w:'мирам',m:'зверь'}],
-ex:[{s:'Аттаи-уллам маллаи-тии',t:'Дух отца-горы на священном холме'},{s:'Нааттам аммаи-куттам вееру',t:'Наш народ к Аммаи-куттам пришёл'}],
-nb:{l:'5-10',d:'аи',w:'Маллаи,Аруви,Ниллам,Уллам,Аттаи,Аммаи,Маккал,Тии,Мирам,Веттаи,Паанаи,Каттам,Вееру,Уйир,Минну,Нааттам,Муттааи,Пулли,Маарбу,Уттиру,Каийи,Веллаи,Мазаи,Варуттам,Каалаи,Маалаи,Иллаи,Перум,Каннну,Вааи,Паайи,Кааду,Ираву,Паккал,Куллир,Таниир,Удаймаи,Коллаи,Вилл,Куттал,Валаи,Падаку,Толил,Уримаи,Кааппу,Нааллу,Пулли-маллаи,Аммаи-куттам,Тии-куттам,Перум-аммаи,Маллаи-уллам,Ниллам-маккал,Аруви-уллам,Муттааи-вааи,Перум-аттаи,Аттаи-маллаи,Аммаи-аруви,Нааттам-тии,Маккал-уйир,Уллам-вееру,Маллаи-тии,Ниллам-аруви,Перум-каттам,Аммаи-тии,Аттаи-уллам,Нааттам-аруви,Маллаи-каттам,Тии-вилл,Куттал-аруви,Валаи-минну,Уримаи-ниллам,Перум-нааттам,Маалаи-уллам,Мазаи-аруви,Веллаи-маллаи,Ираву-мирам,Паккал-уйир,Маккал-аруви,Муттааи-уллам,Аммаи-ниллам,Аттаи-маккал'}},
-aruvi:{name:'Аруви',hex:'C8502A',dead:false,family:'Корень южный',period:'-60 000 до н.э. — настоящее время',
-desc:'Ветка Корня ушедшая на юг. За 20 000 лет в тропиках накопила новую лексику. Грамматика почти та же, фонетика мягче. Аммаи и Аруви понимают друг друга с трудом — только через слово уллам.',
-ph:{y:['аа','ии','уу','а','и','у','е','к','г','т','д','н','л','р','в','м','с','п','тт (слабее)','дд (слабее)'],n:['нн','лл (ретрофлексные уходят)','ф','б']},
-rules:[['Порядок слов','SOV — сохранён как в Корне'],['Фонетический сдвиг','Открытые слоги удлиняются, ретрофлексные смягчаются'],['Тропический пласт','Новые слова: флора, фауна, сезоны дождей, священные пруды'],['Религиозный пласт','Слова для пути и движения несут сакральный смысл']],
-words:[{w:'аруви',m:'текущая вода, ручей'},{w:'пазам',m:'плод, фрукт'},{w:'пулли',m:'большой хищник'},{w:'каду',m:'джунгли'},{w:'вааналам',m:'тропический пояс'},{w:'мааи',m:'обезьяна'},{w:'колам',m:'священный пруд'},{w:'виттай',m:'зерно, семя'},{w:'вайял',m:'поле, место роста'},{w:'мазаи',m:'дождь'},{w:'перум',m:'великий (из Корня)'},{w:'нааттам',m:'наш народ (из Корня)'}],
-ex:[{s:'Аммаи-аруви колам тии',t:'Мать-река к священному пруду огня'},{s:'Пулли каду перум',t:'Великий хищник джунглей'}],
-nb:{l:'4-9',d:'аиу',w:'Аруви,Аммаи,Уллам,Маллаи,Ниллам,Тии,Мирам,Минну,Пазам,Пулли,Каду,Вааналам,Мааи,Колам,Виттай,Вайял,Маалаи,Паккал,Ираву,Уйир,Перум,Аттаи,Веллаи,Мазаи,Кааду,Паайи,Нааттам,Маккал,Уттиру,Маарбу,Каийи,Куллир,Иллаи,Веттаи,Паанаи,Вааи,Варуттам,Каалаи,Муттааи,Удаймаи,Аруви-уллам,Перум-аруви,Каду-мирам,Колам-тии,Паккал-аруви,Пулли-маллаи,Пазам-ниллам,Мааи-каттам,Вайял-аруви,Виттай-ниллам,Вааналам-тии,Каду-уйир,Перум-пулли,Колам-аруви,Мазаи-ниллам,Тии-колам,Пазам-маккал,Вайял-перум,Каду-нааттам,Мааи-уйир,Паккал-тии,Вааналам-аруви,Колам-маллаи,Каду-аммаи,Аруви-маккал,Маллаи-аруви,Ниллам-аруви,Мирам-каду,Паайи-мирам,Кааду-пулли,Уйир-аруви,Виттай-аммаи,Пазам-аруви,Вайял-тии,Каду-маллаи,Аруви-уйир,Перум-колам'}},
-veeru:{name:'Вееру',hex:'A86030',dead:false,family:'Корень + заимствования Хаару',period:'-60 000 до н.э. — настоящее время',
-desc:'Самый динамичный язык периода. 20 000 лет контакта с Хаару дали первое крупное межъязыковое заимствование на континенте. Ретрофлексные исчезают. Военная лексика разрослась. Первый язык с понятием территории.',
-ph:{y:['аа','ии','уу','а','и','е','к','г','т','д','н','л','р','в','м','с','тт (слабеет)'],n:['дд','нн','лл (ретрофлексные уходят)','ф','б']},
-rules:[['Порядок слов','SOV — сохранён'],['Заимствования','Лексика льда, холода, загонной охоты — из Хаару'],['Военный пласт','Граница, ранг командира, трофей, столкновение'],['Территориальность','Первый язык с эллаи — наш предел, наша граница']],
-words:[{w:'вееру',m:'открытое место, равнина'},{w:'хаарру',m:'лёд (из Хаару)'},{w:'миирам',m:'крупный зверь степи'},{w:'каарру',m:'след на снегу'},{w:'тиинг',m:'сигнальный огонь'},{w:'талайвар',m:'командир отряда'},{w:'велли',m:'победа, взятое пространство'},{w:'порр',m:'столкновение, война'},{w:'эллаи',m:'граница, наш предел'},{w:'коол',m:'холод (из Хаару)'},{w:'уллем',m:'душа через Хаару'},{w:'аллаи',m:'союзники, свои бойцы'}],
-ex:[{s:'Эллаи вееру талайвар',t:'Командир на нашей границе равнины'},{s:'Хаарру-миирам каарру уйир',t:'След ледяного зверя — жизнь'}],
-nb:{l:'4-9',d:'аеи',w:'Вееру,Хаарру,Миирам,Тиинг,Уллем,Каарру,Аллаи,Верру,Талайвар,Велли,Порр,Эллаи,Коол,Хааруу,Миирра,Маллаи,Аттаи,Аммаи,Кааду,Нааттам,Уйир,Иллаи,Паанаи,Мирам,Тии,Вееллам,Верруу,Аллааи,Каарруу,Миирам-кааду,Вееру-нааттам,Талайвар-аллаи,Эллаи-вееру,Порр-миирам,Хаарру-аттаи,Каарру-маллаи,Велли-вееру,Уллем-тии,Верру-нааттам,Вееллам-аллаи,Аллаи-маллаи,Каарру-уйир,Талайвар-вееру,Хааруу-миирам,Эллаи-нааттам,Порр-аттаи,Вееру-аллаи,Тиинг-вееру,Коол-аттаи,Уллем-вееру,Кааду-аллаи,Маллаи-вееру,Аттаи-вееру,Хаарру-уйир,Эллаи-маллаи,Каарру-нааттам,Талайвар-миирам,Велли-аллаи,Верру-уйир,Уллем-нааттам,Аллаи-вееру,Хаарру-маллаи,Эллаи-уйир,Порр-маллаи,Верру-аттаи,Миирам-нааттам,Кааду-вееру,Хааруу-аттаи,Велли-нааттам'}},
-deullam:{name:'Де-Уллам',hex:'4A5A38',dead:false,family:'Корень-изолят',period:'-60 000 до н.э. — настоящее время',
-desc:'Самый странный язык континента. Полная изоляция за 40 000 лет превратила Корень в нечто труднопознаваемое. Носовые захватили консонантизм. Появились слова для состояний которых нет в других языках.',
-ph:{y:['а','аа','и','ии','н','нн','м','мм','нг','нд','мб','л','р','т','к','с'],n:['б (почти исчез)','г (почти исчез)','уу','ретрофлексные']},
-rules:[['Носовые','Нн,мм в начале слова — норма. Мн,нг — отдельные фонемы'],['Болотный пласт','~40% словаря — явления болота без аналогов'],['Удвоение','Нилли → нилланни — удвоение слога усиливает смысл'],['Мёртвые предки','Уллани — не мёртвые. Отдельная категория существ в воде']],
-words:[{w:'нааннаи',m:'те кто между (живыми и мёртвыми)'},{w:'нилли',m:'мягкая трясина'},{w:'аннам',m:'утренний туман у воды'},{w:'маннаи',m:'тростник'},{w:'нимму',m:'гниль, разложение'},{w:'уллани',m:'предок в воде'},{w:'мааннам',m:'болотный огонь (горящий газ)'},{w:'нилланни',m:'глубокая трясина'},{w:'маннааннам',m:'болотный туман на рассвете'},{w:'ниллаанни',m:'трясина что держит (судьба)'},{w:'аннанни',m:'предрассветное состояние'},{w:'уллааннаи',m:'память мёртвых в воде'}],
-ex:[{s:'Нааннаи мааннам аннам',t:'Между-народ у болотного огня в тумане'},{s:'Уллани ниллаанни маннаи',t:'Предок в трясине судьбы среди тростника'}],
-nb:{l:'5-11',d:'ан',w:'Нилла,Аннаи,Уллани,Маннаи,Нимму,Аммани,Таниир,Нилланни,Нинни,Намму,Нилли,Аннам,Маннам,Мааннам,Аннанни,Уллааннаи,Нааннаи,Маннааннам,Ниллаанни,Аннааннам,Уллааннам,Нилламаннаи,Аммааннаи,Нааллааннам,Маннааллаи,Ниннааннаи,Аннааллам,Нилла-аннаи,Маннаи-нилли,Нимму-таниир,Аммани-нилла,Уллани-маннам,Нилланни-нимму,Нинни-аннам,Намму-нилла,Нилли-маннаи,Мааннам-аннаи,Аннанни-нилла,Уллааннаи-намму,Нааннаи-маннам,Маннааннам-нилли,Ниллаанни-аннаи,Аннааннам-нимму,Уллааннам-таниир,Нилламаннаи-нинни,Аммааннаи-нилла,Нааллааннам-маннаи,Маннааллаи-нимму,Ниннааннаи-аннам,Аннааллам-нилли,Нилла-маннааннам,Уллани-нааннаи,Маннаи-ниллаанни,Нимму-аннааннам,Аммани-уллааннам,Нилланни-аммааннаи,Нинни-нааллааннам,Маннааннам-таниир,Ниллаанни-аннаи,Уллааннаи-нимму,Нааннаи-аммани'}},
-haaru:{name:'Хаару',hex:'8AAFC0',dead:false,family:'Протоярви развитый',period:'-60 000 до н.э. — настоящее время',
-desc:'Самый далеко ушедший от Корня из живых языков. Гармония гласных жёсткая. Носовые нг и мн — самостоятельные фонемы. Охотничий словарь богатейший на континенте.',
-ph:{y:['а','аа','е','ее','и','ии','о','оо','у','уу','к','кк','т','тт','н','нн','м','л','р','в','й','х','нг','мн'],n:['ретрофлексные дд/лл','б','з','ш','ф']},
-rules:[['Гармония гласных','Задние (а,о,у) с задними, передние (е,и) с передними'],['Носовые','Нг,мн — полноценные согласные в любой позиции'],['Словообразование','Хаару+та = хааруута (люди льда) — суффикс согласован по гармонии'],['Охотничий регистр','Специальный пласт: десятки слов для следов и повадок зверей']],
-words:[{w:'хаару',m:'лёд (и лёд-брат, сакральное)'},{w:'луми',m:'снег'},{w:'миррам',m:'мамонт'},{w:'пеура',m:'олень'},{w:'карху',m:'медведь'},{w:'нгаал',m:'ледяная стена, обрыв'},{w:'мнаар',m:'след зверя на снегу'},{w:'метсяя',m:'тайга, новый лес'},{w:'карьяла',m:'пограничная земля'},{w:'йоутсен',m:'лебедь (птица священного озера)'},{w:'хааруута',m:'люди льда'},{w:'коол',m:'холод (ушло в Вееру)'}],
-ex:[{s:'Хаару-нгаал миррам мнаар',t:'У ледяного обрыва — след мамонта'},{s:'Хааруута метсяя йоутсен',t:'Люди льда в тайге видят лебедя'}],
-nb:{l:'4-9',d:'аоу',w:'Хаару,Миррам,Тиинг,Уллем,Аттее,Аммее,Йоки,Коол,Луми,Ранта,Мери,Хару,Пеура,Хирви,Карху,Сууси,Линту,Пилви,Кивее,Метса,Суо,Ниеми,Лахти,Саари,Уома,Нгаал,Мнаар,Хааруу,Коолуу,Миирра,Талви,Кеси,Юоки,Вееси,Маллее,Арви,Луумии,Пееура,Суооми,Метсяя,Карьяла,Йоутсен,Поронко,Хааруута,Коолранта,Луумиметса,Хаару-йоки,Коол-ниеми,Луми-ранта,Миррам-суо,Тиинг-метса,Карху-лахти,Пеура-саари,Хирви-уома,Сууси-йоки,Пилви-мери,Кивее-ниеми,Талви-коол,Юоки-хаару,Вееси-ранта,Арви-лахти,Метсяя-карху,Йоутсен-мери,Поронко-луми,Нгаал-хаару,Мнаар-тиинг,Уллем-коол,Аттее-хаару,Хааруу-нгаал,Коолуу-миирра,Луумии-метса,Пееура-ранта,Суооми-хаару,Метсяя-луми,Карьяла-ранта,Йоутсен-хаару,Нгаал-коол,Хаару-тиинг,Луми-тиинг,Метса-коол,Ниеми-луми'}},
-aala:{name:'Аала',hex:'3A8C78',dead:false,family:'Протоаларои — морской Корень',period:'-60 000 до н.э. — настоящее время',
-desc:'Корень с морским развитием и поглощёнными навигационными знаниями Хаару. Дифтонги аи,ои,еу характерная черта. К переходит в Ч перед е/и. Первый язык с разветвлённой морской терминологией.',
-ph:{y:['а','е','и','о','у','аи','ои','еу','к/ч','г','т','д','н','л','р','м','в','с','п','б','ф','нг (от Хаару)'],n:['ретрофлексные','долгие аа/ии/уу']},
-rules:[['Дифтонги','аи,ои,еу — нарастают'],[' К→Ч','Перед е,и: *кала → чала'],[' Суффикс -ос/-ас','Маркер места и имени собственного'],['Морская лексика','Первый язык с развёрнутой навигационной системой']],
-words:[{w:'аала',m:'море'},{w:'аалас',m:'открытое море'},{w:'нерос',m:'течение'},{w:'талос',m:'скальный берег'},{w:'лимнос',m:'бухта'},{w:'фарос',m:'мыс'},{w:'тенгер-аала',m:'звёздное море, ночное небо'},{w:'нгару-каал',m:'время волн, прилив'},{w:'аалас-вака',m:'морская лодка'},{w:'аркос',m:'начало пути'},{w:'тои',m:'обработанная земля'},{w:'аалои',m:'морской народ'}],
-ex:[{s:'Аалас нерос аркос',t:'В открытом море — начало пути по течению'},{s:'Тенгер-аала нгару-каал аалои',t:'Морской народ читает небо по приливу'}],
-nb:{l:'4-8',d:'аои',w:'Аала,Аалас,Тои,Каелос,Меас,Полеи,Наосос,Демос,Аркос,Нерос,Талос,Карос,Пелос,Миносс,Криос,Аргос,Лимнос,Родос,Корос,Патос,Тирос,Элос,Кастос,Марос,Велос,Гелос,Фарос,Аксос,Дорос,Уллаи,Аттаи,Аммаи,Тии,Маллаи,Аруви,Минну,Ниллам,Перум,Тенгер-аала,Аалас-вака,Нгару-каал,Аркос-нерос,Аала-ниллам,Нерос-аруви,Лимнос-тии,Фарос-маллаи,Аалас-полеи,Талос-нерос,Каелос-аала,Демос-аала,Аркос-аала,Карос-нерос,Пелос-аала,Криос-аала,Аргос-нерос,Лимнос-аала,Корос-аала,Тирос-аала,Кастос-аала,Велос-аала,Фарос-аала,Аксос-нерос,Дорос-аала,Нерос-тои,Аалас-нерос,Тои-аала,Полеи-нерос,Лимнос-нерос,Фарос-нерос,Талос-аала,Пелос-нерос,Родос-аала,Корос-нерос,Велос-нерос,Кастос-нерос,Элос-аала'}},
-kaam:{name:'Каам',hex:'9A4030',dead:false,family:'Группа В — банту-тип',period:'-42 000 до н.э. — настоящее время',
-desc:'Принципиально иная система. Не связана с Корнем. Классы существительных с префиксами. Тональность. Назальные мб,нд,нг в начале слова — норма. Открытые слоги: слово всегда на гласную.',
-ph:{y:['а','е','и','о','у','мб','нд','нг','нз','б','д','г','к','т','н','м','л','р','в','с'],n:['стечения согласных (кроме назальных)','закрытые слоги']},
-rules:[['Классы','Ба- люди, Му- человек, Ки- предмет, Ку- место, У- абстракция'],['Тональность','Высокий/низкий тон — разные слова. На письме не передаётся'],['Глагол','Несёт субъект, объект, время через префиксы к корню'],['Открытый слог','Каждый слог на гласную — нет закрытых']],
-words:[{w:'каам',m:'мы, наши люди'},{w:'мара',m:'открытое место, равнина'},{w:'мунгу',m:'высшая сила'},{w:'рохо',m:'дух, дыхание'},{w:'нгома',m:'барабан, ритуал'},{w:'симба',m:'лев'},{w:'мбуга',m:'болото, низина'},{w:'хама',m:'уйти, мигрировать'},{w:'амани',m:'мир, покой'},{w:'ндугу',m:'брат, родственник'},{w:'кабила',m:'племя, группа'},{w:'кибо',m:'вершина, снег'}],
-ex:[{s:'Каам мара хама',t:'Наш народ покинул равнину'},{s:'Мунгу рохо нгома',t:'Дух высшей силы в ритуале барабана'}],
-nb:{l:'5-9',d:'аоу',w:'Каам,Маранго,Нгоронго,Симбани,Пороно,Мбугани,Танани,Гируни,Кибони,Руахани,Мзеени,Кабилани,Ндугуни,Хамани,Мунгуни,Рохони,Нгомани,Тумбани,Кезани,Бинтини,Мбарани,Ндалани,Нзигини,Мбитани,Нгалани,Рувуни,Кагерани,Ньясани,Замбени,Лубани,Конгони,Суахини,Макуани,Лимпони,Квангони,Кубангони,Лоангони,Умояни,Кимбани,Амании,Хуруни,Имарани,Нгапини,Пвании,Бондони,Мпакани,Баранго,Мукаам,Кикибо,Купоро,Вимбуга,Нитана,Памунгу,Марогиру,Каам-маранго,Симбани-тана,Нгоронго-гиру,Мбугани-руаха,Кибони-маранго,Гируни-симбани,Руахани-тана,Мзеени-нгома,Кабилани-каам,Ндугуни-маранго,Хамани-симбани,Мунгуни-тана,Рохони-гиру,Нгомани-руаха,Тумбани-кибо,Замбени-руаха,Лубани-маранго,Конгони-симбани,Умояни-гиру,Кимбани-руаха,Нгапини-маранго,Пвании-симбани,Бондони-тана,Баранго-руаха'}},
-proyarvi:{name:'Протоярви',hex:'8AAFC0',dead:true,family:'Корень северный — переходный',period:'-95 000 до -60 000 до н.э.',
-desc:'Промежуточная стадия между Корнем и Хаару. Ретрофлексные исчезают, гармония гласных начинается. Дал начало Хаару и Аала-Хаару.',
-ph:{y:['а','аа','е','ее','и','ии','о','оо','у','уу','к','т','н','нн','л','р','м','в','нг (начало)','мн (начало)'],n:['тт','дд','лл (уходят)']},
-rules:[['Переходность','Нестабильный язык в процессе изменения'],['Характерные сдвиги','Маллаи→Маллее, Аттаи→Аттее, Мирам→Миррам, Уллам→Уллем']],
-words:[{w:'маллее',m:'холм (от маллаи)'},{w:'аттее',m:'отец-гора (от аттаи)'},{w:'уллем',m:'душа (от уллам)'},{w:'тиинг',m:'сигнальный огонь (новое)'},{w:'нгаал',m:'ледяная стена (новое)'}],
-ex:[],
-nb:{l:'4-9',d:'аеоу',w:'Маллее,Арви,Тиинг,Миррам,Уллем,Аттее,Аммее,Ираво,Яарв,Коол,Хаару,Йоки,Таало,Каала,Вееси,Луми,Талви,Кеси,Ранта,Мери,Юоки,Хару,Пеура,Хирви,Карху,Сууси,Линту,Пилви,Кивее,Метса,Суо,Ниеми,Лахти,Саари,Уома,Нгаал,Мнаар,Хааруу,Коолее,Миирра'}},
-proalaroi:{name:'Протоаларои',hex:'3A8C78',dead:true,family:'Корень береговой — переходный',period:'-80 000 до -60 000 до н.э.',
-desc:'Корень в момент первого контакта с морем. Почти идентичен Корню кроме одного слова — Аала. Это слово изменило всё. Дал начало Аала.',
-ph:{y:['все звуки Корня','аи (зарождающийся дифтонг)'],n:[]},
-rules:[['Единственное отличие','Слово Аала — первое слово вне Корня в истории континента']],
-words:[{w:'аала',m:'море — первое слово вне Корня'},{w:'уллам',m:'душа (Корень)'},{w:'аттаи',m:'отец-гора (Корень)'}],
-ex:[],
-nb:{l:'4-9',d:'аои',w:'Аала,Маллаи,Аруви,Уллам,Аттаи,Аммаи,Тии,Мирам,Нааттам,Минну,Ниллам,Каттам,Вееру,Паанаи,Уйир,Веллаи,Мазаи,Перум,Вааи,Аалас,Нерос,Талос,Каелос,Полеи,Лимнос,Дорос,Аргос'}},
-aalahaaru:{name:'Аала-Хаару',hex:'6A9FB0',dead:true,family:'Протоярви + Аала — смешение',period:'-60 000 до -42 000 до н.э.',
-desc:'Уникальный двуязычный период. Два поколения говорили одновременно на двух языках. Растворился в Аала около -42 000 — охотничья смелость и звёздная навигация вошли в морскую культуру навсегда.',
-ph:{y:['все от Хаару','аи','ои','нг'],n:[]},
-rules:[['Двуязычие','Молодёжь переключалась между языками в одной фразе'],['Наследие','Звёздные названия от Хаару вошли в Аала навсегда']],
-words:[{w:'аалви',m:'морской охотник'},{w:'хаарос',m:'лёд у моря'},{w:'нгару',m:'волна'},{w:'ранги',m:'горизонт морской'},{w:'вака',m:'лодка'}],
-ex:[],
-nb:{l:'4-8',d:'аои',w:'Аалви,Хаарос,Тиинг,Йоаал,Каалос,Миррос,Уллос,Ранта,Мерви,Хаарви,Нгаал,Луми,Таалос,Веелос,Сааро,Кивос,Пелви,Йоки,Арвос,Аала,Нгару,Вака,Ранги,Хаару,Коол,Миррам,Мери,Ниеми,Лахти'}},
-shum:{name:'Шум',hex:'666666',dead:false,family:'Сигнальная система — не язык',period:'С начала времён',
-desc:'Не язык в полном смысле. ~200 сигналов. 1 слог = 1 конкретное понятие. Максимум три слога. Нет грамматики, нет времени, нет абстракций, нет слова уллам. Деградирует.',
-ph:{y:['б','м','п','т','д','н','к','г','а','е','и','о','у'],n:['всё остальное']},
-rules:[['Структура','1 слог = 1 понятие. 3 слога = максимум'],['Нет','Абстракций, времени, имён, чисел больше трёх, слова уллам']],
-words:[{w:'ка',m:'опасность'},{w:'та',m:'еда'},{w:'му',m:'вода'},{w:'бо',m:'огонь'},{w:'ти',m:'свой, безопасно'},{w:'го',m:'уходить'},{w:'ни',m:'нет, стоп'},{w:'да',m:'чужой'}],
-ex:[{s:'Ка-та-ти',t:'Осторожно — еда — свои уже знают'}],
-nb:{l:'2-4',d:'',w:'Ба,Ка,Та,Му,Ди,Го,Ну,Ти,Бо,Ма,Па,На,Да,Ко,Ни,Гу,До,Бе,Ге,Ту,Ки,Но,Де,Пи,Бу,Бака,Тади,Муко,Гоба,Нута,Дика,Боге,Таму,Кабо,Пиму,Кади,Бому,Тако,Гени,Дабо,Муба,Ноти,Кобе,Тагу,Баму,Диго,Пани,Гота,Буко,Мади'}}
-};
 function show(id){
-  document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
-  document.getElementById('sb-'+id).classList.add('active');
-  const L=D[id];
-  const fade=L.dead?'opacity:0.6':'';
-  document.getElementById('main').innerHTML=`<div style="${fade}">
-<div class="lang-header"><span style="display:inline-block;width:16px;height:16px;border-radius:3px;background:#${L.hex};border:0.5px solid rgba(255,255,255,0.1)"></span><h2>${L.name}</h2>${L.dead?'<span class="dead-badge">Мёртвый язык</span>':''}</div>
-<p class="subtitle">${L.family} &nbsp;·&nbsp; ${L.period}</p>
-<div class="section"><h3>Описание</h3><p>${L.desc}</p></div>
-<div class="section"><h3>Фонетика</h3>
-<p style="font-size:10px;color:#555;margin-bottom:5px">Присутствует:</p><div class="ph-wrap">${L.ph.y.map(p=>`<span class="ph">${p}</span>`).join('')}</div>
-${L.ph.n.length?`<p style="font-size:10px;color:#555;margin:8px 0 5px">Отсутствует / исчезает:</p><div class="ph-wrap">${L.ph.n.map(p=>`<span class="ph absent">${p}</span>`).join('')}</div>`:''}
-</div>
-<div class="section"><h3>Словообразование</h3>${L.rules.map(r=>`<div class="rule"><span class="rl">${r[0]}</span><span class="rv">${r[1]}</span></div>`).join('')}</div>
-<div class="section"><h3>Словарь</h3><div class="wgrid">${L.words.map(w=>`<div class="wcard"><div class="w">${w.w}</div><div class="m">${w.m}</div></div>`).join('')}</div></div>
-${L.ex.length?`<div class="section"><h3>Примеры</h3>${L.ex.map(e=>`<div class="ex">${e.s}<div class="tr">${e.t}</div></div>`).join('')}</div>`:''}
-<div class="section"><h3>Namesbase для Azgaar</h3><div class="nbblock">
-<div class="nbparams"><span>Length: <b>${L.nb.l}</b></span><span>Doubled: <b>${L.nb.d||'пусто'}</b></span></div>
-<div class="nbwords" id="nb-${id}" onclick="cp('${id}')">${L.nb.w}</div>
-<div class="hint">Клик — скопировать всё</div>
-</div></div></div>`;
+  document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("active");});
+  document.querySelectorAll(".sb-item").forEach(function(s){s.classList.remove("active");});
+  document.getElementById("l-"+id).classList.add("active");
+  event.currentTarget.classList.add("active");
 }
-function cp(id){
-  const el=document.getElementById('nb-'+id);
-  navigator.clipboard.writeText(D[id].nb.w).catch(()=>{});
-  const orig=el.textContent;
-  el.classList.add('copied');
-  el.textContent='Скопировано';
-  setTimeout(()=>{el.classList.remove('copied');el.textContent=orig;},1500);
+function copyNb(id,btn){
+  var el=document.getElementById(id);
+  var nodes=el.childNodes;
+  var text="";
+  nodes.forEach(function(n){if(n.nodeType===3)text+=n.textContent;});
+  text=text.trim();
+  navigator.clipboard.writeText(text).then(function(){
+    btn.textContent="Скопировано";
+    setTimeout(function(){btn.textContent="Копировать";},2000);
+  });
 }
-show('ullam');
 </script>
 </body>
 </html>
