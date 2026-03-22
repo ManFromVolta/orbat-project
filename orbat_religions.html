@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ORBAT — Религии</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;font-size:12px;background:#1a1a18;color:#d4d2cc;min-height:100vh}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a18;border-bottom:0.5px solid #333;padding:6px 16px;display:flex;align-items:center;gap:12px;z-index:1000}
+.nav a{text-decoration:none;color:#888;font-size:10px;padding:3px 10px;border:0.5px solid #444;border-radius:3px;background:#2c2c2a}
+.nav a:hover{color:#f1efe8;border-color:#888}
+.spacer{height:36px}
+.header{background:#2c2c2a;padding:14px 20px;border-bottom:1px solid #444}
+.header h1{font-size:16px;font-weight:500;color:#f1efe8}
+.header p{font-size:10px;color:#888;margin-top:3px}
+.layout{display:flex;min-height:calc(100vh - 80px);flex-direction:column}
+@media(min-width:640px){.layout{flex-direction:row}}
+.sidebar{background:#1e1e1c;border-bottom:0.5px solid #2a2a28;overflow-x:auto}
+@media(min-width:640px){.sidebar{width:180px;min-width:180px;border-bottom:none;border-right:0.5px solid #2a2a28;overflow-x:visible;overflow-y:auto}}
+.sidebar-inner{display:flex;flex-direction:row;padding:8px}
+@media(min-width:640px){.sidebar-inner{flex-direction:column;padding:0}}
+.sb-section{padding:10px 14px 4px;font-size:9px;color:#333;text-transform:uppercase;letter-spacing:0.08em;display:none}
+@media(min-width:640px){.sb-section{display:block}}
+.sb-item{padding:8px 14px;font-size:10px;cursor:pointer;border-left:2px solid transparent;color:#555;transition:all 0.1s;white-space:nowrap;display:flex;align-items:center;gap:6px;border-radius:3px;margin:2px}
+@media(min-width:640px){.sb-item{border-radius:0;margin:0}}
+.sb-item:hover{color:#d4d2cc;background:#2c2c2a}
+.sb-item.active{color:#f1efe8;border-left-color:#c87840;background:#242422}
+.sb-swatch{width:8px;height:8px;border-radius:1px;flex-shrink:0}
+.main{flex:1;overflow-y:auto}
+.panel{display:none;padding:20px}
+.panel.active{display:block}
+.p-header{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.p-header h2{font-size:15px;font-weight:500;color:#f1efe8}
+.p-meta{font-size:10px;color:#444;margin-bottom:18px}
+.section-title{font-size:10px;font-weight:500;color:#555;text-transform:uppercase;letter-spacing:0.07em;margin:16px 0 8px;padding-bottom:4px;border-bottom:0.5px solid #1e1e1c}
+.belief-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+@media(min-width:480px){.belief-grid{grid-template-columns:repeat(3,1fr)}}
+.belief-card{background:#242422;border:0.5px solid #2a2a28;border-radius:4px;padding:8px 10px}
+.belief-card .bl{font-size:9px;color:#444;margin-bottom:3px;text-transform:uppercase;letter-spacing:0.05em}
+.belief-card .bv{font-size:11px;color:#c87840}
+.note{background:#242422;border-left:2px solid #444;padding:8px 12px;border-radius:0 3px 3px 0;font-size:10px;color:#666;line-height:1.6;margin:8px 0;font-style:italic}
+.ritual-list{margin:0 0 8px}
+.ritual-item{background:#242422;border:0.5px solid #2a2a28;border-radius:4px;padding:9px 12px;margin-bottom:6px}
+.ritual-item .rn{font-size:11px;color:#f1efe8;font-weight:500;margin-bottom:3px}
+.ritual-item .rd{font-size:10px;color:#666;line-height:1.5}
+.taboo{background:#1a1a14;border:0.5px solid #443a20;border-left:2px solid #c87040;border-radius:0 4px 4px 0;padding:10px 12px;font-size:10px;color:#886020;line-height:1.6;margin:8px 0}
+.taboo b{color:#c87840;display:block;margin-bottom:3px;font-size:9px;text-transform:uppercase;letter-spacing:0.06em}
+p{font-size:11px;color:#888;line-height:1.7;margin-bottom:8px}
+.hex-badge{font-family:monospace;font-size:9px;padding:2px 6px;border-radius:2px;color:#555;border:0.5px solid #2a2a28}
+</style>
+</head>
+<body>
+<div class="nav">
+  <a href="index.html">← Главная</a>
+  <span style="color:#333;font-size:10px">Религии</span>
+</div>
+<div class="spacer"></div>
+<div class="header">
+  <h1>ORBAT — Религии</h1>
+  <p>Верования · Ритуалы · Табу · Объект веры</p>
+</div>
+<div class="layout">
+<div class="sidebar">
+  <div class="sidebar-inner">
+    <div class="sb-section">Корень-семья</div>
+    <div class="sb-item active" onclick="show('ullam')"><span class="sb-swatch" style="background:#C4855A"></span>Уллам-тии</div>
+    <div class="sb-item" onclick="show('yarvi')"><span class="sb-swatch" style="background:#6A9FB0"></span>Яарви-уллем</div>
+    <div class="sb-item" onclick="show('veldy')"><span class="sb-swatch" style="background:#6B7A3A"></span>Велд-суол</div>
+    <div class="sb-item" onclick="show('makkal')"><span class="sb-swatch" style="background:#A83020"></span>Порран-маккал</div>
+    <div class="sb-section">Морские</div>
+    <div class="sb-item" onclick="show('aala')"><span class="sb-swatch" style="background:#3A8C78"></span>Аала-рохос</div>
+    <div class="sb-item" onclick="show('hadjar')"><span class="sb-swatch" style="background:#4A6080"></span>Добош</div>
+    <div class="sb-section">Другие</div>
+    <div class="sb-item" onclick="show('tengri')"><span class="sb-swatch" style="background:#C8A040"></span>Тенгри</div>
+    <div class="sb-item" onclick="show('naannai')"><span class="sb-swatch" style="background:#4A5A38"></span>Нааннаи-рохо</div>
+    <div class="sb-item" onclick="show('mungu')"><span class="sb-swatch" style="background:#7A5030"></span>Мунгу-нгома</div>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- УЛЛАМ-ТИИ -->
+<div class="panel active" id="r-ullam">
+  <div class="p-header">
+    <div style="width:14px;height:14px;border-radius:2px;background:#C4855A"></div>
+    <h2>Уллам-тии</h2>
+    <span class="hex-badge">Folk · Animism</span>
+  </div>
+  <div class="p-meta">Культуры: Аммаи — происходит от Уллам</div>
+  <div class="section-title">Объект веры</div>
+  <div class="belief-grid">
+    <div class="belief-card"><div class="bl">Верховное</div><div class="bv">Аммаи, Аттаи, Предки, Жрецы</div></div>
+    <div class="belief-card"><div class="bl">Тип</div><div class="bv">Анимизм</div></div>
+    <div class="belief-card"><div class="bl">Форма</div><div class="bv">Folk</div></div>
+  </div>
+  <div class="note">Всё имеет уллам — внутреннего человека, намерение, душу. Аттаи — отец-гора, Аммаи — мать-река. Тии — огонь как посредник между живыми и предками.</div>
+  <div class="section-title">Главный вопрос</div>
+  <p>«Есть ли у тебя уллам?» — единственный критерий принадлежности к людям. Тот кто не понимает вопроса — не человек в системе координат Корня. Именно здесь кризис при встрече с Каам.</p>
+  <div class="section-title">Ритуалы</div>
+  <div class="ritual-list">
+    <div class="ritual-item"><div class="rn">Тии-куттам</div><div class="rd">Слияние огней. Группы приносят свой огонь к общему кострищу. Первый и главный ритуал Уллам. Знак единства.</div></div>
+    <div class="ritual-item"><div class="rn">Хранение памяти Муттааи</div><div class="rd">Специализированные жрецы хранят родословные, маршруты миграций животных, ритуалы. В -20 000 должность стала наследственной.</div></div>
+    <div class="ritual-item"><div class="rn">Захоронение у деревьев</div><div class="rd">Предки живут в деревьях рядом с местом смерти. Уходить далеко от могил — предательство.</div></div>
+  </div>
+  <div class="taboo"><b>Главный запрет</b>Уйти из Аммаи-куттам навсегда. Место держит предков — покинуть его значит убить их второй раз.</div>
+</div>
+
+<!-- ЯАРВИ-УЛЛЕМ -->
+<div class="panel" id="r-yarvi">
+  <div class="p-header">
+    <div style="width:14px;height:14px;border-radius:2px;background:#6A9FB0"></div>
+    <h2>Яарви-уллем</h2>
+    <span class="hex-badge">Folk · Shamanism</span>
+  </div>
+  <div class="p-meta">Культуры: Ярви — происходит от Хаару → Уллам-тии</div>
+  <div class="section-title">Объект веры</div>
+  <div class="belief-grid">
+    <div class="belief-card"><div class="bl">Верховное</div><div class="bv">Яарви — великое озеро</div></div>
+    <div class="belief-card"><div class="bl">Тип</div><div class="bv">Шаманизм</div></div>
+    <div class="belief-card"><div class="bl">Форма</div><div class="bv">Folk</div></div>
+  </div>
+  <div class="note">Двадцать тысяч лет движения к озеру которого никто из живых не видел. Когда дошли — осталось. Озеро не просто вода — это завершение, обещание исполненное спустя поколения.</div>
+  <div class="section-title">Богословский кризис</div>
+  <p>Ярви увидели с севера вторую гору — западную горную систему (Альпы). Два Аттаи. Это переворот: либо у мира два отца, либо вторая гора — мать. Первый теологический спор на континенте. Пока не разрешён.</p>
+  <div class="section-title">Ритуалы</div>
+  <div class="ritual-list">
+    <div class="ritual-item"><div class="rn">Жертва в озеро</div><div class="rd">Перед каждой охотой — лучший кусок еды в воду. Украшения, орудия, кости животных. Озеро принимает.</div></div>
+    <div class="ritual-item"><div class="rn">Зимнее паломничество</div><div class="rd">Раз в год Велды и другие родственные группы приходят к Яарви. Испытание — дорога через медвежьи угодья и реки.</div></div>
+    <div class="ritual-item"><div class="rn">Жрецы воды</div><div class="rd">Специализированные хранители озера. Не хранят всё как Муттааи — только озеро. Первые жрецы конкретного места.</div></div>
+  </div>
+  <div class="taboo"><b>Главный запрет</b>Загрязнить озеро. Любой мусор, кровь, нечистота в воде — оскорбление которое озеро не простит. Нарушитель изгоняется.</div>
+</div>
+
+<!-- ВЕЛД-СУОЛ -->
+<div class="panel" id="r-veldy">
+  <div class="p-header">
+    <div style="width:14px;height:14px;border-radius:2px;background:#6B7A3A"></div>
+    <h2>Велд-суол</h2>
+    <span class="hex-badge">Folk · Shamanism</span>
+  </div>
+  <div class="p-meta">Культуры: Велды — смешение Яарви-уллем и степного анимизма</div>
+  <div class="section-title">Объект веры</div>
+  <div class="belief-grid">
+    <div class="belief-card"><div class="bl">Верховное</div><div class="bv">Земля даёт жизнь</div></div>
+    <div class="belief-card"><div class="bl">Тип</div><div class="bv">Шаманизм</div></div>
+    <div class="belief-card"><div class="bl">Форма</div><div class="bv">Folk</div></div>
+  </div>
+  <div class="note">Суол — земля-кормилица. Не абстрактная богиня — конкретный участок земли который кормит конкретную семью. Первая частная собственность священна именно поэтому.</div>
+  <div class="section-title">Ритуалы</div>
+  <div class="ritual-list">
+    <div class="ritual-item"><div class="rn">Первый выгон стада</div><div class="rd">Весной — первый выход приручённых животных на пастбище. Шаман идёт впереди. Жертва земле.</div></div>
+    <div class="ritual-item"><div class="rn">Закрепление земли</div><div class="rd">Семья закапывает кости предка на своём участке. Предок в земле = земля принадлежит семье. Первое право на землю через религию.</div></div>
+  </div>
+  <div class="taboo"><b>Главный запрет</b>Убить приручённое животное без ритуала. Прирученный зверь — часть семьи, его смерть требует обряда. Иначе земля не примет следующего.</div>
+</div>
+
+<!-- ПОРРАН-МАККАЛ -->
+<div class="panel" id="r-makkal">
+  <div class="p-header">
+    <div style="width:14px;height:14px;border-radius:2px;background:#A83020"></div>
+    <h2>Порран-маккал</h2>
+    <span class="hex-badge">Folk · Animism</span>
+  </div>
+  <div class="p-meta">Культуры: Маккал — происходит от Уллам-тии</div>
+  <div class="section-title">Объект веры</div>
+  <div class="belief-grid">
+    <div class="belief-card"><div class="bl">Верховное</div><div class="bv">Дух воина</div></div>
+    <div class="belief-card"><div class="bl">Тип</div><div class="bv">Анимизм</div></div>
+    <div class="belief-card"><div class="bl">Форма</div><div class="bv">Folk</div></div>
+  </div>
+  <div class="note">Порран — война, столкновение. Маккал — люди. Религия военной фракции Аруви: уллам воина сильнее уллам мирного человека. Кто держит границу — ближе к предкам.</div>
+  <div class="section-title">Ритуалы</div>
+  <div class="ritual-list">
+    <div class="ritual-item"><div class="rn">Обход границы</div><div class="rd">Ритуальный маршрут патрулирования. Первый маршрут созданный не для движения к чему-то а для контроля линии. Маркеры на деревьях — знаки предков.</div></div>
+    <div class="ritual-item"><div class="rn">Испытание Чолан</div><div class="rd">Молодой воин уходит один на три дня к границе. Возвращается — становится Маккал. Не возвращается — остался с предками.</div></div>
+  </div>
+  <div class="taboo"><b>Главный запрет</b>Отступить с границы без боя. Отступление без попытки — потеря уллам. Таких не хоронят рядом с воинами.</div>
+</div>
+
+<!-- ААЛА-РОХОС -->
+<div class="panel" id="r-aala">
+  <div class="p-header">
+    <div style="width:14px;height:14px;border-radius:2px;background:#3A8C78"></div>
+    <h2>Аала-рохос</h2>
+    <span class="hex-badge">Folk · Animism</span>
+  </div>
+  <div class="p-meta">Культуры: Аалои — происходит от Уллам</div>
+  <div class="section-title">Объект веры</div>
+  <div class="belief-grid">
+    <div class="belief-card"><div class="bl">Верховное</div><div class="bv">Аала — Море</div></div>
+    <div class="belief-card"><div class="bl">Тип</div><div class="bv">Анимизм</div></div>
+    <div class="belief-card"><div class="bl">Форма</div><div class="bv">Folk</div></div>
+  </div>
+  <div class="note">Аала — третье великое существо после Аттаи и Аммаи. Природа не определена: отец, мать или третье? Первая религиозная неоднородность внутри одного народа — разные деревни отвечают на этот вопрос по-разному.</div>
+  <div class="section-title">Ритуалы</div>
+  <div class="ritual-list">
+    <div class="ritual-item"><div class="rn">Жертва перед выходом</div><div class="rd">Лучший кусок еды в воду перед каждым отплытием. Не переговоры с богом — благодарность за то что море позволяет.</div></div>
+    <div class="ritual-item"><div class="rn">Звёздный договор</div><div class="rd">Навигационные знания переданы через Аала-Хаару. Каждое созвездие имеет имя и историю. Передача звёздных маршрутов — священная обязанность старшего мореплавателя.</div></div>
+  </div>
+  <div class="taboo"><b>Главный запрет</b>Отказать в помощи тонущему. Море забирает — но человек должен попробовать вернуть. Нарушитель теряет право выходить в море.</div>
+</div>
+
+<!-- ДОБОШ -->
+<div class="panel" id="r-hadjar">
+  <div class="p-header">
+    <div style="width:14px;height:14px;border-radius:2px;background:#4A6080"></div>
+    <h2>Добош</h2>
+    <span class="hex-badge">Folk · Animism</span>
+  </div>
+  <div class="p-meta">Культуры: Хаджар — независимая, группа Б</div>
+  <div class="section-title">Объект веры</div>
+  <div class="belief-grid">
+    <div class="belief-card"><div class="bl">Верховное</div><div class="bv">Ритм — Добош</div></div>
+    <div class="belief-card"><div class="bl">Тип</div><div class="bv">Анимизм</div></div>
+    <div class="belief-card"><div class="bl">Форма</div><div class="bv">Folk</div></div>
+  </div>
+  <div class="note">Добош — не бог в классическом смысле. Это принцип. Вселенная существует потому что в ней есть ритм. Шторм — ритм сбился. Смерть — ритм остановился. Рождение — новый ритм начался.</div>
+  <div class="section-title">Чёнд — священная тишина</div>
+  <p>Чёнд — момент тишины между ударами барабана. Единственный момент когда можно услышать Добош напрямую. Прерывать Чёнд запрещено. В бою Чёнд — это пауза перед атакой, самое страшное место.</p>
+  <div class="section-title">Ритуалы</div>
+  <div class="ritual-list">
+    <div class="ritual-item"><div class="rn">Барабанный ход</div><div class="rd">Барабанщик задаёт ритм гребли. Это и работа и молитва одновременно. Двадцать гребцов в ритме — это двадцать человек молящихся вместе.</div></div>
+    <div class="ritual-item"><div class="rn">Рождение в ритм</div><div class="rd">Новорождённый ребёнок слышит барабан в первые минуты жизни. Его первый ритм дыхания — это его личный Добош.</div></div>
+  </div>
+  <div class="taboo"><b>Главный запрет</b>Сбить ритм в момент когда от него зависят жизни. Это единственный грех в системе Хаджар. Не воровство, не убийство — сбой ритма.</div>
+</div>
+
+<!-- ТЕНГРИ -->
+<div class="panel" id="r-tengri">
+  <div class="p-header">
+    <div style="width:14px;height:14px;border-radius:2px;background:#C8A040"></div>
+    <h2>Тенгри</h2>
+    <span class="hex-badge">Folk · Shamanism</span>
+  </div>
+  <div class="p-meta">Культуры: Тенгир — происходит от Уллам через Вееру</div>
+  <div class="section-title">Объект веры</div>
+  <div class="belief-grid">
+    <div class="belief-card"><div class="bl">Верховное</div><div class="bv">Небо и Степь</div></div>
+    <div class="belief-card"><div class="bl">Тип</div><div class="bv">Шаманизм</div></div>
+    <div class="belief-card"><div class="bl">Форма</div><div class="bv">Folk</div></div>
+  </div>
+  <div class="note">Тенгри — небо как живое существо. За перевалами Аттаи небо другое — выше, шире, ближе. Для народа который всегда жил у подножия гор это откровение. Степь и небо — единый организм.</div>
+  <div class="section-title">Ритуалы</div>
+  <div class="ritual-list">
+    <div class="ritual-item"><div class="rn">Сезонный сбор у Тенгиркол</div><div class="rd">Единственное озеро в восточной степи. Раз в год все ветки Тенгир сходятся. Жертва небу у воды — огонь на берегу виден богу сверху.</div></div>
+    <div class="ritual-item"><div class="rn">Запрет остановки</div><div class="rd">Кочевник который останавливается теряет связь с Тенгри. Небо видит только движущихся. Оседлые — мёртвые при жизни.</div></div>
+  </div>
+  <div class="taboo"><b>Главный запрет</b>Остановиться и осесть. Это не просто нарушение образа жизни — это религиозное предательство. Осевший теряет имя.</div>
+</div>
+
+<!-- НААННАИ-РОХО -->
+<div class="panel" id="r-naannai">
+  <div class="p-header">
+    <div style="width:14px;height:14px;border-radius:2px;background:#4A5A38"></div>
+    <h2>Нааннаи-рохо</h2>
+    <span class="hex-badge">Folk · Animism</span>
+  </div>
+  <div class="p-meta">Культуры: Де-Уллам — изолят Корня, 40 000 лет изоляции</div>
+  <div class="section-title">Объект веры</div>
+  <div class="belief-grid">
+    <div class="belief-card"><div class="bl">Верховное</div><div class="bv">Предки живут в болоте</div></div>
+    <div class="belief-card"><div class="bl">Тип</div><div class="bv">Анимизм</div></div>
+    <div class="belief-card"><div class="bl">Форма</div><div class="bv">Folk</div></div>
+  </div>
+  <div class="note">Их похоронили — значит они уже мёртвые. Они и живут как мёртвые — по ту сторону. Болото это не опасность — это дом. Мёртвые предки не в деревьях как у Уллам — они в воде и в торфе.</div>
+  <div class="section-title">Болотные мумии — оракулы</div>
+  <p>Тела в торфе не гниют — остаются. Де-Уллам заметили это и сделали вывод: предки хотят остаться. Жрецы задают вопросы телам. Ответы — в положении рук, в звуке воды рядом, в поведении болотного газа.</p>
+  <div class="section-title">Маннааннам — священный огонь</div>
+  <p>Болотный газ горит сам по себе над трясиной — синеватый огонь без дров, без человека. Для Де-Уллам это голос предков. Первое явление которое невозможно объяснить через обычную логику.</p>
+  <div class="ritual-list">
+    <div class="ritual-item"><div class="rn">Ритуальная ковка</div><div class="rd">Битьё камнем по болотной руде над телом предка. Изначально — способ говорить с мёртвым. Случайный результат — первый металлический предмет на континенте.</div></div>
+  </div>
+  <div class="taboo"><b>Главный запрет</b>Сжечь мёртвого вместо захоронения в болоте. Огонь уничтожает — болото сохраняет. Сожжённый предок потерян навсегда.</div>
+</div>
+
+<!-- МУНГУ-НГОМА -->
+<div class="panel" id="r-mungu">
+  <div class="p-header">
+    <div style="width:14px;height:14px;border-radius:2px;background:#7A5030"></div>
+    <h2>Мунгу-нгома</h2>
+    <span class="hex-badge">Folk · Shamanism</span>
+  </div>
+  <div class="p-meta">Культуры: Каам, Мараи — независимая (Группа В) + синкретизм с Уллам</div>
+  <div class="section-title">Объект веры</div>
+  <div class="belief-grid">
+    <div class="belief-card"><div class="bl">Верховное</div><div class="bv">Пение и Барабан</div></div>
+    <div class="belief-card"><div class="bl">Тип</div><div class="bv">Шаманизм</div></div>
+    <div class="belief-card"><div class="bl">Форма</div><div class="bv">Folk</div></div>
+  </div>
+  <div class="note">Мунгу — высшая сила. Нгома — барабан и ритуал одновременно. Для Аруви слышавших Мунгу-нгома это звучало как пение, не как речь. Первый межрелигиозный диалог завершился двубожием в Мараи: Аммаи-мать + Мунгу.</div>
+  <div class="section-title">Пиджин-религия Мараи</div>
+  <p>Мараи — первый синкретический народ — создали первую синкретическую религию. Аммаи-мать привела Каам с юга как знак. Мунгу-небо это тот же Аттаи-отец только без горы. Двубожие работает.</p>
+  <div class="ritual-list">
+    <div class="ritual-item"><div class="rn">Нгома — ритуальный барабан</div><div class="rd">Барабанщика не убивают во время ритуала — священное правило. Ритм барабана это голос Мунгу. Пока звучит нгома — убийство запрещено.</div></div>
+    <div class="ritual-item"><div class="rn">Первый контакт — ритуал приветствия</div><div class="rd">Встреча двух групп начинается с барабана. Пока звучит нгома — можно говорить. Так Аруви и Каам впервые поняли друг друга.</div></div>
+  </div>
+  <div class="taboo"><b>Главный запрет</b>Убить барабанщика во время ритуала. Нгома — нейтральная зона. Нарушение означает войну с обоими народами.</div>
+</div>
+
+</div>
+</div>
+<script>
+function show(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.sb-item').forEach(s=>s.classList.remove('active'));
+  document.getElementById('r-'+id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+</script>
+</body>
+</html>
