@@ -7,19 +7,19 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,sans-serif;font-size:12px;background:#1a1a18;color:#d4d2cc;min-height:100vh}
-.nav{position:fixed;top:0;left:0;right:0;background:#1a1a18;border-bottom:0.5px solid #333;padding:6px 16px;display:flex;align-items:center;gap:12px;z-index:1000}
-.nav a{text-decoration:none;color:#888;font-size:10px;padding:3px 10px;border:0.5px solid #444;border-radius:3px;background:#2c2c2a}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a18;border-bottom:0.5px solid #333;padding:0 16px;display:flex;align-items:center;gap:12px;z-index:1000;height:48px}
+.nav a{text-decoration:none;color:#888;font-size:13px;padding:6px 12px;border:0.5px solid #444;border-radius:5px;background:#2c2c2a;min-height:48px;display:flex;align-items:center}
 .nav a:hover{color:#f1efe8;border-color:#888}
-.spacer{height:36px}
+.spacer{height:48px}
 .header{background:#2c2c2a;padding:14px 20px;border-bottom:1px solid #444}
-.header h1{font-size:16px;font-weight:500;color:#f1efe8}
-.header p{font-size:10px;color:#888;margin-top:3px}
+.header h1{font-size:19px;font-weight:500;color:#f1efe8}
+.header p{font-size:13px;color:#999;margin-top:4px}
 .wrap{padding:16px;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .inner{min-width:700px}
 .axis{height:40px;position:relative;border-bottom:1px solid #2a2a28;margin-bottom:4px}
 .rows{position:relative}
 .row{display:flex;align-items:center;border-bottom:0.5px solid #1e1e1c;min-height:34px}
-.rl{width:130px;min-width:130px;font-size:10px;color:#777;padding:4px 10px 4px 0;text-align:right;white-space:nowrap;flex-shrink:0;display:flex;align-items:center;justify-content:flex-end;gap:5px}
+.rl{width:130px;min-width:130px;font-size:12px;color:#aaa;padding:4px 10px 4px 0;text-align:right;white-space:nowrap;flex-shrink:0;display:flex;align-items:center;justify-content:flex-end;gap:5px}
 .dot{width:8px;height:8px;border-radius:1px;flex-shrink:0}
 .rt{flex:1;position:relative;height:34px}
 .bar{position:absolute;top:9px;height:16px;border-radius:3px;cursor:pointer;opacity:0.8;transition:opacity 0.1s}
@@ -29,16 +29,16 @@ body{font-family:Arial,sans-serif;font-size:12px;background:#1a1a18;color:#d4d2c
 .evt-inner{width:6px;height:6px;border-radius:50%;background:#1a1a18}
 .tt{position:fixed;background:#2c2c2a;border:0.5px solid #555;border-radius:4px;padding:8px 10px;font-size:10px;pointer-events:none;z-index:200;max-width:200px;display:none;line-height:1.5;color:#d4d2cc}
 .tt h4{color:#f1efe8;margin-bottom:3px;font-size:11px}
-.footnote{margin-top:14px;padding-top:10px;border-top:0.5px solid #2a2a28;font-size:9px;color:#383838;line-height:1.6}
+.footnote{margin-top:14px;padding-top:10px;border-top:0.5px solid #2a2a28;font-size:12px;color:#888;line-height:1.6}
 .legend{display:flex;gap:10px;flex-wrap:wrap;padding:10px 0;margin-top:6px}
-.li{display:flex;align-items:center;gap:5px;font-size:9px;color:#555}
+.li{display:flex;align-items:center;gap:5px;font-size:9px;color:#888}
 .li-dot{width:10px;height:10px;border-radius:2px}
 </style>
 </head>
 <body>
 <div class="nav">
   <a href="index.html">← Главная</a>
-  <span style="color:#333;font-size:10px">Таймлайн</span>
+  <span style="color:#777;font-size:10px">Таймлайн</span>
 </div>
 <div class="spacer"></div>
 <div class="header">

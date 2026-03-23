@@ -3,30 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ORBAT</title>
+<title>ORBAT — Оррим</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#1a1a18;color:#d4d2cc;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 16px}
-h1{font-size:20px;font-weight:500;color:#f1efe8;letter-spacing:0.05em;margin-bottom:4px;text-align:center}
-.sub{font-size:10px;color:#444;margin-bottom:28px;text-align:center}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:560px;width:100%}
+html{font-size:15px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  background:#1a1a18;color:#d4d2cc;min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:40px 20px}
+h1{font-size:28px;font-weight:400;color:#f1efe8;letter-spacing:0.08em;
+  margin-bottom:6px;text-align:center}
+.sub{font-size:13px;color:#888;margin-bottom:36px;text-align:center;letter-spacing:0.04em}
+.grid{display:grid;grid-template-columns:1fr;gap:10px;max-width:580px;width:100%}
 @media(min-width:480px){.grid{grid-template-columns:1fr 1fr}}
-.card{display:block;background:#1e1e1c;border:0.5px solid #2a2a28;border-radius:6px;padding:16px;text-decoration:none;color:#d4d2cc;transition:all 0.15s;min-height:44px}
-.card:hover{border-color:#666;background:#242422}
-.card:active{background:#2c2c2a}
+.card{display:block;background:#1e1e1c;border:0.5px solid #2a2a28;
+  border-radius:6px;padding:18px;text-decoration:none;color:#d4d2cc;
+  transition:border-color 0.15s,background 0.15s;min-height:64px}
+.card:hover{border-color:#888;background:#242422}
+.card:active{background:#2c2c2a;transform:scale(0.99)}
 .card.wide{grid-column:1/-1}
-.card.engine{border-color:#3a3a38}
+.card.engine{border-color:#777}
 .card.engine:hover{border-color:#c87840}
-.card h2{font-size:12px;font-weight:500;color:#f1efe8;margin-bottom:4px;display:flex;align-items:center;gap:6px}
-.card p{font-size:10px;color:#444;line-height:1.5}
-.badge{font-size:8px;padding:1px 5px;border-radius:2px;background:#2c2c2a;border:0.5px solid #333;color:#666}
-.div{grid-column:1/-1;height:1px;background:#1e1e1c;margin:2px 0}
-.section-label{grid-column:1/-1;font-size:9px;color:#333;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:-2px}
+.card h2{font-size:14px;font-weight:500;color:#f1efe8;
+  margin-bottom:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card p{font-size:13px;color:#888;line-height:1.55}
+.badge{font-size:11px;padding:2px 7px;border-radius:3px;
+  background:#2c2c2a;border:0.5px solid #333;color:#999;font-weight:400}
+.divider{grid-column:1/-1;height:0.5px;background:#222;margin:6px 0}
+.section-label{grid-column:1/-1;font-size:11px;color:#777;
+  text-transform:uppercase;letter-spacing:0.1em;padding-bottom:2px}
 </style>
 </head>
 <body>
 <h1>ORBAT</h1>
-<p class="sub">Стратегическая война · Лор · Мир · 1952 н.э.</p>
+<p class="sub">Оррим · Стратегическая война · 1952 н.э.</p>
 
 <div class="grid">
   <div class="section-label">Движок игры</div>
@@ -35,7 +45,7 @@ h1{font-size:20px;font-weight:500;color:#f1efe8;letter-spacing:0.05em;margin-bot
     <p>Фреймворк управления боем. BattleState, Commander, ROE, Perception, Net Data.</p>
   </a>
 
-  <div class="div"></div>
+  <div class="divider"></div>
   <div class="section-label">Мир и лор</div>
 
   <a href="orbat_map.html" class="card wide">
@@ -59,9 +69,13 @@ h1{font-size:20px;font-weight:500;color:#f1efe8;letter-spacing:0.05em;margin-bot
     <h2>🗣 Языки</h2>
     <p>Фонетика, словари, namesbase.</p>
   </a>
-  <a href="orbat_religions.html" class="card wide">
+  <a href="orbat_religions.html" class="card">
     <h2>🔥 Религии</h2>
-    <p>Верования, ритуалы и табу каждой культуры. От анимизма Уллам до ритма Хаджар.</p>
+    <p>Верования, ритуалы и табу каждой культуры.</p>
+  </a>
+  <a href="orbat_tales.html" class="card wide">
+    <h2>📖 Сказки народов Оррим</h2>
+    <p>Предания, легенды и бытовые истории от -51 000 до н.э. Устная традиция.</p>
   </a>
 </div>
 </body>
