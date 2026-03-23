@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
 <meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" href="favicon.ico">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ORBAT — Первые</title>
 <style>
@@ -19,8 +17,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
 .nav a{text-decoration:none;color:#aaa;font-size:13px;padding:6px 12px;
   border:0.5px solid #444;border-radius:5px;background:#2c2c2a;
   min-height:36px;display:flex;align-items:center}
-.nav a:hover{color:#f1efe8;border-color:#666}
-.nav span{color:#666;font-size:12px}
+.nav a:hover{color:#f1efe8;border-color:#aaa}
+.nav span{color:#aaa;font-size:14px}
 .spacer{height:48px}
 .header{background:#222220;padding:16px 20px;border-bottom:0.5px solid #333}
 .header h1{font-size:19px;font-weight:500;color:#f1efe8}
@@ -29,26 +27,26 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
   display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .cat-btn{padding:7px 14px;border:0.5px solid #333;border-radius:4px;cursor:pointer;
   font-size:13px;background:#1a1a18;color:#777;min-height:38px;transition:all 0.15s}
-.cat-btn:hover{border-color:#666;color:#ccc}
-.cat-btn.active{color:#f1efe8;border-color:#666;background:#2a2a28}
+.cat-btn:hover{border-color:#aaa;color:#ccc}
+.cat-btn.active{color:#f1efe8;border-color:#aaa;background:#2a2a28}
 .cat-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
-.count{margin-left:auto;font-size:12px;color:#555;padding:0 4px}
+.count{margin-left:auto;font-size:14px;color:#999;padding:0 4px}
 .list{max-width:860px;margin:0 auto;padding:20px 16px}
 .item{display:none;border-bottom:0.5px solid #222;padding:16px 0;gap:16px;
   flex-direction:column}
 .item.visible{display:flex}
 @media(min-width:560px){.item{flex-direction:row;align-items:flex-start}}
-.item-date{font-size:12px;color:#666;font-family:monospace;
+.item-date{font-size:14px;color:#aaa;font-family:monospace;
   white-space:nowrap;padding-top:2px;min-width:120px}
 .item-body{flex:1}
 .item-title{font-size:15px;font-weight:500;color:#f1efe8;margin-bottom:5px;
   display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap}
-.item-cat{font-size:10px;padding:2px 8px;border-radius:10px;
+.item-cat{font-size:13px;padding:2px 8px;border-radius:10px;
   font-weight:400;white-space:nowrap;margin-top:2px}
-.item-people{font-size:12px;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.item-people{font-size:14px;margin-bottom:6px;display:flex;align-items:center;gap:6px}
 .swatch{display:inline-block;width:9px;height:9px;border-radius:2px;flex-shrink:0}
 .item-desc{font-size:13px;color:#bbb;line-height:1.7}
-.empty{padding:40px 20px;text-align:center;color:#444;font-size:14px}
+.empty{padding:40px 20px;text-align:center;color:#888;font-size:14px}
 /* category colors */
 .cat-tech .item-cat{background:#102030;color:#4a90c0}
 .cat-tech .item-date{color:#4a90c0}

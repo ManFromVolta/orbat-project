@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
 <meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ORBAT — Религии</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;font-size:12px;background:#1a1a18;color:#d4d2cc;min-height:100vh}
+body{font-family:Arial,sans-serif;font-size:15px;background:#1a1a18;color:#d4d2cc;min-height:100vh;line-height:1.6}
 .nav{position:fixed;top:0;left:0;right:0;background:#1a1a18;border-bottom:0.5px solid #333;padding:0 16px;display:flex;align-items:center;gap:12px;z-index:1000;height:48px}
 .nav a{text-decoration:none;color:#888;font-size:13px;padding:6px 12px;border:0.5px solid #444;border-radius:5px;background:#2c2c2a;min-height:48px;display:flex;align-items:center}
 .nav a:hover{color:#f1efe8;border-color:#888}
@@ -24,9 +21,9 @@ body{font-family:Arial,sans-serif;font-size:12px;background:#1a1a18;color:#d4d2c
 @media(min-width:640px){.sidebar{width:180px;min-width:180px;border-bottom:none;border-right:0.5px solid #2a2a28;overflow-x:visible;overflow-y:auto}}
 .sidebar-inner{display:flex;flex-direction:row;padding:8px}
 @media(min-width:640px){.sidebar-inner{flex-direction:column;padding:0}}
-.sb-section{padding:10px 14px 4px;font-size:9px;color:#777;text-transform:uppercase;letter-spacing:0.08em;display:none}
+.sb-section{padding:10px 14px 4px;font-size:14px;color:#777;text-transform:uppercase;letter-spacing:0.08em;display:none}
 @media(min-width:640px){.sb-section{display:block}}
-.sb-item{padding:8px 14px;font-size:10px;cursor:pointer;border-left:2px solid transparent;color:#888;transition:all 0.1s;white-space:nowrap;display:flex;align-items:center;gap:6px;border-radius:3px;margin:2px}
+.sb-item{padding:8px 14px;font-size:13px;cursor:pointer;border-left:2px solid transparent;color:#888;transition:all 0.1s;white-space:nowrap;display:flex;align-items:center;gap:6px;border-radius:3px;margin:2px}
 @media(min-width:640px){.sb-item{border-radius:0;margin:0}}
 .sb-item:hover{color:#d4d2cc;background:#2c2c2a}
 .sb-item.active{color:#f1efe8;border-left-color:#c87840;background:#242422}
@@ -36,22 +33,22 @@ body{font-family:Arial,sans-serif;font-size:12px;background:#1a1a18;color:#d4d2c
 .panel.active{display:block}
 .p-header{display:flex;align-items:center;gap:10px;margin-bottom:4px}
 .p-header h2{font-size:15px;font-weight:500;color:#f1efe8}
-.p-meta{font-size:10px;color:#888;margin-bottom:18px}
-.section-title{font-size:10px;font-weight:500;color:#888;text-transform:uppercase;letter-spacing:0.07em;margin:16px 0 8px;padding-bottom:4px;border-bottom:0.5px solid #1e1e1c}
+.p-meta{font-size:13px;color:#888;margin-bottom:18px}
+.section-title{font-size:13px;font-weight:500;color:#888;text-transform:uppercase;letter-spacing:0.07em;margin:16px 0 8px;padding-bottom:4px;border-bottom:0.5px solid #1e1e1c}
 .belief-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
 @media(min-width:480px){.belief-grid{grid-template-columns:repeat(3,1fr)}}
 .belief-card{background:#242422;border:0.5px solid #2a2a28;border-radius:4px;padding:8px 10px}
-.belief-card .bl{font-size:11px;color:#888;margin-bottom:3px;text-transform:uppercase;letter-spacing:0.05em}
+.belief-card .bl{font-size:13px;color:#888;margin-bottom:3px;text-transform:uppercase;letter-spacing:0.05em}
 .belief-card .bv{font-size:13px;color:#c87840}
 .note{background:#242422;border-left:2px solid #444;padding:8px 12px;border-radius:0 3px 3px 0;font-size:13px;color:#999;line-height:1.7;margin:10px 0;font-style:italic}
 .ritual-list{margin:0 0 8px}
 .ritual-item{background:#242422;border:0.5px solid #2a2a28;border-radius:4px;padding:9px 12px;margin-bottom:6px}
 .ritual-item .rn{font-size:14px;color:#f1efe8;font-weight:500;margin-bottom:4px}
 .ritual-item .rd{font-size:13px;color:#999;line-height:1.6}
-.taboo{background:#1a1a14;border:0.5px solid #443a20;border-left:2px solid #c87040;border-radius:0 4px 4px 0;padding:10px 12px;font-size:10px;color:#886020;line-height:1.6;margin:8px 0}
-.taboo b{color:#c87840;display:block;margin-bottom:4px;font-size:11px;text-transform:uppercase;letter-spacing:0.06em}
-p{font-size:11px;color:#888;line-height:1.7;margin-bottom:8px}
-.hex-badge{font-family:monospace;font-size:9px;padding:2px 6px;border-radius:2px;color:#888;border:0.5px solid #2a2a28}
+.taboo{background:#1a1a14;border:0.5px solid #443a20;border-left:2px solid #c87040;border-radius:0 4px 4px 0;padding:10px 12px;font-size:13px;color:#886020;line-height:1.6;margin:8px 0}
+.taboo b{color:#c87840;display:block;margin-bottom:4px;font-size:13px;text-transform:uppercase;letter-spacing:0.06em}
+p{font-size:13px;color:#888;line-height:1.7;margin-bottom:8px}
+.hex-badge{font-family:monospace;font-size:14px;padding:2px 6px;border-radius:2px;color:#888;border:0.5px solid #2a2a28}
 </style>
 </head>
 <body>

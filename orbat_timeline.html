@@ -1,242 +1,171 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ORBAT — Таймлайн</title>
+<link rel="icon" href="favicon.ico">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;font-size:12px;background:#1a1a18;color:#d4d2cc;overflow-x:auto}
-.header{background:#2c2c2a;padding:16px 20px;border-bottom:1px solid #444;position:sticky;left:0}
-.header h1{font-size:18px;font-weight:500;color:#f1efe8}
-.header p{font-size:10px;color:#888;margin-top:4px}
-.timeline-wrap{padding:20px;min-width:900px}
-.axis{display:flex;border-bottom:1px solid #444;margin-bottom:0;position:relative;height:32px}
-.axis-label{flex:1;text-align:center;font-size:9px;color:#555;padding-top:6px;border-left:0.5px solid #333;position:relative}
-.axis-label.current{color:#c87840;border-left-color:#c87840}
-.axis-label span{display:block;font-size:8px;color:#444;margin-top:2px}
+html{font-size:15px;-webkit-text-size-adjust:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#1a1a18;color:#d4d2cc;min-height:100vh;line-height:1.65}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a18;border-bottom:0.5px solid #333;padding:0 16px;display:flex;align-items:center;gap:10px;z-index:1000;height:52px}
+.nav a{text-decoration:none;color:#999;font-size:13px;padding:0 14px;border:0.5px solid #3a3a38;border-radius:6px;background:#2a2a28;height:36px;display:flex;align-items:center;white-space:nowrap;transition:all 0.15s}
+.nav a:hover{color:#f1efe8;border-color:#666}
+.nav-title{color:#777;font-size:13px}
+.spacer{height:52px}
+.hdr{background:#202020;padding:18px 20px;border-bottom:0.5px solid #333}
+.hdr h1{font-size:20px;font-weight:500;color:#f1efe8}
+.hdr p{font-size:13px;color:#777;margin-top:5px}
+.st{font-size:11px;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:0.1em;margin:22px 0 12px;padding-bottom:6px;border-bottom:0.5px solid #282826}
+.ev{background:#202020;border:0.5px solid #333;border-left:3px solid #c87840;border-radius:6px;padding:13px 15px;margin-bottom:10px}
+.ev h4{font-size:14px;font-weight:600;color:#f1efe8;margin-bottom:5px}
+.ev p{font-size:13px;color:#bbb;line-height:1.65;margin:0}
+.nt{background:#202020;border-left:2px solid #3a3a38;padding:10px 14px;border-radius:0 6px 6px 0;font-size:13px;color:#999;line-height:1.65;margin:10px 0;font-style:italic}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px}
+table{width:100%;border-collapse:collapse;min-width:380px;font-size:13px}
+th{background:#282826;padding:9px 11px;text-align:left;font-size:12px;font-weight:600;color:#999;border-bottom:1px solid #333;white-space:nowrap}
+td{padding:9px 11px;border-bottom:0.5px solid #282826;font-size:13px;color:#bbb;vertical-align:top}
+tr:hover td{background:#202020}
+.sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle;border:0.5px solid rgba(255,255,255,0.1)}
+.pop{color:#a0c880}
+.tag{display:inline-block;font-size:12px;padding:2px 7px;border-radius:3px}
+.tn{background:#3a2a10;color:#c87840}
+.tr{background:#0d2a2a;color:#3aa0a0}
+.th{background:#22122a;color:#a060c0}
+.tv{background:#081830;color:#3a80c0}
+.tg{background:#22220d;color:#a0a040}
+.tl{background:#0d2030;color:#5090c0}
+.tk{background:#1a1a1a;color:#555}
+p{font-size:14px;color:#bbb;line-height:1.75;margin-bottom:10px}
+
+
+.wrap{padding:16px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.inner{min-width:680px}
+.axis{height:42px;position:relative;border-bottom:1px solid #333}
 .rows{position:relative}
-.row{display:flex;align-items:center;border-bottom:0.5px solid #2a2a28;min-height:28px}
-.row-label{width:140px;min-width:140px;font-size:10px;color:#888;padding:4px 10px 4px 0;text-align:right;white-space:nowrap;flex-shrink:0}
-.row-label .dot{display:inline-block;width:8px;height:8px;border-radius:1px;margin-right:5px;vertical-align:middle}
-.row-timeline{flex:1;position:relative;height:28px}
-.bar{position:absolute;top:6px;height:16px;border-radius:3px;cursor:pointer;transition:opacity 0.15s;display:flex;align-items:center;padding:0 6px;font-size:8px;white-space:nowrap;overflow:hidden;opacity:0.85}
-.bar:hover{opacity:1;z-index:10}
-.bar-label{color:rgba(255,255,255,0.8);overflow:hidden;text-overflow:ellipsis}
-.event-marker{position:absolute;top:0;width:2px;height:28px;z-index:5}
-.event-dot{position:absolute;width:6px;height:6px;border-radius:50%;top:50%;transform:translateY(-50%);left:-2px;cursor:pointer}
-.tooltip{position:fixed;background:#2c2c2a;border:0.5px solid #555;border-radius:4px;padding:8px 10px;font-size:10px;color:#d4d2cc;pointer-events:none;z-index:100;max-width:220px;display:none;line-height:1.6}
-.tooltip h4{color:#f1efe8;margin-bottom:4px;font-size:11px}
-.legend{display:flex;gap:12px;flex-wrap:wrap;padding:12px 0 0;border-top:0.5px solid #333;margin-top:16px}
-.legend-item{display:flex;align-items:center;gap:5px;font-size:9px;color:#666}
-.legend-dot{width:10px;height:10px;border-radius:2px}
-.era-divider{position:absolute;top:0;width:1px;background:#444;height:100%;z-index:2}
+.row{display:flex;align-items:center;border-bottom:0.5px solid #1e1e1e;min-height:34px}
+.rl{width:134px;min-width:134px;font-size:12px;color:#999;padding:4px 10px 4px 0;text-align:right;white-space:nowrap;flex-shrink:0;display:flex;align-items:center;justify-content:flex-end;gap:5px}
+.dot{width:8px;height:8px;border-radius:1px;flex-shrink:0}
+.rt{flex:1;position:relative;height:34px}
+.bar{position:absolute;top:9px;height:16px;border-radius:3px;cursor:pointer;opacity:0.8}
+.bar:hover{opacity:1;z-index:5}
+.blab{position:absolute;inset:0;display:flex;align-items:center;padding:0 7px;font-size:11px;color:rgba(255,255,255,0.75);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.evt{position:absolute;top:50%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;border:2px solid #1a1a18;cursor:pointer;z-index:6;display:flex;align-items:center;justify-content:center}
+.evt-in{width:7px;height:7px;border-radius:50%;background:#1a1a18}
+.tt{position:fixed;background:#282826;border:0.5px solid #555;border-radius:6px;padding:9px 11px;font-size:13px;pointer-events:none;z-index:200;max-width:210px;display:none;line-height:1.5;color:#d4d2cc}
+.tt h4{color:#f1efe8;margin-bottom:3px;font-size:14px}
+.legend{display:flex;gap:10px;flex-wrap:wrap;padding:12px 0;margin-top:6px}
+.li{display:flex;align-items:center;gap:6px;font-size:12px;color:#999}
+.li-dot{width:10px;height:10px;border-radius:2px}
+.fn{margin-top:14px;padding-top:10px;border-top:0.5px solid #282826;font-size:12px;color:#666;line-height:1.6}
+
 </style>
 </head>
 <body>
-<div class="header">
-  <h1>ORBAT — Таймлайн эпох</h1>
-  <p>Эволюция народов от первых людей до игрового времени</p>
-</div>
-<div class="timeline-wrap">
-  <div id="timeline"></div>
+<div class="nav"><a href="index.html">← Главная</a><span class="nav-title">Таймлайн</span></div>
+<div class="spacer"></div>
+<div class="hdr"><h1>ORBAT — Таймлайн эпох</h1><p>Эволюция народов от первых людей до 1952 н.э.</p></div>
+<div class="wrap"><div class="inner">
+  <div class="axis" id="axis"></div>
+  <div class="rows" id="rows"></div>
   <div class="legend" id="legend"></div>
-</div>
-<div class="tooltip" id="tooltip"></div>
-
+  <div class="fn">* Дикари не отображаются — неорганизованные полудикие группы без культуры. В -10 000 до н.э. составляют ~600 000 из ~1 200 000 человек.</div>
+</div></div>
+<div class="tt" id="tt"></div>
 <script>
-// Временная шкала: от -100000 до +1780
-// Эпохи
-const ERAS = [
-  {label:'-100 000', sublabel:'Доисторич.', year:-100000, current:false},
-  {label:'-80 000', sublabel:'Расхожд.', year:-80000, current:false},
-  {label:'-60 000', sublabel:'Похолод.', year:-60000, current:false},
-  {label:'-40 000', sublabel:'Оттепель', year:-40000, current:true},
-  {label:'-20 000', sublabel:'Приход Б', year:-20000, current:false},
-  {label:'-10 000', sublabel:'Неолит', year:-10000, current:false},
-  {label:'-3 000', sublabel:'Бронза', year:-3000, current:false},
-  {label:'0', sublabel:'н.э.', year:0, current:false},
-  {label:'+1780', sublabel:'Игровое вр.', year:1780, current:false},
+var ERAS=[
+  {y:-100000,l:"-100k",s:"Доисторич.",cur:false},
+  {y:-80000,l:"-80k",s:"Расхожд.",cur:false},
+  {y:-60000,l:"-60k",s:"Похолод.",cur:false},
+  {y:-40000,l:"-40k",s:"Оттепель",cur:false},
+  {y:-20000,l:"-20k",s:"Основания",cur:false},
+  {y:-10000,l:"-10k",s:"Неолит",cur:true},
+  {y:-3000,l:"-3k",s:"Бронза",cur:false},
+  {y:0,l:"0",s:"н.э.",cur:false},
+  {y:1952,l:"1952",s:"Игровое",cur:false}
 ];
-
-// Народы: {name, hex, start, end (null=продолжается), events, desc}
-const PEOPLES = [
-  {
-    name:'Шум', hex:'A89878',
-    start:-100000, end:-5000,
-    desc:'Бескультурный фон. Деградируют и исчезают.',
-    events:[{year:-40000, label:'Финальная стадия'}]
-  },
-  {
-    name:'Уллам ⚰', hex:'C4855A',
-    start:-100000, end:-60000,
-    desc:'Праматерь всех культур. Язык Корень.',
-    events:[
-      {year:-100000, label:'Аммаи-куттам'},
-      {year:-80000, label:'Рост до 80 000'},
-    ]
-  },
-  {
-    name:'Протоярви ⚰', hex:'8AAFC0',
-    start:-95000, end:-60000,
-    desc:'Отколовшиеся на север. Ледник.',
-    events:[]
-  },
-  {
-    name:'Протоаларои ⚰', hex:'4A8C7A',
-    start:-80000, end:-60000,
-    desc:'Береговой путь на запад.',
-    events:[{year:-80000, label:'Открыли море Аала'}]
-  },
-  {
-    name:'Аммаи', hex:'C4855A',
-    start:-60000, end:null,
-    desc:'Хранители Аммаи-куттам. Первое поселение.',
-    events:[{year:-40000, label:'Разделение труда'}]
-  },
-  {
-    name:'Аруви', hex:'C87840',
-    start:-60000, end:null,
-    desc:'Набожные южные. Демографический пик 95 000.',
-    events:[
-      {year:-40000, label:'Пик населения'},
-      {year:-40000, label:'Каам на горизонте'},
-    ]
-  },
-  {
-    name:'Вееру', hex:'B8703A',
-    start:-60000, end:null,
-    desc:'Западные кочевники. Первые воины.',
-    events:[{year:-40000, label:'У перевалов Аттаи'}]
-  },
-  {
-    name:'Де-Уллам', hex:'7A6850',
-    start:-60000, end:null,
-    desc:'Мёртвые в болотах. Изолят.',
-    events:[{year:-40000, label:'Болотное железо'}]
-  },
-  {
-    name:'Хаару', hex:'8AAFC0',
-    start:-60000, end:null,
-    desc:'Охотники у ледника. Тайга.',
-    events:[{year:-40000, label:'Авангард на север'}]
-  },
-  {
-    name:'Аала-Хаару ⚰', hex:'6A9FB0',
-    start:-60000, end:-42000,
-    desc:'Растворились в Аала.',
-    events:[{year:-42000, label:'Ассимиляция'}]
-  },
-  {
-    name:'Аала', hex:'4A8C7A',
-    start:-60000, end:null,
-    desc:'Морской народ. 15 деревень.',
-    events:[{year:-40000, label:'Звёздная навигация'}]
-  },
-  {
-    name:'Каам', hex:'5C3D2E',
-    start:-42000, end:null,
-    desc:'Беглецы с юга. Банту-язык. Группа В.',
-    events:[{year:-42000, label:'Первый контакт с Аруви'}]
-  },
+var PEOPLES=[
+  {name:"Уллам",dead:true,hex:"C4855A",start:-100000,end:-60000,desc:"Праматерь всех культур.",events:[{y:-100000,l:"Аммаи-куттам"},{y:-80000,l:"Рост до 80 000"}]},
+  {name:"Протоярви",dead:true,hex:"8AAFC0",start:-95000,end:-60000,desc:"Откол на север.",events:[]},
+  {name:"Протоаларои",dead:true,hex:"3A8C78",start:-80000,end:-60000,desc:"Береговой путь. Открыли море.",events:[{y:-80000,l:"Открыли море"}]},
+  {name:"Аммаи",dead:false,hex:"C4855A",start:-60000,end:null,desc:"Хранители Аммаи-куттам.",events:[{y:-40000,l:"Первое поселение"},{y:-10000,l:"Первый город"}]},
+  {name:"Аруви",dead:true,hex:"C8502A",start:-60000,end:-20000,desc:"Набожные южные. Распались.",events:[{y:-40000,l:"Пик 95 000"},{y:-20000,l:"Распад"}]},
+  {name:"Вееру",dead:true,hex:"A86030",start:-60000,end:-20000,desc:"Кочевники. Стали Тенгир.",events:[{y:-20000,l:"Прошли Аттаи"}]},
+  {name:"Де-Уллам",dead:false,hex:"4A5A38",start:-60000,end:null,desc:"Мёртвые в болотах. Изолят.",events:[{y:-20000,l:"Первая игла"}]},
+  {name:"Хаару",dead:true,hex:"8AAFC0",start:-60000,end:-20000,desc:"Охотники у ледника. Стали Ярви.",events:[{y:-20000,l:"Стали Ярви"}]},
+  {name:"Аала-Хаару",dead:true,hex:"6A9FB0",start:-60000,end:-40000,desc:"Растворились в Аала.",events:[{y:-40000,l:"Ассимиляция"}]},
+  {name:"Аала / Аалои",dead:false,hex:"3A8C78",start:-60000,end:null,desc:"Морской народ. Аркос.",events:[{y:-40000,l:"15 деревень"},{y:-20000,l:"Аркос"}]},
+  {name:"Каам",dead:false,hex:"9A4030",start:-42000,end:null,desc:"Группа В с юга.",events:[{y:-42000,l:"Первый контакт"}]},
+  {name:"Ярви",dead:false,hex:"6A9FB0",start:-20000,end:null,desc:"Потомки Хаару. Священное озеро.",events:[{y:-20000,l:"Яарви-ранта"}]},
+  {name:"Тенгир",dead:false,hex:"C8A040",start:-20000,end:null,desc:"Потомки Вееру. Восточная степь.",events:[{y:-20000,l:"За Аттаи"}]},
+  {name:"Велды",dead:false,hex:"6B7A3A",start:-20000,end:null,desc:"Хаару+Вееру. Протославяне.",events:[]},
+  {name:"Маккал",dead:false,hex:"A83020",start:-20000,end:null,desc:"Военная фракция Аруви.",events:[]},
+  {name:"Мараи",dead:false,hex:"7A5030",start:-20000,end:null,desc:"Аруви+Каам. Синкретический народ.",events:[]},
+  {name:"Хаджар",dead:false,hex:"4A6080",start:-20000,end:null,desc:"Группа Б. Речная держава.",events:[{y:-20000,l:"Высадка в дельте"}]},
+  {name:"Реев-Хаджар",dead:false,hex:"2A4060",start:-10000,end:null,desc:"Морская ветка Хаджар.",events:[]},
+  {name:"Корви",dead:false,hex:"7ABFC0",start:-10000,end:null,desc:"Горная ветка Ярви. Корифос.",events:[]}
 ];
-
-const MIN_YEAR = -105000;
-const MAX_YEAR = 2000;
-const RANGE = MAX_YEAR - MIN_YEAR;
-
-function yearToPercent(year) {
-  return ((year - MIN_YEAR) / RANGE) * 100;
-}
-
-function render() {
-  const tl = document.getElementById('timeline');
-
-  // Ось
-  let axisHtml = '<div class="axis">';
-  ERAS.forEach(era => {
-    const pct = yearToPercent(era.year);
-    axisHtml += `<div class="axis-label ${era.current?'current':''}" style="position:absolute;left:${pct}%;transform:translateX(-50%);border-left:none">
-      <div style="border-left:1px solid ${era.current?'#c87840':'#333'};padding-left:4px">
-        ${era.label}<span>${era.sublabel}</span>
-      </div>
-    </div>`;
+var MIN=-105000,MAX=2100,RNG=MAX-MIN;
+function pct(y){return ((y-MIN)/RNG)*100;}
+function render(){
+  var axis=document.getElementById("axis");
+  var rows=document.getElementById("rows");
+  var legend=document.getElementById("legend");
+  var ah="";
+  ERAS.forEach(function(e){
+    var p=pct(e.y);
+    var col=e.cur?"#c87840":"#2a2a28";
+    var tc=e.cur?"#c87840":"#555";
+    ah+='<div style="position:absolute;top:0;bottom:0;left:'+p+'%;width:1px;background:'+col+'"></div>';
+    ah+='<div style="position:absolute;top:5px;left:'+p+'%;transform:translateX(-50%);text-align:center;font-size:11px;color:'+tc+';white-space:nowrap">'+e.l+'<br><span style="font-size:10px;color:'+(e.cur?"#886020":"#444")+'">'+e.s+'</span></div>';
   });
-  axisHtml += '</div>';
-
-  // Ряды
-  let rowsHtml = '<div class="rows" style="position:relative">';
-
-  PEOPLES.forEach(p => {
-    const startPct = yearToPercent(p.start);
-    const endPct = p.end ? yearToPercent(p.end) : yearToPercent(1780);
-    const widthPct = endPct - startPct;
-    const isLocked = p.name.includes('⚰');
-
-    const eventsHtml = p.events.map(ev => {
-      const evPct = yearToPercent(ev.year);
-      return `<div class="event-dot" style="left:${evPct}%;background:#f1efe8;width:6px;height:6px;border-radius:50%;position:absolute;top:50%;transform:translateY(-50%)"
-        onmouseenter="showTip(event,'${ev.label}')" onmouseleave="hideTip()"></div>`;
-    }).join('');
-
-    rowsHtml += `
-      <div class="row">
-        <div class="row-label">
-          <span class="dot" style="background:#${p.hex};opacity:${isLocked?0.4:1}"></span>
-          <span style="color:${isLocked?'#555':'#aaa'}">${p.name}</span>
-        </div>
-        <div class="row-timeline">
-          <div class="bar" style="left:${startPct}%;width:${widthPct}%;background:#${p.hex};opacity:${isLocked?0.3:0.75}"
-            onmouseenter="showTipFull(event,'${p.name}','${p.desc}')" onmouseleave="hideTip()">
-            <span class="bar-label">${widthPct > 5 ? p.name : ''}</span>
-          </div>
-          ${eventsHtml}
-        </div>
-      </div>
-    `;
+  axis.innerHTML=ah;
+  var curP=pct(-10000);
+  var rh='<div style="position:absolute;top:0;bottom:0;left:'+curP+'%;width:1px;background:rgba(200,120,64,0.25);pointer-events:none"></div>';
+  PEOPLES.forEach(function(p){
+    var sp=pct(p.start);
+    var ep=p.end?pct(p.end):pct(1952);
+    var wp=ep-sp;
+    var op=p.dead?0.3:0.75;
+    var suffix=p.dead?" ⚰":"";
+    var evts="";
+    p.events.forEach(function(ev){
+      var ep2=pct(ev.y);
+      evts+='<div class="evt" style="left:'+ep2+'%;background:#'+p.hex+';opacity:'+(p.dead?0.4:1)+'" data-label="'+ev.l+'" onmouseenter="st(event,this.dataset.label)" onmouseleave="ht()" ontouchstart="st(event,this.dataset.label)" ontouchend="ht()"><div class="evt-in"></div></div>';
+    });
+    rh+='<div class="row"><div class="rl"><span class="dot" style="background:#'+p.hex+';opacity:'+(p.dead?0.3:1)+'"></span><span style="color:'+(p.dead?"#444":"#999")+'">'+p.name+suffix+'</span></div>';
+    rh+='<div class="rt"><div class="bar" style="left:'+sp+'%;width:'+wp+'%;background:#'+p.hex+';opacity:'+op+'" data-name="'+p.name+'" data-desc="'+p.desc+'" onmouseenter="sf(event,this.dataset.name,this.dataset.desc)" onmouseleave="ht()">';
+    rh+='<div class="blab">'+(wp>5?p.name:'')+'</div></div>'+evts+'</div></div>';
   });
-
-  // Текущий момент
-  const currentPct = yearToPercent(-40000);
-  rowsHtml += `<div style="position:absolute;top:0;left:${currentPct}%;width:1px;background:#c87840;height:100%;opacity:0.4;pointer-events:none"></div>`;
-  rowsHtml += '</div>';
-
-  tl.innerHTML = axisHtml + rowsHtml;
-
-  // Легенда
-  const legend = document.getElementById('legend');
-  const unique = [...new Set(PEOPLES.map(p=>p.hex))];
-  legend.innerHTML = PEOPLES.filter((p,i)=>PEOPLES.findIndex(q=>q.hex===p.hex)===i).map(p=>`
-    <div class="legend-item">
-      <div class="legend-dot" style="background:#${p.hex}"></div>
-      ${p.name}
-    </div>
-  `).join('');
+  rows.innerHTML=rh;
+  var seen={};
+  var lh="";
+  PEOPLES.forEach(function(p){
+    if(!seen[p.hex]){seen[p.hex]=true;lh+='<div class="li"><div class="li-dot" style="background:#'+p.hex+';opacity:'+(p.dead?0.4:1)+'"></div><span>'+p.name+(p.dead?" ⚰":"")+'</span></div>';}
+  });
+  legend.innerHTML=lh;
 }
-
-function showTip(e, label) {
-  const t = document.getElementById('tooltip');
-  t.innerHTML = `<h4>${label}</h4>`;
-  t.style.display = 'block';
-  t.style.left = e.clientX + 10 + 'px';
-  t.style.top = e.clientY - 30 + 'px';
+function st(e,label){
+  var t=document.getElementById("tt");
+  t.innerHTML="<h4>"+label+"</h4>";
+  t.style.display="block";
+  var x=e.touches?e.touches[0].clientX:e.clientX;
+  var y=e.touches?e.touches[0].clientY:e.clientY;
+  t.style.left=Math.min(x+12,window.innerWidth-220)+"px";
+  t.style.top=Math.max(y-40,4)+"px";
 }
-
-function showTipFull(e, name, desc) {
-  const t = document.getElementById('tooltip');
-  t.innerHTML = `<h4>${name}</h4><p>${desc}</p>`;
-  t.style.display = 'block';
-  t.style.left = e.clientX + 10 + 'px';
-  t.style.top = e.clientY - 30 + 'px';
+function sf(e,name,desc){
+  var t=document.getElementById("tt");
+  t.innerHTML="<h4>"+name+"</h4><p>"+desc+"</p>";
+  t.style.display="block";
+  var x=e.touches?e.touches[0].clientX:e.clientX;
+  var y=e.touches?e.touches[0].clientY:e.clientY;
+  t.style.left=Math.min(x+12,window.innerWidth-220)+"px";
+  t.style.top=Math.max(y-40,4)+"px";
 }
-
-function hideTip() {
-  document.getElementById('tooltip').style.display = 'none';
-}
-
+function ht(){document.getElementById("tt").style.display="none";}
+document.addEventListener("click",ht);
 render();
 </script>
 </body>
