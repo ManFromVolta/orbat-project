@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ORBAT — Первые</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  background:#1a1a18;color:#d4d2cc;min-height:100vh;line-height:1.6}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a18;
+  border-bottom:0.5px solid #333;padding:0 16px;display:flex;
+  align-items:center;gap:12px;z-index:1000;height:48px}
+.nav a{text-decoration:none;color:#aaa;font-size:13px;padding:6px 12px;
+  border:0.5px solid #444;border-radius:5px;background:#2c2c2a;
+  min-height:36px;display:flex;align-items:center}
+.nav a:hover{color:#f1efe8;border-color:#666}
+.nav span{color:#666;font-size:12px}
+.spacer{height:48px}
+.header{background:#222220;padding:16px 20px;border-bottom:0.5px solid #333}
+.header h1{font-size:19px;font-weight:500;color:#f1efe8}
+.header p{font-size:13px;color:#777;margin-top:4px}
+.controls{padding:12px 16px;background:#1e1e1c;border-bottom:0.5px solid #2a2a28;
+  display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.cat-btn{padding:7px 14px;border:0.5px solid #333;border-radius:4px;cursor:pointer;
+  font-size:13px;background:#1a1a18;color:#777;min-height:38px;transition:all 0.15s}
+.cat-btn:hover{border-color:#666;color:#ccc}
+.cat-btn.active{color:#f1efe8;border-color:#666;background:#2a2a28}
+.cat-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.count{margin-left:auto;font-size:12px;color:#555;padding:0 4px}
+.list{max-width:860px;margin:0 auto;padding:20px 16px}
+.item{display:none;border-bottom:0.5px solid #222;padding:16px 0;gap:16px;
+  flex-direction:column}
+.item.visible{display:flex}
+@media(min-width:560px){.item{flex-direction:row;align-items:flex-start}}
+.item-date{font-size:12px;color:#666;font-family:monospace;
+  white-space:nowrap;padding-top:2px;min-width:120px}
+.item-body{flex:1}
+.item-title{font-size:15px;font-weight:500;color:#f1efe8;margin-bottom:5px;
+  display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap}
+.item-cat{font-size:10px;padding:2px 8px;border-radius:10px;
+  font-weight:400;white-space:nowrap;margin-top:2px}
+.item-people{font-size:12px;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.swatch{display:inline-block;width:9px;height:9px;border-radius:2px;flex-shrink:0}
+.item-desc{font-size:13px;color:#bbb;line-height:1.7}
+.empty{padding:40px 20px;text-align:center;color:#444;font-size:14px}
+/* category colors */
+.cat-tech .item-cat{background:#102030;color:#4a90c0}
+.cat-tech .item-date{color:#4a90c0}
+.cat-art .item-cat{background:#1a1020;color:#a060c0}
+.cat-art .item-date{color:#a060c0}
+.cat-social .item-cat{background:#201000;color:#c08030}
+.cat-social .item-date{color:#c08030}
+.cat-war .item-cat{background:#200808;color:#c04040}
+.cat-war .item-date{color:#c04040}
+.cat-trade .item-cat{background:#081a10;color:#40a060}
+.cat-trade .item-date{color:#40a060}
+.cat-religion .item-cat{background:#1a1400;color:#c0a030}
+.cat-religion .item-date{color:#c0a030}
+</style>
+</head>
+<body>
+<div class="nav">
+  <a href="index.html">← Главная</a>
+  <span>Первые в Орриме</span>
+</div>
+<div class="spacer"></div>
+<div class="header">
+  <h1>Первые в Орриме</h1>
+  <p>Изобретения · Открытия · Договоры · Системы · Произведения</p>
+</div>
+<div class="controls" id="controls"></div>
+<div class="list" id="list"></div>
+
+<script>
+const CATS = [
+  {id:"all",    label:"Все"},
+  {id:"tech",   label:"Технологии",  color:"#4a90c0"},
+  {id:"art",    label:"Искусство",   color:"#a060c0"},
+  {id:"social", label:"Общество",    color:"#c08030"},
+  {id:"war",    label:"Война",       color:"#c04040"},
+  {id:"trade",  label:"Торговля",    color:"#40a060"},
+  {id:"religion",label:"Религия",   color:"#c0a030"},
+];
+
+const ITEMS = [
+  // ТЕХНОЛОГИИ
+  {year:-88000, cat:"tech", title:"Первые функциональные рисунки",
+   people:"Уллам", hex:"C4855A",
+   desc:"Охрой и угольным пигментом на северных склонах Аттаи нанесены схемы маршрутов миграции животных и водопоев. Не декоративный — навигационный артефакт. Первая попытка сохранить знание вне памяти одного человека."},
+  {year:-79000, cat:"tech", title:"Первое организованное оружие охоты",
+   people:"Протоярви", hex:"8AAFC0",
+   desc:"Копья с каменными наконечниками из кремня. Первое свидетельство намеренного производства орудия — не просто заострённая палка, а составное оружие. Использовалось при загонной охоте на мамонтов."},
+  {year:-76000, cat:"tech", title:"Первые орудия рыбной ловли",
+   people:"Протоаларои", hex:"4A8C7A",
+   desc:"Костяные крюки и каменные грузила. Первая специализация орудий по типу добычи. До этого одни орудия для всего."},
+  {year:-74000, cat:"tech", title:"Первая защитная одежда",
+   people:"Протоярви", hex:"8AAFC0",
+   desc:"Фрагменты целенаправленно обработанных шкур. Шкуры носили раньше — но впервые зафиксировано производство одежды именно как защиты от холода, а не просто использование шкуры целиком."},
+  {year:-59000, cat:"tech", title:"Первая лодка",
+   people:"Аала", hex:"3A8C78",
+   desc:"Фрагменты деревянной конструкции с характерными следами обработки огнём. Реконструкция — плоскодонное судно 3-4 метра. Первое плавательное средство на континенте. Обнаружено в 40 км от современной береговой линии."},
+  {year:-51000, cat:"tech", title:"Первая смола как технический материал",
+   people:"Аала", hex:"3A8C78",
+   desc:"Смола для обработки и герметизации дерева. Первое использование природного вещества не как пищи или топлива, а как строительного материала с заданными свойствами."},
+  {year:-46000, cat:"tech", title:"Первые тростниковые конструкции",
+   people:"Де-Уллам", hex:"4A5A38",
+   desc:"Платформы и жилища из тростника над болотными водами. Тип конструкций не имеет аналогов среди известных культур периода. Свидетельство изолированного архитектурного развития."},
+  {year:-20000, cat:"tech", title:"Первый металлический предмет",
+   people:"Де-Уллам", hex:"4A5A38",
+   desc:"Игла из болотного железа — случайный результат ритуальной ковки камнем по руде над телом предка. Производитель не понимал природы материала. Предмет помещён в захоронение. Древнейший металлический артефакт на континенте."},
+  {year:-20000, cat:"tech", title:"Первые морские суда для открытого океана",
+   people:"Хаджар", hex:"4A6080",
+   desc:"Многовесельные лодки пригодные для плавания без видимости берега. Принесены с запада народом который обогнул весь мир. Конструктивно сложнее всего что было на континенте. Остатки переработаны в строительный материал первого лагеря."},
+  {year:-19000, cat:"tech", title:"Первое зернохранилище",
+   people:"Аммаи", hex:"C4855A",
+   desc:"Свайная конструкция для хранения зерна над землёй — защита от грызунов. Первое институциональное хранение запасов не семьёй а общиной. Контролируется кастой Муттааи. Первая инфраструктура продовольственной безопасности."},
+  {year:-19000, cat:"tech", title:"Первое скотоводство",
+   people:"Велды", hex:"6B7A3A",
+   desc:"Раненый олень выхожен вместо того чтобы быть убитым. Остался. Ел из рук. Первое приручение животного не для немедленного употребления. Через поколение — первое небольшое стадо принадлежащее семье."},
+  {year:-10000, cat:"tech", title:"Первое земледелие",
+   people:"Аммаи", hex:"C4855A",
+   desc:"Намеренный посев дикого эммера вдоль реки. Первый переход от сбора к производству пищи. Орудие — мотыга из дерева и кости. Поле крошечное — огород у дома. Большую часть еды всё ещё даёт охота и рыбалка."},
+
+  // ИСКУССТВО
+  {year:-88000, cat:"art", title:"Первые изображения животных",
+   people:"Уллам", hex:"C4855A",
+   desc:"Схематичные рисунки мамонтов и оленей на северных склонах Аттаи. Первые изображения животных на континенте — но созданные как карты маршрутов, не как украшение."},
+  {year:-61000, cat:"art", title:"Первые украшения",
+   people:"Аруви", hex:"C8502A",
+   desc:"Двадцать три предмета — просверлённые кости, клыки животных, галька нестандартной формы. Нет следов практического использования. Первое нефункциональное производство. Часть из материалов не встречающихся в районе находки — свидетельство дальнего обмена."},
+  {year:-40000, cat:"art", title:"Первые предметы с нанесёнными знаками",
+   people:"Аммаи", hex:"C4855A",
+   desc:"Кости с регулярными насечками. Не случайные следы — намеренный узор. Интерпретация спорна: счёт, календарь или идентификация. Первые абстрактные метки не являющиеся изображением."},
+  {year:-20000, cat:"art", title:"Первая звёздная навигация",
+   people:"Аала", hex:"3A8C78",
+   desc:"Система именованных созвездий как навигационные маршруты. Унаследована от Аала-Хаару. Каждое созвездие имеет имя и историю. Первые имена для небесных объектов на континенте. Передача звёздных маршрутов — священная обязанность."},
+  {year:-19500, cat:"art", title:"Первые погребальные знаки",
+   people:"Де-Уллам", hex:"4A5A38",
+   desc:"Система меток на костях предков — идентификация каждого мёртвого индивидуальным знаком. Не передача информации — персонализация. Ближе к письму чем что-либо на континенте. Возможный источник первой письменности Оррима."},
+
+  // ОБЩЕСТВО
+  {year:-40000, cat:"social", title:"Первое постоянное поселение",
+   people:"Аммаи", hex:"C4855A",
+   desc:"Аммаи-куттам — 500-1000 постоянных жителей. Первое место где люди живут круглый год, не перемещаясь за добычей. Первое разделение труда: рыбаки, строители, хранители памяти."},
+  {year:-40000, cat:"social", title:"Первая специализированная каста",
+   people:"Аммаи", hex:"C4855A",
+   desc:"Муттааи — хранители памяти которых содержит община. Не охотятся, не рыбачат, только помнят и передают. Первый профессиональный жреческий класс на континенте. Зачаток разделения на тех кто производит и тех кто управляет знанием."},
+  {year:-20000, cat:"social", title:"Первая наследственная должность",
+   people:"Аммаи", hex:"C4855A",
+   desc:"Должность Главного Муттааи переходит по крови — сын хранит то что хранил отец. Первая династическая структура на континенте. До этого лидерство было заслуженным или ситуативным."},
+  {year:-20000, cat:"social", title:"Первое право на землю",
+   people:"Велды", hex:"6B7A3A",
+   desc:"Семья закапывает кости предка на своём участке. Предок в земле — земля принадлежит семье. Первая частная собственность на недвижимость через религиозный механизм. До этого земля была территорией охоты — общей или ничьей."},
+  {year:-19000, cat:"social", title:"Первый синкретический народ",
+   people:"Мараи", hex:"7A5030",
+   desc:"Аруви и Каам смешались — разная кровь, пиджин-язык, двубожие. Первый народ на континенте возникший не через раскол а через слияние двух принципиально разных культур. Первый прецедент: можно быть одновременно двумя вещами."},
+  {year:-10000, cat:"social", title:"Первый город",
+   people:"Аммаи", hex:"C4855A",
+   desc:"Аммаи-куттам вырос до 8 000-10 000 человек. Первые специализированные кварталы. Первые укрепления вокруг амбаров. Первое место где незнакомые люди живут бок о бок без кровного родства как единственной связи."},
+
+  // ВОЙНА
+  {year:-58000, cat:"war", title:"Первая задокументированная битва",
+   people:"Вееру / Хаару", hex:"A86030",
+   desc:"Захоронение четырнадцати человек со следами насильственной гибели. Антропологический анализ выявил разные популяции среди погибших. Первое свидетельство организованного вооружённого столкновения между группами на континенте."},
+  {year:-43000, cat:"war", title:"Первая попытка взятия высоты",
+   people:"Вееру", hex:"A86030",
+   desc:"Одиночный разведчик достиг гребня северо-западного перевала Аттаи — первый человек на этой высоте. Погиб от переохлаждения. Интерпретируется как первая задокументированная разведывательная операция с тактической целью."},
+  {year:-20000, cat:"war", title:"Первые укреплённые позиции",
+   people:"Маккал", hex:"A83020",
+   desc:"Частокол и земляные насыпи вокруг поселений Маккал. Первые оборонительные сооружения на континенте созданные намеренно для защиты от людей, а не от животных."},
+  {year:-20000, cat:"war", title:"Первая профессиональная воинская культура",
+   people:"Маккал", hex:"A83020",
+   desc:"Отряды специализирующиеся на охране границы. Не все воюют — есть те кто воюет постоянно. Первое разделение мирного и военного населения как осознанная социальная структура."},
+  {year:-20000, cat:"war", title:"Первый пройденный горный перевал",
+   people:"Тенгир", hex:"C8A040",
+   desc:"Вееру прошли через северо-западный перевал Аттаи и вышли на восток. Первые люди на восточной стороне горного массива. Стратегическое значение: восток континента открыт. Перевал больше не является абсолютным барьером."},
+
+  // ТОРГОВЛЯ
+  {year:-80000, cat:"trade", title:"Первый межгрупповой обмен",
+   people:"Уллам", hex:"C4855A",
+   desc:"Украшения из материалов не встречающихся в районе находки. Первое свидетельство намеренного обмена между группами живущими на расстоянии. Не торговля в современном смысле — скорее дарение с ожиданием ответного дара."},
+  {year:-61000, cat:"trade", title:"Первый дальний обмен материалами",
+   people:"Аруви / Аала", hex:"C8502A",
+   desc:"Кремний из внутренних районов обнаружен на побережье и наоборот. Первое свидетельство регулярного движения материалов между экологически разными зонами — первые торговые маршруты континента."},
+  {year:-19000, cat:"trade", title:"Первый торговый договор",
+   people:"Аалои", hex:"3A8C78",
+   desc:"Устное соглашение между двумя деревнями: одна всегда поставляет рыбу, другая — кремний. Взаимная зависимость как осознанный выбор. Первый союз не по крови. Первое отношение которое требует исполнения обязательств без принуждения."},
+  {year:-19000, cat:"trade", title:"Первые числительные",
+   people:"Аалои", hex:"3A8C78",
+   desc:"Система счёта для торговых операций — зарубки на кости соответствующие количеству товара. Первые абстрактные числа отделённые от конкретного предмета. До этого считали только конкретное: три оленя, не просто три."},
+  {year:-18000, cat:"trade", title:"Первая речная торговая артерия",
+   people:"Хаджар", hex:"4A6080",
+   desc:"Хаджар освоили реку от устья до верховьев и установили регулярные торговые контакты между побережьем и внутренними районами. Первые посредники на континенте. Кто контролирует реку — контролирует торговлю."},
+
+  // РЕЛИГИЯ
+  {year:-100000, cat:"religion", title:"Первый ритуал слияния огней",
+   people:"Уллам", hex:"C4855A",
+   desc:"Тии-куттам — группы приносят свой огонь к общему кострищу. Первый задокументированный межгрупповой ритуал. Огонь как символ уллам — внутреннего человека. Слияние огней = слияние народов."},
+  {year:-61000, cat:"religion", title:"Первые погребальные ритуалы с инвентарём",
+   people:"Де-Уллам", hex:"4A5A38",
+   desc:"Тела в болоте с предметами рядом. Первое намеренное захоронение с сопроводительным инвентарём на континенте. Логика: мёртвый предок в воде нуждается в инструментах. Первый культ мёртвых."},
+  {year:-55000, cat:"religion", title:"Первое паломничество",
+   people:"Хаару", hex:"8AAFC0",
+   desc:"Движение на север вслед за льдом приобрело религиозный характер — движение к месту которое никто из живых не видел. Первый религиозный квест на континенте. Длился двадцать тысяч лет."},
+  {year:-20000, cat:"religion", title:"Первый богословский спор",
+   people:"Ярви", hex:"6A9FB0",
+   desc:"Ярви увидели с севера вторую гору — западную горную систему. Если Аттаи единственный отец-гора — что это? Первая теологическая дискуссия на континенте. Два лагеря: вторая гора это мать-гора или ложная гора. Не разрешён до сих пор."},
+  {year:-20000, cat:"religion", title:"Первый прото-монотеизм",
+   people:"Мараи", hex:"7A5030",
+   desc:"Синкретическая религия Мараи объединила Аммаи-мать и Мунгу-небо в единую систему. Первая попытка объяснить всё через одну направляющую силу. До этого каждая стихия была отдельным существом без иерархии."},
+  {year:-20000, cat:"religion", title:"Первые жрецы конкретного места",
+   people:"Ярви", hex:"6A9FB0",
+   desc:"Хранители озера Яарви. В отличие от Муттааи которые хранят всё — только озеро. Первая религиозная специализация по месту а не по функции. Первый прецедент священного места которое принадлежит жрецам."},
+  {year:-19000, cat:"religion", title:"Первое жертвоприношение в воду",
+   people:"Ярви", hex:"6A9FB0",
+   desc:"Украшения, орудия и кости животных в прибрежных отложениях озера Яарви. Первые намеренные жертвоприношения водоёму. Традиция которая переживёт сам народ — болотные клады и речные клады во всех последующих культурах Оррима."},
+];
+
+// sort by year
+ITEMS.sort(function(a,b){return a.year-b.year;});
+
+const PEOPLE_HEX = {};
+ITEMS.forEach(function(it){ PEOPLE_HEX[it.people] = it.hex; });
+
+let activeCat = "all";
+
+function formatYear(y) {
+  if(y < 0) return "ок. " + Math.abs(y).toLocaleString() + " до н.э.";
+  return "ок. " + y.toLocaleString() + " н.э.";
+}
+
+function catLabel(id) {
+  return CATS.find(function(c){return c.id===id;}).label;
+}
+function catColor(id) {
+  const c = CATS.find(function(c){return c.id===id;});
+  return c && c.color ? c.color : "#888";
+}
+
+function renderControls() {
+  const ctrl = document.getElementById("controls");
+  let h = "";
+  CATS.forEach(function(cat) {
+    const count = cat.id === "all"
+      ? ITEMS.length
+      : ITEMS.filter(function(it){return it.cat===cat.id;}).length;
+    const active = activeCat === cat.id;
+    const dot = cat.color
+      ? '<span class="cat-dot" style="background:' + cat.color + ';opacity:' + (active?1:0.5) + '"></span>'
+      : "";
+    h += '<button class="cat-btn' + (active?" active":"") + '" data-cat="' + cat.id + '">'
+       + dot + cat.label
+       + ' <span style="font-size:11px;color:' + (active?"#888":"#444") + '">(' + count + ')</span>'
+       + '</button>';
+  });
+  h += '<span class="count" id="count"></span>';
+  ctrl.innerHTML = h;
+  ctrl.querySelectorAll(".cat-btn").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      activeCat = this.dataset.cat;
+      renderControls();
+      renderList();
+    });
+  });
+}
+
+function renderList() {
+  const list = document.getElementById("list");
+  const visible = ITEMS.filter(function(it){
+    return activeCat === "all" || it.cat === activeCat;
+  });
+  const countEl = document.getElementById("count");
+  if(countEl) countEl.textContent = visible.length + " событий";
+
+  if(visible.length === 0){
+    list.innerHTML = '<div class="empty">Нет событий</div>';
+    return;
+  }
+
+  list.innerHTML = visible.map(function(it){
+    const cc = "cat-" + it.cat;
+    return '<div class="item visible ' + cc + '">'
+      + '<div class="item-date">' + formatYear(it.year) + '</div>'
+      + '<div class="item-body">'
+      + '<div class="item-title">'
+      + it.title
+      + '<span class="item-cat" style="background:' + catColor(it.cat) + '22;color:' + catColor(it.cat) + '">'
+      + catLabel(it.cat) + '</span>'
+      + '</div>'
+      + '<div class="item-people">'
+      + '<span class="swatch" style="background:#' + it.hex + '"></span>'
+      + '<span style="color:#999;font-size:13px">' + it.people + '</span>'
+      + '</div>'
+      + '<div class="item-desc">' + it.desc + '</div>'
+      + '</div></div>';
+  }).join("");
+}
+
+renderControls();
+renderList();
+</script>
+</body>
+</html>
