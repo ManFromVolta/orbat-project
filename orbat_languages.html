@@ -2,500 +2,269 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ORBAT — Языки</title>
+<title>ORBAT — Народы Ниллама</title>
+<link rel="icon" href="favicon.ico">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;font-size:15px;background:#1a1a18;color:#d4d2cc;min-height:100vh;line-height:1.6}
-.nav{position:fixed;top:0;left:0;right:0;background:#1a1a18;border-bottom:0.5px solid #333;padding:0 16px;display:flex;align-items:center;gap:12px;z-index:1000;height:48px}
-.nav a{text-decoration:none;color:#888;font-size:13px;padding:6px 12px;border:0.5px solid #444;border-radius:5px;background:#2c2c2a;min-height:48px;display:flex;align-items:center}
-.nav a:hover{color:#f1efe8;border-color:#888}
-.spacer{height:48px}
-.header{background:#2c2c2a;padding:14px 20px;border-bottom:1px solid #444}
-.header h1{font-size:19px;font-weight:500;color:#f1efe8}
-.header p{font-size:13px;color:#999;margin-top:4px}
-.layout{display:flex;min-height:calc(100vh - 80px);flex-direction:column}
+html{font-size:15px;-webkit-text-size-adjust:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#1a1a18;color:#d4d2cc;min-height:100vh;line-height:1.65}
+.nav{position:fixed;top:0;left:0;right:0;background:#1a1a18;border-bottom:0.5px solid #333;padding:0 16px;display:flex;align-items:center;gap:10px;z-index:1000;height:52px}
+.nav a{text-decoration:none;color:#999;font-size:13px;padding:0 14px;border:0.5px solid #3a3a38;border-radius:6px;background:#2a2a28;height:36px;display:flex;align-items:center;white-space:nowrap;transition:all 0.15s}
+.nav a:hover{color:#f1efe8;border-color:#666}
+.nav-title{color:#777;font-size:13px}
+.spacer{height:52px}
+.hdr{background:#202020;padding:18px 20px;border-bottom:0.5px solid #333}
+.hdr h1{font-size:20px;font-weight:500;color:#f1efe8}
+.hdr p{font-size:13px;color:#777;margin-top:5px}
+.st{font-size:11px;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:0.1em;margin:22px 0 12px;padding-bottom:6px;border-bottom:0.5px solid #282826}
+.pg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+@media(min-width:480px){.pg{grid-template-columns:repeat(3,1fr)}}
+.pc{background:#1e1e1c;border:0.5px solid #2a2a28;border-radius:6px;padding:9px 11px}
+.pc .l{font-size:10px;color:#555;margin-bottom:3px;text-transform:uppercase;letter-spacing:0.05em}
+.pc .v{font-size:13px;color:#a0c880;font-family:monospace;line-height:1.6}
+.eg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.ec{background:#1e1e1c;border:0.5px solid #2a2a28;border-radius:6px;padding:9px 11px}
+.ec .w{font-size:14px;color:#f1efe8;font-family:monospace;margin-bottom:3px}
+.ec .m{font-size:13px;color:#777}
+.ec .n{font-size:11px;color:#555;margin-top:2px;font-style:italic}
+.nb{background:#111;border:0.5px solid #2a2a28;border-radius:6px;padding:12px;margin-bottom:10px}
+.nbp{display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.npp{background:#1e1e1c;border:0.5px solid #2a2a28;border-radius:4px;padding:5px 11px;font-size:13px}
+.npp .l{color:#555;font-size:10px}
+.npp .v{color:#c87840;font-family:monospace}
+.nbw{font-family:monospace;font-size:12px;color:#666;line-height:1.9;word-break:break-all;background:#0e0e0c;border:0.5px solid #1e1e1c;border-radius:4px;padding:10px;position:relative;max-height:200px;overflow-y:auto}
+.cpb{position:sticky;top:0;float:right;background:#282826;border:0.5px solid #444;border-radius:4px;padding:4px 10px;font-size:11px;color:#888;cursor:pointer;margin-bottom:5px}
+.cpb:hover{color:#f1efe8;border-color:#888}
+.layout{display:flex;min-height:calc(100vh - 52px);flex-direction:column}
 @media(min-width:640px){.layout{flex-direction:row}}
-.sidebar{background:#1e1e1c;border-bottom:0.5px solid #2a2a28;overflow-x:auto}
-@media(min-width:640px){.sidebar{width:180px;min-width:180px;border-bottom:none;border-right:0.5px solid #2a2a28;overflow-x:visible;overflow-y:auto}}
-.sidebar-inner{display:flex;flex-direction:row;padding:8px;gap:4px}
-@media(min-width:640px){.sidebar-inner{flex-direction:column;padding:0;gap:0}}
-.sb-section{padding:10px 14px 4px;font-size:14px;color:#777;text-transform:uppercase;letter-spacing:0.08em;display:none}
-@media(min-width:640px){.sb-section{display:block}}
-.sb-item{padding:10px 14px;font-size:13px;cursor:pointer;border-left:2px solid transparent;color:#888;transition:all 0.1s;white-space:nowrap;display:flex;align-items:center;gap:8px;border-radius:3px;flex-shrink:0;min-height:42px}
-@media(min-width:640px){.sb-item{border-radius:0;flex-shrink:1}}
-.sb-item:hover{color:#d4d2cc;background:#2c2c2a}
-.sb-item.active{color:#f1efe8;border-left-color:#c87840;background:#242422}
-.sb-swatch{width:8px;height:8px;border-radius:1px;flex-shrink:0}
+.sidebar{background:#1a1a18;border-bottom:0.5px solid #2a2a28;overflow-x:auto}
+@media(min-width:640px){.sidebar{width:186px;min-width:186px;border-bottom:none;border-right:0.5px solid #2a2a28;overflow-y:auto;overflow-x:visible}}
+.sb-inner{display:flex;flex-direction:row;padding:8px;gap:4px}
+@media(min-width:640px){.sb-inner{flex-direction:column;padding:0;gap:0}}
+.sb-sec{padding:10px 14px 4px;font-size:10px;color:#444;text-transform:uppercase;letter-spacing:0.08em;display:none}
+@media(min-width:640px){.sb-sec{display:block}}
+.sb-item{padding:10px 14px;font-size:13px;cursor:pointer;border-left:2px solid transparent;color:#666;transition:all 0.1s;white-space:nowrap;display:flex;align-items:center;gap:8px;flex-shrink:0;min-height:42px}
+@media(min-width:640px){.sb-item{flex-shrink:1}}
+.sb-item:hover{color:#d4d2cc;background:#202020}
+.sb-item.active{color:#f1efe8;border-left-color:#c87840;background:#1e1e1c}
+.sw8{width:8px;height:8px;border-radius:1px;flex-shrink:0}
 .main{flex:1;overflow-y:auto}
-.panel{display:none;padding:20px}
+.panel{display:none;padding:22px 20px;max-width:820px}
 .panel.active{display:block}
-.p-header{display:flex;align-items:center;gap:10px;margin-bottom:4px;flex-wrap:wrap}
-.p-header h2{font-size:15px;font-weight:500;color:#f1efe8}
-.p-meta{font-size:13px;color:#888;margin-bottom:18px}
-.section-title{font-size:13px;font-weight:500;color:#888;text-transform:uppercase;letter-spacing:0.07em;margin:16px 0 8px;padding-bottom:4px;border-bottom:0.5px solid #1e1e1c}
-.ph-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
-@media(min-width:480px){.ph-grid{grid-template-columns:repeat(3,1fr)}}
-.ph-card{background:#242422;border:0.5px solid #2a2a28;border-radius:4px;padding:8px 10px}
-.ph-card .l{font-size:13px;color:#888;margin-bottom:3px;text-transform:uppercase;letter-spacing:0.05em}
-.ph-card .v{font-size:13px;color:#a0c880;font-family:monospace}
-.note{background:#242422;border-left:2px solid #444;padding:8px 12px;border-radius:0 3px 3px 0;font-size:13px;color:#999;line-height:1.7;margin:10px 0;font-style:italic}
-.ex-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
-.ex-card{background:#242422;border:0.5px solid #2a2a28;border-radius:4px;padding:8px 10px}
-.ex-card .w{font-size:15px;color:#f1efe8;font-family:monospace;margin-bottom:3px}
-.ex-card .m{font-size:13px;color:#888}
-.ex-card .n{font-size:13px;color:#888;margin-top:3px;font-style:italic}
-.nb-block{background:#111;border:0.5px solid #2a2a28;border-radius:4px;padding:12px;margin-bottom:8px}
-.nb-params{display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap}
-.nb-p{background:#1e1e1c;border:0.5px solid #2a2a28;border-radius:3px;padding:4px 10px;font-size:13px}
-.nb-p .l{color:#888;font-size:14px}
-.nb-p .v{color:#c87840;font-family:monospace}
-.nb-words{font-family:monospace;font-size:14px;color:#999;line-height:1.9;word-break:break-all;background:#0e0e0c;border:0.5px solid #1e1e1c;border-radius:3px;padding:10px;position:relative;max-height:200px;overflow-y:auto}
-.copy-btn{position:sticky;top:0;float:right;background:#2c2c2a;border:0.5px solid #444;border-radius:3px;padding:5px 10px;font-size:13px;color:#888;cursor:pointer;margin-bottom:6px}
-.copy-btn:hover{color:#f1efe8;border-color:#888}
-.dead-badge{font-size:14px;padding:1px 6px;background:#1a1a18;border:0.5px solid #333;color:#888;border-radius:2px;margin-left:4px}
-p{font-size:13px;color:#888;line-height:1.7;margin-bottom:8px}
-.hex-badge{font-family:monospace;font-size:14px;padding:2px 6px;border-radius:2px;color:#888;border:0.5px solid #2a2a28}
+.ph{display:flex;align-items:center;gap:10px;margin-bottom:4px;flex-wrap:wrap}
+.ph h2{font-size:16px;font-weight:500;color:#f1efe8}
+.pm{font-size:13px;color:#666;margin-bottom:6px}
+.diach{background:#1a1a14;border:0.5px solid #3a3018;border-left:2px solid #c87040;border-radius:0 6px 6px 0;padding:10px 14px;margin-bottom:16px;font-size:13px;color:#a08050;line-height:1.7}
+.diach b{color:#c87840;display:block;margin-bottom:3px;font-size:11px;text-transform:uppercase;letter-spacing:0.06em}
 </style>
 </head>
 <body>
-<div class="nav">
-  <a href="index.html">← Главная</a>
-  <span style="color:#777;font-size:10px">Языки и словари</span>
-</div>
+<div class="nav"><a href="index.html">← Главная</a><span class="nav-title">Народы Ниллама • -10 000 до н.э.</span></div>
 <div class="spacer"></div>
-<div class="header">
-  <h1>ORBAT — Языки и словари</h1>
-  <p>Фонетика · Словообразование · Примеры · Namesbase</p>
-</div>
-<div class="layout">
-<div class="sidebar">
-  <div class="sidebar-inner">
-    <div class="sb-section">Корень-семья</div>
-    <div class="sb-item active" onclick="show('ullam')"><span class="sb-swatch" style="background:#C4855A"></span>Уллам / Аммаи</div>
-    <div class="sb-item" onclick="show('makkal')"><span class="sb-swatch" style="background:#A83020"></span>Маккал</div>
-    <div class="sb-item" onclick="show('marai')"><span class="sb-swatch" style="background:#7A5030"></span>Мараи</div>
-    <div class="sb-item" onclick="show('deullam')"><span class="sb-swatch" style="background:#4A5A38"></span>Де-Уллам</div>
-    <div class="sb-section">Протоярви-семья</div>
-    <div class="sb-item" onclick="show('yarvi')"><span class="sb-swatch" style="background:#6A9FB0"></span>Ярви</div>
-    <div class="sb-item" onclick="show('veldy')"><span class="sb-swatch" style="background:#6B7A3A"></span>Велды</div>
-    <div class="sb-section">Тюркская ветка</div>
-    <div class="sb-item" onclick="show('tengir')"><span class="sb-swatch" style="background:#C8A040"></span>Тенгир</div>
-    <div class="sb-section">Морские</div>
-    <div class="sb-item" onclick="show('aala')"><span class="sb-swatch" style="background:#3A8C78"></span>Аалои</div>
-    <div class="sb-item" onclick="show('hadjar')"><span class="sb-swatch" style="background:#4A6080"></span>Хаджар</div>
-    <div class="sb-section">Группа В</div>
-    <div class="sb-item" onclick="show('kaam')"><span class="sb-swatch" style="background:#9A4030"></span>Каам</div>
-    <div class="sb-section">Мёртвые</div>
-    <div class="sb-item" onclick="show('proyarvi')"><span class="sb-swatch" style="background:#8AAFC0;opacity:0.4"></span>Протоярви ⚰</div>
-    <div class="sb-item" onclick="show('proalaroi')"><span class="sb-swatch" style="background:#3A8C78;opacity:0.4"></span>Протоаларои ⚰</div>
-    <div class="sb-item" onclick="show('aalahaaru')"><span class="sb-swatch" style="background:#6A9FB0;opacity:0.4"></span>Аала-Хаару ⚰</div>
-    <div class="sb-section">Фон</div>
-    <div class="sb-item" onclick="show('dikari')"><span class="sb-swatch" style="background:#666"></span>Дикари</div>
+<div class="hdr"><h1>Народы Ниллама</h1><p>К -10 000 до н.э. · Двенадцать культур · Земледелие, кочевничество, первые города</p></div>
+<div class="layout"><div class="sidebar"><div class="sb-inner"><div class="sb-sec">Великие культуры</div><div class="sb-item active" onclick="show('amma')"><span class="sw8" style="background:#C4855A"></span>Аммаи</div><div class="sb-item" onclick="show('deullam')"><span class="sw8" style="background:#4A5A38"></span>Де-Уллам</div><div class="sb-item" onclick="show('aala')"><span class="sw8" style="background:#3A8C78"></span>Аалои</div><div class="sb-item" onclick="show('yarvi')"><span class="sw8" style="background:#6A9FB0"></span>Ярви</div><div class="sb-item" onclick="show('korvi')"><span class="sw8" style="background:#7ABFC0"></span>Корви</div><div class="sb-item" onclick="show('veldy')"><span class="sw8" style="background:#6B7A3A"></span>Велды</div><div class="sb-item" onclick="show('tengir')"><span class="sw8" style="background:#C8A040"></span>Тенгир</div><div class="sb-item" onclick="show('makkal')"><span class="sw8" style="background:#A83020"></span>Маккал</div><div class="sb-item" onclick="show('marai')"><span class="sw8" style="background:#7A5030"></span>Мараи</div><div class="sb-item" onclick="show('kaam')"><span class="sw8" style="background:#9A4030"></span>Каам</div><div class="sb-item" onclick="show('hadjar')"><span class="sw8" style="background:#4A6080"></span>Хаджар</div><div class="sb-item" onclick="show('reev')"><span class="sw8" style="background:#2A4060"></span>Реев-Хаджар</div><div class="sb-sec">Прочие</div><div class="sb-item" onclick="show('dikari')"><span class="sw8" style="background:#555"></span>Дикари</div></div></div><div class="main">
+  <!-- Аммаи -->
+  <div class="panel active" id="n-amma">
+    <div class="ph"><div style="width:14px;height:14px;border-radius:2px;background:#C4855A"></div><h2>Аммаи</h2></div>
+    <div class="pm">Речные земледельцы · Хранители Уллам · Первый город</div>
+    <div class="diach"><b>Исторический очерк</b>Прямые потомки древнего народа Уллам, оставшиеся у священного слияния рек. Здесь возник первый город-святилище Аммаи-куттам. Земледелие только начинается, но уже позволяет содержать агломерацию.</div>
+    <div class="st">Основные данные</div>
+    <div class="pg"><div class="pc"><div class="l">Тип культуры</div><div class="v">Речная, земледельческая</div></div><div class="pc"><div class="l">Гаплогруппа</div><div class="v">U</div></div><div class="pc"><div class="l">Население</div><div class="v">~90 000</div></div><div class="pc"><div class="l">Религия</div><div class="v">Уллам-тии</div></div><div class="pc"><div class="l">Антропология</div><div class="v">Тёмная кожа, южноазиатский тип</div></div><div class="pc"><div class="l">Технологии</div><div class="v">Земледелие, гончарство</div></div></div>
+    <div class="st">Ключевые понятия</div>
+    <div class="eg"><div class="ec"><div class="w">уллам</div><div class="m">душа, внутренний человек</div></div><div class="ec"><div class="w">муттааи</div><div class="m">хранитель памяти</div></div><div class="ec"><div class="w">нааттам</div><div class="m">наши люди</div></div><div class="ec"><div class="w">тии</div><div class="m">ритуальный огонь</div></div></div>
+    <div class="st">Примеры слов</div>
+    <div class="eg"><div class="ec"><div class="w">аммаи</div><div class="m">мать-река</div></div><div class="ec"><div class="w">аттаи</div><div class="m">отец-гора</div></div><div class="ec"><div class="w">ниллам</div><div class="m">земля</div></div><div class="ec"><div class="w">уримаи</div><div class="m">право на место</div></div></div>
+    <div class="st">Namebase (Azgaar)</div>
+    <div class="nb"><div class="nbp"><div class="npp"><div class="l">Длина</div><div class="v">3–8</div></div><div class="npp"><div class="l">Двойные</div><div class="v">аа, ии, уу</div></div></div><div class="nbw" id="nb-amma"><button class="cpb" onclick="cpNb('nb-amma',this)">Копировать</button>амма, атта, уллам, наат, кутт, мутта, тии, ии, ари, мал, пура, иир, кул, мат, ан, ин, ут, ар, ам, ай, уу, аа, нам, мара, кала, тара, нира, велла, тала, мана, сара, кари, тули, муна, пала, нати, сури, вана, дари, кама, нала, кира, пила, тила, мила, лара, нара, вара, зара, йара, пара, сака, така, рака, мака, кака, лака, пака, нака, тика, рика, сика, вика, мика, ника, дика, пика, лика, кира, мира, тира, сира, вира, нира, дира, пира, гира, хира, рира, тура, сура, мура, нура, дура, пура, лура, кура, кала, тала, сала, нала, мала, пала, рала, дала, гала, хала, кама, тамма, намма, памма, рамма, дамма, гамма, канна, танна, нанна, панна, ранна, санна, ванна, йанна, ланна, карра, тарра, нарра, парра, сарра, дарра, харра, мурра, курра, сурра, турра</div></div>
   </div>
-</div>
-
-<div class="main">
-
-<!-- УЛЛАМ / АММАИ -->
-<div class="panel active" id="l-ullam">
-  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#C4855A;flex-shrink:0"></div><h2>Уллам / Аммаи</h2><span class="hex-badge">#C4855A</span></div>
-  <div class="p-meta">Корень — архаичный агглютинативный · Праоснова · -100 000 до н.э. — настоящее время</div>
-  <div class="section-title">Фонетика</div>
-  <div class="ph-grid">
-    <div class="ph-card"><div class="l">Гласные</div><div class="v">а аа и ии у уу е</div></div>
-    <div class="ph-card"><div class="l">Ретрофлексные</div><div class="v">тт дд нн лл</div></div>
-    <div class="ph-card"><div class="l">Согласные</div><div class="v">к г т д н л р в м с ч п</div></div>
-    <div class="ph-card"><div class="l">Структура слога</div><div class="v">открытые CV / CVV</div></div>
-    <div class="ph-card"><div class="l">Порядок слов</div><div class="v">SOV — глагол в конце</div></div>
-    <div class="ph-card"><div class="l">Морфология</div><div class="v">агглютинативная, послелоги</div></div>
+  <!-- Де-Уллам -->
+  <div class="panel" id="n-deullam">
+    <div class="ph"><div style="width:14px;height:14px;border-radius:2px;background:#4A5A38"></div><h2>Де-Уллам</h2></div>
+    <div class="pm">Болотный изолят · Мумии-оракулы · Первая металлическая игла</div>
+    <div class="diach"><b>Исторический очерк</b>Ушли в болота 60 000 лет назад. 40 000 лет изоляции создали уникальную культуру мумифицированных оракулов.</div>
+    <div class="st">Основные данные</div>
+    <div class="pg"><div class="pc"><div class="l">Тип культуры</div><div class="v">Болотный изолят</div></div><div class="pc"><div class="l">Гаплогруппа</div><div class="v">U</div></div><div class="pc"><div class="l">Население</div><div class="v">~15 000</div></div><div class="pc"><div class="l">Религия</div><div class="v">Нааннаи-рохо</div></div><div class="pc"><div class="l">Антропология</div><div class="v">Тёмная кожа, бледнее</div></div><div class="pc"><div class="l">Особенность</div><div class="v">Мумии-оракулы</div></div></div>
+    <div class="st">Ключевые понятия</div>
+    <div class="eg"><div class="ec"><div class="w">нааннаи</div><div class="m">предки, те кто между</div></div><div class="ec"><div class="w">маннааннам</div><div class="m">голос предков (болотный газ)</div></div><div class="ec"><div class="w">нааннаи-рохо</div><div class="m">оракул-мумия</div></div></div>
+    <div class="st">Примеры слов</div>
+    <div class="eg"><div class="ec"><div class="w">нилли</div><div class="m">мягкая трясина</div></div><div class="ec"><div class="w">аннам</div><div class="m">утренний туман</div></div><div class="ec"><div class="w">уллани</div><div class="m">предок в воде</div></div><div class="ec"><div class="w">нимму</div><div class="m">болотный запах</div></div></div>
+    <div class="st">Namebase</div>
+    <div class="nb"><div class="nbp"><div class="npp"><div class="l">Длина</div><div class="v">3–7</div></div><div class="npp"><div class="l">Двойные</div><div class="v">нн, мм, пп, тт, нг, мб, нд</div></div></div><div class="nbw" id="nb-deullam"><button class="cpb" onclick="cpNb('nb-deullam',this)">Копировать</button>наан, манн, нгам, ппуу, нно, рро, мма, нна, тти, пуу, лла, нга, анга, инга, унга, мбан, ндан, мман, ннан, ттан, ккан, рран, ллан, нноо, рроо, нгу, мбу, нду, нку, ттии, ппии, ннаа, ммаа, ннга, ммба, ннда, ттуа, ппуа, ллуа, нгаа, мбаа, ндаа, нкаа, ттаа, ппаа, рраа, ллаа, нгуа, мбуа, ндуа, нкуа</div></div>
   </div>
-  <div class="note">Долгие гласные (аа, ии, уу) и ретрофлексные согласные — главные маркеры. Топонимы строятся сложением через дефис: Аммаи-куттам, Тии-куттам.</div>
-  <div class="section-title">Примеры слов</div>
-  <div class="ex-grid">
-    <div class="ex-card"><div class="w">уллам</div><div class="m">внутренний человек, душа, намерение</div><div class="n">главное философское понятие</div></div>
-    <div class="ex-card"><div class="w">аммаи</div><div class="m">мать, мать-река</div></div>
-    <div class="ex-card"><div class="w">аттаи</div><div class="m">отец, отец-гора</div></div>
-    <div class="ex-card"><div class="w">тии</div><div class="m">огонь (ритуальный)</div></div>
-    <div class="ex-card"><div class="w">нааттам</div><div class="m">наши люди, народ</div></div>
-    <div class="ex-card"><div class="w">муттааи</div><div class="m">хранитель памяти</div><div class="n">первая жреческая каста</div></div>
-    <div class="ex-card"><div class="w">аммаи-куттам</div><div class="m">слияние рек матери</div><div class="n">первое священное место</div></div>
-    <div class="ex-card"><div class="w">уримаи</div><div class="m">право на место, принадлежность</div><div class="n">появилось у Аммаи как оседлых</div></div>
+  <!-- Аалои -->
+  <div class="panel" id="n-aala">
+    <div class="ph"><div style="width:14px;height:14px;border-radius:2px;background:#3A8C78"></div><h2>Аалои</h2></div>
+    <div class="pm">Морские торговцы · Западное побережье · Первый договор</div>
+    <div class="diach"><b>Исторический очерк</b>Потомки Протоаларои, нашедшие море 80 000 лет назад. Первыми на континенте заключили письменный договор.</div>
+    <div class="st">Основные данные</div>
+    <div class="pg"><div class="pc"><div class="l">Тип культуры</div><div class="v">Морская, торговая</div></div><div class="pc"><div class="l">Гаплогруппа</div><div class="v">U</div></div><div class="pc"><div class="l">Население</div><div class="v">~25 000</div></div><div class="pc"><div class="l">Религия</div><div class="v">Аала-рохос</div></div><div class="pc"><div class="l">Антропология</div><div class="v">Смуглые, поджарые</div></div><div class="pc"><div class="l">Особенность</div><div class="v">Каста жрецов-мореходов</div></div></div>
+    <div class="st">Ключевые понятия</div>
+    <div class="eg"><div class="ec"><div class="w">аала</div><div class="m">море, божество</div></div><div class="ec"><div class="w">аркос</div><div class="m">первый порт</div></div><div class="ec"><div class="w">рохос</div><div class="m">жрец, дух-хранитель</div></div></div>
+    <div class="st">Примеры слов</div>
+    <div class="eg"><div class="ec"><div class="w">нерос</div><div class="m">течение</div></div><div class="ec"><div class="w">лимнос</div><div class="m">бухта</div></div><div class="ec"><div class="w">фарос</div><div class="m">мыс</div></div><div class="ec"><div class="w">демос</div><div class="m">люди деревни</div></div></div>
+    <div class="st">Namebase</div>
+    <div class="nb"><div class="nbp"><div class="npp"><div class="l">Длина</div><div class="v">4–9</div></div><div class="npp"><div class="l">Двойные</div><div class="v">запрещены</div></div></div><div class="nbw" id="nb-aala"><button class="cpb" onclick="cpNb('nb-aala',this)">Копировать</button>аала, арко, кори, меги, лепт, ро, ас, ос, ис, ус, он, ин, ай, ой, тал, пел, кор, мес, лак, пир, ат, гел, дор, ион, эос, айос, орос, элас, леос, каст, накс, ро, фи, пси, ох, эх, гид, кри, бри, лис, дим, ким, тир, пирр, фир, скир, клир, глир, флир, акро, акра, акри, акрон, акрос, акрис, акрай, акрой, акронос, акрайос, акройос, таласса, талатта, пелагос, коринт, эгей</div></div>
   </div>
-  <div class="section-title">Namesbase</div>
-  <div class="nb-block">
-    <div class="nb-params">
-      <div class="nb-p"><div class="l">Length</div><div class="v">5 — 10</div></div>
-      <div class="nb-p"><div class="l">Doubled</div><div class="v">аи</div></div>
-    </div>
-    <div class="nb-words" id="nb-ullam"><button class="copy-btn" onclick="copyNb('nb-ullam',this)">Копировать</button>Маллаи,Аруви,Ниллам,Уллам,Аттаи,Аммаи,Маккал,Тии,Мирам,Веттаи,Паанаи,Каттам,Вееру,Уйир,Минну,Нааттам,Муттааи,Пулли,Маарбу,Уттиру,Каийи,Веллаи,Мазаи,Варуттам,Каалаи,Маалаи,Иллаи,Перум,Каннну,Вааи,Паайи,Кааду,Ираву,Паккал,Куллир,Таниир,Удаймаи,Коллаи,Вилл,Куттал,Валаи,Падаку,Толил,Уримаи,Кааппу,Нааллу,Мунпу,Пинпу,Пуллималлаи,Аммаикуттам,Тиикуттам,Перумаммаи,Маллаиуллам,Нилламаккал,Арувиуллам,Муттааивааи,Перуматтаи,Перумуллам,Аттаималлаи,Аммаиаруви,Каттаммирам,Нааттамтии,Маккалуйир,Веттаимирам,Паанаиаттаи,Маллаитии,Нилламаруви,Перумкаттам,Каийивалаи,Вааиуллам,Маарбутии,Уттирунааттам,Муттааималлаи,Иллаиуйир,Перумветтаи,Аммаитии,Аттаиуллам,Нааттамаруви,Маллаикаттам,Нилламуйир,Тиивилл,Кутталаруви,Валаиминну,Уримаиниллам,Перумнааттам,Каалаитии,Маалаиуллам,Мазаиаруви,Веллаималлаи,Иравумирам,Паккалуйир,Куллиртаниир,Удаймаинааттам,Маккаларуви,Муттааиуллам,Аммаиниллам,Аттаималлаи,Перумтии,Нааттаммаккал,Уйираруви</div>
+  <!-- Ярви -->
+  <div class="panel" id="n-yarvi">
+    <div class="ph"><div style="width:14px;height:14px;border-radius:2px;background:#6A9FB0"></div><h2>Ярви</h2></div>
+    <div class="pm">Озёрные рыбаки · Жрецы воды · Священное озеро Яарви</div>
+    <div class="diach"><b>Исторический очерк</b>Потомки Хаару, достигшие священного озера 20 000 лет назад. Религия целиком посвящена воде.</div>
+    <div class="st">Основные данные</div>
+    <div class="pg"><div class="pc"><div class="l">Тип культуры</div><div class="v">Озёрная, рыбацкая</div></div><div class="pc"><div class="l">Гаплогруппа</div><div class="v">U</div></div><div class="pc"><div class="l">Население</div><div class="v">~9 000</div></div><div class="pc"><div class="l">Религия</div><div class="v">Яарви-уллем</div></div><div class="pc"><div class="l">Антропология</div><div class="v">Светлая кожа, широкое лицо</div></div><div class="pc"><div class="l">Особенность</div><div class="v">Гармония гласных</div></div></div>
+    <div class="st">Ключевые понятия</div>
+    <div class="eg"><div class="ec"><div class="w">яарви</div><div class="m">озеро, священное</div></div><div class="ec"><div class="w">уллем</div><div class="m">шаман, жрец</div></div><div class="ec"><div class="w">ранта</div><div class="m">берег</div></div></div>
+    <div class="st">Примеры слов</div>
+    <div class="eg"><div class="ec"><div class="w">луми</div><div class="m">снег</div></div><div class="ec"><div class="w">нгаал</div><div class="m">ледяная стена</div></div><div class="ec"><div class="w">метсяя</div><div class="m">тайга</div></div><div class="ec"><div class="w">карху</div><div class="m">медведь</div></div></div>
+    <div class="st">Namebase</div>
+    <div class="nb"><div class="nbp"><div class="npp"><div class="l">Длина</div><div class="v">4–8</div></div><div class="npp"><div class="l">Двойные</div><div class="v">аа, оо, уу, нг, мн</div></div></div><div class="nbw" id="nb-yarvi"><button class="cpb" onclick="cpNb('nb-yarvi',this)">Копировать</button>ярви, ярви, ранта, йоки, луми, мери, саари, ниеми, лахти, уома, хаару, суо, метса, карху, пеура, хирви, линту, пилви, кивее, талви, коол, нгаал, ярвила, рантала, йокила, лумила, мерила, саарила, ниемила, лахтила, хаарула, суола, метсала, ярвиранта, ярвийоки, рантайоки, луминиеми, мериниеми, саариранта, лахтиранта, суониеми, метсайоки, карихаару, пеураметса, хирвиранта, линтуниеми, пилвисаари, кивиранта, талвийоки, нгаалранта, хаарусаари</div></div>
   </div>
-</div>
-
-<!-- МАККАЛ -->
-<div class="panel" id="l-makkal">
-  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#A83020;flex-shrink:0"></div><h2>Маккал</h2><span class="hex-badge">#A83020</span></div>
-  <div class="p-meta">Корень военный · Origins: Аруви → Уллам · -20 000 до н.э.</div>
-  <div class="section-title">Фонетика</div>
-  <div class="ph-grid">
-    <div class="ph-card"><div class="l">Основа</div><div class="v">Корень (Уллам)</div></div>
-    <div class="ph-card"><div class="l">Новая лексика</div><div class="v">военная, территориальная</div></div>
-    <div class="ph-card"><div class="l">Особенность</div><div class="v">короткие ударные слоги</div></div>
+  <!-- Корви -->
+  <div class="panel" id="n-korvi">
+    <div class="ph"><div style="width:14px;height:14px;border-radius:2px;background:#7ABFC0"></div><h2>Корви</h2></div>
+    <div class="pm">Горные жители · Западные хребты · Контроль перевалов</div>
+    <div class="diach"><b>Исторический очерк</b>Отделились от Ярви около -10 000, поднявшись в горы. Контролируют перевалы между Мегалос и Лептос.</div>
+    <div class="st">Основные данные</div>
+    <div class="pg"><div class="pc"><div class="l">Тип культуры</div><div class="v">Горная, перевальная</div></div><div class="pc"><div class="l">Гаплогруппа</div><div class="v">U</div></div><div class="pc"><div class="l">Население</div><div class="v">~3 000</div></div><div class="pc"><div class="l">Религия</div><div class="v">Ярви-уллем (горная адаптация)</div></div><div class="pc"><div class="l">Антропология</div><div class="v">Светлая кожа, выносливые</div></div><div class="pc"><div class="l">Экономика</div><div class="v">Плата за проход</div></div></div>
+    <div class="st">Ключевые понятия</div>
+    <div class="eg"><div class="ec"><div class="w">корви</div><div class="m">самоназвание, от *корва (вершина)</div></div><div class="ec"><div class="w">сола</div><div class="m">перевал</div></div></div>
+    <div class="st">Примеры слов</div>
+    <div class="eg"><div class="ec"><div class="w">вуори</div><div class="m">гора</div></div><div class="ec"><div class="w">киви</div><div class="m">камень</div></div><div class="ec"><div class="w">куру</div><div class="m">ущелье</div></div><div class="ec"><div class="w">тунтури</div><div class="m">высокая гора</div></div></div>
+    <div class="st">Namebase</div>
+    <div class="nb"><div class="nbp"><div class="npp"><div class="l">Длина</div><div class="v">4–8</div></div><div class="npp"><div class="l">Двойные</div><div class="v">аа, оо, нг</div></div></div><div class="nbw" id="nb-korvi"><button class="cpb" onclick="cpNb('nb-korvi',this)">Копировать</button>корви, корва, корваа, коре, корис, кора, кору, коры, косси, корпа, коски, киви, каллио, вуори, харью, хака, кари, куру, куруу, паллас, тунтури, юланко, сола, ура, кайра, кайраа, корвинен, корвиала, корвинранта, корвикайра, корвитунтури, корвипаллас, корвисола, корвикуру, корвихарью, корвикиви, корвикаллио, корвикоски, корвикорпа, корвихарью</div></div>
   </div>
-  <div class="note">Аруви набожные — Маккал воинственные. Один язык, разный словарь. Понятие «эллаи» (граница) стало центральным. Язык жёстче, меньше дифтонгов, больше закрытых слогов.</div>
-  <div class="section-title">Примеры слов</div>
-  <div class="ex-grid">
-    <div class="ex-card"><div class="w">маккал</div><div class="m">люди, народ (самоназвание)</div></div>
-    <div class="ex-card"><div class="w">порран</div><div class="m">война, столкновение</div></div>
-    <div class="ex-card"><div class="w">эллаи</div><div class="m">граница, предел территории</div></div>
-    <div class="ex-card"><div class="w">талайвар</div><div class="m">командир отряда</div></div>
-    <div class="ex-card"><div class="w">велли</div><div class="m">победа</div></div>
-    <div class="ex-card"><div class="w">чолан</div><div class="m">испытание воина</div></div>
+  <!-- Велды -->
+  <div class="panel" id="n-veldy">
+    <div class="ph"><div style="width:14px;height:14px;border-radius:2px;background:#6B7A3A"></div><h2>Велды</h2></div>
+    <div class="pm">Лесостепные скотоводы · Буферная культура · Будущая «пороховая империя»</div>
+    <div class="diach"><b>Исторический очерк</b>Контактный народ на стыке ареалов Ярви, Аалои и Тенгир. Уже осваивают скотоводство.</div>
+    <div class="st">Основные данные</div>
+    <div class="pg"><div class="pc"><div class="l">Тип культуры</div><div class="v">Лесостепная, скотоводческая</div></div><div class="pc"><div class="l">Гаплогруппа</div><div class="v">U</div></div><div class="pc"><div class="l">Население</div><div class="v">~12 000</div></div><div class="pc"><div class="l">Религия</div><div class="v">Велд-суол</div></div><div class="pc"><div class="l">Антропология</div><div class="v">Смесь финского и степного типов</div></div><div class="pc"><div class="l">Особенность</div><div class="v">Зарождающаяся падежная система</div></div></div>
+    <div class="st">Ключевые понятия</div>
+    <div class="eg"><div class="ec"><div class="w">велд</div><div class="m">земля, открытое поле</div></div><div class="ec"><div class="w">суол</div><div class="m">дух земли</div></div><div class="ec"><div class="w">род</div><div class="m">племя</div></div></div>
+    <div class="st">Примеры слов</div>
+    <div class="eg"><div class="ec"><div class="w">велдава</div><div class="m">поселение у реки</div></div><div class="ec"><div class="w">каалви</div><div class="m">холодная вода</div></div><div class="ec"><div class="w">суолдав</div><div class="m">болотное место</div></div><div class="ec"><div class="w">метсавел</div><div class="m">лесное поле</div></div></div>
+    <div class="st">Namebase</div>
+    <div class="nb"><div class="nbp"><div class="npp"><div class="l">Длина</div><div class="v">4–9</div></div><div class="npp"><div class="l">Двойные</div><div class="v">еа, оо</div></div></div><div class="nbw" id="nb-veldy"><button class="cpb" onclick="cpNb('nb-veldy',this)">Копировать</button>велд, велда, велдава, каалви, маллви, арвела, коолдав, веелдас, ранталви, метсавел, суолдав, велдаран, каалвела, маллвела, арвелас, коолдава, веелдава, ранталвас, метсавела, суолдава, вела, велас, велар, велдас, маллас, каалас, арвас, коолас, веелас, велдавела, каалдав, маллдав, арвдав, коолвел, ранталвел, метсавел, суолвел, велдакаал, маллвелд, арвелавел, коолдавел, веелдавел, ранталвелд, велдаранта, каалвелд, маллвелда, велдасуол, маллметса, каалранта, коолметса, веелранта, суолметса, велдавелд, маллкаал, арверанта, коолвелда, маллсуол, каалметса, велдакоол, арвевелд, суолкаал, велдаметса, маллранта, каалвелда</div></div>
   </div>
-  <div class="section-title">Namesbase</div>
-  <div class="nb-block">
-    <div class="nb-params">
-      <div class="nb-p"><div class="l">Length</div><div class="v">4 — 9</div></div>
-      <div class="nb-p"><div class="l">Doubled</div><div class="v">аи</div></div>
-    </div>
-    <div class="nb-words" id="nb-makkal"><button class="copy-btn" onclick="copyNb('nb-makkal',this)">Копировать</button>Маккал,Маккала,Маккалви,Маккалан,Порран,Порранаи,Велланаи,Велли,Веллан,Веллаан,Каттан,Каттанаи,Каттаан,Тилан,Тилаан,Тилви,Налан,Налаан,Налви,Паттан,Паттаан,Коллан,Коллаан,Иллан,Иллаан,Мирам,Мираан,Аттан,Аттаан,Вираан,Виран,Натан,Натаан,Мутан,Мутаан,Тираан,Тиран,Чолан,Чолаан,Пандан,Пандаан,Маккалпорран,Велланмаккал,Каттантилан,Тиланмаккал,Налавеллан,Паттанпорран,Колланмаккал,Мирамтилан,Аттанвеллан,Виранмаккал,Натанкаттан,Мутанпорран,Тиранвеллан,Чоланмаккал,Пандантилан,Маккаланпорран,Веллаанкаттан,Каттааннала,Тилааанмаккал,Паттаанвира,Коллааннатан,Мирааммута,Аттааатира,Вираанчола,Натаанпанда,Маккалвипорран,Веллвикаттан,Маккалнала,Веллантила,Каттаннала,Тиланвела,Налавела,Паттанвела,Колланвела,Иллавела,Мирамвела,Аттанвела,Виранвела,Натанвела,Мутанвела,Тиранвела,Чоланвела,Маккалтила,Веллатила</div>
+  <!-- Тенгир -->
+  <div class="panel" id="n-tengir">
+    <div class="ph"><div style="width:14px;height:14px;border-radius:2px;background:#C8A040"></div><h2>Тенгир</h2></div>
+    <div class="pm">Степные номады · Небо и степь · Крупнейшая территория</div>
+    <div class="diach"><b>Исторический очерк</b>Потомки Вееру, вышедшие на восточные равнины. Кочевой образ жизни, культ Неба.</div>
+    <div class="st">Основные данные</div>
+    <div class="pg"><div class="pc"><div class="l">Тип культуры</div><div class="v">Кочевая, степная</div></div><div class="pc"><div class="l">Гаплогруппа</div><div class="v">U</div></div><div class="pc"><div class="l">Население</div><div class="v">~22 000</div></div><div class="pc"><div class="l">Религия</div><div class="v">Тенгри</div></div><div class="pc"><div class="l">Антропология</div><div class="v">Светлее Уллам, широкие скулы</div></div><div class="pc"><div class="l">Особенность</div><div class="v">тенгри = небо = бог = самоназвание</div></div></div>
+    <div class="st">Ключевые понятия</div>
+    <div class="eg"><div class="ec"><div class="w">тенгри</div><div class="m">небо, бог, народ</div></div><div class="ec"><div class="w">кол</div><div class="m">озеро</div></div><div class="ec"><div class="w">тау</div><div class="m">гора</div></div><div class="ec"><div class="w">орду</div><div class="m">лагерь-стоянка</div></div></div>
+    <div class="st">Примеры слов</div>
+    <div class="eg"><div class="ec"><div class="w">сарыташ</div><div class="m">жёлтый камень</div></div><div class="ec"><div class="w">каратау</div><div class="m">чёрная гора</div></div><div class="ec"><div class="w">актенгир</div><div class="m">белое небо (рассвет)</div></div><div class="ec"><div class="w">курган</div><div class="m">холм</div></div></div>
+    <div class="st">Namebase</div>
+    <div class="nb"><div class="nbp"><div class="npp"><div class="l">Длина</div><div class="v">5–10</div></div><div class="npp"><div class="l">Двойные</div><div class="v">запрещены</div></div></div><div class="nbw" id="nb-tengir"><button class="cpb" onclick="cpNb('nb-tengir',this)">Копировать</button>тенгир, тенгри, тенгел, тенгул, сарыташ, сарыкол, сарыгол, сарысу, сарытау, караташ, каракол, карагол, карасу, каратау, акташ, аккол, аксу, актау, кызылкол, кызылгол, кызылсу, кызылтау, кокташ, коккол, коксу, коктау, таштау, ташкол, тооктакол, тооктасу, башташ, башкол, башсу, баштау, терсташ, терскол, ататаш, атакол, атасу, ярташ, яркол, ярсу, борташ, боркол, борсу, талташ, талкол, нарташ, наркол, нарсу, булакташ, булаксу, курганташ, кургангол, ордуташ, ордугол, монхташ, монхгол, тенгирташ, тенгиркол, тенгирсу, тенгиртау, тенгиргол, сарытенгир, каратенгир, актенгир, кызылтенгир, коктенгир, баштенгир, тенгиркурган, сарыорду, кокорду, акорду, акбулак, каракурган, тенгиркурган</div></div>
   </div>
-</div>
-
-<!-- МАРАИ -->
-<div class="panel" id="l-marai">
-  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#7A5030;flex-shrink:0"></div><h2>Мараи</h2><span class="hex-badge">#7A5030</span></div>
-  <div class="p-meta">Пиджин Корень + Банту · Origins: Аруви + Каам · -20 000 до н.э.</div>
-  <div class="section-title">Фонетика</div>
-  <div class="ph-grid">
-    <div class="ph-card"><div class="l">Основа</div><div class="v">смесь Корня и Банту</div></div>
-    <div class="ph-card"><div class="l">Гласные</div><div class="v">а е и о у (тональные слабо)</div></div>
-    <div class="ph-card"><div class="l">Особенность</div><div class="v">первый межсемейный язык</div></div>
+  <!-- Маккал -->
+  <div class="panel" id="n-makkal">
+    <div class="ph"><div style="width:14px;height:14px;border-radius:2px;background:#A83020"></div><h2>Маккал</h2></div>
+    <div class="pm">Военные номады · Первые укрепления · Воинская культура</div>
+    <div class="diach"><b>Исторический очерк</b>Откололись от южной ветви Аруви 20 000 лет назад. Первые укреплённые лагеря.</div>
+    <div class="st">Основные данные</div>
+    <div class="pg"><div class="pc"><div class="l">Тип культуры</div><div class="v">Военная, номадная</div></div><div class="pc"><div class="l">Гаплогруппа</div><div class="v">U</div></div><div class="pc"><div class="l">Население</div><div class="v">~22 000</div></div><div class="pc"><div class="l">Религия</div><div class="v">Порран-маккал</div></div><div class="pc"><div class="l">Антропология</div><div class="v">Как Аммаи</div></div><div class="pc"><div class="l">Особенность</div><div class="v">эллаи — сакральная граница</div></div></div>
+    <div class="st">Ключевые понятия</div>
+    <div class="eg"><div class="ec"><div class="w">маккал</div><div class="m">воин, народ</div></div><div class="ec"><div class="w">порран</div><div class="m">война, дух воина</div></div><div class="ec"><div class="w">эллаи</div><div class="m">граница, предел</div></div></div>
+    <div class="st">Примеры слов</div>
+    <div class="eg"><div class="ec"><div class="w">талайвар</div><div class="m">командир отряда</div></div><div class="ec"><div class="w">велли</div><div class="m">победа</div></div><div class="ec"><div class="w">чолан</div><div class="m">испытание воина</div></div><div class="ec"><div class="w">тилан</div><div class="m">страж</div></div></div>
+    <div class="st">Namebase</div>
+    <div class="nb"><div class="nbp"><div class="npp"><div class="l">Длина</div><div class="v">4–9</div></div><div class="npp"><div class="l">Двойные</div><div class="v">тт, кк, пп, рр</div></div></div><div class="nbw" id="nb-makkal"><button class="cpb" onclick="cpNb('nb-makkal',this)">Копировать</button>маккал, маккала, маккалви, маккалан, порран, порранаи, велланаи, велли, веллан, каттан, каттанаи, тилан, тилаан, тилви, налан, налаан, паттан, паттаан, коллан, коллаан, иллан, иллаан, мирам, мираан, аттан, виран, виран, натан, натаан, мутан, тиран, тиран, чолан, чолаан, пандан, пандаан, маккалпорран, велланмаккал, каттантилан, тиланмаккал, налавеллан, паттанпорран, колланмаккал, мирамтилан, аттанвеллан, виранмаккал, натанкаттан, мутанпорран, тиранвеллан, чоланмаккал, пандантилан, маккалнала, веллантила, каттаннала, тиланвела, налавела, паттанвела, колланвела, иллавела, мирамвела, аттанвела, виранвела, натанвела, тиранвела, чоланвела, маккалтила</div></div>
   </div>
-  <div class="note">Первый пиджин континента. Около ста слов которые понимают оба народа. Слова Корня с банту-суффиксами. Не ни то ни другое — новое.</div>
-  <div class="section-title">Примеры слов</div>
-  <div class="ex-grid">
-    <div class="ex-card"><div class="w">мараи</div><div class="m">равнина, открытое место (самоназвание)</div></div>
-    <div class="ex-card"><div class="w">аруни</div><div class="m">течение, вода (от Аруви)</div></div>
-    <div class="ex-card"><div class="w">нгомаи</div><div class="m">барабан-ритуал (от Каам)</div></div>
-    <div class="ex-card"><div class="w">симани</div><div class="m">большой зверь (от Каам симба)</div></div>
-    <div class="ex-card"><div class="w">тиини</div><div class="m">огонь (от Корень тии)</div></div>
-    <div class="ex-card"><div class="w">аммаи</div><div class="m">мать (Корень, сохранилось)</div></div>
+  <!-- Мараи -->
+  <div class="panel" id="n-marai">
+    <div class="ph"><div style="width:14px;height:14px;border-radius:2px;background:#7A5030"></div><h2>Мараи</h2></div>
+    <div class="pm">Синкретический народ · Торговые посредники · Пиджин Уллам+Банту</div>
+    <div class="diach"><b>Исторический очерк</b>Смешение южной ветви Аруви и Каам. Первый межсемейный пиджин, ставший родным.</div>
+    <div class="st">Основные данные</div>
+    <div class="pg"><div class="pc"><div class="l">Тип культуры</div><div class="v">Синкретическая, торговая</div></div><div class="pc"><div class="l">Гаплогруппа</div><div class="v">U+K</div></div><div class="pc"><div class="l">Население</div><div class="v">~28 000</div></div><div class="pc"><div class="l">Религия</div><div class="v">Мунгу-нгома</div></div><div class="pc"><div class="l">Антропология</div><div class="v">Смешанная</div></div><div class="pc"><div class="l">Роль</div><div class="v">Торговые посредники</div></div></div>
+    <div class="st">Ключевые понятия</div>
+    <div class="eg"><div class="ec"><div class="w">мараи</div><div class="m">равнина, народ</div></div><div class="ec"><div class="w">нгома</div><div class="m">барабан, ритуал</div></div><div class="ec"><div class="w">амании</div><div class="m">мир, покой</div></div></div>
+    <div class="st">Примеры слов</div>
+    <div class="eg"><div class="ec"><div class="w">аруни</div><div class="m">течение, вода</div></div><div class="ec"><div class="w">симани</div><div class="m">большой зверь</div></div><div class="ec"><div class="w">тиини</div><div class="m">огонь</div></div><div class="ec"><div class="w">колами</div><div class="m">священный водоём</div></div></div>
+    <div class="st">Namebase</div>
+    <div class="nb"><div class="nbp"><div class="npp"><div class="l">Длина</div><div class="v">4–9</div></div><div class="npp"><div class="l">Двойные</div><div class="v">мб, нд, нг, нн, мм</div></div></div><div class="nbw" id="nb-marai"><button class="cpb" onclick="cpNb('nb-marai',this)">Копировать</button>мараи, марани, маранго, мараан, марави, тании, таниго, таниан, аруни, арунго, арунан, каамви, каамго, каамаи, симаи, симани, симанго, нгомаи, нгомани, нгоман, пулаи, пулани, пулан, аммаи, аммани, тиини, тиинго, тиинан, маккаи, маккани, руахаи, руахани, колами, коламго, коламан, пазами, пазамго, нгалаи, нгалани, нгалан, мбугаи, мбугани, мбуган, мараитании, симанингома, арунакаам, пулунимараи, аммаимаран, тиинимараи, нгомааруни, руахатании, коламимараи, пазамиаруни, нгалаимараи, мбугааруни, марангтиини, симанго каам, арунгомараи, нгомангоаруни, пулангомараи, аммаготании, руахамараи, коламаруни, марайнгомаи, симайаммаи, арунипулани</div></div>
   </div>
-  <div class="section-title">Namesbase</div>
-  <div class="nb-block">
-    <div class="nb-params">
-      <div class="nb-p"><div class="l">Length</div><div class="v">4 — 9</div></div>
-      <div class="nb-p"><div class="l">Doubled</div><div class="v">аоу</div></div>
-    </div>
-    <div class="nb-words" id="nb-marai"><button class="copy-btn" onclick="copyNb('nb-marai',this)">Копировать</button>Мараи,Марани,Маранго,Мараан,Марави,Тании,Таниго,Таниан,Аруни,Арунго,Арунан,Каамви,Каамго,Каамаи,Симаи,Симани,Симанго,Нгомаи,Нгомани,Нгоман,Пулаи,Пулани,Пулан,Аммаи,Аммани,Тиини,Тиинго,Тиинан,Маккаи,Маккани,Руахаи,Руахани,Руахан,Колами,Коламго,Коламан,Пазами,Пазамго,Пазаман,Кадуи,Кадуни,Кадуго,Нгалаи,Нгалани,Нгалан,Мбугаи,Мбугани,Мбуган,Мараитании,Симанингома,Арунакаам,Пулунимараи,Аммаимаран,Тиинимараи,Нгомааруни,Руахатании,Коламимараи,Пазамиаруни,Кадуингома,Нгалаимараи,Мбугааруни,Марангтиини,Симангокаам,Арунгомараи,Каамгонгома,Нгомангоаруни,Пулангомараи,Аммаготании,Руахамараи,Коламаруни,Нгаланаруни,Марайнгомаи,Симайаммаи,Арунипулани,Тиинингома</div>
+  <!-- Каам -->
+  <div class="panel" id="n-kaam">
+    <div class="ph"><div style="width:14px;height:14px;border-radius:2px;background:#9A4030"></div><h2>Каам</h2></div>
+    <div class="pm">Южные охотники · Банту-язык · Возвращают южные земли</div>
+    <div class="diach"><b>Исторический очерк</b>Пришли с южного материка 40 000 лет назад, принесли тональный язык и классовую грамматику.</div>
+    <div class="st">Основные данные</div>
+    <div class="pg"><div class="pc"><div class="l">Тип культуры</div><div class="v">Охотники-собиратели</div></div><div class="pc"><div class="l">Гаплогруппа</div><div class="v">K</div></div><div class="pc"><div class="l">Население</div><div class="v">~18 000</div></div><div class="pc"><div class="l">Религия</div><div class="v">Мунгу-нгома</div></div><div class="pc"><div class="l">Антропология</div><div class="v">Тёмная кожа, западноафриканский тип</div></div><div class="pc"><div class="l">Особенность</div><div class="v">Тональный язык</div></div></div>
+    <div class="st">Ключевые понятия</div>
+    <div class="eg"><div class="ec"><div class="w">каам</div><div class="m">мы, наши люди</div></div><div class="ec"><div class="w">мунгу</div><div class="m">высшая сила</div></div><div class="ec"><div class="w">нгома</div><div class="m">барабан, ритуал</div></div></div>
+    <div class="st">Примеры слов</div>
+    <div class="eg"><div class="ec"><div class="w">хама</div><div class="m">уходить, мигрировать</div></div><div class="ec"><div class="w">амани</div><div class="m">мир, покой</div></div><div class="ec"><div class="w">рохо</div><div class="m">дух, дыхание</div></div><div class="ec"><div class="w">симба</div><div class="m">лев</div></div></div>
+    <div class="st">Namebase</div>
+    <div class="nb"><div class="nbp"><div class="npp"><div class="l">Длина</div><div class="v">5–9</div></div><div class="npp"><div class="l">Двойные</div><div class="v">мб, нд, нг, нк</div></div></div><div class="nbw" id="nb-kaam"><button class="cpb" onclick="cpNb('nb-kaam',this)">Копировать</button>каам, маранго, нгоронго, симбани, пороно, мбугани, танани, гируни, кибони, руахани, мзеени, кабилани, ндугуни, хамани, мунгуни, рохони, нгомани, тумбани, кезани, бинтини, мбарани, ндалани, нзигини, нгалани, рувуни, ньясани, замбени, лубани, конгони, суахини, макуани, лимпони, квангони, умояни, кимбани, амании, хуруни, нгапини, пвании, бондони, мпакани, баранго, мукаам, вимбуга, нитана, памунгу, кааммаранго, симбанитана, нгоронгогиру, мбуганируаха, кибонимаранго, мунгунитана, нгоманируаха, кезанимаранго, мбаранисимбани, нганитана, нзигинигиру, нгаланимаранго, рувунисимбани, ньясанигиру, конгонисимбани</div></div>
   </div>
-</div>
-
-<!-- ДЕ-УЛЛАМ -->
-<div class="panel" id="l-deullam">
-  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#4A5A38;flex-shrink:0"></div><h2>Де-Уллам</h2><span class="hex-badge">#4A5A38</span></div>
-  <div class="p-meta">Корень изолят — болотная ветка · Origins: Уллам · -60 000 до н.э. · 40 000 лет изоляции</div>
-  <div class="section-title">Фонетика</div>
-  <div class="ph-grid">
-    <div class="ph-card"><div class="l">Доминируют</div><div class="v">носовые нн мм ан нни аан</div></div>
-    <div class="ph-card"><div class="l">Гласные</div><div class="v">а аа и н (слоговое)</div></div>
-    <div class="ph-card"><div class="l">Посторонним</div><div class="v">звучит как вой или плач</div></div>
+  <!-- Хаджар -->
+  <div class="panel" id="n-hadjar">
+    <div class="ph"><div style="width:14px;height:14px;border-radius:2px;background:#4A6080"></div><h2>Хаджар</h2></div>
+    <div class="pm">Речная держава · Венгерский тип · Дельта западной реки</div>
+    <div class="diach"><b>Исторический очерк</b>Пришли с запада через океан 20 000 лет назад. Единственный язык с венгерской гармонией гласных.</div>
+    <div class="st">Основные данные</div>
+    <div class="pg"><div class="pc"><div class="l">Тип культуры</div><div class="v">Речная, оседлая</div></div><div class="pc"><div class="l">Гаплогруппа</div><div class="v">H</div></div><div class="pc"><div class="l">Население</div><div class="v">~15 000</div></div><div class="pc"><div class="l">Религия</div><div class="v">Добош</div></div><div class="pc"><div class="l">Антропология</div><div class="v">Промежуточный тип</div></div><div class="pc"><div class="l">Особенность</div><div class="v">Все отношения через суффиксы</div></div></div>
+    <div class="st">Ключевые понятия</div>
+    <div class="eg"><div class="ec"><div class="w">хаджар</div><div class="m">те кто идут по воде</div></div><div class="ec"><div class="w">добош</div><div class="m">ритм, принцип</div></div><div class="ec"><div class="w">реев</div><div class="m">большая лодка</div></div></div>
+    <div class="st">Примеры слов</div>
+    <div class="eg"><div class="ec"><div class="w">чёнд</div><div class="m">тишина между ударами</div></div><div class="ec"><div class="w">виз</div><div class="m">вода</div></div><div class="ec"><div class="w">эреш</div><div class="m">сила гребца</div></div><div class="ec"><div class="w">кённьу</div><div class="m">лёгкий, быстрый</div></div></div>
+    <div class="st">Namebase</div>
+    <div class="nb"><div class="nbp"><div class="npp"><div class="l">Длина</div><div class="v">4–9</div></div><div class="npp"><div class="l">Двойные</div><div class="v">кк, пп, тт, сс, зз</div></div></div><div class="nbw" id="nb-hadjar"><button class="cpb" onclick="cpNb('nb-hadjar',this)">Копировать</button>хаджар, добош, реев, чёнд, виз, тенгер, иген, эреш, дьёр, мишч, эштер, чёпел, нэпош, кёреш, хаддош, дьёнд, кённьу, рееввиз, добошреев, хаджарвиз, тенгердош, визтенгер, эрешдош, кённьудош, чёндреев, дьёрдош, мишчреев, эштердош, чёпелреев, добошвиз, тенгерреев, кёрешреев, нэпошреев, хаджартенгер, добоштенгер, эрешреев, кённьуреев, чёндвиз, дьёрвиз, мишчвиз, эштерреев, чёпелдош, хаджарчёнд, добошчёнд, тенгерчёнд, визчёнд, кёрешчёнд, эрешчёнд, кённьучёнд, дьёрчёнд, нэпошчёнд, визвар, рееввар, тенгервар, добошвар, хаджарвар, дьёрвар, мишчвар, эштервар, визфёлд, тенгерфёлд, добошфёлд, хаджарфёлд, дьёрфёлд, мишчфёлд, визбан, тенгербан, добошбан, хаджарбан, дьёрбан, мишчбан</div></div>
   </div>
-  <div class="note">«Де-Уллам» — внешнее прозвище. Сами себя они Нааннаи — «те кто между» живыми и мёртвыми. Это не самоуничижение — это онтология.</div>
-  <div class="section-title">Примеры слов</div>
-  <div class="ex-grid">
-    <div class="ex-card"><div class="w">нааннаи</div><div class="m">те кто между (самоназвание)</div></div>
-    <div class="ex-card"><div class="w">нилли</div><div class="m">мягкая трясина</div></div>
-    <div class="ex-card"><div class="w">аннам</div><div class="m">утренний туман</div></div>
-    <div class="ex-card"><div class="w">маннааннам</div><div class="m">болотный газ, горящий сам по себе</div><div class="n">священное явление</div></div>
-    <div class="ex-card"><div class="w">уллани</div><div class="m">предок живущий в воде</div></div>
-    <div class="ex-card"><div class="w">нааллааннам</div><div class="m">состояние между живым и мёртвым</div></div>
+  <!-- Реев-Хаджар -->
+  <div class="panel" id="n-reev">
+    <div class="ph"><div style="width:14px;height:14px;border-radius:2px;background:#2A4060"></div><h2>Реев-Хаджар</h2></div>
+    <div class="pm">Морская ветка · Берег Корифос · Мореходы</div>
+    <div class="diach"><b>Исторический очерк</b>Отделились от речных Хаджар около -10 000. Морская лексика расходится, заимствования из Аалои.</div>
+    <div class="st">Основные данные</div>
+    <div class="pg"><div class="pc"><div class="l">Тип культуры</div><div class="v">Морская, торговая</div></div><div class="pc"><div class="l">Гаплогруппа</div><div class="v">H</div></div><div class="pc"><div class="l">Население</div><div class="v">~8 000</div></div><div class="pc"><div class="l">Религия</div><div class="v">Добош (морской вариант)</div></div><div class="pc"><div class="l">Антропология</div><div class="v">Как Хаджар</div></div><div class="pc"><div class="l">Особенность</div><div class="v">Заимствования из Аалои</div></div></div>
+    <div class="st">Ключевые понятия</div>
+    <div class="eg"><div class="ec"><div class="w">реев</div><div class="m">большая лодка, флот</div></div><div class="ec"><div class="w">нгару</div><div class="m">тип волны (из Аалои)</div></div><div class="ec"><div class="w">тенгераала</div><div class="m">звёздное море</div></div></div>
+    <div class="st">Примеры слов</div>
+    <div class="eg"><div class="ec"><div class="w">рееввиз</div><div class="m">водная флотилия</div></div><div class="ec"><div class="w">чёнднерос</div><div class="m">тихое течение</div></div><div class="ec"><div class="w">аала</div><div class="m">море (заимствование)</div></div></div>
+    <div class="st">Namebase</div>
+    <div class="nb"><div class="nbp"><div class="npp"><div class="l">Длина</div><div class="v">4–9</div></div><div class="npp"><div class="l">Двойные</div><div class="v">кк, пп, тт</div></div></div><div class="nbw" id="nb-reev"><button class="cpb" onclick="cpNb('nb-reev',this)">Копировать</button>реев, рееввиз, тенгер, добош, чёнд, нгару, аала, нерос, виз, эреш, кённьу, мишч, дьёр, нэпош, хаддош, рееввар, тенгервар, добошвар, визвар, чёндвар, нгарувар, тенгерреев, добошреев, чёндреев, нгаруреев, аалареев, рееваала, тенгераала, добошаала, чёндаала, нгаруаала, визаала, тенгернерос, добошнерос, чёнднерос, нгарунерос, визнерос, реевнерос, аалавиз, тенгервиз, добошвиз, чёндвиз, нгарувиз, реевдобош, тенгердобош, чёнддобош, нгарудобош, аааладобош, визреев, нгарутенгер, реевэреш, тенгерэреш, добошэреш, нгаруэреш, визэреш, аалаэреш, реевкённьу, тенгеркённьу, нгарукённьу, аалакённьу, рееваалавиз, тенгераалавиз, добошаалавиз</div></div>
   </div>
-  <div class="section-title">Namesbase</div>
-  <div class="nb-block">
-    <div class="nb-params">
-      <div class="nb-p"><div class="l">Length</div><div class="v">5 — 11</div></div>
-      <div class="nb-p"><div class="l">Doubled</div><div class="v">ан</div></div>
-    </div>
-    <div class="nb-words" id="nb-deullam"><button class="copy-btn" onclick="copyNb('nb-deullam',this)">Копировать</button>Нилла,Аннаи,Уллани,Маннаи,Нимму,Аммани,Таниир,Нилланни,Нинни,Намму,Нилли,Аннам,Маннам,Мааннам,Аннанни,Уллааннаи,Нааннаи,Маннааннам,Ниллаанни,Аннааннам,Уллааннам,Нилламаннаи,Аммааннаи,Нааллааннам,Маннааллаи,Ниннааннаи,Аннааллам,Нилла-аннаи,Маннаи-нилли,Нимму-таниир,Аммани-нилла,Уллани-маннам,Нилланни-нимму,Нинни-аннам,Намму-нилла,Нилли-маннаи,Мааннам-аннаи,Аннанни-нилла,Уллааннаи-намму,Нааннаи-маннам,Маннааннам-нилли,Ниллаанни-аннаи,Аннааннам-нимму,Уллааннам-таниир,Нилламаннаи-нинни,Аммааннаи-нилла,Нааллааннам-маннаи,Маннааллаи-нимму,Ниннааннаи-аннам,Аннааллам-нилли</div>
+  <!-- Дикари -->
+  <div class="panel" id="n-dikari">
+    <div class="ph"><div style="width:14px;height:14px;border-radius:2px;background:#555"></div><h2>Дикари</h2></div>
+    <div class="pm">Нецивилизованные племена · Технический термин Azgaar · ~600 000 человек</div>
+    <div class="diach"><b>Исторический очерк</b>Техническая категория игрового генератора. Сотни мелких групп с изолированными языками. Постепенно ассимилируются.</div>
+    <div class="st">Основные данные</div>
+    <div class="pg"><div class="pc"><div class="l">Статус</div><div class="v">Игровая категория</div></div><div class="pc"><div class="l">Количество</div><div class="v">~600 000</div></div><div class="pc"><div class="l">Расселение</div><div class="v">По всему континенту</div></div><div class="pc"><div class="l">Языки</div><div class="v">~200 изолированных систем</div></div><div class="pc"><div class="l">Контакт</div><div class="v">Перенимают языки соседей</div></div><div class="pc"><div class="l">Тенденция</div><div class="v">Ассимиляция за тысячи лет</div></div></div>
+    <div class="st">Примеры слов (обобщённые)</div>
+    <div class="eg"><div class="ec"><div class="w">ба</div><div class="m">человек</div></div><div class="ec"><div class="w">ка</div><div class="m">камень</div></div><div class="ec"><div class="w">му</div><div class="m">вода</div></div><div class="ec"><div class="w">го</div><div class="m">огонь</div></div></div>
+    <div class="st">Namebase</div>
+    <div class="nb"><div class="nbp"><div class="npp"><div class="l">Длина</div><div class="v">2–4</div></div><div class="npp"><div class="l">Двойные</div><div class="v">нет</div></div></div><div class="nbw" id="nb-dikari"><button class="cpb" onclick="cpNb('nb-dikari',this)">Копировать</button>ба, ка, та, му, ди, го, ну, ти, бо, ма, па, на, да, ко, ни, гу, до, бе, ге, ту, ки, но, де, пи, бу, бака, тади, муко, гоба, нута, дика, боге, таму, кабо, пиму, кади, бому, тако, гени, дабо, муба, ноти, кобе, тагу, баму, диго, пани, гота, буко, мади</div></div>
   </div>
-</div>
-
-<!-- ЯРВИ -->
-<div class="panel" id="l-yarvi">
-  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#6A9FB0;flex-shrink:0"></div><h2>Ярви</h2><span class="hex-badge">#6A9FB0</span></div>
-  <div class="p-meta">Финский тип · Origins: Хаару → Протоярви → Уллам · -20 000 до н.э.</div>
-  <div class="section-title">Фонетика</div>
-  <div class="ph-grid">
-    <div class="ph-card"><div class="l">Гласные</div><div class="v">а аа е о оо у уу</div></div>
-    <div class="ph-card"><div class="l">Ретрофлексные</div><div class="v">исчезли полностью</div></div>
-    <div class="ph-card"><div class="l">Гармония гласных</div><div class="v">жёсткая — задние/передние</div></div>
-    <div class="ph-card"><div class="l">Носовые</div><div class="v">нг мн — отдельные звуки</div></div>
-    <div class="ph-card"><div class="l">Удвоение</div><div class="v">аоу (не е)</div></div>
-    <div class="ph-card"><div class="l">Тип</div><div class="v">протофинский, агглютинативный</div></div>
-  </div>
-  <div class="note">Ярви назвали себя по священному озеру. Богатейшая природная и озёрная лексика. Жертвенные слова для воды — отдельная семантическая группа.</div>
-  <div class="section-title">Примеры слов</div>
-  <div class="ex-grid">
-    <div class="ex-card"><div class="w">яарви</div><div class="m">священное озеро (самоназвание)</div></div>
-    <div class="ex-card"><div class="w">ранта</div><div class="m">берег</div></div>
-    <div class="ex-card"><div class="w">луми</div><div class="m">снег</div></div>
-    <div class="ex-card"><div class="w">нгаал</div><div class="m">ледяная стена</div></div>
-    <div class="ex-card"><div class="w">йоутсен</div><div class="m">лебедь</div><div class="n">птица священного озера</div></div>
-    <div class="ex-card"><div class="w">метсяя</div><div class="m">тайга</div><div class="n">новое слово когда лёд отступил</div></div>
-  </div>
-  <div class="section-title">Namesbase</div>
-  <div class="nb-block">
-    <div class="nb-params">
-      <div class="nb-p"><div class="l">Length</div><div class="v">4 — 8</div></div>
-      <div class="nb-p"><div class="l">Doubled</div><div class="v">аоу</div></div>
-    </div>
-    <div class="nb-words" id="nb-yarvi"><button class="copy-btn" onclick="copyNb('nb-yarvi',this)">Копировать</button>Яарви,Ярви,Ранта,Йоки,Луми,Мери,Саари,Ниеми,Лахти,Уома,Хаару,Суо,Метса,Карху,Пеура,Хирви,Линту,Пилви,Кивее,Талви,Коол,Нгаал,Суооми,Яарвила,Рантала,Йокила,Лумила,Мерила,Саарила,Ниемила,Лахтила,Уомала,Карила,Пеурала,Хирвила,Линтула,Пилвила,Кивила,Талвила,Хаарула,Суола,Метсала,Яарвиранта,Яарвийоки,Рантайоки,Луминиеми,Мериниеми,Саариранта,Лахтиранта,Суониеми,Метсайоки,Карихаару,Пеураметса,Хирвиранта,Линтуниеми,Пилвисаари,Кивиранта,Талвийоки,Нгаалранта,Хаарусаари,Яарвиметса,Луминранта,Мерисаари,Рантакиви,Йокиметса,Лахтисаари,Нгаалйоки,Суомиранта,Хирвийоки,Пеурасаари,Карухаару,Талвиниеми,Кивисаари,Линтуранта,Метсаниеми,Яарвикиви,Рантасуо,Хааруранта,Суосаари,Лахтийоки,Пилвиранта,Нгаалметса,Яарвисуо,Рантаниеми,Кивийоки,Луминсаари</div>
-  </div>
-</div>
-
-<!-- ВЕЛДЫ -->
-<div class="panel" id="l-veldy">
-  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#6B7A3A;flex-shrink:0"></div><h2>Велды</h2><span class="hex-badge">#6B7A3A</span></div>
-  <div class="p-meta">Протославянский тип · Origins: Хаару + Вееру · -20 000 до н.э.</div>
-  <div class="section-title">Фонетика</div>
-  <div class="ph-grid">
-    <div class="ph-card"><div class="l">Основа</div><div class="v">Корень + финский + степной</div></div>
-    <div class="ph-card"><div class="l">Особенность</div><div class="v">падежная система зарождается</div></div>
-    <div class="ph-card"><div class="l">Гласные</div><div class="v">а е и о у аа ее</div></div>
-  </div>
-  <div class="note">Три языка в одном. Корень от Уллам, финская фонетика от Хаару, степная лексика от Вееру. Первый язык на континенте с зачатком падежей — пространственные отношения начинают различаться.</div>
-  <div class="section-title">Примеры слов</div>
-  <div class="ex-grid">
-    <div class="ex-card"><div class="w">велд</div><div class="m">открытое поле, земля (самоназвание)</div></div>
-    <div class="ex-card"><div class="w">велдава</div><div class="m">место у реки, поселение</div></div>
-    <div class="ex-card"><div class="w">каалви</div><div class="m">холодная вода</div></div>
-    <div class="ex-card"><div class="w">суолдав</div><div class="m">болотное место</div></div>
-    <div class="ex-card"><div class="w">ранталви</div><div class="m">зимний берег</div></div>
-    <div class="ex-card"><div class="w">метсавел</div><div class="m">лесное поле</div></div>
-  </div>
-  <div class="section-title">Namesbase</div>
-  <div class="nb-block">
-    <div class="nb-params">
-      <div class="nb-p"><div class="l">Length</div><div class="v">4 — 9</div></div>
-      <div class="nb-p"><div class="l">Doubled</div><div class="v">еа</div></div>
-    </div>
-    <div class="nb-words" id="nb-veldy"><button class="copy-btn" onclick="copyNb('nb-veldy',this)">Копировать</button>Велд,Велда,Велдава,Каалви,Маллви,Арвела,Коолдав,Веелдас,Ранталви,Метсавел,Суолдав,Велдаран,Каалвела,Маллвела,Арвелас,Коолдава,Веелдава,Ранталвас,Метсавела,Суолдава,Вела,Велас,Велар,Велдас,Маллас,Каалас,Арвас,Коолас,Веелас,Ранталас,Велдавела,Каалдав,Маллдав,Арвдав,Коолвел,Веелвел,Ранталвел,Суолвел,Велдакаал,Маллвелд,Арвелавел,Коолдавел,Веелдавел,Ранталвелд,Велдаранта,Каалвелд,Маллвелда,Велдасуол,Маллметса,Каалранта,Арвесуол,Коолметса,Веелранта,Суолметса,Велдавелд,Маллкаал,Арверанта,Коолвелда,Маллсуол,Каалметса,Велдакоол,Арвевелд,Суолкаал,Велдаметса,Маллранта,Каалвелда,Велдасаар,Маллвелдас,Коолрант,Суолранта,Метсакаал,Рантавелд,Каалсуол,Маллвелдава,Велдаметсал,Арвекаал,Коолвелдав,Суолвелд,Метсарант</div>
-  </div>
-</div>
-
-<!-- ТЕНГИР -->
-<div class="panel" id="l-tengir">
-  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#C8A040;flex-shrink:0"></div><h2>Тенгир</h2><span class="hex-badge">#C8A040</span></div>
-  <div class="p-meta">Тюркский тип · Origins: Вееру → Уллам · -20 000 до н.э.</div>
-  <div class="section-title">Фонетика</div>
-  <div class="ph-grid">
-    <div class="ph-card"><div class="l">Гласные</div><div class="v">а е и о у ы</div></div>
-    <div class="ph-card"><div class="l">Топонимика</div><div class="v">Сары- Кара- Ак- Кок- Кызыл-</div></div>
-    <div class="ph-card"><div class="l">Суффиксы</div><div class="v">-таш (камень) -кол (озеро) -су (вода) -тау (гора)</div></div>
-    <div class="ph-card"><div class="l">Особенность</div><div class="v">цветовые префиксы в топонимах</div></div>
-    <div class="ph-card"><div class="l">Порядок слов</div><div class="v">SOV сохранён</div></div>
-    <div class="ph-card"><div class="l">Тип</div><div class="v">агглютинативный, суффиксальный</div></div>
-  </div>
-  <div class="note">За Аттаи небо другое — выше, ближе. Тенгри — небо как живое существо. Степная топонимика строится из цвета + природного объекта: Сарытау (жёлтая гора), Каракол (чёрное озеро).</div>
-  <div class="section-title">Примеры слов</div>
-  <div class="ex-grid">
-    <div class="ex-card"><div class="w">тенгир</div><div class="m">небо, бог-небо (самоназвание)</div></div>
-    <div class="ex-card"><div class="w">тенгиркол</div><div class="m">небесное озеро (священная стоянка)</div></div>
-    <div class="ex-card"><div class="w">сарыташ</div><div class="m">жёлтый камень</div></div>
-    <div class="ex-card"><div class="w">каратау</div><div class="m">чёрная гора</div></div>
-    <div class="ex-card"><div class="w">актенгир</div><div class="m">белое небо (рассвет)</div></div>
-    <div class="ex-card"><div class="w">орду</div><div class="m">временный лагерь-стоянка</div></div>
-  </div>
-  <div class="section-title">Namesbase</div>
-  <div class="nb-block">
-    <div class="nb-params">
-      <div class="nb-p"><div class="l">Length</div><div class="v">5 — 10</div></div>
-      <div class="nb-p"><div class="l">Doubled</div><div class="v">аоу</div></div>
-    </div>
-    <div class="nb-words" id="nb-tengir"><button class="copy-btn" onclick="copyNb('nb-tengir',this)">Копировать</button>Тенгир,Тенгри,Тенгел,Тенгул,Сарыташ,Сарыкол,Сарыгол,Сарысу,Сарытау,Караташ,Каракол,Карагол,Карасу,Каратау,Акташ,Аккол,Аксу,Актау,Кызылкол,Кызылгол,Кызылсу,Кызылтау,Кокташ,Коккол,Коксу,Коктау,Таштау,Ташкол,Тоохта,Тооктамыс,Тооктакол,Тооктасу,Башташ,Башкол,Башсу,Баштау,Терсташ,Терскол,Терсмыс,Ататаш,Атакол,Атасу,Ярташ,Яркол,Ярсу,Борташ,Боркол,Борсу,Талташ,Талкол,Талсу,Нарташ,Наркол,Нарсу,Булакташ,Булаксу,Курганташ,Кургангол,Ордуташ,Ордугол,Монхташ,Монхгол,Тенгирташ,Тенгиркол,Тенгирсу,Тенгиртау,Тенгиргол,Сарытенгир,Каратенгир,Актенгир,Кызылтенгир,Коктенгир,Баштенгир,Тенгиркент,Тенгирорду,Сарыорду,Кокорду,Акорду,Кызылорду,Карабаш,Акбаш,Сарыбулак,Акбулак,Каракурган,Тенгиркурган,Коккурган,Акмонх,Сарымонх,Тенгирнар,Акнар,Сарынар,Каранар,Тенгирбулак,Сарыатакол</div>
-  </div>
-</div>
-
-<!-- ААЛОИ -->
-<div class="panel" id="l-aala">
-  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#3A8C78;flex-shrink:0"></div><h2>Аалои</h2><span class="hex-badge">#3A8C78</span></div>
-  <div class="p-meta">Протоэллинский тип · Origins: Протоаларои → Уллам · -60 000 до н.э.</div>
-  <div class="section-title">Фонетика</div>
-  <div class="ph-grid">
-    <div class="ph-card"><div class="l">Гласные</div><div class="v">а е и о у аи ои еу</div></div>
-    <div class="ph-card"><div class="l">Дифтонги</div><div class="v">аи ои еу — характерная черта</div></div>
-    <div class="ph-card"><div class="l">Суффикс</div><div class="v">-ос -ас -ои — имена мест и существ</div></div>
-    <div class="ph-card"><div class="l">Ритм</div><div class="v">короткий + длинный слог</div></div>
-    <div class="ph-card"><div class="l">Мутация</div><div class="v">к → ч перед е, и</div></div>
-    <div class="ph-card"><div class="l">Тип</div><div class="v">флексия зарождается</div></div>
-  </div>
-  <div class="note">Обогатилась навигационной лексикой от Аала-Хаару — звёздные названия, типы течений, виды берегов. Первые имена для небесных объектов.</div>
-  <div class="section-title">Примеры слов</div>
-  <div class="ex-grid">
-    <div class="ex-card"><div class="w">аала</div><div class="m">море (первое слово вне Корня)</div></div>
-    <div class="ex-card"><div class="w">нерос</div><div class="m">течение</div></div>
-    <div class="ex-card"><div class="w">лимнос</div><div class="m">бухта, закрытая вода</div></div>
-    <div class="ex-card"><div class="w">аркос</div><div class="m">начало пути (первый порт)</div></div>
-    <div class="ex-card"><div class="w">тенгераала</div><div class="m">звёздное море (ночное небо)</div></div>
-    <div class="ex-card"><div class="w">нгарукаал</div><div class="m">время волн, прилив</div></div>
-  </div>
-  <div class="section-title">Namesbase</div>
-  <div class="nb-block">
-    <div class="nb-params">
-      <div class="nb-p"><div class="l">Length</div><div class="v">4 — 8</div></div>
-      <div class="nb-p"><div class="l">Doubled</div><div class="v">аои</div></div>
-    </div>
-    <div class="nb-words" id="nb-aala"><button class="copy-btn" onclick="copyNb('nb-aala',this)">Копировать</button>Аала,Аалас,Тои,Каелос,Меас,Полеи,Наосос,Демос,Аркос,Нерос,Талос,Карос,Пелос,Миносс,Криос,Аргос,Лимнос,Родос,Корос,Патос,Тирос,Элос,Кастос,Марос,Велос,Гелос,Фарос,Аксос,Дорос,Уллаи,Аттаи,Аммаи,Тии,Маллаи,Аруви,Минну,Ниллам,Перум,Тенгераала,Ааласвака,Нгарукаал,Аркоснерос,Аалосниллам,Неросаруви,Лимностии,Фаросмаллаи,Ааласполеи,Талоснерос,Каелосаала,Меаснерос,Демосаала,Аркосаала,Кароснерос,Пелосаала,Аргоснерос,Лимносаала,Родоснерос,Коросаала,Патоснерос,Тиросаала,Элоснерос,Кастосаала,Маросаала,Велоснерос,Фаросаала,Аксоснерос,Доросаала,Аалакаелос,Неростои,Ааласнерос,Тоиаала,Полеинерос</div>
-  </div>
-</div>
-
-<!-- ХАДЖАР -->
-<div class="panel" id="l-hadjar">
-  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#4A6080;flex-shrink:0"></div><h2>Хаджар</h2><span class="hex-badge">#4A6080</span></div>
-  <div class="p-meta">Венгерский тип · Origins: Группа Б (независимая) · -20 000 до н.э.</div>
-  <div class="section-title">Фонетика</div>
-  <div class="ph-grid">
-    <div class="ph-card"><div class="l">Гласные</div><div class="v">а е и о у ё — и долгие аа ее ии оо</div></div>
-    <div class="ph-card"><div class="l">Характерные</div><div class="v">дь нь ч ш ж — маркеры языка</div></div>
-    <div class="ph-card"><div class="l">Гармония</div><div class="v">передние или задние — не вместе</div></div>
-    <div class="ph-card"><div class="l">Суффиксы</div><div class="v">-вар (место) -фёлд (земля) -бан (внутри)</div></div>
-    <div class="ph-card"><div class="l">Предлоги</div><div class="v">нет — всё через суффиксы к слову</div></div>
-    <div class="ph-card"><div class="l">Тип</div><div class="v">агглютинативный, суффиксальный</div></div>
-  </div>
-  <div class="note">Посторонним звучит как будто каждое слово длиннее чем нужно. Короткий корень несёт смысл, суффиксный хвост — всё остальное. Реев-бан (на лодке), реев-бол (с лодки), реев-хоз (к лодке).</div>
-  <div class="section-title">Примеры слов</div>
-  <div class="ex-grid">
-    <div class="ex-card"><div class="w">хаджар</div><div class="m">те кто идут по воде (самоназвание)</div></div>
-    <div class="ex-card"><div class="w">добош</div><div class="m">ритм, бог-принцип, барабанщик</div></div>
-    <div class="ex-card"><div class="w">реев</div><div class="m">большая лодка флотилии</div></div>
-    <div class="ex-card"><div class="w">чёнд</div><div class="m">тишина между ударами (священный момент)</div></div>
-    <div class="ex-card"><div class="w">виз</div><div class="m">вода</div></div>
-    <div class="ex-card"><div class="w">эреш</div><div class="m">сила, мощь гребца</div></div>
-  </div>
-  <div class="section-title">Namesbase</div>
-  <div class="nb-block">
-    <div class="nb-params">
-      <div class="nb-p"><div class="l">Length</div><div class="v">4 — 9</div></div>
-      <div class="nb-p"><div class="l">Doubled</div><div class="v">еоа</div></div>
-    </div>
-    <div class="nb-words" id="nb-hadjar"><button class="copy-btn" onclick="copyNb('nb-hadjar',this)">Копировать</button>Хаджар,Добош,Реев,Чёнд,Виз,Тенгер,Иген,Эреш,Дьёр,Мишч,Эштер,Чёпел,Нэпош,Кёреш,Хаддош,Дьёнд,Кённьу,Рееввиз,Добошреев,Хаджарвиз,Тенгердош,Визтенгер,Эрешдош,Кённьудош,Чёндреев,Дьёрдош,Мишчреев,Эштердош,Чёпелреев,Хаджардош,Добошвиз,Тенгерреев,Кёрешреев,Нэпошреев,Дьёндреев,Хаджартенгер,Добоштенгер,Эрешреев,Кённьуреев,Чёндвиз,Дьёрвиз,Мишчвиз,Эштерреев,Чёпелдош,Хаджарчёнд,Добошчёнд,Тенгерчёнд,Визчёнд,Кёрешчёнд,Эрешчёнд,Кённьучёнд,Дьёрчёнд,Нэпошчёнд,Визвар,Рееввар,Тенгервар,Добошвар,Хаджарвар,Дьёрвар,Мишчвар,Эштервар,Визфёлд,Тенгерфёлд,Добошфёлд,Хаджарфёлд,Дьёрфёлд,Мишчфёлд,Эштерфёлд,Визбан,Тенгербан,Добошбан,Хаджарбан,Дьёрбан,Мишчбан,Эштербан,Дьёнддош,Хаддошвиз,Эрешвиз,Кённьувиз,Чёндтенгер,Хаджаркённьу,Нэпоштенгер,Добошкённьу,Тенгеркёреш,Хаджаркёреш</div>
-  </div>
-</div>
-
-<!-- КААМ -->
-<div class="panel" id="l-kaam">
-  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#9A4030;flex-shrink:0"></div><h2>Каам</h2><span class="hex-badge">#9A4030</span></div>
-  <div class="p-meta">Банту тип · Origins: Группа В (южный материк) · -42 000 до н.э.</div>
-  <div class="section-title">Фонетика</div>
-  <div class="ph-grid">
-    <div class="ph-card"><div class="l">Гласные</div><div class="v">а е и о у — тональные</div></div>
-    <div class="ph-card"><div class="l">Назальные кластеры</div><div class="v">мб нд нг нз — в начале слова</div></div>
-    <div class="ph-card"><div class="l">Структура</div><div class="v">открытые слоги — всё на гласную</div></div>
-    <div class="ph-card"><div class="l">Классы существ.</div><div class="v">ба- (люди) ки- (вещи) му- (места)</div></div>
-    <div class="ph-card"><div class="l">Тональность</div><div class="v">высокий/низкий меняют смысл</div></div>
-    <div class="ph-card"><div class="l">Посторонним</div><div class="v">звучит как пение, не речь</div></div>
-  </div>
-  <div class="note">«Каам» — «мы, наши люди». Посторонние не слышат разницы между тонами — не понимают ничего. Именно поэтому первый контакт с Аруви был в тишине и жестах.</div>
-  <div class="section-title">Примеры слов</div>
-  <div class="ex-grid">
-    <div class="ex-card"><div class="w">каам</div><div class="m">мы, наши люди (самоназвание)</div></div>
-    <div class="ex-card"><div class="w">мунгу</div><div class="m">высшая сила, бог</div></div>
-    <div class="ex-card"><div class="w">нгома</div><div class="m">барабан, ритуал</div></div>
-    <div class="ex-card"><div class="w">хама</div><div class="m">уходить, мигрировать</div></div>
-    <div class="ex-card"><div class="w">амани</div><div class="m">мир, покой</div><div class="n">первое слово которое Аруви поняли</div></div>
-    <div class="ex-card"><div class="w">рохо</div><div class="m">дух, дыхание</div></div>
-  </div>
-  <div class="section-title">Namesbase</div>
-  <div class="nb-block">
-    <div class="nb-params">
-      <div class="nb-p"><div class="l">Length</div><div class="v">5 — 9</div></div>
-      <div class="nb-p"><div class="l">Doubled</div><div class="v">аоу</div></div>
-    </div>
-    <div class="nb-words" id="nb-kaam"><button class="copy-btn" onclick="copyNb('nb-kaam',this)">Копировать</button>Каам,Маранго,Нгоронго,Симбани,Пороно,Мбугани,Танани,Гируни,Кибони,Руахани,Мзеени,Кабилани,Ндугуни,Хамани,Мунгуни,Рохони,Нгомани,Тумбани,Кезани,Бинтини,Мбарани,Ндалани,Нзигини,Мбитани,Нгалани,Рувуни,Кагерани,Ньясани,Замбени,Лубани,Конгони,Суахини,Макуани,Лимпони,Квангони,Кубангони,Лоангони,Умояни,Кимбани,Амании,Хуруни,Имарани,Нгапини,Пвании,Бондони,Мпакани,Баранго,Мукаам,Кикибо,Купоро,Вимбуга,Нитана,Памунгу,Марогиру,Кааммаранго,Симбанитана,Нгоронгогиру,Мбуганируаха,Кибонимаранго,Гирунисимбани,Мзееннгома,Кабиланикаам,Мунгунитана,Нгоманируаха,Тумбаникибо,Кезанимаранго,Мбаранисимбани,Нданитана,Нзигинигиру,Нгаланимаранго,Рувунисимбани,Ньясанигиру,Замберуаха,Конгонисимбани</div>
-  </div>
-</div>
-
-<!-- ПРОТОЯРВИ -->
-<div class="panel" id="l-proyarvi">
-  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#8AAFC0;opacity:0.5;flex-shrink:0"></div><h2>Протоярви <span class="dead-badge">⚰ мёртв</span></h2></div>
-  <div class="p-meta">Корень северный — переходная форма · -95 000 — -60 000 до н.э. · Потомки: Хаару, Аала-Хаару</div>
-  <div class="note">Промежуточная форма между Корнем и Хаару. Ретрофлексные исчезли, гармония гласных начала формироваться, нг/мн появились. Потомком является Ярви через Хаару.</div>
-  <div class="section-title">Namesbase</div>
-  <div class="nb-block">
-    <div class="nb-params">
-      <div class="nb-p"><div class="l">Length</div><div class="v">4 — 9</div></div>
-      <div class="nb-p"><div class="l">Doubled</div><div class="v">аеоу</div></div>
-    </div>
-    <div class="nb-words" id="nb-proyarvi"><button class="copy-btn" onclick="copyNb('nb-proyarvi',this)">Копировать</button>Маллее,Арви,Тиинг,Миррам,Уллем,Аттее,Аммее,Ираво,Яарв,Коол,Хаару,Меети,Йоки,Таало,Каала,Вееси,Луми,Талви,Кеси,Ранта,Мери,Юоки,Хару,Пеура,Хирви,Карху,Сууси,Линту,Пилви,Таиваас,Кивее,Метса,Суо,Ниеми,Лахти,Саари,Уома,Нгаал,Мнаар,Тиилу,Хаарви,Коолви,Арвии</div>
-  </div>
-</div>
-
-<!-- ПРОТОАЛАРОИ -->
-<div class="panel" id="l-proalaroi">
-  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#3A8C78;opacity:0.5;flex-shrink:0"></div><h2>Протоаларои <span class="dead-badge">⚰ мёртв</span></h2></div>
-  <div class="p-meta">Корень береговой — переходная форма · -80 000 — -60 000 до н.э. · Потомки: Аала</div>
-  <div class="note">Корень с первым словом вне системы — «Аала». Дифтонги только начали формироваться. Прямой предок языка Аалои.</div>
-  <div class="section-title">Namesbase</div>
-  <div class="nb-block">
-    <div class="nb-params">
-      <div class="nb-p"><div class="l">Length</div><div class="v">4 — 9</div></div>
-      <div class="nb-p"><div class="l">Doubled</div><div class="v">аои</div></div>
-    </div>
-    <div class="nb-words" id="nb-proalaroi"><button class="copy-btn" onclick="copyNb('nb-proalaroi',this)">Копировать</button>Аала,Маллаи,Аруви,Уллам,Аттаи,Аммаи,Тии,Мирам,Нааттам,Минну,Ниллам,Каттам,Вееру,Паанаи,Уйир,Веллаи,Мазаи,Перум,Вааи,Аалас,Нерос,Талос,Каелос,Полеи,Лимнос,Миносс,Криос,Дорос,Аргос</div>
-  </div>
-</div>
-
-<!-- ААЛА-ХААРУ -->
-<div class="panel" id="l-aalahaaru">
-  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#6A9FB0;opacity:0.5;flex-shrink:0"></div><h2>Аала-Хаару <span class="dead-badge">⚰ мёртв</span></h2></div>
-  <div class="p-meta">Протоярви + морская Аала · -60 000 — -40 000 до н.э. · Растворился в Аала</div>
-  <div class="note">Смешанный язык. Носовые нг/мн от Хаару, дифтонги от Аала. К -40 000 полностью ассимилировался. Вклад — звёздная навигация и морская охота.</div>
-  <div class="section-title">Namesbase</div>
-  <div class="nb-block">
-    <div class="nb-params">
-      <div class="nb-p"><div class="l">Length</div><div class="v">4 — 8</div></div>
-      <div class="nb-p"><div class="l">Doubled</div><div class="v">аои</div></div>
-    </div>
-    <div class="nb-words" id="nb-aalahaaru"><button class="copy-btn" onclick="copyNb('nb-aalahaaru',this)">Копировать</button>Аалви,Хаарос,Тиинг,Йоаал,Каалос,Миррос,Уллос,Ранта,Мерви,Хаарви,Нгаал,Луми,Таалос,Веелос,Сааро,Кивос,Пелви,Йоки,Арвос,Аала,Нгару,Вака,Ранги,Хаару,Коол,Миррам,Мери,Ниеми,Лахти,Аалос,Хааруо,Мирраал,Нгаалви,Хааранта,Коолаал,Луминг</div>
-  </div>
-</div>
-
-<!-- ДИКАРИ -->
-<div class="panel" id="l-dikari">
-  <div class="p-header"><div style="width:14px;height:14px;border-radius:2px;background:#555;flex-shrink:0"></div><h2>Дикари</h2><span class="dead-badge">нередактируемо</span></div>
-  <div class="p-meta">Сигнальная система — не язык · С начала времён</div>
-  <div class="note">Не язык в лингвистическом смысле. ~200 корней, один слог = одно конкретное понятие. Нет абстракций, нет времени, нет имён собственных. Деградируют.</div>
-  <div class="section-title">Namesbase</div>
-  <div class="nb-block">
-    <div class="nb-params">
-      <div class="nb-p"><div class="l">Length</div><div class="v">2 — 4</div></div>
-      <div class="nb-p"><div class="l">Doubled</div><div class="v">пусто</div></div>
-    </div>
-    <div class="nb-words" id="nb-dikari"><button class="copy-btn" onclick="copyNb('nb-dikari',this)">Копировать</button>Ба,Ка,Та,Му,Ди,Го,Ну,Ти,Бо,Ма,Па,На,Да,Ко,Ни,Гу,До,Бе,Ге,Ту,Ки,Но,Де,Пи,Бу,Бака,Тади,Муко,Гоба,Нута,Дика,Боге,Таму,Кабо,Пиму,Кади,Бому,Тако,Гени,Дабо,Муба,Ноти,Кобе,Тагу,Баму,Диго,Пани,Гота,Буко,Мади</div>
-  </div>
-</div>
-
-</div>
-</div>
+</div></div>
 <script>
 function show(id){
-  document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("active");});
-  document.querySelectorAll(".sb-item").forEach(function(s){s.classList.remove("active");});
-  document.getElementById("l-"+id).classList.add("active");
+  document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
+  document.querySelectorAll(".sb-item").forEach(s=>s.classList.remove("active"));
+  document.getElementById("n-"+id).classList.add("active");
   event.currentTarget.classList.add("active");
 }
-function copyNb(id,btn){
-  var el=document.getElementById(id);
-  var nodes=el.childNodes;
-  var text="";
-  nodes.forEach(function(n){if(n.nodeType===3)text+=n.textContent;});
+function cpNb(id,btn){
+  let el=document.getElementById(id);
+  let text="";
+  function collect(node){
+    if(node.nodeType===Node.TEXT_NODE) text+=node.textContent;
+    else if(node.nodeType===Node.ELEMENT_NODE && node!==btn && !node.classList?.contains('cpb')) 
+      node.childNodes.forEach(collect);
+  }
+  collect(el);
   text=text.trim();
-  navigator.clipboard.writeText(text).then(function(){
+  navigator.clipboard.writeText(text).then(()=>{
     btn.textContent="Скопировано";
-    setTimeout(function(){btn.textContent="Копировать";},2000);
+    setTimeout(()=>btn.textContent="Копировать",2000);
   });
 }
 </script>
