@@ -1,125 +1,122 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ORBAT — Оррим</title>
-<link rel="icon" href="favicon.ico">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-html{font-size:15px;-webkit-text-size-adjust:100%}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#1a1a18;color:#d4d2cc;min-height:100vh;line-height:1.65}
-.nav{position:fixed;top:0;left:0;right:0;background:#1a1a18;border-bottom:0.5px solid #333;padding:0 16px;display:flex;align-items:center;gap:10px;z-index:1000;height:52px}
-.nav a{text-decoration:none;color:#999;font-size:13px;padding:0 14px;border:0.5px solid #3a3a38;border-radius:6px;background:#2a2a28;height:36px;display:flex;align-items:center;white-space:nowrap;transition:all 0.15s}
-.nav a:hover{color:#f1efe8;border-color:#666}
-.nav-title{color:#777;font-size:13px}
-.spacer{height:52px}
-.hdr{background:#202020;padding:18px 20px;border-bottom:0.5px solid #333}
-.hdr h1{font-size:20px;font-weight:500;color:#f1efe8}
-.hdr p{font-size:13px;color:#777;margin-top:5px}
-.st{font-size:11px;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:0.1em;margin:22px 0 12px;padding-bottom:6px;border-bottom:0.5px solid #282826}
-.ev{background:#202020;border:0.5px solid #333;border-left:3px solid #c87840;border-radius:6px;padding:13px 15px;margin-bottom:10px}
-.ev h4{font-size:14px;font-weight:600;color:#f1efe8;margin-bottom:5px}
-.ev p{font-size:13px;color:#bbb;line-height:1.65;margin:0}
-.nt{background:#202020;border-left:2px solid #3a3a38;padding:10px 14px;border-radius:0 6px 6px 0;font-size:13px;color:#999;line-height:1.65;margin:10px 0;font-style:italic}
-.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px}
-table{width:100%;border-collapse:collapse;min-width:380px;font-size:13px}
-th{background:#282826;padding:9px 11px;text-align:left;font-size:12px;font-weight:600;color:#999;border-bottom:1px solid #333;white-space:nowrap}
-td{padding:9px 11px;border-bottom:0.5px solid #282826;font-size:13px;color:#bbb;vertical-align:top}
-tr:hover td{background:#202020}
-.sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle;border:0.5px solid rgba(255,255,255,0.1)}
-.pop{color:#a0c880}
-.tag{display:inline-block;font-size:12px;padding:2px 7px;border-radius:3px}
-.tn{background:#3a2a10;color:#c87840}
-.tr{background:#0d2a2a;color:#3aa0a0}
-.th{background:#22122a;color:#a060c0}
-.tv{background:#081830;color:#3a80c0}
-.tg{background:#22220d;color:#a0a040}
-.tl{background:#0d2030;color:#5090c0}
-.tk{background:#1a1a1a;color:#555}
-p{font-size:14px;color:#bbb;line-height:1.75;margin-bottom:10px}
-
-body{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 20px}
-.hero{text-align:center;margin-bottom:40px}
-.hero-title{font-size:38px;font-weight:300;color:#f1efe8;letter-spacing:0.14em;margin-bottom:8px}
-.hero-sub{font-size:13px;color:#555;letter-spacing:0.06em}
-.wrap{max-width:680px;width:100%}
-.sl{font-size:11px;color:#666;text-transform:uppercase;letter-spacing:0.12em;margin:0 0 12px;display:flex;align-items:center;gap:10px}
-.sl::after{content:"";flex:1;height:0.5px;background:#222}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px}
-@media(min-width:520px){.grid{grid-template-columns:repeat(3,1fr)}}
-.card{display:block;text-decoration:none;color:inherit;background:#202020;border:0.5px solid #2a2a28;border-radius:6px;padding:16px;transition:border-color 0.15s,background 0.15s;min-height:72px}
-.card:hover{border-color:#555;background:#282826}
-.card:active{transform:scale(0.98)}
-.card.wide{grid-column:1/-1}
-.card.eng:hover{border-color:#c87840}
-.icon{font-size:20px;display:block;margin-bottom:8px}
-.cn{font-size:13px;font-weight:500;color:#ddd;margin-bottom:4px}
-.cd{font-size:12px;color:#666;line-height:1.45}
-.badge{font-size:11px;padding:2px 7px;border-radius:3px;background:#282826;border:0.5px solid #333;color:#888}
-.foot{font-size:11px;color:#444;margin-top:8px;text-align:center}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORBAT — Оррим</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 2px solid #333;
+        }
+        h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .subtitle { color: #888; font-size: 1.1rem; }
+        nav {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            padding: 40px 0;
+        }
+        .nav-card {
+            background: #16213e;
+            padding: 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #eee;
+            border: 1px solid #333;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .nav-card:hover {
+            transform: translateY(-3px);
+            border-color: #0f3460;
+        }
+        .nav-card h3 { margin-bottom: 10px; color: #e94560; }
+        .nav-card p { color: #888; font-size: 0.95rem; }
+        .engine-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 25px;
+            background: #0f3460;
+            color: #eee;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+        .engine-link:hover { background: #1a4a7a; }
+        footer {
+            text-align: center;
+            padding: 30px;
+            border-top: 2px solid #333;
+            color: #666;
+            font-size: 0.85rem;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            nav { grid-template-columns: 1fr; }
+            .container { padding: 15px; }
+        }
+    </style>
 </head>
 <body>
-<div class="hero">
-  <div class="hero-title">ORBAT</div>
-  <div class="hero-sub">Оррим &nbsp;·&nbsp; Стратегическая война &nbsp;·&nbsp; 1952 н.э.</div>
-</div>
-<div class="wrap">
-  <div class="sl">Движок</div>
-  <div class="grid">
-    <a href="orbat_engine.html" class="card wide eng">
-      <span class="icon">⚙</span>
-      <div class="cn">ORBAT Engine &nbsp;<span class="badge">Godot Engine 4.x</span>&nbsp;<span class="badge">XML</span>&nbsp;<span class="badge">GDScript</span>&nbsp;<span class="badge">Игронезависимая логика</span></div>
-      <div class="cd">Фреймворк управления боем. BattleState, Commander, ROE, Perception, Net Data.</div>
-    </a>
-  </div>
-  <div class="sl">Мир</div>
-  <div class="grid">
-    <a href="orbat_map.html" class="card wide">
-      <span class="icon">🗺</span>
-      <div class="cn">Карта мира</div>
-      <div class="cd">Azgaar-карты по эпохам от -100 000 до н.э.</div>
-    </a>
-    <a href="orbat_codex.html" class="card">
-      <span class="icon">📋</span>
-      <div class="cn">Кодекс</div>
-      <div class="cd">Культуры, климат, события</div>
-    </a>
-    <a href="orbat_timeline.html" class="card">
-      <span class="icon">📅</span>
-      <div class="cn">Таймлайн</div>
-      <div class="cd">Народы от -100 000 до 1952</div>
-    </a>
-    <a href="orbat_tree.html" class="card">
-      <span class="icon">🌳</span>
-      <div class="cn">Дерево народов</div>
-      <div class="cd">Origins каждой культуры</div>
-    </a>
-  </div>
-  <div class="sl">Культура</div>
-  <div class="grid">
-    <a href="orbat_languages.html" class="card">
-      <span class="icon">🗣</span>
-      <div class="cn">Языки</div>
-      <div class="cd">Фонетика и namesbase</div>
-    </a>
-    <a href="orbat_religions.html" class="card">
-      <span class="icon">🔥</span>
-      <div class="cn">Религии</div>
-      <div class="cd">Верования и ритуалы</div>
-    </a>
-    <a href="orbat_firsts.html" class="card">
-      <span class="icon">⚡</span>
-      <div class="cn">Первые</div>
-      <div class="cd">Изобретения и открытия</div>
-    </a>
-    <a href="orbat_tales.html" class="card wide">
-      <span class="icon">📖</span>
-      <div class="cn">Сказки народов Оррим</div>
-      <div class="cd">Предания и легенды устной традиции от -51 000 до н.э.</div>
-    </a>
-  </div>
-  <div class="foot">Текущая эпоха — Неолит · -10 000 до н.э. · Население ~1 200 000</div>
-</div>
-</body></html>
+    <div class="container">
+        <header>
+            <h1>ORBAT — Оррим</h1>
+            <p class="subtitle">Стратегическая война · 1952 н.э.</p>
+        </header>
+
+        <nav>
+            <a href="orbat_map.html" class="nav-card">
+                <h3>🗺 Карта мира</h3>
+                <p>Azgaar-карты по эпохам от -100 000 до н.э.</p>
+            </a>
+
+            <a href="orbat_timeline.html" class="nav-card">
+                <h3>📅 Таймлайн</h3>
+                <p>Народы и события от -100 000 до 1952</p>
+            </a>
+
+            <a href="orbat_cultures.html" class="nav-card">
+                <h3>👥 Культуры</h3>
+                <p>Уллам, Дикари, и другие народы континента</p>
+            </a>
+
+            <a href="orbat_languages.html" class="nav-card">
+                <h3>🗣 Языки</h3>
+                <p>Фонетика, namebase, эволюция языков</p>
+            </a>
+
+            <a href="orbat_history.html" class="nav-card">
+                <h3>📜 История</h3>
+                <p>Хронология, маркеры событий, археология</p>
+            </a>
+
+            <a href="orbat_codex.html" class="nav-card">
+                <h3>📋 Кодекс</h3>
+                <p>Климат, география, справочные данные</p>
+            </a>
+        </nav>
+
+        <div style="text-align: center;">
+            <a href="orbat_engine.html" class="engine-link">⚙ ORBAT Engine</a>
+        </div>
+
+        <footer>
+            <p>ORBAT Worldbuilding Project · 2026</p>
+            <p>Данные основаны на Azgaar Fantasy Map Generator</p>
+        </footer>
+    </div>
+</body>
+</html>
