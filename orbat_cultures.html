@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORBAT — Культуры</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            line-height: 1.6;
+        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 2px solid #333;
+        }
+        h1 { font-size: 2rem; margin-bottom: 10px; }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #e94560;
+            text-decoration: none;
+        }
+        .back-link:hover { text-decoration: underline; }
+        .culture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 40px 0;
+        }
+        .culture-card {
+            background: #16213e;
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+        .culture-card h3 {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e94560;
+        }
+        .culture-color {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .culture-info { margin-bottom: 15px; }
+        .culture-info label {
+            display: block;
+            color: #888;
+            font-size: 0.85rem;
+            margin-bottom: 3px;
+        }
+        .culture-info span { font-size: 1rem; }
+        .culture-description {
+            color: #aaa;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+        .status-active {
+            display: inline-block;
+            padding: 3px 10px;
+            background: #2d6a4f;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+        .status-extinct {
+            display: inline-block;
+            padding: 3px 10px;
+            background: #6c757d;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 1.5rem; }
+            .culture-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Главная</a>
+        
+        <header>
+            <h1>Культуры Мира</h1>
+            <p>Народы континента от -100 000 до 1952</p>
+        </header>
+
+        <div class="culture-grid">
+            <div class="culture-card">
+                <span class="status-active">Активна (-100 000)</span>
+                <h3>
+                    <span class="culture-color" style="background: #c4855a;"></span>
+                    Уллам
+                </h3>
+                <div class="culture-info">
+                    <label>Период</label>
+                    <span>-100 000 ... -60 000 (Прото-Уллам)</span>
+                </div>
+                <div class="culture-info">
+                    <label>Тип</label>
+                    <span>Охотники-собиратели</span>
+                </div>
+                <div class="culture-info">
+                    <label>Численность</label>
+                    <span>~10 000 человек (-100 000)</span>
+                </div>
+                <div class="culture-info">
+                    <label>Язык</label>
+                    <span>Прото-Уллам</span>
+                </div>
+                <div class="culture-info">
+                    <label>Религия</label>
+                    <span>Культ Предков (анимизм)</span>
+                </div>
+                <div class="culture-info">
+                    <label>Территория</label>
+                    <span>Перешеек + ЮВ побережье</span>
+                </div>
+                <p class="culture-description">
+                    Первые люди на континенте. Пришли через юго-восточный перешеек 
+                    во время ледникового максимума. Европейские черты (светлая кожа, 
+                    волосы от светлых до тёмных). Кочевой образ жизни, каменные орудия.
+                </p>
+            </div>
+
+            <div class="culture-card">
+                <span class="status-active">Активна (-100 000)</span>
+                <h3>
+                    <span class="culture-color" style="background: #ffffff;"></span>
+                    Дикари
+                </h3>
+                <div class="culture-info">
+                    <label>Период</label>
+                    <span>-100 000 ... (архаичные люди)</span>
+                </div>
+                <div class="culture-info">
+                    <label>Тип</label>
+                    <span>Охотники-собиратели</span>
+                </div>
+                <div class="culture-info">
+                    <label>Численность</label>
+                    <span>~10 000 человек (-100 000)</span>
+                </div>
+                <div class="culture-info">
+                    <label>Язык</label>
+                    <span>Неизвестен (прото-форма)</span>
+                </div>
+                <div class="culture-info">
+                    <label>Религия</label>
+                    <span>Неформализовано</span>
+                </div>
+                <div class="culture-info">
+                    <label>Территория</label>
+                    <span>Весь континент (рассеяно)</span>
+                </div>
+                <p class="culture-description">
+                    Архаичные люди (неандертальцы/денисовцы). Не оставили 
+                    культурных следов. Будут ассимилированы Уллам к -60 000.
+                </p>
+            </div>
+
+            <div class="culture-card">
+                <span class="status-extinct">В разработке</span>
+                <h3>
+                    <span class="culture-color" style="background: #dababf;"></span>
+                    Империя
+                </h3>
+                <div class="culture-info">
+                    <label>Период</label>
+                    <span>-3 000 ... 1952</span>
+                </div>
+                <div class="culture-info">
+                    <label>Тип</label>
+                    <span>Морская держава</span>
+                </div>
+                <div class="culture-info">
+                    <label>Территория</label>
+                    <span>Запад (зелёный биом)</span>
+                </div>
+                <p class="culture-description">
+                    Европейского типа, некогда могучая но тонущая под своим весом. 
+                    Единственная крупная морская держава к 1952.
+                </p>
+            </div>
+
+            <div class="culture-card">
+                <span class="status-extinct">В разработке</span>
+                <h3>
+                    <span class="culture-color" style="background: #a8d5ba;"></span>
+                    Республика
+                </h3>
+                <div class="culture-info">
+                    <label>Период</label>
+                    <span>-3 000 ... 1952</span>
+                </div>
+                <div class="culture-info">
+                    <label>Тип</label>
+                    <span>Индустриальная</span>
+                </div>
+                <div class="culture-info">
+                    <label>Территория</label>
+                    <span>Центр (озеро Ярви + река)</span>
+                </div>
+                <p class="culture-description">
+                    Республиканского типа с высокой индустриализацией. 
+                    Озеро Ярви = Рурский бассейн (уголь, руда, транспорт).
+                </p>
+            </div>
+
+            <div class="culture-card">
+                <span class="status-extinct">В разработке</span>
+                <h3>
+                    <span class="culture-color" style="background: #e8c547;"></span>
+                    Степь
+                </h3>
+                <div class="culture-info">
+                    <label>Период</label>
+                    <span>-3 000 ... 1952</span>
+                </div>
+                <div class="culture-info">
+                    <label>Тип</label>
+                    <span>Аграрная автократия</span>
+                </div>
+                <div class="culture-info">
+                    <label>Территория</label>
+                    <span>Восток (степной биом)</span>
+                </div>
+                <p class="culture-description">
+                    Напоминает царскую Россию перед ПМВ. Кочевники → аграрии. 
+                    Коневодство, отсталая промышленность, огромная армия.
+                </p>
+            </div>
+        </div>
+
+        <footer style="text-align: center; padding: 30px; border-top: 2px solid #333; color: #666; font-size: 0.85rem;">
+            <p>ORBAT Worldbuilding Project · 2026</p>
+        </footer>
+    </div>
+</body>
+</html>

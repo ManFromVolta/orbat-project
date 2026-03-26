@@ -1,211 +1,146 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ORBAT — Кодекс</title>
-<link rel="icon" href="favicon.ico">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-html{font-size:15px;-webkit-text-size-adjust:100%}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#1a1a18;color:#d4d2cc;min-height:100vh;line-height:1.65}
-.nav{position:fixed;top:0;left:0;right:0;background:#1a1a18;border-bottom:0.5px solid #333;padding:0 16px;display:flex;align-items:center;gap:10px;z-index:1000;height:52px}
-.nav a{text-decoration:none;color:#999;font-size:13px;padding:0 14px;border:0.5px solid #3a3a38;border-radius:6px;background:#2a2a28;height:36px;display:flex;align-items:center;white-space:nowrap;transition:all 0.15s}
-.nav a:hover{color:#f1efe8;border-color:#666}
-.nav-title{color:#777;font-size:13px}
-.spacer{height:52px}
-.hdr{background:#202020;padding:18px 20px;border-bottom:0.5px solid #333}
-.hdr h1{font-size:20px;font-weight:500;color:#f1efe8}
-.hdr p{font-size:13px;color:#777;margin-top:5px}
-.st{font-size:11px;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:0.1em;margin:22px 0 12px;padding-bottom:6px;border-bottom:0.5px solid #282826}
-.ev{background:#202020;border:0.5px solid #333;border-left:3px solid #c87840;border-radius:6px;padding:13px 15px;margin-bottom:10px}
-.ev h4{font-size:14px;font-weight:600;color:#f1efe8;margin-bottom:5px}
-.ev p{font-size:13px;color:#bbb;line-height:1.65;margin:0}
-.nt{background:#202020;border-left:2px solid #3a3a38;padding:10px 14px;border-radius:0 6px 6px 0;font-size:13px;color:#999;line-height:1.65;margin:10px 0;font-style:italic}
-.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px}
-table{width:100%;border-collapse:collapse;min-width:380px;font-size:13px}
-th{background:#282826;padding:9px 11px;text-align:left;font-size:12px;font-weight:600;color:#999;border-bottom:1px solid #333;white-space:nowrap}
-td{padding:9px 11px;border-bottom:0.5px solid #282826;font-size:13px;color:#bbb;vertical-align:top}
-tr:hover td{background:#202020}
-.sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle;border:0.5px solid rgba(255,255,255,0.1)}
-.pop{color:#a0c880}
-.tag{display:inline-block;font-size:12px;padding:2px 7px;border-radius:3px}
-.tn{background:#3a2a10;color:#c87840}
-.tr{background:#0d2a2a;color:#3aa0a0}
-.th{background:#22122a;color:#a060c0}
-.tv{background:#081830;color:#3a80c0}
-.tg{background:#22220d;color:#a0a040}
-.tl{background:#0d2030;color:#5090c0}
-.tk{background:#1a1a1a;color:#555}
-p{font-size:14px;color:#bbb;line-height:1.75;margin-bottom:10px}
-
-
-.epoch-bar{display:flex;gap:6px;padding:12px 16px;background:#202020;border-bottom:0.5px solid #333;flex-wrap:wrap;overflow-x:auto}
-.eb{padding:8px 16px;border:0.5px solid #3a3a38;border-radius:6px;cursor:pointer;font-size:13px;background:#1a1a18;color:#999;flex-shrink:0;min-height:48px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;transition:all 0.15s}
-.eb.on{background:#282826;color:#f1efe8;border-color:#666}
-.eb span{font-size:11px;color:#555}
-.eb.on span{color:#aaa}
-.content{padding:18px 16px;max-width:860px}
-.summary{background:#202020;border:0.5px solid #333;border-left:3px solid #c87840;border-radius:6px;padding:14px 16px;margin-bottom:18px;font-size:14px;color:#ccc;line-height:1.75}
-.climate{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
-@media(min-width:480px){.climate{grid-template-columns:repeat(4,1fr)}}
-.cc{background:#202020;border:0.5px solid #333;border-radius:6px;padding:10px 12px;text-align:center}
-.cc .l{font-size:11px;color:#777;margin-bottom:3px}
-.cc .v{font-size:17px;font-weight:500;color:#a0c880}
-.xb{display:inline-block;width:38px;height:5px;background:#282826;border-radius:2px;vertical-align:middle;margin-right:5px;overflow:hidden}
-.xf{height:100%;border-radius:2px;background:#c87840}
-.dk{display:flex;align-items:center;gap:10px;padding:10px 12px;background:#111;border:0.5px solid #282826;border-radius:6px;margin-top:6px;flex-wrap:wrap}
-.lk td{color:#444!important}
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORBAT — Кодекс</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 2px solid #333;
+        }
+        h1 { font-size: 2rem; margin-bottom: 10px; }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #e94560;
+            text-decoration: none;
+        }
+        .back-link:hover { text-decoration: underline; }
+        .codex-section {
+            background: #16213e;
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            margin-bottom: 30px;
+        }
+        .codex-section h2 {
+            color: #e94560;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #333;
+        }
+        .codex-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .codex-table th,
+        .codex-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        .codex-table th {
+            color: #e94560;
+            font-weight: bold;
+        }
+        .codex-table tr:hover {
+            background: #0f3460;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 1.5rem; }
+            .codex-section { padding: 20px; }
+            .codex-table { font-size: 0.9rem; }
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Главная</a>
+        
+        <header>
+            <h1>Кодекс Мира</h1>
+            <p>Справочные данные: климат, география, события</p>
+        </header>
 
-<div class="nav"><a href="index.html">← Главная</a><span class="nav-title">Живой Кодекс</span></div>
-<div class="spacer"></div>
-<div class="hdr"><h1>ORBAT — Живой Кодекс Мира</h1><p>Доисторическая эра · Культуры · Климат · События</p></div>
-<div class="epoch-bar" id="eb"></div>
-<div class="content" id="cnt"></div>
-<script>
-var EP=[
-  {id:"e100k",l:"-100 000",sl:"Доисторическая",dk:20000,
-    sum:"Первые люди на континенте. Один народ, один язык, одно место — Аммаи-куттам. Мир пуст. Единственное значимое событие — первые наскальные рисунки у Аттаи.",
-    cl:{eq:"9°C",np:"-50°C",sp:"-50°C",pr:"88%"},
-    ev:[{t:"Приход первых людей",d:"Уллам пришли с юга. Вопрос «есть ли у тебя уллам?» — главный критерий человека."},{t:"Аммаи-куттам",d:"Слияние двух рек стало первым священным местом. Аттаи — отец. Аммаи — мать."},{t:"Первые наскальные рисунки",d:"Функциональные карты миграций зверей у Аттаи. Первая попытка сохранить знание вне памяти."}],
-    cu:[{n:"Уллам",t:"Generic",e:1.5,p:5000,h:"C4855A",o:"—",lk:false,d:"Праязык Корень. Аммаи-куттам."}]},
-  {id:"e80k",l:"-80 000",sl:"Расхождение",dk:17000,
-    sum:"Ледник отступил. Уллам вырос до 70 000 человек и начал раскалываться. Протоярви ушли на север. Протоаларои открыли море. Слово «Аала» — первое слово вне Корня.",
-    cl:{eq:"9°C",np:"-50°C",sp:"-50°C",pr:"88%"},
-    ev:[{t:"Ледник отступил",d:"На 300-400 км к северу. Три ветки от Уллам."},{t:"Протоярви у ледника",d:"500-1000 чел. на 35-38°N. Лёд-брат, мамонт, звёзды. Язык уже другой."},{t:"Протоаларои открыли море",d:"Первое слово вне Корня — Аала. Начало береговой оседлости."}],
-    cu:[{n:"Уллам",t:"Generic",e:1.5,p:70000,h:"C4855A",o:"—",lk:false,d:"Три диалектные группы. Аммаи-куттам."},{n:"Протоярви",t:"Hunting",e:1.2,p:750,h:"8AAFC0",o:"Уллам",lk:false,d:"Северная ветка. У ледника."},{n:"Протоаларои",t:"Naval",e:2.0,p:350,h:"4A8C7A",o:"Уллам",lk:false,d:"Береговая ветка. Открыли море."}]},
-  {id:"e60k",l:"-60 000",sl:"Похолодание",dk:10000,
-    sum:"Ледник наступил. Перевалы Аттаи закрыты. Уллам распался на четыре ветки. Шесть народов там где был один. ~71 000 + 10 000 Дикарей.",
-    cl:{eq:"7°C",np:"-55°C",sp:"-55°C",pr:"80%"},
-    ev:[{t:"Ледник наступил",d:"Перевалы Аттаи закрыты. Восток недостижим."},{t:"Раскол Уллам",d:"Аммаи остались. Аруви на юг. Вееру на запад. Де-Уллам в болота."},{t:"Аала-Хаару",d:"Часть Хаару ушла к морю. Первый межрелигиозный диалог: лёд vs море."}],
-    cu:[
-      {n:"Уллам ⚰",t:"Generic",e:0,p:0,h:"C4855A",o:"—",lk:true,d:"Праматерь."},
-      {n:"Протоярви ⚰",t:"Hunting",e:0,p:0,h:"8AAFC0",o:"Уллам",lk:true,d:"Стал Хаару и Аала-Хаару."},
-      {n:"Протоаларои ⚰",t:"Naval",e:0,p:0,h:"4A8C7A",o:"Уллам",lk:true,d:"Стал Аала."},
-      {n:"Аммаи",t:"River",e:0.8,p:15000,h:"C4855A",o:"Уллам",lk:false,d:"Культ места. Первые постройки."},
-      {n:"Аруви",t:"River",e:1.3,p:20000,h:"C8502A",o:"Уллам",lk:false,d:"Вера как навигация. Тропики."},
-      {n:"Вееру",t:"Nomadic",e:2.0,p:12000,h:"A86030",o:"Уллам",lk:false,d:"Первые воины. Разведка перевалов."},
-      {n:"Де-Уллам",t:"Generic",e:0.2,p:3000,h:"4A5A38",o:"Уллам",lk:false,d:"Живут в мире мёртвых. Болото."},
-      {n:"Хаару",t:"Hunting",e:1.0,p:500,h:"8AAFC0",o:"Протоярви",lk:false,d:"У ледника. Культ выживания."},
-      {n:"Аала-Хаару",t:"Naval",e:1.8,p:150,h:"6A9FB0",o:"Протоярви",lk:false,d:"У западного берега."},
-      {n:"Аала",t:"Naval",e:1.8,p:600,h:"3A8C78",o:"Протоаларои",lk:false,d:"Первая оседлость. Лодки."}]},
-  {id:"e40k",l:"-40 000",sl:"Оттепель",dk:105000,
-    sum:"Ледник отступает. Аала-Хаару растворились — первое исчезновение через ассимиляцию. Аммаи-куттам — первое постоянное поселение. С юга пришли Каам — не знают уллам. ~175 000 человек.",
-    cl:{eq:"10°C",np:"-48°C",sp:"-37°C",pr:"85%"},
-    ev:[{t:"Аала-Хаару растворились",d:"Первое исчезновение через ассимиляцию. Звёздная навигация перешла к Аала."},{t:"Обратная миграция Аруви",d:"Перенаселение ~95 000. Часть вернулась к Аммаи-куттам."},{t:"Аммаи-куттам — первое поселение",d:"500-1000 постоянных жителей. Первое разделение труда."},{t:"Появились Каам",d:"Беглецы с юга. Не знают уллам. Слабы, голодны, не нападают."}],
-    cu:[
-      {n:"Уллам ⚰",t:"Generic",e:0,p:0,h:"C4855A",o:"—",lk:true,d:"Праматерь."},
-      {n:"Протоярви ⚰",t:"Hunting",e:0,p:0,h:"8AAFC0",o:"Уллам",lk:true,d:"Предок Хаару."},
-      {n:"Протоаларои ⚰",t:"Naval",e:0,p:0,h:"4A8C7A",o:"Уллам",lk:true,d:"Предок Аала."},
-      {n:"Аала-Хаару ⚰",t:"Naval",e:0,p:0,h:"6A9FB0",o:"Протоярви",lk:true,d:"Растворились в Аала."},
-      {n:"Аммаи",t:"River",e:0.3,p:25000,h:"C4855A",o:"Уллам",lk:false,d:"Первое постоянное поселение."},
-      {n:"Аруви",t:"River",e:0.5,p:20000,h:"C8502A",o:"Уллам",lk:false,d:"Демографический пик."},
-      {n:"Вееру",t:"Nomadic",e:0.7,p:9500,h:"A86030",o:"Уллам",lk:false,d:"У перевалов Аттаи."},
-      {n:"Де-Уллам",t:"Generic",e:0.1,p:540,h:"4A5A38",o:"Уллам",lk:false,d:"Болотное железо."},
-      {n:"Хаару",t:"Hunting",e:0.4,p:700,h:"8AAFC0",o:"Протоярви",lk:false,d:"Авангард на севере."},
-      {n:"Аала",t:"Naval",e:0.6,p:11500,h:"3A8C78",o:"Протоаларои",lk:false,d:"15 деревень. Торговля."},
-      {n:"Каам",t:"Generic",e:1.5,p:4900,h:"9A4030",o:"Группа В",lk:false,d:"Беглецы с юга. Банту-язык."}]},
-  {id:"e20k",l:"-20 000",sl:"Основания",dk:315000,
-    sum:"Перевалы Аттаи открылись. Хаару стали Ярви. Вееру стали Тенгир. Аруви распались на три народа. Первая игла из болотного железа. Хаджар пришли морем. ~500 000 человек.",
-    cl:{eq:"15°C",np:"-30°C",sp:"-20°C",pr:"90%"},
-    ev:[{t:"Ярви нашли озеро",d:"Двадцать тысяч лет движения завершились на берегу Яарви."},{t:"Тенгир прошли Аттаи",d:"Первые люди на восточной стороне горного массива."},{t:"Аруви распались",d:"Маккал взяли копья. Мараи смешались с Каам. Северные растворились в Аммаи."},{t:"Первая игла Де-Уллам",d:"Случайная холодная ковка. Первый металлический предмет."},{t:"Хаджар в дельте",d:"Народ флотилии обогнул мир и встал в устье западной реки."}],
-    cu:[
-      {n:"Уллам ⚰",t:"Generic",e:0,p:0,h:"C4855A",o:"—",lk:true,d:"Праматерь."},
-      {n:"Протоярви ⚰",t:"Hunting",e:0,p:0,h:"8AAFC0",o:"Уллам",lk:true,d:""},
-      {n:"Протоаларои ⚰",t:"Naval",e:0,p:0,h:"4A8C7A",o:"Уллам",lk:true,d:""},
-      {n:"Аала-Хаару ⚰",t:"Naval",e:0,p:0,h:"6A9FB0",o:"Протоярви",lk:true,d:""},
-      {n:"Хаару ⚰",t:"Hunting",e:0,p:0,h:"8AAFC0",o:"Протоярви",lk:true,d:"Стал Ярви и Велды."},
-      {n:"Вееру ⚰",t:"Nomadic",e:0,p:0,h:"A86030",o:"Уллам",lk:true,d:"Стал Тенгир и Велды."},
-      {n:"Аруви ⚰",t:"River",e:0,p:0,h:"C8502A",o:"Уллам",lk:true,d:"Стал Маккал, Мараи и (в Аммаи)."},
-      {n:"Аммаи",t:"River",e:0.1,p:71000,h:"C4855A",o:"Уллам",lk:false,d:"Первый город. Зернохранилище."},
-      {n:"Де-Уллам",t:"Generic",e:0.1,p:11000,h:"4A5A38",o:"Уллам",lk:false,d:"Болотные мумии. Первая игла."},
-      {n:"Аалои",t:"Naval",e:0.1,p:17000,h:"3A8C78",o:"Протоаларои",lk:false,d:"Аркос. Первый торговый договор."},
-      {n:"Каам",t:"Generic",e:0.2,p:12000,h:"9A4030",o:"Группа В",lk:false,d:"Начинает дробиться."},
-      {n:"Ярви",t:"Lake",e:0.2,p:7000,h:"6A9FB0",o:"Хаару",lk:false,d:"Яарви-ранта. Жрецы воды."},
-      {n:"Велды",t:"River",e:0.1,p:6000,h:"6B7A3A",o:"Хаару+Вееру",lk:false,d:"Скотоводство. Право на землю."},
-      {n:"Тенгир",t:"Nomadic",e:0.4,p:14000,h:"C8A040",o:"Вееру",lk:false,d:"Восточные равнины. Тенгри."},
-      {n:"Маккал",t:"Nomadic",e:0.1,p:19000,h:"A83020",o:"Аруви",lk:false,d:"Военная фракция."},
-      {n:"Мараи",t:"Generic",e:0.1,p:22000,h:"7A5030",o:"Аруви+Каам",lk:false,d:"Синкретический народ."},
-      {n:"Хаджар",t:"Naval",e:0.3,p:5000,h:"4A6080",o:"Группа Б",lk:false,d:"Народ флотилии. В дельте."}]},
-  {id:"e10k",l:"-10 000",sl:"Неолит",dk:600000,
-    sum:"Климат стабилизировался. Земледелие у Аммаи. Первые города. Хаджар разделились на речных и морских. Ярви отправили ветку на горы Корифос — будущие Корви. Тенгир занял восточные равнины. ~1 200 000 человек на континенте.",
-    cl:{eq:"22°C",np:"-23°C",sp:"-31°C",pr:"180%"},
-    ev:[{t:"Первое земледелие",d:"Аммаи намеренно сеют дикий эммер у реки. Мотыга из дерева и кости."},{t:"Хаджар разделились",d:"Речные осели в дельте. Морские продолжают ходить вдоль берега Корифос."},{t:"Ярви → Корви",d:"Часть Ярви ушла на хребты Корифос. Горный народ финского типа. Держат перевалы."},{t:"Тенгир занял восток",d:"Огромные пустые равнины за Аттаи. Крупнейшая территория на континенте."},{t:"Аммаи-куттам — первый город",d:"8 000-10 000 человек. Первые укрепления. Первые специализированные кварталы."}],
-    cu:[
-      {n:"Уллам ⚰",t:"Generic",e:0,p:0,h:"C4855A",o:"—",lk:true,d:""},
-      {n:"Протоярви ⚰",t:"Hunting",e:0,p:0,h:"8AAFC0",o:"Уллам",lk:true,d:""},
-      {n:"Протоаларои ⚰",t:"Naval",e:0,p:0,h:"4A8C7A",o:"Уллам",lk:true,d:""},
-      {n:"Аала-Хаару ⚰",t:"Naval",e:0,p:0,h:"6A9FB0",o:"Протоярви",lk:true,d:""},
-      {n:"Хаару ⚰",t:"Hunting",e:0,p:0,h:"8AAFC0",o:"Протоярви",lk:true,d:""},
-      {n:"Вееру ⚰",t:"Nomadic",e:0,p:0,h:"A86030",o:"Уллам",lk:true,d:""},
-      {n:"Аруви ⚰",t:"River",e:0,p:0,h:"C8502A",o:"Уллам",lk:true,d:""},
-      {n:"Аммаи",t:"River",e:0.1,p:90000,h:"C4855A",o:"Уллам",lk:false,d:"Первый город. Земледелие."},
-      {n:"Де-Уллам",t:"Generic",e:0.1,p:15000,h:"4A5A38",o:"Уллам",lk:false,d:"Ритуальная ковка. Оракулы."},
-      {n:"Аалои",t:"Naval",e:0.2,p:25000,h:"3A8C78",o:"Протоаларои",lk:false,d:"30 деревень. Аркос."},
-      {n:"Каам",t:"Generic",e:0.3,p:18000,h:"9A4030",o:"Группа В",lk:false,d:"Возвращают южные земли."},
-      {n:"Ярви",t:"Lake",e:0.1,p:9000,h:"6A9FB0",o:"Хаару",lk:false,d:"Яарви-ранта. Паломничество."},
-      {n:"Корви",t:"Highland",e:0.1,p:3000,h:"7ABFC0",o:"Ярви",lk:false,d:"Горная ветка. Хребты Корифос."},
-      {n:"Велды",t:"River",e:0.2,p:12000,h:"6B7A3A",o:"Хаару+Вееру",lk:false,d:"Первые поля. Скотоводство."},
-      {n:"Тенгир",t:"Nomadic",e:1.5,p:22000,h:"C8A040",o:"Вееру",lk:false,d:"Крупнейшая территория."},
-      {n:"Маккал",t:"Nomadic",e:0.3,p:22000,h:"A83020",o:"Аруви",lk:false,d:"Первые укреплённые позиции."},
-      {n:"Мараи",t:"Generic",e:0.2,p:28000,h:"7A5030",o:"Аруви+Каам",lk:false,d:"Торговые посредники."},
-      {n:"Хаджар",t:"River",e:0.2,p:15000,h:"4A6080",o:"Группа Б",lk:false,d:"Речная держава. Дельта."},
-      {n:"Реев-Хаджар",t:"Naval",e:0.4,p:8000,h:"2A4060",o:"Хаджар",lk:false,d:"Морская ветка. Берег Корифос."}]}
-];
-var TC={Generic:"tg",River:"tr",Hunting:"th",Naval:"tv",Nomadic:"tn",Lake:"tl",Highland:"tl"};
-var cur="e10k";
-function doEB(){
-  var bar=document.getElementById("eb");
-  bar.innerHTML=EP.map(function(e){
-    return '<button class="eb'+(e.id===cur?" on":"")+'" data-id="'+e.id+'">'+e.l+'<span>'+e.sl+'</span></button>';
-  }).join("");
-  bar.querySelectorAll(".eb").forEach(function(b){
-    b.addEventListener("click",function(){go(this.dataset.id);});
-  });
-}
-function go(id){cur=id;doEB();render();}
-function xb(v){return '<span class="xb"><span class="xf" style="width:'+Math.min(v/2.5*100,100)+'%"></span></span>'+v;}
-function render(){
-  var ep=EP.find(function(e){return e.id===cur;});
-  var act=ep.cu.filter(function(c){return !c.lk;});
-  var lk=ep.cu.filter(function(c){return c.lk;});
-  var tot=act.reduce(function(s,c){return s+c.p;},0);
-  var dk=ep.dk||0;
-  var rows=act.map(function(c){
-    return '<tr><td><span class="sw" style="background:#'+c.h+'"></span><b>'+c.n+'</b></td>'
-      +'<td><span class="tag '+TC[c.t]+'">'+c.t+'</span></td>'
-      +'<td>'+xb(c.e)+'</td>'
-      +'<td class="pop">'+c.p.toLocaleString()+'</td>'
-      +'<td style="color:#777">'+c.o+'</td>'
-      +'<td style="color:#999">'+c.d+'</td></tr>';
-  }).join("");
-  var lkrows=lk.map(function(c){
-    return '<tr class="lk"><td><span class="sw" style="background:#'+c.h+';opacity:0.3"></span>'+c.n+'</td>'
-      +'<td style="color:#555">'+c.o+'</td><td style="color:#555">'+c.d+'</td></tr>';
-  }).join("");
-  document.getElementById("cnt").innerHTML=
-    '<div class="summary">'+ep.sum+'</div>'
-    +'<div class="st">Климат</div>'
-    +'<div class="climate">'
-    +'<div class="cc"><div class="l">Экватор</div><div class="v">'+ep.cl.eq+'</div></div>'
-    +'<div class="cc"><div class="l">Сев. полюс</div><div class="v">'+ep.cl.np+'</div></div>'
-    +'<div class="cc"><div class="l">Юж. полюс</div><div class="v">'+ep.cl.sp+'</div></div>'
-    +'<div class="cc"><div class="l">Осадки</div><div class="v">'+ep.cl.pr+'</div></div>'
-    +'</div>'
-    +'<div class="st">События эпохи</div>'
-    +ep.ev.map(function(e){return '<div class="ev"><h4>'+e.t+'</h4><p>'+e.d+'</p></div>';}).join("")
-    +'<div class="st">Активные — '+tot.toLocaleString()+' чел. | Всего с Дикарями — <span class="pop">'+(tot+dk).toLocaleString()+'</span> чел.</div>'
-    +'<div class="tw"><table><thead><tr><th>Культура</th><th>Тип</th><th>Exp</th><th>Население</th><th>Origins</th><th>Описание</th></tr></thead><tbody>'+rows+'</tbody></table></div>'
-    +(lk.length?'<div class="st">Залоченные — историческая память</div><div class="tw"><table><thead><tr><th>Культура</th><th>Origins</th><th>Судьба</th></tr></thead><tbody>'+lkrows+'</tbody></table></div>':"")
-    +'<div class="dk"><span style="width:10px;height:10px;border-radius:2px;background:#aaa;opacity:0.2;display:inline-block;flex-shrink:0"></span>'
-    +'<span style="font-size:13px;color:#777;flex:1"><b style="color:#999">Дикари</b> — без культуры. В статистику не включаются. Рассеяны везде.</span>'
-    +'<span style="font-size:13px;color:#666;font-family:monospace">'+dk.toLocaleString()+'</span></div>';
-}
-doEB();render();
-</script>
+        <div class="codex-section">
+            <h2>Физические параметры (-100 000)</h2>
+            <table class="codex-table">
+                <tr>
+                    <th>Параметр</th>
+                    <th>Значение</th>
+                </tr>
+                <tr>
+                    <td>Граница ледника</td>
+                    <td>~65-70°N (восточные горы)</td>
+                </tr>
+                <tr>
+                    <td>Озеро Ярви</td>
+                    <td>Подо льдом 2-3м</td>
+                </tr>
+                <tr>
+                    <td>Река</td>
+                    <td>Мелкая, сезонная</td>
+                </tr>
+                <tr>
+                    <td>Уровень моря</td>
+                    <td>-100-120м от современного</td>
+                </tr>
+                <tr>
+                    <td>Перешеек</td>
+                    <td>Сухой, проходимый</td>
+                </tr>
+                <tr>
+                    <td>Биомы</td>
+                    <td>Тундра (восток), Тайга (запад)</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="codex-section">
+            <h2>Планета</h2>
+            <table class="codex-table">
+                <tr>
+                    <th>Параметр</th>
+                    <th>Земля</th>
+                    <th>Мир Оррим</th>
+                </tr>
+                <tr>
+                    <td>Размер</td>
+                    <td>100%</td>
+                    <td>~50%</td>
+                </tr>
+                <tr>
+                    <td>Карта</td>
+                    <td>—</td>
+                    <td>7680 × 4024 км</td>
+                </tr>
+                <tr>
+                    <td>Canvas</td>
+                    <td>—</td>
+                    <td>1920 × 1006 px</td>
+                </tr>
+                <tr>
+                    <td>Климатические циклы</td>
+                    <td>100к лет</td>
+                    <td>50-60к лет</td>
+                </tr>
+            </table>
+        </div>
+
+        <footer style="text-align: center; padding: 30px; border-top: 2px solid #333; color: #666; font-size: 0.85rem;">
+            <p>ORBAT Worldbuilding Project · 2026</p>
+        </footer>
+    </div>
 </body>
 </html>

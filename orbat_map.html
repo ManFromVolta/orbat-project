@@ -1,101 +1,141 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ORBAT — Карта мира</title>
-<link rel="icon" href="favicon.ico">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-html{font-size:15px;-webkit-text-size-adjust:100%}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#1a1a18;color:#d4d2cc;min-height:100vh;line-height:1.65}
-.nav{position:fixed;top:0;left:0;right:0;background:#1a1a18;border-bottom:0.5px solid #333;padding:0 16px;display:flex;align-items:center;gap:10px;z-index:1000;height:52px}
-.nav a{text-decoration:none;color:#999;font-size:13px;padding:0 14px;border:0.5px solid #3a3a38;border-radius:6px;background:#2a2a28;height:36px;display:flex;align-items:center;white-space:nowrap;transition:all 0.15s}
-.nav a:hover{color:#f1efe8;border-color:#666}
-.nav-title{color:#777;font-size:13px}
-.spacer{height:52px}
-.hdr{background:#202020;padding:18px 20px;border-bottom:0.5px solid #333}
-.hdr h1{font-size:20px;font-weight:500;color:#f1efe8}
-.hdr p{font-size:13px;color:#777;margin-top:5px}
-.st{font-size:11px;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:0.1em;margin:22px 0 12px;padding-bottom:6px;border-bottom:0.5px solid #282826}
-.ev{background:#202020;border:0.5px solid #333;border-left:3px solid #c87840;border-radius:6px;padding:13px 15px;margin-bottom:10px}
-.ev h4{font-size:14px;font-weight:600;color:#f1efe8;margin-bottom:5px}
-.ev p{font-size:13px;color:#bbb;line-height:1.65;margin:0}
-.nt{background:#202020;border-left:2px solid #3a3a38;padding:10px 14px;border-radius:0 6px 6px 0;font-size:13px;color:#999;line-height:1.65;margin:10px 0;font-style:italic}
-.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px}
-table{width:100%;border-collapse:collapse;min-width:380px;font-size:13px}
-th{background:#282826;padding:9px 11px;text-align:left;font-size:12px;font-weight:600;color:#999;border-bottom:1px solid #333;white-space:nowrap}
-td{padding:9px 11px;border-bottom:0.5px solid #282826;font-size:13px;color:#bbb;vertical-align:top}
-tr:hover td{background:#202020}
-.sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle;border:0.5px solid rgba(255,255,255,0.1)}
-.pop{color:#a0c880}
-.tag{display:inline-block;font-size:12px;padding:2px 7px;border-radius:3px}
-.tn{background:#3a2a10;color:#c87840}
-.tr{background:#0d2a2a;color:#3aa0a0}
-.th{background:#22122a;color:#a060c0}
-.tv{background:#081830;color:#3a80c0}
-.tg{background:#22220d;color:#a0a040}
-.tl{background:#0d2030;color:#5090c0}
-.tk{background:#1a1a1a;color:#555}
-p{font-size:14px;color:#bbb;line-height:1.75;margin-bottom:10px}
-
-
-.era-bar{display:flex;gap:6px;padding:12px 16px;background:#202020;border-bottom:0.5px solid #333;flex-wrap:wrap}
-.eb{padding:8px 16px;border:0.5px solid #3a3a38;border-radius:6px;cursor:pointer;font-size:13px;background:#1a1a18;color:#999;flex-shrink:0;min-height:48px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
-.eb.on{background:#282826;color:#f1efe8;border-color:#666}
-.eb span{font-size:11px;color:#555}
-.eb.on span{color:#aaa}
-.content{padding:18px 16px;max-width:900px}
-.map-wrap{background:#111;border:0.5px solid #333;border-radius:6px;overflow:hidden;margin-bottom:18px}
-.map-wrap img{width:100%;height:auto;display:block}
-.map-ph{display:flex;align-items:center;justify-content:center;min-height:280px;color:#666;font-size:14px;flex-direction:column;gap:10px;padding:24px;text-align:center}
-.map-ph .icon{font-size:36px;opacity:0.3}
-.map-ph code{font-size:12px;color:#555;background:#1a1a18;padding:3px 10px;border-radius:3px;font-family:monospace}
-.map-cap{font-size:13px;color:#777;padding:10px 14px;border-top:0.5px solid #282826;background:#0e0e0c}
-.ig{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
-@media(min-width:480px){.ig{grid-template-columns:repeat(4,1fr)}}
-.ic{background:#202020;border:0.5px solid #333;border-radius:6px;padding:10px 12px}
-.ic .l{font-size:11px;color:#777;margin-bottom:3px}
-.ic .v{font-size:14px;color:#a0c880;font-weight:500}
-.ng{display:grid;grid-template-columns:1fr;gap:8px}
-@media(min-width:480px){.ng{grid-template-columns:1fr 1fr}}
-.nc{background:#202020;border:0.5px solid #333;border-left:2px solid #3a3a38;border-radius:0 6px 6px 0;padding:10px 14px}
-.nc h4{font-size:13px;font-weight:600;color:#ddd;margin-bottom:4px}
-.nc p{font-size:13px;color:#999;line-height:1.55;margin:0}
-.howto{background:#151510;border:0.5px solid #3a3018;border-radius:6px;padding:12px 14px;margin-bottom:16px;font-size:13px;color:#a08050;line-height:1.65}
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORBAT — Карта мира</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            line-height: 1.6;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 2px solid #333;
+        }
+        h1 { font-size: 2rem; margin-bottom: 10px; }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #e94560;
+            text-decoration: none;
+        }
+        .back-link:hover { text-decoration: underline; }
+        .map-container {
+            background: #16213e;
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            margin-bottom: 30px;
+        }
+        .map-container h2 {
+            color: #e94560;
+            margin-bottom: 20px;
+        }
+        .map-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .map-info-item {
+            background: #0f3460;
+            padding: 15px;
+            border-radius: 6px;
+        }
+        .map-info-item label {
+            display: block;
+            color: #888;
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+        }
+        .map-info-item span {
+            font-size: 1rem;
+            color: #eee;
+        }
+        .map-placeholder {
+            background: #0f3460;
+            height: 400px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 1.2rem;
+            border: 2px dashed #333;
+        }
+        .map-download {
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: #e94560;
+            color: #eee;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .map-download:hover { background: #c73e54; }
+        @media (max-width: 768px) {
+            h1 { font-size: 1.5rem; }
+            .map-container { padding: 20px; }
+            .map-placeholder { height: 250px; }
+        }
+    </style>
 </head>
 <body>
-<div class="nav"><a href="index.html">← Главная</a><span class="nav-title">Карта мира</span></div>
-<div class="spacer"></div>
-<div class="hdr"><h1>ORBAT — Карта мира</h1><p>Azgaar Fantasy Map Generator · Оррим</p></div>
-<div class="era-bar" id="eb"></div>
-<div class="content" id="cnt"></div>
-<script>
-var ERAS=[{"id": "e100k", "l": "-100 000", "sl": "Доисторич.", "img": "maps/map_100k.png", "cap": "Ок. 100 000 до н.э. Один народ, одна зона. Аммаи-куттам.", "stats": {"pop": "~25 000", "cul": "1", "cl": "Экватор 9°C", "ice": "До 40°N"}, "notes": [{"h": "Аммаи-куттам", "p": "Первое и единственное место. Только Уллам."}, {"h": "Аттаи", "p": "Непреодолим. Восток закрыт."}]}, {"id": "e80k", "l": "-80 000", "sl": "Расхожд.", "img": "maps/map_80k.png", "cap": "Ок. 80 000 до н.э. Ледник отступил. Протоярви и Протоаларои.", "stats": {"pop": "~90 000", "cul": "3", "cl": "Экватор 9°C", "ice": "До 35°N"}, "notes": [{"h": "Протоярви", "p": "У кромки льда. Язык уже другой."}, {"h": "Первое слово вне Корня", "p": "Аала — море."}]}, {"id": "e60k", "l": "-60 000", "sl": "Похолод.", "img": "maps/map_60k.png", "cap": "Ок. 60 000 до н.э. Уллам распался. Шесть народов.", "stats": {"pop": "~81 000", "cul": "7", "cl": "Экватор 7°C", "ice": "До 30°N"}, "notes": [{"h": "Раскол Уллам", "p": "Аммаи, Аруви, Вееру, Де-Уллам, Хаару, Аала."}, {"h": "Восток закрыт", "p": "Перевалы Аттаи засыпаны."}]}, {"id": "e40k", "l": "-40 000", "sl": "Оттепель", "img": "maps/map_40k.png", "cap": "Ок. 40 000 до н.э. Первое поселение. Каам с юга.", "stats": {"pop": "~175 000", "cul": "8", "cl": "Экватор 10°C", "ice": "До 40°N"}, "notes": [{"h": "Аммаи-куттам", "p": "500-1000 постоянных жителей. Разделение труда."}, {"h": "Каам", "p": "Беглецы от пустыни. Не знают уллам."}]}, {"id": "e20k", "l": "-20 000", "sl": "Основания", "img": "maps/map_20k.png", "cap": "Ок. 20 000 до н.э. Аттаи открылся. Хаджар в дельте.", "stats": {"pop": "~500 000", "cul": "11", "cl": "Экватор 15°C", "ice": "До 55°N"}, "notes": [{"h": "Тенгир на востоке", "p": "Первые люди за Аттаи."}, {"h": "Хаджар", "p": "Народ флотилии. Обогнули мир."}, {"h": "Де-Уллам", "p": "Первая игла из железа."}]}, {"id": "e10k", "l": "-10 000", "sl": "Неолит", "img": "maps/map_10k.png", "cap": "Ок. 10 000 до н.э. Земледелие. Первые города. Корви на Корифос.", "stats": {"pop": "~1 200 000", "cul": "14", "cl": "Экватор 22°C", "ice": "Горные шапки"}, "notes": [{"h": "Аммаи-куттам", "p": "8-10 000 человек. Первый город."}, {"h": "Тенгир", "p": "Крупнейшая территория. Восток."}, {"h": "Корви", "p": "Горная ветка Ярви на Корифос."}, {"h": "Хаджар разделились", "p": "Речные и морские."}]}];
-var cur="e10k";
-function doEB(){
-  document.getElementById("eb").innerHTML=ERAS.map(function(e){
-    return '<button class="eb'+(e.id===cur?" on":"")+'" onclick="go(\'"+e.id+"\')">'+ e.l+'<span>'+e.sl+'</span></button>';
-  }).join("");
-}
-function go(id){cur=id;doEB();render();}
-function render(){
-  var era=ERAS.find(function(e){return e.id===cur;});
-  document.getElementById("cnt").innerHTML=
-    '<div class="howto">Загрузи файл <code>'+era.img+'</code> в репозиторий — страница обновится автоматически.</div>'
-    +'<div class="map-wrap"><img src="'+era.img+'" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">'
-    +'<div class="map-ph" style="display:none"><div class="icon">🗺</div><div>Карта не загружена</div><code>'+era.img+'</code></div>'
-    +'<div class="map-cap">'+era.cap+'</div></div>'
-    +'<div class="ig"><div class="ic"><div class="l">Население</div><div class="v">'+era.stats.pop+'</div></div>'
-    +'<div class="ic"><div class="l">Культур</div><div class="v">'+era.stats.cul+'</div></div>'
-    +'<div class="ic"><div class="l">Климат</div><div class="v">'+era.stats.cl+'</div></div>'
-    +'<div class="ic"><div class="l">Ледник</div><div class="v">'+era.stats.ice+'</div></div></div>'
-    +'<div class="st">Ключевые факты</div>'
-    +'<div class="ng">'+era.notes.map(function(n){return '<div class="nc"><h4>'+n.h+'</h4><p>'+n.p+'</p></div>';}).join("")+'</div>';
-}
-doEB();render();
-</script>
+    <div class="container">
+        <a href="index.html" class="back-link">← Главная</a>
+        
+        <header>
+            <h1>Карта Мира</h1>
+            <p>Azgaar Fantasy Map Generator · Оррим</p>
+        </header>
+
+        <div class="map-container">
+            <h2>Текущая версия (-100 000)</h2>
+            
+            <div class="map-info">
+                <div class="map-info-item">
+                    <label>Файл</label>
+                    <span>Мир Full 2026-03-27-02-23.json</span>
+                </div>
+                <div class="map-info-item">
+                    <label>Размер</label>
+                    <span>1920 × 1006 px</span>
+                </div>
+                <div class="map-info-item">
+                    <label>Масштаб</label>
+                    <span>7680 × 4024 км</span>
+                </div>
+                <div class="map-info-item">
+                    <label>Горы Запад</label>
+                    <span>4500-6400м</span>
+                </div>
+                <div class="map-info-item">
+                    <label>Горы Восток</label>
+                    <span>8381м (max)</span>
+                </div>
+                <div class="map-info-item">
+                    <label>Озеро</label>
+                    <span>Ярви (север-центр)</span>
+                </div>
+            </div>
+
+            <div class="map-placeholder">
+                [Здесь будет PNG экспорт карты из Azgaar]
+            </div>
+
+            <a href="#" class="map-download">📥 Скачать JSON</a>
+            <a href="#" class="map-download">📥 Скачать PNG</a>
+        </div>
+
+        <footer style="text-align: center; padding: 30px; border-top: 2px solid #333; color: #666; font-size: 0.85rem;">
+            <p>ORBAT Worldbuilding Project · 2026</p>
+        </footer>
+    </div>
 </body>
 </html>
