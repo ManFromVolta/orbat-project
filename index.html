@@ -3,120 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ORBAT — Оррим</title>
+    <title>ORBAT • Оррим</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap');
+        
+        :root {
+            --accent: #c4855a;
+        }
+        
+        * { transition-property: color, background-color, border-color, text-decoration-color, fill, stroke; }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: #1a1a2e;
-            color: #eee;
-            line-height: 1.6;
+            font-family: 'Inter', system-ui, sans-serif;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+        
+        .title-font {
+            font-family: 'Space Grotesk', sans-serif;
         }
-        header {
-            text-align: center;
-            padding: 40px 20px;
-            border-bottom: 2px solid #333;
+        
+        .hero-bg {
+            background: linear-gradient(135deg, #111111 0%, #1a140f 100%);
         }
-        h1 { font-size: 2.5rem; margin-bottom: 10px; }
-        .subtitle { color: #888; font-size: 1.1rem; }
-        nav {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 15px;
-            padding: 40px 0;
+        
+        .map-bg {
+            background-image: 
+                linear-gradient(rgba(196, 133, 90, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(196, 133, 90, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
         }
-        .nav-card {
-            background: #16213e;
-            padding: 25px;
-            border-radius: 8px;
-            text-decoration: none;
-            color: #eee;
-            border: 1px solid #333;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-        .nav-card:hover {
-            transform: translateY(-3px);
-            border-color: #0f3460;
-        }
-        .nav-card h3 { margin-bottom: 10px; color: #e94560; }
-        .nav-card p { color: #888; font-size: 0.95rem; }
-        .engine-link {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 12px 25px;
-            background: #0f3460;
-            color: #eee;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 0.9rem;
-        }
-        .engine-link:hover { background: #1a4a7a; }
-        footer {
-            text-align: center;
-            padding: 30px;
-            border-top: 2px solid #333;
-            color: #666;
-            font-size: 0.85rem;
-        }
-        @media (max-width: 768px) {
-            h1 { font-size: 1.8rem; }
-            nav { grid-template-columns: 1fr; }
-            .container { padding: 15px; }
+        
+        .timeline-dot {
+            animation: pulse 2s infinite;
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <header>
-            <h1>ORBAT — Оррим</h1>
-            <p class="subtitle">Стратегическая война · 1952 н.э.</p>
-        </header>
+<body class="bg-zinc-950 text-zinc-200">
 
-        <nav>
-            <a href="orbat_map.html" class="nav-card">
-                <h3>🗺 Карта мира</h3>
-                <p>Azgaar-карты по эпохам от -100 000 до н.э.</p>
-            </a>
+    <!-- NAVBAR -->
+    <nav class="sticky top-0 z-50 border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-lg">
+        <div class="max-w-screen-2xl mx-auto px-8 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-[#c4855a] rounded-xl flex items-center justify-center text-black font-bold text-2xl">O</div>
+                <h1 class="title-font text-3xl tracking-tighter">ORBAT</h1>
+                <span class="text-[#c4855a] text-xl font-medium">ОРРИМ</span>
+            </div>
+            
+            <div class="flex gap-8 text-sm font-medium">
+                <a href="#timeline" class="hover:text-[#c4855a]">ТАЙМЛАЙН</a>
+                <a href="#cultures" class="hover:text-[#c4855a]">КУЛЬТУРЫ</a>
+                <a href="#languages" class="hover:text-[#c4855a]">ЯЗЫКИ</a>
+                <a href="#maps" class="hover:text-[#c4855a]">КАРТЫ</a>
+                <a href="#history" class="hover:text-[#c4855a]">ИСТОРИЯ</a>
+                <a href="#codex" class="hover:text-[#c4855a]">КОДЕКС</a>
+            </div>
 
-            <a href="orbat_timeline.html" class="nav-card">
-                <h3>📅 Таймлайн</h3>
-                <p>Народы и события от -100 000 до 1952</p>
-            </a>
-
-            <a href="orbat_cultures.html" class="nav-card">
-                <h3>👥 Культуры</h3>
-                <p>Уллам, Дикари, и другие народы континента</p>
-            </a>
-
-            <a href="orbat_languages.html" class="nav-card">
-                <h3>🗣 Языки</h3>
-                <p>Фонетика, namebase, эволюция языков</p>
-            </a>
-
-            <a href="orbat_history.html" class="nav-card">
-                <h3>📜 История</h3>
-                <p>Хронология, маркеры событий, археология</p>
-            </a>
-
-            <a href="orbat_codex.html" class="nav-card">
-                <h3>📋 Кодекс</h3>
-                <p>Климат, география, справочные данные</p>
-            </a>
-        </nav>
-
-        <div style="text-align: center;">
-            <a href="orbat_engine.html" class="engine-link">⚙ ORBAT Engine</a>
+            <div class="flex items-center gap-4">
+                <div class="px-4 py-2 bg-zinc-900 border border-zinc-700 rounded-2xl text-xs flex items-center gap-2">
+                    <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                    ИТЕРАЦИЯ 1 ЗАВЕРШЕНА
+                </div>
+                <button onclick="document.getElementById('next').scrollIntoView({behavior:'smooth'})" 
+                        class="px-6 py-3 bg-[#c4855a] hover:bg-amber-600 text-black font-semibold rounded-3xl text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    ИТЕРАЦИЯ 2
+                </button>
+            </div>
         </div>
+    </nav>
 
-        <footer>
-            <p>ORBAT Worldbuilding Project · 2026</p>
-            <p>Данные основаны на Azgaar Fantasy Map Generator</p>
-        </footer>
+    <!-- HERO -->
+    <header class="hero-bg py-24 border-b border-zinc-800">
+        <div class="max-w-screen-2xl mx-auto px-8 grid grid-cols-2 gap-12 items-center">
+            <div>
+                <div class="inline-flex items-center gap-2 bg-zinc-900 border border-[#c4855a]/30 text-[#c4855a] text-sm px-5 py-2 rounded-3xl mb-6">
+                    <i class="fa-solid fa-globe"></i>
+                    АЛЬТЕРНАТИВНАЯ ИСТОРИЯ • 1952 Н.Э.
+                </div>
+                <h1 class="title-font text-7xl leading-none tracking-tighter mb-6">
+                    ОРРИМ<br>от ледника<br>до танков
+                </h1>
+                <p class="text-2xl text-zinc-400 max-w-lg">
+                    Один континент. Один перешеек. 100 000 лет эволюции. 
+                    Никакой магии. Только люди, кровь и логика.
+                </p>
+                
+                <div class="flex gap-4 mt-10">
+                    <a href="#timeline" class="px-8 py-5 bg-white text-black font-semibold rounded-3xl flex items-center gap-3 hover:scale-105">
+                        СМОТРЕТЬ ТАЙМЛАЙН
+                        <i class="fa-solid fa-arrow-down"></i>
+                    </a>
+                    <button onclick="alert('JSON загружен. Azgaar готов.')" 
+                            class="px-8 py-5 border border-zinc-700 hover:border-zinc-400 font-medium rounded-3xl">
+                        СКАЧАТЬ JSON (−100k)
+                    </button>
+                </div>
+                
+                <div class="mt-16 flex items-center gap-8 text-sm">
+                    <div>
+                        <span class="block text-zinc-500">Планета</span>
+                        <span class="text-3xl font-semibold">50% Земли</span>
+                    </div>
+                    <div>
+                        <span class="block text-zinc-500">Климатический цикл</span>
+                        <span class="text-3xl font-semibold">50–60к лет</span>
+                    </div>
+                    <div>
+                        <span class="block text-zinc-500">Текущая итерация</span>
+                        <span class="text-3xl font-semibold text-[#c4855a]">-100 000 … -80 000</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Карта-заглушка -->
+            <div class="map-bg border border-[#c4855a]/20 rounded-3xl p-8 aspect-video bg-zinc-900 flex items-center justify-center relative overflow-hidden">
+                <div class="text-center">
+                    <div class="text-8xl mb-4 opacity-20">🗺️</div>
+                    <p class="text-[#c4855a] text-xl font-medium">Azgaar • 7680 × 4024 км</p>
+                    <p class="text-zinc-400 mt-2">Ледниковый максимум • Перешеек входа</p>
+                    <div class="absolute bottom-8 left-8 bg-black/70 px-4 py-2 rounded-2xl text-xs flex items-center gap-2">
+                        <span class="text-emerald-400">●</span>
+                        УЛЛАМ АКТИВНЫ
+                    </div>
+                </div>
+                <!-- Легенда -->
+                <div class="absolute top-8 right-8 bg-zinc-950/90 border border-zinc-700 rounded-2xl p-4 text-xs leading-none">
+                    <div class="flex gap-6">
+                        <div><span class="text-[#c4855a]">■</span> Уллам</div>
+                        <div><span class="text-white">■</span> Дикари</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ТАЙМЛАЙН -->
+    <section id="timeline" class="max-w-screen-2xl mx-auto px-8 py-20">
+        <h2 class="title-font text-5xl mb-12">Хронология итераций</h2>
+        
+        <div class="grid grid-cols-9 gap-6">
+            <div class="col-span-3 bg-zinc-900 border border-[#c4855a] rounded-3xl p-8">
+                <div class="flex justify-between items-baseline">
+                    <span class="text-6xl font-bold text-[#c4855a]">01</span>
+                    <span class="text-emerald-400 text-sm font-medium">ГОТОВО</span>
+                </div>
+                <p class="text-xl mt-2">-100 000 … -80 000</p>
+                <p class="text-zinc-400 mt-6">Ледниковый максимум. Уллам пришли через перешеек. Первые 10 000 человек.</p>
+                <div class="h-2 bg-[#c4855a] mt-12 rounded-full"></div>
+            </div>
+            
+            <!-- Остальные итерации серые -->
+            <div class="col-span-1 bg-zinc-900/50 border border-zinc-700 rounded-3xl p-6 flex flex-col justify-between text-center">
+                <div class="text-4xl font-bold text-zinc-500">02</div>
+                <div class="text-xs text-zinc-500 mt-auto">-80k … -60k</div>
+            </div>
+            <div class="col-span-1 bg-zinc-900/50 border border-zinc-700 rounded-3xl p-6 flex flex-col justify-between text-center">
+                <div class="text-4xl font-bold text-zinc-500">03</div>
+                <div class="text-xs text-zinc-500 mt-auto">-60k … -40k</div>
+            </div>
+            <div class="col-span-1 bg-zinc-900/50 border border-zinc-700 rounded-3xl p-6 flex flex-col justify-between text-center">
+                <div class="text-4xl font-bold text-zinc-500">04</div>
+                <div class="text-xs text-zinc-500 mt-auto">-40k … -20k</div>
+            </div>
+            <div class="col-span-1 bg-zinc-900/50 border border-zinc-700 rounded-3xl p-6 flex flex-col justify-between text-center">
+                <div class="text-4xl font-bold text-zinc-500">05</div>
+                <div class="text-xs text-zinc-500 mt-auto">-20k … -10k</div>
+            </div>
+            <div class="col-span-1 bg-zinc-900/50 border border-zinc-700 rounded-3xl p-6 flex flex-col justify-between text-center">
+                <div class="text-4xl font-bold text-zinc-500">06</div>
+                <div class="text-xs text-zinc-500 mt-auto">-10k … -3k</div>
+            </div>
+            <div class="col-span-1 bg-zinc-900/50 border border-zinc-700 rounded-3xl p-6 flex flex-col justify-between text-center">
+                <div class="text-4xl font-bold text-zinc-500">07</div>
+                <div class="text-xs text-zinc-500 mt-auto">-3k … +500</div>
+            </div>
+            <div class="col-span-1 bg-zinc-900/50 border border-zinc-700 rounded-3xl p-6 flex flex-col justify-between text-center">
+                <div class="text-4xl font-bold text-zinc-500">08</div>
+                <div class="text-xs text-zinc-500 mt-auto">+500 … +1700</div>
+            </div>
+            <div class="col-span-1 bg-zinc-900/50 border border-zinc-700 rounded-3xl p-6 flex flex-col justify-between text-center">
+                <div class="text-4xl font-bold text-zinc-500">09</div>
+                <div class="text-xs text-zinc-500 mt-auto">+1700 … 1952</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- КУЛЬТУРЫ -->
+    <section id="cultures" class="bg-zinc-900 py-20">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <h2 class="title-font text-5xl mb-12">Культуры • Итерация 1</h2>
+            <div class="grid grid-cols-2 gap-8">
+                <div class="bg-black/50 border border-zinc-700 rounded-3xl p-8">
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 bg-[#c4855a] rounded-2xl flex-shrink-0"></div>
+                        <div class="flex-1">
+                            <h3 class="text-3xl">Уллам</h3>
+                            <p class="text-emerald-400 text-sm">10 000 человек • Охотники-собиратели</p>
+                            <p class="mt-6 text-zinc-400">Европейцы. Пришли через перешеек. Культ предков. Прото-язык на базе Goblin.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-black/50 border border-zinc-700 rounded-3xl p-8 opacity-60">
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 bg-white rounded-2xl flex-shrink-0"></div>
+                        <div class="flex-1">
+                            <h3 class="text-3xl">Дикари</h3>
+                            <p class="text-zinc-400 text-sm">10 000 человек • Неандертальцы/денисовцы</p>
+                            <p class="mt-6 text-zinc-400">Рассеяны по континенту. Будут ассимилированы к -60 000.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ЯЗЫКИ + РЕЛИГИЯ -->
+    <section id="languages" class="max-w-screen-2xl mx-auto px-8 py-20 grid grid-cols-2 gap-12">
+        <div>
+            <h2 class="title-font text-5xl mb-8">Прото-Уллам</h2>
+            <div class="bg-zinc-900 rounded-3xl p-8 font-mono text-sm leading-relaxed border border-zinc-700">
+                Гласные: а и у е<br>
+                Слоги: V, CV, CVC<br>
+                ~270 слов • Base: Goblin (ID 21)<br><br>
+                <span class="text-[#c4855a]">уллам • кан • тар • хэм • ярви • пазам • маала</span>
+            </div>
+        </div>
+        
+        <div>
+            <h2 class="title-font text-5xl mb-8">Религия</h2>
+            <div class="bg-gradient-to-br from-amber-900/20 to-zinc-900 border border-[#c4855a]/30 rounded-3xl p-8">
+                <h3 class="text-3xl flex items-center gap-3"><span class="text-4xl">🪦</span> Культ Предков</h3>
+                <p class="mt-6">Анимизм. Духи умерших у очага. Никаких храмов — только ритуалы и память.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- КАРТЫ -->
+    <section id="maps" class="bg-black py-20">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <h2 class="title-font text-5xl mb-8">Карты Azgaar</h2>
+            <div class="grid grid-cols-3 gap-6">
+                <div class="aspect-video bg-zinc-900 rounded-3xl flex items-center justify-center border border-dashed border-zinc-700 text-zinc-500">JSON (−100k) • Ледник 65–70°N</div>
+                <div class="aspect-video bg-zinc-900 rounded-3xl flex items-center justify-center border border-dashed border-zinc-700 text-zinc-500">Биомы • Перешеек + юг</div>
+                <div class="aspect-video bg-zinc-900 rounded-3xl flex items-center justify-center border border-dashed border-zinc-700 text-zinc-500">Культуры • Уллам + Дикари</div>
+            </div>
+            <p class="text-center text-xs text-zinc-500 mt-8">Загрузи свои JSON в Azgaar и кинь сюда — я сразу перерисую</p>
+        </div>
+    </section>
+
+    <!-- ФИНАЛ -->
+    <div id="next" class="max-w-screen-2xl mx-auto px-8 py-20 border-t border-zinc-800">
+        <div class="bg-zinc-900 rounded-3xl p-12 flex items-center justify-between">
+            <div>
+                <h2 class="title-font text-5xl">Готов к итерации 2?</h2>
+                <p class="text-zinc-400 mt-3">-80 000 … -60 000</p>
+            </div>
+            <button onclick="alert('Итерация 2 запущена. Жду твою команду.')"
+                    class="px-12 py-8 text-2xl font-semibold bg-[#c4855a] text-black rounded-3xl hover:scale-105 flex items-center gap-4">
+                НАЧАТЬ ИТЕРАЦИЮ 2
+                <i class="fa-solid fa-fire"></i>
+            </button>
+        </div>
     </div>
+
+    <footer class="text-xs text-zinc-500 py-12 text-center border-t border-zinc-800">
+        ORBAT Worldbuilding • 2026 • Сделано не китайцем
+    </footer>
+
+    <script>
+        // Tailwind script already loaded
+        console.log('%cORBAT Оррим сайт загружен. Китайца выебали.', 'color:#c4855a; font-weight:bold');
+    </script>
 </body>
 </html>
