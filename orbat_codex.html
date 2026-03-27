@@ -4,143 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ORBAT — Кодекс</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: #1a1a2e;
-            color: #eee;
-            line-height: 1.6;
-        }
-        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
-        header {
-            text-align: center;
-            padding: 40px 20px;
-            border-bottom: 2px solid #333;
-        }
-        h1 { font-size: 2rem; margin-bottom: 10px; }
-        .back-link {
-            display: inline-block;
-            margin-bottom: 20px;
-            color: #e94560;
-            text-decoration: none;
-        }
-        .back-link:hover { text-decoration: underline; }
-        .codex-section {
-            background: #16213e;
-            padding: 30px;
-            border-radius: 8px;
-            border: 1px solid #333;
-            margin-bottom: 30px;
-        }
-        .codex-section h2 {
-            color: #e94560;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #333;
-        }
-        .codex-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        .codex-table th,
-        .codex-table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #333;
-        }
-        .codex-table th {
-            color: #e94560;
-            font-weight: bold;
-        }
-        .codex-table tr:hover {
-            background: #0f3460;
-        }
-        @media (max-width: 768px) {
-            h1 { font-size: 1.5rem; }
-            .codex-section { padding: 20px; }
-            .codex-table { font-size: 0.9rem; }
-        }
+        body { font-family: 'Courier New', monospace; background: #0f0f17; color: #d1d5db; }
+        .accent { color: #c4855a; }
+        .card { background: #1a1a24; border: 1px solid #374151; }
     </style>
 </head>
-<body>
-    <div class="container">
-        <a href="index.html" class="back-link">← Главная</a>
-        
-        <header>
-            <h1>Кодекс Мира</h1>
-            <p>Справочные данные: климат, география, события</p>
-        </header>
+<body class="p-8 max-w-5xl mx-auto">
 
-        <div class="codex-section">
-            <h2>Физические параметры (-100 000)</h2>
-            <table class="codex-table">
-                <tr>
-                    <th>Параметр</th>
-                    <th>Значение</th>
-                </tr>
-                <tr>
-                    <td>Граница ледника</td>
-                    <td>~65-70°N (восточные горы)</td>
-                </tr>
-                <tr>
-                    <td>Озеро Ярви</td>
-                    <td>Подо льдом 2-3м</td>
-                </tr>
-                <tr>
-                    <td>Река</td>
-                    <td>Мелкая, сезонная</td>
-                </tr>
-                <tr>
-                    <td>Уровень моря</td>
-                    <td>-100-120м от современного</td>
-                </tr>
-                <tr>
-                    <td>Перешеек</td>
-                    <td>Сухой, проходимый</td>
-                </tr>
-                <tr>
-                    <td>Биомы</td>
-                    <td>Тундра (восток), Тайга (запад)</td>
-                </tr>
-            </table>
-        </div>
+    <a href="index.html" class="text-[#c4855a] hover:underline mb-8 inline-block">← Главная</a>
 
-        <div class="codex-section">
-            <h2>Планета</h2>
-            <table class="codex-table">
-                <tr>
-                    <th>Параметр</th>
-                    <th>Земля</th>
-                    <th>Мир Оррим</th>
-                </tr>
-                <tr>
-                    <td>Размер</td>
-                    <td>100%</td>
-                    <td>~50%</td>
-                </tr>
-                <tr>
-                    <td>Карта</td>
-                    <td>—</td>
-                    <td>7680 × 4024 км</td>
-                </tr>
-                <tr>
-                    <td>Canvas</td>
-                    <td>—</td>
-                    <td>1920 × 1006 px</td>
-                </tr>
-                <tr>
-                    <td>Климатические циклы</td>
-                    <td>100к лет</td>
-                    <td>50-60к лет</td>
-                </tr>
-            </table>
-        </div>
+    <h1 class="text-4xl font-bold mb-10">Кодекс</h1>
 
-        <footer style="text-align: center; padding: 30px; border-top: 2px solid #333; color: #666; font-size: 0.85rem;">
-            <p>ORBAT Worldbuilding Project · 2026</p>
-        </footer>
+    <div class="card p-8">
+        <h2 class="text-xl accent mb-6">Физические параметры (-100 000)</h2>
+        <table class="w-full text-sm">
+            <tr class="border-b border-zinc-700"><td class="py-3">Граница ледника</td><td>~65-70°N (восточные горы)</td></tr>
+            <tr class="border-b border-zinc-700"><td class="py-3">Озеро Ярви</td><td>Подо льдом 2-3 м</td></tr>
+            <tr class="border-b border-zinc-700"><td class="py-3">Уровень моря</td><td>-100-120 м от современного</td></tr>
+            <tr><td class="py-3">Перешеек</td><td>Сухой, проходимый</td></tr>
+        </table>
     </div>
+
+    <footer class="mt-16 text-center text-xs text-zinc-600">
+        ORBAT Worldbuilding Project · 2026
+    </footer>
 </body>
 </html>
