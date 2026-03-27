@@ -4,197 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ORBAT — Таймлайн</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: #1a1a2e;
-            color: #eee;
-            line-height: 1.6;
-        }
-        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
-        header {
-            text-align: center;
-            padding: 40px 20px;
-            border-bottom: 2px solid #333;
-        }
-        h1 { font-size: 2rem; margin-bottom: 10px; }
-        .back-link {
-            display: inline-block;
-            margin-bottom: 20px;
-            color: #e94560;
-            text-decoration: none;
-        }
-        .back-link:hover { text-decoration: underline; }
-        .timeline {
-            position: relative;
-            padding: 40px 0;
-        }
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 20px;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: #333;
-        }
-        .timeline-item {
-            position: relative;
-            padding-left: 60px;
-            margin-bottom: 40px;
-        }
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: 12px;
-            top: 5px;
-            width: 20px;
-            height: 20px;
-            background: #e94560;
-            border-radius: 50%;
-        }
-        .timeline-date {
-            font-size: 0.9rem;
-            color: #e94560;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        .timeline-title {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-        }
-        .timeline-content {
-            background: #16213e;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid #333;
-        }
-        .timeline-content p { margin-bottom: 10px; }
-        .era-marker {
-            display: inline-block;
-            padding: 3px 10px;
-            background: #0f3460;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            margin-bottom: 10px;
-        }
-        @media (max-width: 768px) {
-            h1 { font-size: 1.5rem; }
-            .timeline-item { padding-left: 45px; }
-            .timeline::before { left: 15px; }
-            .timeline-item::before { left: 7px; }
-        }
+        body { font-family: 'Courier New', monospace; background: #0f0f17; color: #d1d5db; }
+        .accent { color: #c4855a; }
+        .card { background: #1a1a24; border: 1px solid #374151; }
     </style>
 </head>
-<body>
-    <div class="container">
-        <a href="index.html" class="back-link">← Главная</a>
-        
-        <header>
-            <h1>Таймлайн Мира</h1>
-            <p>От -100 000 до 1952 н.э.</p>
-        </header>
+<body class="p-8 max-w-5xl mx-auto">
 
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-date">-100 000 ... -80 000</div>
-                <div class="era-marker">Ледниковый максимум</div>
-                <h2 class="timeline-title">Итерация 1: Приход Уллам</h2>
-                <div class="timeline-content">
-                    <p>Первые люди (культура Уллам) приходят на континент через юго-восточный перешеек. Численность ~1 000 человек. Климат ледникового максимума, температура летом +5...+10°C на юге, зимой -20...-30°C.</p>
-                    <p><strong>Маркеры:</strong> Переход через Перешеек, Пещера Первых Очагов, Стоянка у Подножия</p>
-                    <p><strong>Культуры:</strong> Уллам (прото-форма), Дикари (архаичные люди)</p>
-                    <p><strong>Язык:</strong> Прото-Уллам (16 фонем, ~200 слов)</p>
-                </div>
-            </div>
+    <a href="index.html" class="text-[#c4855a] hover:underline mb-8 inline-block">← Главная</a>
 
-            <div class="timeline-item">
-                <div class="timeline-date">-80 000 ... -60 000</div>
-                <div class="era-marker">Медленное потепление</div>
-                <h2 class="timeline-title">Итерация 2: Расселение</h2>
-                <div class="timeline-content">
-                    <p>Расселение вдоль южного побережья. Численность ~5 000 человек. Первые постоянные стоянки.</p>
-                    <p><em>В разработке...</em></p>
-                </div>
-            </div>
+    <h1 class="text-4xl font-bold mb-10">Таймлайн проекта</h1>
 
-            <div class="timeline-item">
-                <div class="timeline-date">-60 000 ... -40 000</div>
-                <div class="era-marker">Потепление</div>
-                <h2 class="timeline-title">Итерация 3: Движение к озеру</h2>
-                <div class="timeline-content">
-                    <p>Перевалы открываются. Первые группы достигают озера Ярви. Численность ~15 000 человек.</p>
-                    <p><em>В разработке...</em></p>
-                </div>
+    <div class="space-y-8">
+        <div class="card p-8">
+            <div class="flex justify-between">
+                <span class="text-2xl accent">01</span>
+                <span class="text-emerald-400">-100 000 … -80 000</span>
             </div>
-
-            <div class="timeline-item">
-                <div class="timeline-date">-40 000 ... -20 000</div>
-                <div class="era-marker">Ускорение потепления</div>
-                <h2 class="timeline-title">Итерация 4: Озеро оттаивает</h2>
-                <div class="timeline-content">
-                    <p>Озеро Ярви освобождается ото льда. Рыболовство становится основным занятием.</p>
-                    <p><em>В разработке...</em></p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-date">-20 000 ... -10 000</div>
-                <div class="era-marker">Климатический оптимум</div>
-                <h2 class="timeline-title">Итерация 5: Неолит</h2>
-                <div class="timeline-content">
-                    <p>Земледелие, первые города. Раскол Прото-Уллам на дочерние языки.</p>
-                    <p><em>В разработке...</em></p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-date">-10 000 ... -3 000</div>
-                <div class="era-marker">Бронзовый век</div>
-                <h2 class="timeline-title">Итерация 6: Первые государства</h2>
-                <div class="timeline-content">
-                    <p>Формирование первых вождеств и прото-государств.</p>
-                    <p><em>В разработке...</em></p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-date">-3 000 ... +500</div>
-                <div class="era-marker">Железный век</div>
-                <h2 class="timeline-title">Итерация 7: Империя и Степь</h2>
-                <div class="timeline-content">
-                    <p>Западная Империя формируется. Восточная Степь объединяется в каганат.</p>
-                    <p><em>В разработке...</em></p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-date">+500 ... +1700</div>
-                <div class="era-marker">Средневековье</div>
-                <h2 class="timeline-title">Итерация 8: Расцвет и упадок</h2>
-                <div class="timeline-content">
-                    <p>Золотой век Империи. Индустриализация Центра (Республика).</p>
-                    <p><em>В разработке...</em></p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-date">+1700 ... +1952</div>
-                <div class="era-marker">Индустриальная эпоха</div>
-                <h2 class="timeline-title">Итерация 9: Три державы</h2>
-                <div class="timeline-content">
-                    <p><strong>Империя</strong> (Запад) — морская держава, упадок.<br>
-                    <strong>Республика</strong> (Центр) — индустриализация, озеро Ярви.<br>
-                    <strong>Степь</strong> (Восток) — аграрная автократия.</p>
-                    <p><em>В разработке...</em></p>
-                </div>
-            </div>
+            <h2 class="text-xl mt-4">Ледниковый максимум • Приход Уллам</h2>
+            <p class="text-sm text-zinc-400 mt-4">Первые ~10 000 человек через перешеек. Культ предков. Прото-Уллам.</p>
         </div>
 
-        <footer style="text-align: center; padding: 30px; border-top: 2px solid #333; color: #666; font-size: 0.85rem;">
-            <p>ORBAT Worldbuilding Project · 2026</p>
-        </footer>
+        <div class="card p-8 opacity-60">
+            <div class="flex justify-between">
+                <span class="text-2xl">02</span>
+                <span>-80 000 … -60 000</span>
+            </div>
+            <h2 class="text-xl mt-4">Медленное потепление • Расселение</h2>
+            <p class="text-sm text-zinc-500 mt-4">В разработке...</p>
+        </div>
+
+        <!-- Остальные итерации аналогично серые -->
+        <div class="text-center text-xs text-zinc-600 mt-12">
+            Итерации 3–9 — в работе
+        </div>
     </div>
+
+    <footer class="mt-16 text-center text-xs text-zinc-600">
+        ORBAT Worldbuilding Project · 2026
+    </footer>
 </body>
 </html>
