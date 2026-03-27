@@ -4,159 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ORBAT — История</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: #1a1a2e;
-            color: #eee;
-            line-height: 1.6;
-        }
-        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
-        header {
-            text-align: center;
-            padding: 40px 20px;
-            border-bottom: 2px solid #333;
-        }
-        h1 { font-size: 2rem; margin-bottom: 10px; }
-        .back-link {
-            display: inline-block;
-            margin-bottom: 20px;
-            color: #e94560;
-            text-decoration: none;
-        }
-        .back-link:hover { text-decoration: underline; }
-        .history-section {
-            background: #16213e;
-            padding: 30px;
-            border-radius: 8px;
-            border: 1px solid #333;
-            margin-bottom: 30px;
-        }
-        .history-section h2 {
-            color: #e94560;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #333;
-        }
-        .history-section h3 {
-            margin: 20px 0 10px 0;
-            color: #aaa;
-        }
-        .history-section p {
-            margin-bottom: 15px;
-            color: #ccc;
-        }
-        .markers-list {
-            background: #0f3460;
-            padding: 20px;
-            border-radius: 6px;
-            margin: 20px 0;
-        }
-        .markers-list h4 {
-            color: #e94560;
-            margin-bottom: 15px;
-        }
-        .markers-list ul {
-            list-style: none;
-            padding-left: 0;
-        }
-        .markers-list li {
-            padding: 10px 0;
-            border-bottom: 1px solid #333;
-        }
-        .markers-list li:last-child { border-bottom: none; }
-        .marker-name {
-            color: #eee;
-            font-weight: bold;
-        }
-        .marker-coords {
-            color: #888;
-            font-size: 0.85rem;
-        }
-        .archive-box {
-            background: #1a1a2e;
-            border: 1px dashed #666;
-            padding: 20px;
-            border-radius: 6px;
-            margin: 20px 0;
-            font-style: italic;
-        }
-        .archive-box::before {
-            content: '📜 ИЗ АРХИВА 1952';
-            display: block;
-            color: #e94560;
-            font-weight: bold;
-            margin-bottom: 10px;
-            font-style: normal;
-        }
-        @media (max-width: 768px) {
-            h1 { font-size: 1.5rem; }
-            .history-section { padding: 20px; }
-        }
+        body { font-family: 'Courier New', monospace; background: #0f0f17; color: #d1d5db; }
+        .accent { color: #c4855a; }
+        .card { background: #1a1a24; border: 1px solid #374151; }
     </style>
 </head>
-<body>
-    <div class="container">
-        <a href="index.html" class="back-link">← Главная</a>
-        
-        <header>
-            <h1>История Мира</h1>
-            <p>Хронология событий и археологические данные</p>
-        </header>
+<body class="p-8 max-w-5xl mx-auto">
 
-        <div class="history-section">
-            <h2>Итерация 1: -100 000 ... -80 000</h2>
-            <p><strong>Климат:</strong> Ледниковый максимум. Граница ледника ~65-70°N (восточные горы). Озеро Ярви подо льдом 2-3м. Уровень моря -100-120м от современного.</p>
-            
-            <h3>Хронология</h3>
-            <p>Первые люди (культура Уллам) приходят на континент через юго-восточный перешеек около -100 000 лет назад, спасаясь от ледникового максимума на севере. Численность группы не превышала 1 000 человек; они вели кочевой образ жизни, передвигаясь вдоль южного побережья в поисках дичи и укрытий от холода.</p>
-            <p>К -80 000 году население выросло до ~8 000 человек, сформировались первые племенные группы, появился культ предков и протоязык Уллам. Остальное население континента (~10 000) — архаичные люди (неандертальцы/денисовцы), не оставившие культурных следов.</p>
+    <a href="index.html" class="text-[#c4855a] hover:underline mb-8 inline-block">← Главная</a>
 
-            <div class="markers-list">
-                <h4>📍 Маркеры событий</h4>
-                <ul>
-                    <li>
-                        <span class="marker-name">Переход через Перешеек</span><br>
-                        <span class="marker-coords">X:1400-1500, Y:900-950 · ~-95 000</span><br>
-                        Место первого входа людей на континент. Каменные орудия, следы временных стоянок.
-                    </li>
-                    <li>
-                        <span class="marker-name">Пещера Первых Очагов</span><br>
-                        <span class="marker-coords">X:1300-1400, Y:850-900 · ~-90 000</span><br>
-                        Древнейшие следы постоянного использования огня. Копоть на стенах, уголь в культурном слое.
-                    </li>
-                    <li>
-                        <span class="marker-name">Стоянка у Подножия</span><br>
-                        <span class="marker-coords">X:1200-1300, Y:800-850 · ~-85 000</span><br>
-                        Первая попытка движения на запад. Орудия из местного кремня, кости мамонта.
-                    </li>
-                </ul>
-            </div>
+    <h1 class="text-4xl font-bold mb-10">История</h1>
 
-            <div class="archive-box">
-                "Древнейшие слои (-100 000 ... -80 000) представлены крайне скудно. 
-                Климат ледникового максимума не способствовал сохранению органических материалов. 
-                Тем не менее, в пещерах вдоль южного побережья обнаружены каменные орудия 
-                (кварц, кремень), кости мегафауны, следы очагов и погребения с охрой."
-                <br><br>
-                <strong>— Отчёт Королевского Археологического Общества, 1952</strong>
-            </div>
+    <div class="card p-8">
+        <h2 class="text-2xl accent">Итерация 1 • -100 000 … -80 000</h2>
+        <p class="mt-6 text-sm text-zinc-400">
+            Ледниковый максимум. Первые люди (Уллам) приходят через юго-восточный перешеек. 
+            Численность ~10 000. Формирование культа предков и прото-языка.
+        </p>
+        <div class="mt-8 text-xs text-zinc-500">
+            Маркеры: Переход через Перешеек, Пещера Первых Очагов, Стоянка у Подножия
         </div>
-
-        <div class="history-section">
-            <h2>Итерация 2: -80 000 ... -60 000</h2>
-            <p><em>В разработке...</em></p>
-        </div>
-
-        <div class="history-section">
-            <h2>Итерация 3: -60 000 ... -40 000</h2>
-            <p><em>В разработке...</em></p>
-        </div>
-
-        <footer style="text-align: center; padding: 30px; border-top: 2px solid #333; color: #666; font-size: 0.85rem;">
-            <p>ORBAT Worldbuilding Project · 2026</p>
-        </footer>
     </div>
+
+    <footer class="mt-16 text-center text-xs text-zinc-600">
+        ORBAT Worldbuilding Project · 2026
+    </footer>
 </body>
 </html>
