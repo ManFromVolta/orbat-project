@@ -3,78 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ORBAT • Оррим</title>
+    <title>ORBAT — Оррим</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: 'Courier New', monospace; background: #0a0a0a; color: #d1d5db; }
-        .header { border-bottom: 2px solid #c4855a; }
-        table { border-collapse: collapse; }
-        th, td { border: 1px solid #374151; padding: 8px 12px; }
+        body { font-family: 'Courier New', monospace; background: #0f0f17; color: #d1d5db; }
         .accent { color: #c4855a; }
+        .card { background: #1a1a24; border: 1px solid #374151; }
+        .card:hover { border-color: #c4855a; }
     </style>
 </head>
-<body class="bg-zinc-950 text-zinc-300 p-8 max-w-5xl mx-auto">
+<body class="p-8 max-w-6xl mx-auto">
 
-    <div class="header py-6 mb-10">
-        <h1 class="text-4xl font-bold tracking-tight">ORBAT — ОРРИМ</h1>
-        <p class="text-sm text-zinc-500">Worldbuilding проект • Итерация 1 завершена • 27.03.2026</p>
+    <div class="border-b border-[#c4855a] pb-8 mb-12">
+        <h1 class="text-5xl font-bold tracking-tighter">ORBAT <span class="accent">ОРРИМ</span></h1>
+        <p class="text-zinc-500 mt-2">Worldbuilding проект • От -100 000 до 1952 • Только лор</p>
     </div>
 
-    <div class="grid grid-cols-2 gap-12">
-        
-        <!-- Левая колонка -->
-        <div>
-            <h2 class="text-xl accent mb-4">О ПРОЕКТЕ</h2>
-            <p class="text-sm leading-relaxed">
-                Один континент. Один перешеек входа. 100 000 лет истории от ледникового максимума до 1952 года.<br>
-                Никакой магии. Только логика, климат, миграции и последствия.
-            </p>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
 
-            <h2 class="text-xl accent mt-10 mb-4">ТЕКУЩИЙ СТАТУС</h2>
-            <table class="text-sm w-full">
-                <tr><td class="accent">Итерация 1</td><td>-100 000 … -80 000</td><td class="text-emerald-400">✓ Завершена</td></tr>
-                <tr><td>Итерация 2</td><td>-80 000 … -60 000</td><td class="text-amber-400">Ожидает</td></tr>
-                <tr><td>Финал</td><td>1952 н.э.</td><td>Три державы</td></tr>
-            </table>
+        <div class="space-y-8">
+            <div class="card p-8">
+                <h2 class="text-xl accent mb-4">О проекте</h2>
+                <p class="text-sm leading-relaxed text-zinc-400">
+                    Один континент. Один перешеек входа людей. 100 000 лет истории от ледникового максимума до индустриальной эпохи.<br>
+                    Никакой магии. Только климат, миграции, демография и последствия.
+                </p>
+            </div>
 
-            <h2 class="text-xl accent mt-10 mb-4">ФАЙЛЫ</h2>
-            <ul class="text-sm space-y-2">
-                <li><a href="#" class="accent hover:underline">Мир Full 2026-03-27-02-23.json</a> — география + климат (-100k)</li>
-                <li><a href="#" class="accent hover:underline">Мир Full 2026-03-27-00-44.json</a> — референс биомов</li>
-            </ul>
+            <div class="card p-8">
+                <h2 class="text-xl accent mb-4">Статус итераций</h2>
+                <table class="w-full text-sm">
+                    <tr class="border-b border-zinc-700"><td class="py-3 accent">1</td><td>-100 000 … -80 000</td><td class="text-emerald-400">Завершена</td></tr>
+                    <tr class="border-b border-zinc-700"><td class="py-3">2</td><td>-80 000 … -60 000</td><td class="text-amber-400">Ожидает</td></tr>
+                    <tr><td class="py-3">9</td><td>+1700 … 1952</td><td class="text-zinc-500">Планируется</td></tr>
+                </table>
+            </div>
         </div>
 
-        <!-- Правая колонка -->
-        <div>
-            <h2 class="text-xl accent mb-4">ТРИ ДЕРЖАВЫ 1952</h2>
-            <div class="space-y-6 text-sm">
-                <div>
-                    <span class="accent">Улламская Империя</span> — запад, леса, горы. Морская держава в упадке.
-                </div>
-                <div>
-                    <span class="accent">Центральная Республика</span> — центр, озеро Ярви. Индустриальное ядро.
-                </div>
-                <div>
-                    <span class="accent">Степная Федерация</span> — восток, степь. Аграрная автократия.
+        <div class="space-y-8">
+            <div class="card p-8">
+                <h2 class="text-xl accent mb-4">Разделы проекта</h2>
+                <div class="grid grid-cols-1 gap-3 text-sm">
+                    <a href="orbat_map.html" class="block p-4 hover:bg-zinc-900 border border-transparent hover:border-[#c4855a]">🗺 Карты Azgaar</a>
+                    <a href="orbat_timeline.html" class="block p-4 hover:bg-zinc-900 border border-transparent hover:border-[#c4855a]">📅 Таймлайн</a>
+                    <a href="orbat_cultures.html" class="block p-4 hover:bg-zinc-900 border border-transparent hover:border-[#c4855a]">👥 Культуры</a>
+                    <a href="orbat_languages.html" class="block p-4 hover:bg-zinc-900 border border-transparent hover:border-[#c4855a]">🗣 Языки</a>
+                    <a href="orbat_history.html" class="block p-4 hover:bg-zinc-900 border border-transparent hover:border-[#c4855a]">📜 История</a>
+                    <a href="orbat_codex.html" class="block p-4 hover:bg-zinc-900 border border-transparent hover:border-[#c4855a]">📋 Кодекс</a>
                 </div>
             </div>
 
-            <h2 class="text-xl accent mt-10 mb-4">СЛЕДУЮЩИЕ ШАГИ</h2>
-            <div class="bg-zinc-900 border border-zinc-700 p-5 text-sm">
-                1. Итерация 2 (-80k … -60k)<br>
-                2. Таблица демографии с -100k<br>
-                3. Расширение языка Уллам<br>
-                4. Концепты фракций (уже есть)
+            <div class="card p-8">
+                <h2 class="text-xl accent mb-4">Три державы 1952</h2>
+                <div class="space-y-4 text-sm">
+                    <div><span class="accent">■</span> Улламская Империя — запад, морская, упадок</div>
+                    <div><span class="accent">■</span> Центральная Республика — центр, индустрия</div>
+                    <div><span class="accent">■</span> Степная Федерация — восток, аграрная автократия</div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="mt-16 pt-8 border-t border-zinc-800 text-xs text-zinc-500 flex justify-between">
-        <div>ORBAT Worldbuilding • Только лор • Никакой стратегии пока</div>
-        <div>
-            <a href="#" onclick="alert('orbat_engine.html — табу. Не трогай.')" class="accent hover:underline">orbat_engine.html</a>
-        </div>
+    <div class="mt-16 text-center">
+        <a href="orbat_engine.html" onclick="alert('orbat_engine.html — табу. Не трогать. Делает другой человек.')" 
+           class="inline-block px-10 py-4 bg-zinc-900 border border-zinc-700 hover:border-red-600 text-sm">
+            ⚠ ORBAT ENGINE (табу)
+        </a>
     </div>
+
+    <footer class="mt-20 text-center text-xs text-zinc-600">
+        ORBAT Worldbuilding Project · 2026
+    </footer>
 
 </body>
 </html>
