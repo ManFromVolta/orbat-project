@@ -4,224 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ORBAT — Языки</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: #1a1a2e;
-            color: #eee;
-            line-height: 1.6;
-        }
-        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
-        header {
-            text-align: center;
-            padding: 40px 20px;
-            border-bottom: 2px solid #333;
-        }
-        h1 { font-size: 2rem; margin-bottom: 10px; }
-        .back-link {
-            display: inline-block;
-            margin-bottom: 20px;
-            color: #e94560;
-            text-decoration: none;
-        }
-        .back-link:hover { text-decoration: underline; }
-        .lang-section {
-            background: #16213e;
-            padding: 30px;
-            border-radius: 8px;
-            border: 1px solid #333;
-            margin-bottom: 30px;
-        }
-        .lang-section h2 {
-            color: #e94560;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #333;
-        }
-        .lang-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        .lang-info-item {
-            background: #0f3460;
-            padding: 15px;
-            border-radius: 6px;
-        }
-        .lang-info-item label {
-            display: block;
-            color: #888;
-            font-size: 0.85rem;
-            margin-bottom: 5px;
-        }
-        .lang-info-item span {
-            font-size: 1rem;
-            color: #eee;
-        }
-        .phonetics-box {
-            background: #0f3460;
-            padding: 20px;
-            border-radius: 6px;
-            margin: 20px 0;
-        }
-        .phonetics-box h3 {
-            color: #e94560;
-            margin-bottom: 15px;
-        }
-        .phonetics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 10px;
-        }
-        .phoneme {
-            background: #1a1a2e;
-            padding: 10px;
-            border-radius: 4px;
-            text-align: center;
-            font-family: monospace;
-            font-size: 1.1rem;
-        }
-        .namebase-box {
-            background: #1a1a2e;
-            padding: 20px;
-            border-radius: 6px;
-            margin: 20px 0;
-            font-family: monospace;
-            font-size: 0.9rem;
-            max-height: 300px;
-            overflow-y: auto;
-            border: 1px solid #333;
-        }
-        .tree-diagram {
-            background: #0f3460;
-            padding: 20px;
-            border-radius: 6px;
-            margin: 20px 0;
-            text-align: center;
-        }
-        @media (max-width: 768px) {
-            h1 { font-size: 1.5rem; }
-            .lang-section { padding: 20px; }
-            .lang-info { grid-template-columns: 1fr; }
-        }
+        body { font-family: 'Courier New', monospace; background: #0f0f17; color: #d1d5db; }
+        .accent { color: #c4855a; }
+        .card { background: #1a1a24; border: 1px solid #374151; }
     </style>
 </head>
-<body>
-    <div class="container">
-        <a href="index.html" class="back-link">← Главная</a>
+<body class="p-8 max-w-5xl mx-auto">
+
+    <a href="index.html" class="text-[#c4855a] hover:underline mb-8 inline-block">← Главная</a>
+
+    <h1 class="text-4xl font-bold mb-10">Языки</h1>
+
+    <div class="card p-8">
+        <h2 class="text-2xl accent">Прото-Уллам</h2>
+        <p class="text-sm mt-4 text-zinc-400">-100 000 … -60 000 • Base: Goblin (ID 21)</p>
         
-        <header>
-            <h1>Языки Мира</h1>
-            <p>Фонетика, namebase, эволюция</p>
-        </header>
-
-        <div class="lang-section">
-            <h2>Прото-Уллам</h2>
-            <p>Первый язык континента. Существовал -100 000 ... -60 000. Распался на дочерние языки к -50 000.</p>
-
-            <div class="lang-info">
-                <div class="lang-info-item">
-                    <label>Период</label>
-                    <span>-100 000 ... -60 000</span>
-                </div>
-                <div class="lang-info-item">
-                    <label>Статус</label>
-                    <span>Мёртвый (распался)</span>
-                </div>
-                <div class="lang-info-item">
-                    <label>Фонемы</label>
-                    <span>16 (4 гласных + 12 согласных)</span>
-                </div>
-                <div class="lang-info-item">
-                    <label>Лексика</label>
-                    <span>~200-270 слов</span>
-                </div>
-                <div class="lang-info-item">
-                    <label>Azgaar Base</label>
-                    <span>Goblin (ID: 21)</span>
-                </div>
-                <div class="lang-info-item">
-                    <label>Длина слов</label>
-                    <span>2-6 символов</span>
-                </div>
+        <div class="mt-8 grid grid-cols-2 gap-8 text-sm">
+            <div>
+                <p><span class="accent">Фонемы:</span> 16</p>
+                <p><span class="accent">Гласные:</span> а, и, у, е</p>
+                <p><span class="accent">Слоги:</span> V, CV, CVC</p>
             </div>
-
-            <div class="phonetics-box">
-                <h3>Фонетика</h3>
-                <div class="phonetics-grid">
-                    <div class="phoneme">а /a/</div>
-                    <div class="phoneme">и /i/</div>
-                    <div class="phoneme">у /u/</div>
-                    <div class="phoneme">е /ə/</div>
-                    <div class="phoneme">м /m/</div>
-                    <div class="phoneme">н /n/</div>
-                    <div class="phoneme">л /l/</div>
-                    <div class="phoneme">р /r/</div>
-                    <div class="phoneme">к /k/</div>
-                    <div class="phoneme">т /t/</div>
-                    <div class="phoneme">п /p/</div>
-                    <div class="phoneme">с /s/</div>
-                    <div class="phoneme">х /h/</div>
-                    <div class="phoneme">в /w/</div>
-                    <div class="phoneme">й /j/</div>
-                    <div class="phoneme">ʔ /ʔ/</div>
-                </div>
-            </div>
-
-            <div class="phonetics-box">
-                <h3>Правила Namebase</h3>
-                <p><strong>Delimiter:</strong> аиу (повтор: аа, ии, уу)</p>
-                <p><strong>Слоги:</strong> V, CV, CVC (а, ка, кан)</p>
-                <p><strong>Запрещено:</strong> скопления согласных, более 2 слогов</p>
-            </div>
-
-            <div class="namebase-box">
-ул, лам, ата, ама, кан, тил, ра, ну, су, хэм, тар, сэ, ли, та, мэр, вул, пал, тум, ял, вир, кал, мин, пэр, тул, эм, яр, вил, кур, сал, нур, хал, кам, тал, мэл, син, ран, тур, вал, ним, сар, кул, там, эр, нал, пил, паз, вир, эм, яр, уллам, амма, атта, малла, нилла, тии, мирам, минну, пазам, пулли, каду, ваана, мааи, колам, витта, вайял, маала, паккал, ираву, уйир, перум, аттаи, веллаи, мазаи, кааду, паайи, наатта, маккал, уттиру, маарбу, каийи, куллир, иллаи, веттаи, паанаи, вааи, варутта, каалаи, муттаа, удайма...
-            </div>
-
-            <div class="tree-diagram">
-                <h3>Дерево языков</h3>
-                <pre style="color: #aaa; overflow-x: auto;">
-Прото-Уллам (-100 000)
-├── Уллам (-60 000)
-├── Аруви (-60 000)
-├── Вееру (-60 000)
-├── Де-Уллам (-60 000)
-└── Хаару (-60 000)
-    └── ... (до 1952)
-                </pre>
+            <div>
+                <p><span class="accent">Лексика:</span> ~270 слов</p>
+                <p><span class="accent">Delimiter:</span> аиу (аа, ии, уу)</p>
             </div>
         </div>
 
-        <div class="lang-section">
-            <h2>Язык Дикарей</h2>
-            <p>Прото-форма архаичных людей. Не задокументирован. Вымер к -60 000.</p>
-
-            <div class="lang-info">
-                <div class="lang-info-item">
-                    <label>Период</label>
-                    <span>-100 000 ... -60 000</span>
-                </div>
-                <div class="lang-info-item">
-                    <label>Статус</label>
-                    <span>Вымер</span>
-                </div>
-                <div class="lang-info-item">
-                    <label>Azgaar Base</label>
-                    <span>Orc (ID: 23)</span>
-                </div>
-                <div class="lang-info-item">
-                    <label>Длина слов</label>
-                    <span>2-5 символов</span>
-                </div>
-            </div>
+        <div class="mt-8 bg-zinc-900 p-6 text-xs font-mono border border-zinc-700">
+            ул, лам, кан, тар, яр, паз, маа, хэм, вил, кур, сал, нур, хал, кам, тал, мэл, син, ран, тур, вал, ним, сар, кул, там, эр, нал, пил, паз, уллам, уллама, улламу, куллам...
         </div>
-
-        <footer style="text-align: center; padding: 30px; border-top: 2px solid #333; color: #666; font-size: 0.85rem;">
-            <p>ORBAT Worldbuilding Project · 2026</p>
-        </footer>
     </div>
+
+    <footer class="mt-16 text-center text-xs text-zinc-600">
+        ORBAT Worldbuilding Project · 2026
+    </footer>
 </body>
 </html>
