@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ORBAT — Народы</title>
+<link rel="icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#1a1a18;--bg2:#202020;--bg3:#282826;--bg4:#111110;
+  --border:#2e2e2c;--border2:#252523;
+  --text:#d4d2cc;--text2:#b0aea8;--text3:#777;--text4:#444;
+  --accent:#c87840;--radius:5px;--nav:52px;
+}
+html{font-size:15px;-webkit-text-size-adjust:100%}
+body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.7}
+.nav{position:fixed;top:0;left:0;right:0;background:var(--bg);border-bottom:0.5px solid var(--border);
+  padding:0 20px;display:flex;align-items:center;gap:4px;z-index:1000;height:var(--nav)}
+.nav-logo{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;color:#f1efe8;
+  letter-spacing:0.12em;padding:0 14px 0 0;margin-right:8px;border-right:0.5px solid var(--border);
+  text-decoration:none;white-space:nowrap}
+.nav a:not(.nav-logo){text-decoration:none;color:var(--text3);font-family:'JetBrains Mono',monospace;
+  font-size:12px;padding:0 12px;height:34px;display:flex;align-items:center;border-radius:var(--radius);
+  white-space:nowrap;transition:color 0.15s,background 0.15s;letter-spacing:0.04em}
+.nav a:not(.nav-logo):hover{color:#f1efe8;background:var(--bg3)}
+.nav a.active{color:var(--accent) !important}
+.nav-eng{margin-left:auto}
+.nav-eng a{border:0.5px solid var(--border) !important;background:var(--bg2) !important}
+.spacer{height:var(--nav)}
+.hdr{padding:18px 20px 16px;border-bottom:0.5px solid var(--border2)}
+.hdr h1{font-size:17px;font-weight:400;color:#f1efe8}
+.hdr p{font-size:12px;color:var(--text4);margin-top:3px;font-family:'JetBrains Mono',monospace}
+.content{padding:20px;max-width:860px}
+.st{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;color:var(--text4);
+  text-transform:uppercase;letter-spacing:0.14em;margin:22px 0 10px;padding-bottom:6px;
+  border-bottom:0.5px solid var(--border2)}
+.st:first-child{margin-top:0}
+
+/* PEOPLE CARD */
+.people-card{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin-bottom:16px}
+.people-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.people-swatch{width:14px;height:14px;border-radius:3px;flex-shrink:0;border:0.5px solid rgba(255,255,255,0.1)}
+.people-name{font-size:18px;font-weight:400;color:#f1efe8}
+.people-meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);margin-left:auto;text-align:right;line-height:1.5}
+.people-desc{font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:16px}
+
+/* STAT ROW */
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px}
+@media(min-width:480px){.stat-row{grid-template-columns:repeat(4,1fr)}}
+.stat{background:var(--bg3);border:0.5px solid var(--border2);border-radius:var(--radius);padding:9px 11px}
+.stat .l{font-size:10px;color:var(--text3);margin-bottom:3px;font-family:'JetBrains Mono',monospace;letter-spacing:0.06em;text-transform:uppercase}
+.stat .v{font-size:13px;color:var(--text);font-family:'JetBrains Mono',monospace}
+
+/* LANG TABLE */
+.lang-section{margin-top:14px}
+.lang-title{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text4);
+  text-transform:uppercase;letter-spacing:0.12em;margin-bottom:8px}
+.lang-table{width:100%;border-collapse:collapse;font-size:13px;font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif}
+.lang-table th{background:var(--bg3);padding:7px 10px;text-align:left;font-size:10px;
+  font-weight:500;color:var(--text3);border-bottom:1px solid var(--border);
+  font-family:'JetBrains Mono',monospace;letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap}
+.lang-table td{padding:7px 10px;border-bottom:0.5px solid var(--border2);color:var(--text2);vertical-align:top}
+.lang-table tr:last-child td{border-bottom:none}
+.lang-note{font-size:12px;color:var(--text4);font-style:italic;margin-top:8px;
+  font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;line-height:1.6}
+
+/* VOCAB */
+.vocab-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+@media(min-width:480px){.vocab-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:720px){.vocab-grid{grid-template-columns:repeat(4,1fr)}}
+.vocab-item{background:var(--bg3);border:0.5px solid var(--border2);border-radius:3px;
+  padding:6px 10px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.vocab-word{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent)}
+.vocab-gloss{font-size:11px;color:var(--text3)}
+
+/* WILDLANDS */
+.wildlands{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);
+  padding:14px 16px;opacity:0.6}
+.wildlands-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.wildlands-name{font-size:15px;color:var(--text3);font-style:italic}
+.wildlands-meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text4);margin-left:auto}
+.wildlands-desc{font-size:13px;color:var(--text3);line-height:1.7;
+  font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif}
+
+.mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:0.5px solid var(--border);z-index:1000}
+.mob-nav-inner{display:flex}
+.mob-nav a{flex:1;text-decoration:none;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:9px 4px 11px;gap:3px;font-family:'JetBrains Mono',monospace;
+  font-size:10px;color:var(--text3);transition:color 0.15s;min-height:54px}
+.mob-nav a.active{color:var(--accent)}
+@media(max-width:600px){
+  .nav a:not(.nav-logo){display:none}.nav-eng{display:none}
+  .mob-nav{display:block}body{padding-bottom:54px}
+  .content{padding:16px}
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html" class="nav-logo">ORBAT</a>
+  <a href="world.html">Мир</a>
+  <a href="peoples.html" class="active">Народы</a>
+  <a href="artifacts.html">Артефакты</a>
+  <div class="nav-eng"><a href="orbat_engine.html">⚙ Движок</a></div>
+</nav>
+<div class="spacer"></div>
+<div class="hdr">
+  <h1>Народы</h1>
+  <p>Эра Первых Людей · −100 000 до н.э. · 1 культура</p>
+</div>
+
+<div class="content">
+
+  <div class="people-card">
+    <div class="people-header">
+      <div class="people-swatch" style="background:#C4855A"></div>
+      <div class="people-name">Уллам</div>
+      <div class="people-meta">Generic · ~700 чел.<br>Expansion 0.1</div>
+    </div>
+    <div class="people-desc">Единственная культура на континенте. Пришли с юга через юго-восточный перешеек — откуда именно и почему неизвестно, это останется загадкой в лоре. Европейский тип внешности. Вопрос «есть ли у тебя уллам?» — первый и главный критерий человека. Дикари для них не уллам.</div>
+
+    <div class="stat-row">
+      <div class="stat"><div class="l">Население</div><div class="v">~700</div></div>
+      <div class="stat"><div class="l">Тип</div><div class="v">Generic</div></div>
+      <div class="stat"><div class="l">Происхождение</div><div class="v">неизвестно</div></div>
+      <div class="stat"><div class="l">Территория</div><div class="v">юг, 140 кл.</div></div>
+    </div>
+
+    <div class="lang-section">
+      <div class="lang-title">Язык Уллам (Прото-Уллам)</div>
+      <div class="lang-note" style="margin-bottom:10px">Язык Уллам — реконструкция лингвистов 1952 года. Как праиндоевропейский для нас. Никто живой на нём не говорит. Неточности и лакуны допустимы.</div>
+      <table class="lang-table">
+        <tr><th>Категория</th><th>Звуки / описание</th></tr>
+        <tr><td>Краткие гласные</td><td>а е и у</td></tr>
+        <tr><td>Долгие гласные</td><td>аа ее ии уу</td></tr>
+        <tr><td>Отсутствует</td><td>о — появится позже как рефлекс Х₃</td></tr>
+        <tr><td>Ларингалы</td><td>Х₁ нейтральный · Х₂ велярный · Х₃ лабиовелярный</td></tr>
+        <tr><td>Обычные согласные</td><td>м н л р к т п с в й</td></tr>
+        <tr><td>Ретрофлексные</td><td>тт нн лл — архаичная черта</td></tr>
+        <tr><td>Структура слога</td><td>CV · CVV · CVC — без скоплений</td></tr>
+        <tr><td>Порядок слов</td><td>SOV</td></tr>
+      </table>
+
+      <div class="st" style="margin-top:16px">Судьба ларингалов в языках-потомках</div>
+      <table class="lang-table">
+        <tr><th>Ветвь</th><th>Х₁</th><th>Х₂</th><th>Х₃</th><th>Результат</th></tr>
+        <tr><td>Северная</td><td>исчезает</td><td>исчезает</td><td>исчезает</td><td>гармония гласных</td></tr>
+        <tr><td>Западная</td><td>удлиняет</td><td>даёт а</td><td>даёт о</td><td>дифтонги, аспирация</td></tr>
+        <tr><td>Степная</td><td>исчезает</td><td>даёт о</td><td>исчезает</td><td>суффиксальная агглютинация</td></tr>
+        <tr><td>Центральная</td><td>исчезает</td><td>даёт а</td><td>лабиализация</td><td>падежи, род</td></tr>
+      </table>
+
+      <div class="st">Краткий словарь (реконструкция 1952)</div>
+      <div class="vocab-grid">
+        <div class="vocab-item"><span class="vocab-word">*улам</span><span class="vocab-gloss">человек, свой</span></div>
+        <div class="vocab-item"><span class="vocab-word">*алла</span><span class="vocab-gloss">земля, почва</span></div>
+        <div class="vocab-item"><span class="vocab-word">*атта</span><span class="vocab-gloss">отец, старший</span></div>
+        <div class="vocab-item"><span class="vocab-word">*амма</span><span class="vocab-gloss">мать, старшая</span></div>
+        <div class="vocab-item"><span class="vocab-word">*тии</span><span class="vocab-gloss">огонь</span></div>
+        <div class="vocab-item"><span class="vocab-word">*каан</span><span class="vocab-gloss">вода, река</span></div>
+        <div class="vocab-item"><span class="vocab-word">*анна</span><span class="vocab-gloss">небо</span></div>
+        <div class="vocab-item"><span class="vocab-word">*мир</span><span class="vocab-gloss">зверь, дичь</span></div>
+        <div class="vocab-item"><span class="vocab-word">*кала</span><span class="vocab-gloss">камень, орудие</span></div>
+        <div class="vocab-item"><span class="vocab-word">*тала</span><span class="vocab-gloss">дерево, лес</span></div>
+        <div class="vocab-item"><span class="vocab-word">*сула</span><span class="vocab-gloss">путь, движение</span></div>
+        <div class="vocab-item"><span class="vocab-word">*нула</span><span class="vocab-gloss">холод, лёд</span></div>
+        <div class="vocab-item"><span class="vocab-word">*вира</span><span class="vocab-gloss">сила, жизнь</span></div>
+        <div class="vocab-item"><span class="vocab-word">*пали</span><span class="vocab-gloss">место стоянки</span></div>
+        <div class="vocab-item"><span class="vocab-word">*рани</span><span class="vocab-gloss">женщина</span></div>
+        <div class="vocab-item"><span class="vocab-word">*кани</span><span class="vocab-gloss">ребёнок</span></div>
+        <div class="vocab-item"><span class="vocab-word">*тума</span><span class="vocab-gloss">смерть</span></div>
+        <div class="vocab-item"><span class="vocab-word">*саан</span><span class="vocab-gloss">солнце</span></div>
+        <div class="vocab-item"><span class="vocab-word">*миин</span><span class="vocab-gloss">рыба</span></div>
+        <div class="vocab-item"><span class="vocab-word">*куур</span><span class="vocab-gloss">гора</span></div>
+        <div class="vocab-item"><span class="vocab-word">*еел</span><span class="vocab-gloss">птица</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="st">Фоновое население</div>
+  <div class="wildlands">
+    <div class="wildlands-header">
+      <div class="people-swatch" style="background:#888;opacity:0.5"></div>
+      <div class="wildlands-name">Дикари (Wildlands)</div>
+      <div class="wildlands-meta">~791 · 4583 кл. · неуправляемы</div>
+    </div>
+    <div class="wildlands-desc">Неандертальцы и денисовцы. Рассеяны по всему континенту, ~200 изолированных групп. Каждая группа — своя сигнальная система, не язык. Механически неуправляемы в Azgaar. Будут уничтожены или ассимилированы потомками Уллам.</div>
+  </div>
+
+</div>
+
+<nav class="mob-nav">
+  <div class="mob-nav-inner">
+    <a href="index.html"><span>◎</span>Главная</a>
+    <a href="world.html"><span>🌍</span>Мир</a>
+    <a href="peoples.html" class="active"><span>👥</span>Народы</a>
+    <a href="artifacts.html"><span>🏺</span>Артефакты</a>
+    <a href="orbat_engine.html"><span>⚙</span>Движок</a>
+  </div>
+</nav>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ORBAT — Артефакты</title>
+<link rel="icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#1a1a18;--bg2:#202020;--bg3:#282826;--bg4:#111110;
+  --border:#2e2e2c;--border2:#252523;
+  --text:#d4d2cc;--text2:#b0aea8;--text3:#777;--text4:#444;
+  --accent:#c87840;--radius:5px;--nav:52px;
+}
+html{font-size:15px;-webkit-text-size-adjust:100%}
+body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.7}
+.nav{position:fixed;top:0;left:0;right:0;background:var(--bg);border-bottom:0.5px solid var(--border);
+  padding:0 20px;display:flex;align-items:center;gap:4px;z-index:1000;height:var(--nav)}
+.nav-logo{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;color:#f1efe8;
+  letter-spacing:0.12em;padding:0 14px 0 0;margin-right:8px;border-right:0.5px solid var(--border);
+  text-decoration:none;white-space:nowrap}
+.nav a:not(.nav-logo){text-decoration:none;color:var(--text3);font-family:'JetBrains Mono',monospace;
+  font-size:12px;padding:0 12px;height:34px;display:flex;align-items:center;border-radius:var(--radius);
+  white-space:nowrap;transition:color 0.15s,background 0.15s;letter-spacing:0.04em}
+.nav a:not(.nav-logo):hover{color:#f1efe8;background:var(--bg3)}
+.nav a.active{color:var(--accent) !important}
+.nav-eng{margin-left:auto}
+.nav-eng a{border:0.5px solid var(--border) !important;background:var(--bg2) !important}
+.spacer{height:var(--nav)}
+.hdr{padding:18px 20px 16px;border-bottom:0.5px solid var(--border2)}
+.hdr h1{font-size:17px;font-weight:400;color:#f1efe8}
+.hdr p{font-size:12px;color:var(--text4);margin-top:3px;font-family:'JetBrains Mono',monospace}
+.content{padding:20px;max-width:860px}
+
+.section-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;
+  color:var(--text4);text-transform:uppercase;margin-bottom:12px;
+  display:flex;align-items:center;gap:10px}
+.section-label::after{content:'';flex:1;height:0.5px;background:var(--border2)}
+
+.article{margin-bottom:0;display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:560px){.article{grid-template-columns:200px 1fr}}
+.article-img-wrap{position:relative;background:#111;border:0.5px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;min-height:160px;align-self:start}
+.article-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;min-height:160px}
+.article-img-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:absolute;inset:0;gap:6px;color:var(--text4);font-family:'JetBrains Mono',monospace;
+  font-size:10px;text-align:center;padding:12px}
+.article-img-ph-icon{font-size:24px;opacity:0.15}
+.article-body{}
+.article-title{font-size:13px;font-weight:500;color:#f1efe8;margin-bottom:10px;line-height:1.5}
+.article-text{font-size:14px;color:var(--text2);line-height:1.85;
+  font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif}
+.article-storage{font-size:11px;color:var(--text4);margin-top:10px;
+  font-family:'JetBrains Mono',monospace;letter-spacing:0.06em}
+.article-divider{text-align:center;color:var(--text4);font-size:13px;
+  letter-spacing:0.3em;padding:28px 0;opacity:0.4}
+
+.empty-state{padding:36px 20px;text-align:center}
+.empty-icon{font-size:30px;opacity:0.2;margin-bottom:12px}
+.empty-title{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text4);
+  letter-spacing:0.08em;margin-bottom:6px}
+.empty-desc{font-size:13px;color:var(--text4);line-height:1.7;
+  font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;max-width:320px;margin:0 auto}
+
+.mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:0.5px solid var(--border);z-index:1000}
+.mob-nav-inner{display:flex}
+.mob-nav a{flex:1;text-decoration:none;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:9px 4px 11px;gap:3px;font-family:'JetBrains Mono',monospace;
+  font-size:10px;color:var(--text3);transition:color 0.15s;min-height:54px}
+.mob-nav a.active{color:var(--accent)}
+@media(max-width:600px){
+  .nav a:not(.nav-logo){display:none}.nav-eng{display:none}
+  .mob-nav{display:block}body{padding-bottom:54px}
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html" class="nav-logo">ORBAT</a>
+  <a href="world.html">Мир</a>
+  <a href="peoples.html">Народы</a>
+  <a href="artifacts.html" class="active">Артефакты</a>
+  <div class="nav-eng"><a href="orbat_engine.html">⚙ Движок</a></div>
+</nav>
+<div class="spacer"></div>
+<div class="hdr">
+  <h1>Артефакты</h1>
+  <p>Находки · Сказки народов · Реликвии</p>
+</div>
+
+<div class="content">
+
+  <div class="section-label">Реликвии</div>
+
+  <div class="article">
+    <div class="article-img-wrap">
+      <img src="artifacts/artifact1.jpg"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="article-img-ph">
+        <div class="article-img-ph-icon">📷</div>
+        <div>artifacts/artifact1.jpg</div>
+      </div>
+    </div>
+    <div class="article-body">
+      <div class="article-title">Отпечаток ноги · Юго-восточное побережье — ок. −100 000</div>
+      <div class="article-text">Отпечаток левой ступни взрослого человека в затвердевшей вулканической золе. Обнаружен при раскопках угольного горизонта на глубине 5.2 м. Размер соответствует современному 42-му. Давление на пятку незначительное — человек стоял или медленно шёл, не бежал. Направление — на север, в сторону ледника. Древнейший прямой след присутствия человека на континенте.</div>
+      <div class="article-storage">Место хранения: Музей</div>
+    </div>
+  </div>
+
+  <div class="article-divider">· · ·</div>
+
+  <div class="section-label">Сказки</div>
+  <div class="empty-state">
+    <div class="empty-icon">📖</div>
+    <div class="empty-title">Пока нет записанных преданий</div>
+    <div class="empty-desc">Устная традиция появится когда у народов накопится достаточно истории.</div>
+  </div>
+
+</div>
+
+<nav class="mob-nav">
+  <div class="mob-nav-inner">
+    <a href="index.html"><span>◎</span>Главная</a>
+    <a href="world.html"><span>🌍</span>Мир</a>
+    <a href="peoples.html"><span>👥</span>Народы</a>
+    <a href="artifacts.html" class="active"><span>🏺</span>Артефакты</a>
+    <a href="orbat_engine.html"><span>⚙</span>Движок</a>
+  </div>
+</nav>
+</body>
+</html>

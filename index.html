@@ -1,79 +1,165 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ORBAT — Оррим</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { font-family: 'Courier New', monospace; background: #0f0f17; color: #d1d5db; }
-        .accent { color: #c4855a; }
-        .card { background: #1a1a24; border: 1px solid #374151; }
-        .card:hover { border-color: #c4855a; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ORBAT — Мир</title>
+<link rel="icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#1a1a18;--bg2:#202020;--bg3:#282826;--bg4:#111110;
+  --border:#2e2e2c;--border2:#252523;
+  --text:#d4d2cc;--text2:#b0aea8;--text3:#777;--text4:#444;
+  --accent:#c87840;--radius:5px;--nav:52px;
+}
+html{font-size:15px;-webkit-text-size-adjust:100%}
+body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.7}
+.nav{position:fixed;top:0;left:0;right:0;background:var(--bg);border-bottom:0.5px solid var(--border);
+  padding:0 20px;display:flex;align-items:center;gap:4px;z-index:1000;height:var(--nav)}
+.nav-logo{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;color:#f1efe8;
+  letter-spacing:0.12em;padding:0 14px 0 0;margin-right:8px;border-right:0.5px solid var(--border);
+  text-decoration:none;white-space:nowrap}
+.nav a:not(.nav-logo){text-decoration:none;color:var(--text3);font-family:'JetBrains Mono',monospace;
+  font-size:12px;padding:0 12px;height:34px;display:flex;align-items:center;border-radius:var(--radius);
+  white-space:nowrap;transition:color 0.15s,background 0.15s;letter-spacing:0.04em}
+.nav a:not(.nav-logo):hover{color:#f1efe8;background:var(--bg3)}
+.nav-eng{margin-left:auto}
+.nav-eng a{border:0.5px solid var(--border) !important;background:var(--bg2) !important}
+.nav-eng a:hover{border-color:#555 !important}
+.spacer{height:var(--nav)}
+.hero{padding:56px 24px 44px;text-align:center;border-bottom:0.5px solid var(--border2)}
+.hero-eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.18em;
+  color:var(--text4);text-transform:uppercase;margin-bottom:16px}
+.hero-title{font-size:44px;font-weight:300;color:#f1efe8;letter-spacing:0.08em;margin-bottom:10px;line-height:1.1}
+.hero-sub{font-size:14px;color:var(--text3);letter-spacing:0.04em;font-style:italic}
+.hero-meta{margin-top:28px;display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
+.hero-stat .v{font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--accent);font-weight:500}
+.hero-stat .l{font-size:10px;color:var(--text4);letter-spacing:0.1em;text-transform:uppercase;margin-top:3px}
+.epoch-strip{background:var(--bg4);border-top:0.5px solid var(--border2);border-bottom:0.5px solid var(--border2);
+  padding:9px 20px;display:flex;align-items:center;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.epoch-strip-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text4);
+  white-space:nowrap;letter-spacing:0.1em;flex-shrink:0}
+.ep-current{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);
+  border:0.5px solid rgba(200,120,64,0.25);background:rgba(200,120,64,0.05);
+  padding:4px 10px;border-radius:3px;white-space:nowrap}
+.ep-future{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text4);
+  white-space:nowrap;padding:4px 8px}
+.main{max-width:800px;margin:0 auto;padding:28px 20px}
+.section-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;
+  color:var(--text4);text-transform:uppercase;margin-bottom:10px;
+  display:flex;align-items:center;gap:10px}
+.section-label::after{content:'';flex:1;height:0.5px;background:var(--border2)}
+.engine-card{display:block;text-decoration:none;color:inherit;
+  background:var(--bg2);border:0.5px solid var(--border);border-left:3px solid var(--accent);
+  border-radius:var(--radius);padding:18px 20px;margin-bottom:28px;transition:border-color 0.15s,background 0.15s}
+.engine-card:hover{border-color:#555;background:var(--bg3)}
+.engine-card-inner{display:flex;align-items:flex-start;gap:14px}
+.engine-icon{font-size:20px;opacity:0.6;flex-shrink:0;margin-top:2px}
+.engine-title{font-family:'JetBrains Mono',monospace;font-size:14px;color:#f1efe8;
+  margin-bottom:5px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.badge{font-size:10px;padding:2px 6px;border-radius:3px;background:var(--bg3);
+  border:0.5px solid var(--border);color:var(--text3);font-family:'JetBrains Mono',monospace}
+.engine-desc{font-size:13px;color:var(--text3);line-height:1.6;
+  font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;margin-top:2px}
+.cards-grid{display:grid;grid-template-columns:1fr;gap:8px}
+@media(min-width:480px){.cards-grid{grid-template-columns:1fr 1fr 1fr}}
+.card{display:block;text-decoration:none;color:inherit;
+  background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);
+  padding:16px 16px 14px;transition:border-color 0.15s,background 0.15s}
+.card:hover{border-color:#555;background:var(--bg3)}
+.card-icon{font-size:17px;margin-bottom:9px;opacity:0.55}
+.card-title{font-family:'JetBrains Mono',monospace;font-size:12px;color:#ddd;margin-bottom:4px}
+.card-desc{font-size:12px;color:var(--text3);line-height:1.5;font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif}
+.foot{margin-top:28px;padding-top:16px;border-top:0.5px solid var(--border2);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text4)}
+.mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--bg);
+  border-top:0.5px solid var(--border);z-index:1000}
+.mob-nav-inner{display:flex}
+.mob-nav a{flex:1;text-decoration:none;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:9px 4px 11px;gap:3px;font-family:'JetBrains Mono',monospace;
+  font-size:10px;color:var(--text3);transition:color 0.15s;min-height:54px}
+.mob-nav a.active{color:var(--accent)}
+.mob-nav-icon{font-size:15px}
+@media(max-width:600px){
+  .nav a:not(.nav-logo){display:none}.nav-eng{display:none}
+  .mob-nav{display:block}body{padding-bottom:54px}
+  .hero{padding:40px 16px 32px}.hero-title{font-size:34px}
+  .main{padding:20px 16px}
+}
+</style>
 </head>
-<body class="p-8 max-w-6xl mx-auto">
-
-    <div class="border-b border-[#c4855a] pb-8 mb-12">
-        <h1 class="text-5xl font-bold tracking-tighter">ORBAT <span class="accent">ОРРИМ</span></h1>
-        <p class="text-zinc-500 mt-2">Worldbuilding проект • От -100 000 до 1952 • Только лор</p>
+<body>
+<nav class="nav">
+  <a href="index.html" class="nav-logo">ORBAT</a>
+  <a href="world.html">Мир</a>
+  <a href="peoples.html">Народы</a>
+  <a href="artifacts.html">Артефакты</a>
+  <div class="nav-eng"><a href="orbat_engine.html">⚙ Движок</a></div>
+</nav>
+<div class="spacer"></div>
+<div class="hero">
+  <div class="hero-eyebrow">Стратегическая война · 1952 н.э.</div>
+  <div class="hero-title">ORBAT</div>
+  <div class="hero-sub">Мир · Итерация 1</div>
+  <div class="hero-meta">
+    <div class="hero-stat"><div class="v">−100 000</div><div class="l">Текущая эпоха</div></div>
+    <div class="hero-stat"><div class="v">~700</div><div class="l">Первые люди</div></div>
+    <div class="hero-stat"><div class="v">1952</div><div class="l">Игровой год</div></div>
+  </div>
+</div>
+<div class="epoch-strip">
+  <span class="epoch-strip-label">ЭРА</span>
+  <span class="ep-current">−100 000 · Эра Первых Людей</span>
+  <span class="ep-future">···</span>
+  <span class="ep-future">1952</span>
+</div>
+<div class="main">
+  <div class="section-label">Движок</div>
+  <a href="orbat_engine.html" class="engine-card">
+    <div class="engine-card-inner">
+      <div class="engine-icon">⚙</div>
+      <div>
+        <div class="engine-title">ORBAT Engine<span class="badge">GDScript</span><span class="badge">Godot</span><span class="badge">XML</span></div>
+        <div class="engine-desc">Игронезависимый фреймворк управления боем. BattleState, Commander, ROE, Perception, Net Data. Одна логика для дивизии NATO и битвы при Хельмовой пади.</div>
+      </div>
     </div>
-
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-
-        <div class="space-y-8">
-            <div class="card p-8">
-                <h2 class="text-xl accent mb-4">О проекте</h2>
-                <p class="text-sm leading-relaxed text-zinc-400">
-                    Один континент. Один перешеек входа людей. 100 000 лет истории от ледникового максимума до индустриальной эпохи.<br>
-                    Никакой магии. Только климат, миграции, демография и последствия.
-                </p>
-            </div>
-
-            <div class="card p-8">
-                <h2 class="text-xl accent mb-4">Статус итераций</h2>
-                <table class="w-full text-sm">
-                    <tr class="border-b border-zinc-700"><td class="py-3 accent">1</td><td>-100 000 … -80 000</td><td class="text-emerald-400">Завершена</td></tr>
-                    <tr class="border-b border-zinc-700"><td class="py-3">2</td><td>-80 000 … -60 000</td><td class="text-amber-400">Ожидает</td></tr>
-                    <tr><td class="py-3">9</td><td>+1700 … 1952</td><td class="text-zinc-500">Планируется</td></tr>
-                </table>
-            </div>
-        </div>
-
-        <div class="space-y-8">
-            <div class="card p-8">
-                <h2 class="text-xl accent mb-4">Разделы проекта</h2>
-                <div class="grid grid-cols-1 gap-3 text-sm">
-                    <a href="orbat_map.html" class="block p-4 hover:bg-zinc-900 border border-transparent hover:border-[#c4855a]">🗺 Карты Azgaar</a>
-                    <a href="orbat_timeline.html" class="block p-4 hover:bg-zinc-900 border border-transparent hover:border-[#c4855a]">📅 Таймлайн</a>
-                    <a href="orbat_cultures.html" class="block p-4 hover:bg-zinc-900 border border-transparent hover:border-[#c4855a]">👥 Культуры</a>
-                    <a href="orbat_languages.html" class="block p-4 hover:bg-zinc-900 border border-transparent hover:border-[#c4855a]">🗣 Языки</a>
-                    <a href="orbat_history.html" class="block p-4 hover:bg-zinc-900 border border-transparent hover:border-[#c4855a]">📜 История</a>
-                    <a href="orbat_codex.html" class="block p-4 hover:bg-zinc-900 border border-transparent hover:border-[#c4855a]">📋 Кодекс</a>
-                </div>
-            </div>
-
-            <div class="card p-8">
-                <h2 class="text-xl accent mb-4">Три державы 1952</h2>
-                <div class="space-y-4 text-sm">
-                    <div><span class="accent">■</span> Улламская Империя — запад, морская, упадок</div>
-                    <div><span class="accent">■</span> Центральная Республика — центр, индустрия</div>
-                    <div><span class="accent">■</span> Степная Федерация — восток, аграрная автократия</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="mt-16 text-center">
-        <a href="orbat_engine.html" onclick="alert('orbat_engine.html — табу. Не трогать. Делает другой человек.')" 
-           class="inline-block px-10 py-4 bg-zinc-900 border border-zinc-700 hover:border-red-600 text-sm">
-            ⚠ ORBAT ENGINE (табу)
-        </a>
-    </div>
-
-    <footer class="mt-20 text-center text-xs text-zinc-600">
-        ORBAT Worldbuilding Project · 2026
-    </footer>
-
+  </a>
+  <div class="section-label">Мир</div>
+  <div class="cards-grid">
+    <a href="world.html" class="card">
+      <div class="card-icon">🌍</div>
+      <div class="card-title">История мира</div>
+      <div class="card-desc">Хронология · Карты · Находки</div>
+    </a>
+    <a href="peoples.html" class="card">
+      <div class="card-icon">👥</div>
+      <div class="card-title">Народы</div>
+      <div class="card-desc">Культуры · Языки · Происхождение</div>
+    </a>
+    <a href="artifacts.html" class="card">
+      <div class="card-icon">🏺</div>
+      <div class="card-title">Артефакты</div>
+      <div class="card-desc">Находки · Маркеры · Источники</div>
+    </a>
+  </div>
+  <div class="foot">
+    <span>Эра Первых Людей · −100 000 до н.э.</span>
+    <span>Итерация 1 · 1 культура · ~700 чел.</span>
+  </div>
+</div>
+<nav class="mob-nav">
+  <div class="mob-nav-inner">
+    <a href="index.html" class="active"><span class="mob-nav-icon">◎</span>Главная</a>
+    <a href="world.html"><span class="mob-nav-icon">🌍</span>Мир</a>
+    <a href="peoples.html"><span class="mob-nav-icon">👥</span>Народы</a>
+    <a href="artifacts.html"><span class="mob-nav-icon">🏺</span>Артефакты</a>
+    <a href="orbat_engine.html"><span class="mob-nav-icon">⚙</span>Движок</a>
+  </div>
+</nav>
 </body>
 </html>
