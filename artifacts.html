@@ -35,7 +35,6 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
 .hdr h1{font-size:17px;font-weight:400;color:#f1efe8}
 .hdr p{font-size:12px;color:var(--text4);margin-top:3px;font-family:'JetBrains Mono',monospace}
 .content{padding:20px;max-width:860px}
-
 .section-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;
   color:var(--text4);text-transform:uppercase;margin-bottom:12px;
   display:flex;align-items:center;gap:10px}
@@ -43,14 +42,19 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
 
 .article{margin-bottom:0;display:grid;grid-template-columns:1fr;gap:14px}
 @media(min-width:560px){.article{grid-template-columns:200px 1fr}}
-.article-img-wrap{position:relative;background:#111;border:0.5px solid var(--border);
-  border-radius:var(--radius);overflow:hidden;min-height:160px;align-self:start}
-.article-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;min-height:160px}
+
+.article-img-wrap{background:#111;border:0.5px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;min-height:160px;align-self:start;
+  cursor:pointer;display:flex;align-items:stretch}
+.article-img-wrap img{width:100%;object-fit:cover;display:none;transition:opacity 0.15s}
+.article-img-wrap img.loaded{display:block}
+.article-img-wrap:hover img.loaded{opacity:0.85}
 .article-img-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;
-  position:absolute;inset:0;gap:6px;color:var(--text4);font-family:'JetBrains Mono',monospace;
+  width:100%;min-height:160px;gap:6px;color:var(--text4);font-family:'JetBrains Mono',monospace;
   font-size:10px;text-align:center;padding:12px}
+.article-img-ph.hidden{display:none}
 .article-img-ph-icon{font-size:24px;opacity:0.15}
-.article-body{}
+
 .article-title{font-size:13px;font-weight:500;color:#f1efe8;margin-bottom:10px;line-height:1.5}
 .article-text{font-size:14px;color:var(--text2);line-height:1.85;
   font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif}
@@ -58,6 +62,12 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
   font-family:'JetBrains Mono',monospace;letter-spacing:0.06em}
 .article-divider{text-align:center;color:var(--text4);font-size:13px;
   letter-spacing:0.3em;padding:28px 0;opacity:0.4}
+
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);
+  z-index:2000;align-items:center;justify-content:center;cursor:pointer;padding:24px}
+.lightbox.on{display:flex}
+.lightbox img{max-width:100%;max-height:100%;object-fit:contain;
+  border-radius:var(--radius);box-shadow:0 4px 40px rgba(0,0,0,0.5)}
 
 .empty-state{padding:36px 20px;text-align:center}
 .empty-icon{font-size:30px;opacity:0.2;margin-bottom:12px}
@@ -97,9 +107,10 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
   <div class="section-label">Реликвии</div>
 
   <div class="article">
-    <div class="article-img-wrap">
+    <div class="article-img-wrap" onclick="openLightbox('artifacts/artifact1.png')">
       <img src="artifacts/artifact1.png"
-        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        onload="this.classList.add('loaded');this.nextElementSibling.classList.add('hidden')"
+        onerror="this.style.display='none'">
       <div class="article-img-ph">
         <div class="article-img-ph-icon">📷</div>
         <div>artifacts/artifact1.png</div>
@@ -123,6 +134,10 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
 
 </div>
 
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="">
+</div>
+
 <nav class="mob-nav">
   <div class="mob-nav-inner">
     <a href="index.html"><span>◎</span>Главная</a>
@@ -132,5 +147,33 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
     <a href="orbat_engine.html"><span>⚙</span>Движок</a>
   </div>
 </nav>
+
+<script>
+function openLightbox(src) {
+  var img = document.getElementById('lightbox-img');
+  if (!img.src || img.src.indexOf('artifact') === -1) return;
+  img.src = src;
+  document.getElementById('lightbox').classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('on');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeLightbox();
+});
+
+// Only open lightbox if image actually loaded
+document.querySelectorAll('.article-img-wrap').forEach(function(wrap) {
+  wrap.addEventListener('click', function() {
+    var img = wrap.querySelector('img.loaded');
+    if (!img) return;
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox').classList.add('on');
+    document.body.style.overflow = 'hidden';
+  });
+});
+</script>
 </body>
 </html>
