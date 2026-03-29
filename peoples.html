@@ -31,9 +31,19 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
 .nav-eng{margin-left:auto}
 .nav-eng a{border:0.5px solid var(--border) !important;background:var(--bg2) !important}
 .spacer{height:var(--nav)}
-.hdr{padding:18px 20px 16px;border-bottom:0.5px solid var(--border2)}
-.hdr h1{font-size:17px;font-weight:400;color:#f1efe8}
-.hdr p{font-size:12px;color:var(--text4);margin-top:3px;font-family:'JetBrains Mono',monospace}
+.hdr{padding:18px 20px 0;border-bottom:0.5px solid var(--border2)}
+.hdr-inner{max-width:var(--maxw);margin:0 auto}
+.hdr h1{font-size:17px;font-weight:400;color:#f1efe8;padding-bottom:14px}
+.epoch-bar{border-bottom:0.5px solid var(--border2);background:var(--bg2)}
+.epoch-bar-inner{max-width:var(--maxw);margin:0 auto;padding:10px 20px;display:flex;gap:6px;flex-wrap:wrap}
+.eb{padding:6px 14px;border:0.5px solid var(--border);border-radius:var(--radius);
+  cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:11px;background:var(--bg);
+  color:var(--text3);flex-shrink:0;display:flex;flex-direction:column;align-items:center;
+  gap:1px;transition:all 0.15s;min-height:40px;justify-content:center}
+.eb:hover{border-color:#555;color:var(--text)}
+.eb.on{background:var(--bg3);color:#f1efe8;border-color:#555}
+.eb span{font-size:10px;color:var(--text4)}
+.eb.on span{color:#888}
 .content{padding:20px;max-width:var(--maxw);margin:0 auto}
 .st{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;color:var(--text4);
   text-transform:uppercase;letter-spacing:0.14em;margin:22px 0 10px;padding-bottom:6px;
@@ -41,44 +51,43 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
 .st:first-child{margin-top:0}
 
 /* PEOPLE CARD */
-.people-card{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin-bottom:16px}
-.people-header{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:nowrap}
-.people-swatch{width:14px;height:14px;border-radius:3px;flex-shrink:0;border:0.5px solid rgba(255,255,255,0.1)}
-.people-name{font-size:18px;font-weight:400;color:#f1efe8}
+.people-card{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin-bottom:10px}
+.people-card.dead{opacity:0.4}
+.people-card.dead .people-img-wrap{filter:grayscale(1)}
+.dead-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:0.1em;color:#555;border:0.5px solid #2a2a28;background:var(--bg4);
+  padding:2px 8px;border-radius:3px;margin-bottom:10px;text-transform:uppercase}
+.people-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.people-swatch{width:10px;height:10px;border-radius:2px;flex-shrink:0;border:0.5px solid rgba(255,255,255,0.1)}
+.people-name{font-size:17px;font-weight:400;color:#f1efe8}
 .people-meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);margin-left:auto;text-align:right;line-height:1.5}
-.people-desc{font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:16px}
-.people-img-wrap{background:#111;border-radius:var(--radius);overflow:hidden;
-  cursor:pointer;width:90px;height:90px;flex-shrink:0;position:relative}
+.people-img-wrap{background:#111;border-radius:var(--radius);overflow:hidden;cursor:pointer;
+  width:90px;height:90px;flex-shrink:0;position:relative}
 .people-img-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;transition:opacity 0.15s}
 .people-img-wrap img.loaded{display:block}
-.people-img-wrap:hover img.loaded{opacity:0.9}
+.people-img-wrap:hover img.loaded{opacity:0.85}
 .people-img-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;
-  width:100%;min-height:160px;gap:5px;color:var(--text4);font-family:'JetBrains Mono',monospace;
-  font-size:9px;text-align:center;padding:10px;border-bottom:0.5px solid var(--border2)}
+  position:absolute;inset:0;gap:4px;color:var(--text4);font-family:'JetBrains Mono',monospace;
+  font-size:8px;text-align:center;padding:6px}
 .people-img-ph.hidden{display:none}
-.people-img-ph-icon{font-size:20px;opacity:0.15}
-
-/* STAT ROW */
+.people-img-ph-icon{font-size:18px;opacity:0.15}
+.people-desc{font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:14px}
 .stat-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px}
 @media(min-width:480px){.stat-row{grid-template-columns:repeat(4,1fr)}}
 .stat{background:var(--bg3);border:0.5px solid var(--border2);border-radius:var(--radius);padding:9px 11px}
 .stat .l{font-size:10px;color:var(--text3);margin-bottom:3px;font-family:'JetBrains Mono',monospace;letter-spacing:0.06em;text-transform:uppercase}
 .stat .v{font-size:13px;color:var(--text);font-family:'JetBrains Mono',monospace}
-
-/* LANG TABLE */
-.lang-section{margin-top:14px}
+.lang-section{margin-top:12px}
 .lang-title{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text4);
   text-transform:uppercase;letter-spacing:0.12em;margin-bottom:8px}
+.lang-note{font-size:12px;color:var(--text4);font-style:italic;margin-top:6px;margin-bottom:10px;
+  font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;line-height:1.6}
 .lang-table{width:100%;border-collapse:collapse;font-size:13px;font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif}
 .lang-table th{background:var(--bg3);padding:7px 10px;text-align:left;font-size:10px;
   font-weight:500;color:var(--text3);border-bottom:1px solid var(--border);
   font-family:'JetBrains Mono',monospace;letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap}
 .lang-table td{padding:7px 10px;border-bottom:0.5px solid var(--border2);color:var(--text2);vertical-align:top}
 .lang-table tr:last-child td{border-bottom:none}
-.lang-note{font-size:12px;color:var(--text4);font-style:italic;margin-top:8px;
-  font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;line-height:1.6}
-
-/* VOCAB */
 .vocab-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px}
 @media(min-width:480px){.vocab-grid{grid-template-columns:repeat(3,1fr)}}
 @media(min-width:720px){.vocab-grid{grid-template-columns:repeat(4,1fr)}}
@@ -86,26 +95,16 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
   padding:6px 10px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
 .vocab-word{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent)}
 .vocab-gloss{font-size:11px;color:var(--text3)}
-
-/* WILDLANDS */
 .wildlands{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);
-  padding:14px 16px;opacity:0.6}
+  padding:14px 16px;opacity:0.4}
 .wildlands-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
 .wildlands-name{font-size:15px;color:var(--text3);font-style:italic}
 .wildlands-meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text4);margin-left:auto}
-.wildlands-desc{font-size:13px;color:var(--text3);line-height:1.7;
-  font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif}
-
+.wildlands-desc{font-size:13px;color:var(--text3);line-height:1.7;font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif}
 .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);
   z-index:2000;align-items:center;justify-content:center;cursor:pointer;padding:24px}
 .lightbox.on{display:flex}
 .lightbox img{max-width:100%;max-height:100%;object-fit:contain;border-radius:var(--radius)}
-.people-card{margin-bottom:16px}
-.people-card.dead{opacity:0.45;pointer-events:none}
-.people-card.dead .people-img-wrap{filter:grayscale(1)}
-.dead-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;
-  letter-spacing:0.1em;color:#666;border:0.5px solid #333;background:#111;
-  padding:2px 8px;border-radius:3px;margin-bottom:10px;text-transform:uppercase}
 .mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:0.5px solid var(--border);z-index:1000}
 .mob-nav-inner{display:flex}
 .mob-nav a{flex:1;text-decoration:none;display:flex;flex-direction:column;align-items:center;
@@ -128,151 +127,19 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
   <div class="nav-eng"><a href="orbat_engine.html">⚙ Движок</a></div>
 </nav>
 <div class="spacer"></div>
-<div class="hdr"><div style="max-width:var(--maxw);margin:0 auto">
-  <h1>Народы</h1>
-  <p>Эра Расхождения · −80 000 до н.э. · 2 культуры</p>
-</div></div>
+<div class="hdr"><div class="hdr-inner"><h1>Народы</h1></div></div>
 
-<div class="content">
-
-  <div class="people-card">
-    <div class="people-header">
-      <div class="people-img-wrap">
-        <img src="artifacts/people_ullam.png"
-          onload="this.classList.add('loaded');this.nextElementSibling.classList.add('hidden')"
-          onerror="this.style.display='none'">
-        <div class="people-img-ph">
-          <div class="people-img-ph-icon">👤</div>
-        </div>
-      </div>
-      <div style="flex:1">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
-          <div class="people-swatch" style="background:#C4855A;opacity:0.4"></div>
-          <div class="people-name">Уллам</div>
-        </div>
-        <div class="people-meta" style="text-align:left;margin-left:0">Generic · праматерь</div>
-      </div>
-    </div>
-    <div class="people-desc">Первая культура на континенте. Пришли с юга через юго-восточный перешеек — откуда именно и почему неизвестно, это останется загадкой в лоре. Европейский тип внешности. Вопрос «есть ли у тебя уллам?» — первый и главный критерий человека. Дикари для них не уллам.</div>
-
-    <div class="stat-row">
-      <div class="stat"><div class="l">Население</div><div class="v">~3 000</div></div>
-      <div class="stat"><div class="l">Тип</div><div class="v">Generic</div></div>
-      <div class="stat"><div class="l">Происхождение</div><div class="v">неизвестно</div></div>
-      <div class="stat"><div class="l">Территория</div><div class="v">юг, 140 кл.</div></div>
-    </div>
-
-    <div class="lang-section">
-      <div class="lang-title">Язык Уллам (язык Уллам)</div>
-      <div class="lang-note" style="margin-bottom:10px">Язык Уллам — реконструкция лингвистов 1952 года. Как праиндоевропейский для нас. Никто живой на нём не говорит. Неточности и лакуны допустимы.</div>
-      <table class="lang-table">
-        <tr><th>Категория</th><th>Звуки / описание</th></tr>
-        <tr><td>Краткие гласные</td><td>а е и у</td></tr>
-        <tr><td>Долгие гласные</td><td>аа ее ии уу</td></tr>
-        <tr><td>Отсутствует</td><td>о — появится позже как рефлекс Х₃</td></tr>
-        <tr><td>Ларингалы</td><td>Х₁ нейтральный · Х₂ велярный · Х₃ лабиовелярный</td></tr>
-        <tr><td>Обычные согласные</td><td>м н л р к т п с в й</td></tr>
-        <tr><td>Ретрофлексные</td><td>тт нн лл — архаичная черта</td></tr>
-        <tr><td>Структура слога</td><td>CV · CVV · CVC — без скоплений</td></tr>
-        <tr><td>Порядок слов</td><td>SOV</td></tr>
-      </table>
-
-      <div class="st" style="margin-top:16px">Судьба ларингалов в языках-потомках</div>
-      <table class="lang-table">
-        <tr><th>Ветвь</th><th>Х₁</th><th>Х₂</th><th>Х₃</th><th>Результат</th></tr>
-        <tr><td>Северная</td><td>исчезает</td><td>исчезает</td><td>исчезает</td><td>гармония гласных</td></tr>
-        <tr><td>Западная</td><td>удлиняет</td><td>даёт а</td><td>даёт о</td><td>дифтонги, аспирация</td></tr>
-        <tr><td>Степная</td><td>исчезает</td><td>даёт о</td><td>исчезает</td><td>суффиксальная агглютинация</td></tr>
-        <tr><td>Центральная</td><td>исчезает</td><td>даёт а</td><td>лабиализация</td><td>падежи, род</td></tr>
-      </table>
-
-      <div class="st">Краткий словарь (реконструкция 1952)</div>
-      <div class="vocab-grid">
-        <div class="vocab-item"><span class="vocab-word">*улам</span><span class="vocab-gloss">человек, свой</span></div>
-        <div class="vocab-item"><span class="vocab-word">*алла</span><span class="vocab-gloss">земля, почва</span></div>
-        <div class="vocab-item"><span class="vocab-word">*атта</span><span class="vocab-gloss">отец, старший</span></div>
-        <div class="vocab-item"><span class="vocab-word">*амма</span><span class="vocab-gloss">мать, старшая</span></div>
-        <div class="vocab-item"><span class="vocab-word">*тии</span><span class="vocab-gloss">огонь</span></div>
-        <div class="vocab-item"><span class="vocab-word">*каан</span><span class="vocab-gloss">вода, река</span></div>
-        <div class="vocab-item"><span class="vocab-word">*анна</span><span class="vocab-gloss">небо</span></div>
-        <div class="vocab-item"><span class="vocab-word">*мир</span><span class="vocab-gloss">зверь, дичь</span></div>
-        <div class="vocab-item"><span class="vocab-word">*кала</span><span class="vocab-gloss">камень, орудие</span></div>
-        <div class="vocab-item"><span class="vocab-word">*тала</span><span class="vocab-gloss">дерево, лес</span></div>
-        <div class="vocab-item"><span class="vocab-word">*сула</span><span class="vocab-gloss">путь, движение</span></div>
-        <div class="vocab-item"><span class="vocab-word">*нула</span><span class="vocab-gloss">холод, лёд</span></div>
-        <div class="vocab-item"><span class="vocab-word">*вира</span><span class="vocab-gloss">сила, жизнь</span></div>
-        <div class="vocab-item"><span class="vocab-word">*пали</span><span class="vocab-gloss">место стоянки</span></div>
-        <div class="vocab-item"><span class="vocab-word">*рани</span><span class="vocab-gloss">женщина</span></div>
-        <div class="vocab-item"><span class="vocab-word">*кани</span><span class="vocab-gloss">ребёнок</span></div>
-        <div class="vocab-item"><span class="vocab-word">*тума</span><span class="vocab-gloss">смерть</span></div>
-        <div class="vocab-item"><span class="vocab-word">*саан</span><span class="vocab-gloss">солнце</span></div>
-        <div class="vocab-item"><span class="vocab-word">*миин</span><span class="vocab-gloss">рыба</span></div>
-        <div class="vocab-item"><span class="vocab-word">*куур</span><span class="vocab-gloss">гора</span></div>
-        <div class="vocab-item"><span class="vocab-word">*еел</span><span class="vocab-gloss">птица</span></div>
-      </div>
-    </div>
+<div class="epoch-bar">
+  <div class="epoch-bar-inner">
+    <button class="eb" data-era="e100k">−100 000<span>Эра Первых</span></button>
+    <button class="eb on" data-era="e80k">−80 000<span>Расхождение</span></button>
   </div>
+</div>
 
+<div class="content" id="peoples-content"></div>
 
-  <div class="st">Береговые Уллам</div>
-
-  <div class="people-card">
-    <div class="people-header">
-      <div class="people-img-wrap">
-        <img src="artifacts/people_beregovye.png"
-          onload="this.classList.add('loaded');this.nextElementSibling.classList.add('hidden')"
-          onerror="this.style.display='none'">
-        <div class="people-img-ph">
-          <div class="people-img-ph-icon">👤</div>
-        </div>
-      </div>
-      <div style="flex:1">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
-          <div class="people-swatch" style="background:#4A8C7A"></div>
-          <div class="people-name">Береговые Уллам</div>
-        </div>
-        <div class="people-meta" style="text-align:left;margin-left:0">Naval · ~800 чел.<br>Expansion 2.0</div>
-      </div>
-    </div>
-    <div class="people-desc">Откол от ядра Уллам ок. −80 000. Группа двинулась на запад вдоль южного побережья. Первые кто увидел открытое море. Ещё считают себя Уллам — самоназвание появится позже. Первое слово вне языка Уллам: <em>*аала</em> — море.</div>
-
-    <div class="stat-row">
-      <div class="stat"><div class="l">Население</div><div class="v">~800</div></div>
-      <div class="stat"><div class="l">Тип</div><div class="v">Naval</div></div>
-      <div class="stat"><div class="l">Происхождение</div><div class="v">Уллам</div></div>
-      <div class="stat"><div class="l">Территория</div><div class="v">зап. берег</div></div>
-    </div>
-
-    <div class="lang-section">
-      <div class="lang-title">Язык — дрейф от языка Уллам</div>
-      <div class="lang-note" style="margin-bottom:10px">База — язык Уллам. Изменения начались но незначительны. Главное новшество — морская лексика которой нет у ядра.</div>
-
-      <div class="st">Новые слова</div>
-      <div class="vocab-grid">
-        <div class="vocab-item"><span class="vocab-word">*аала</span><span class="vocab-gloss">море</span></div>
-        <div class="vocab-item"><span class="vocab-word">*миил</span><span class="vocab-gloss">волна</span></div>
-        <div class="vocab-item"><span class="vocab-word">*кааре</span><span class="vocab-gloss">берег, бухта</span></div>
-        <div class="vocab-item"><span class="vocab-word">*тула</span><span class="vocab-gloss">плот, лодка</span></div>
-        <div class="vocab-item"><span class="vocab-word">*санни</span><span class="vocab-gloss">прибой</span></div>
-        <div class="vocab-item"><span class="vocab-word">*вираан</span><span class="vocab-gloss">прилив</span></div>
-        <div class="vocab-item"><span class="vocab-word">*налу</span><span class="vocab-gloss">глубина, дно</span></div>
-        <div class="vocab-item"><span class="vocab-word">*пеела</span><span class="vocab-gloss">морская птица</span></div>
-        <div class="vocab-item"><span class="vocab-word">*тиисан</span><span class="vocab-gloss">туман</span></div>
-        <div class="vocab-item"><span class="vocab-word">*каарун</span><span class="vocab-gloss">скала у воды</span></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="st">Фоновое население</div>
-  <div class="wildlands">
-    <div class="wildlands-header">
-      <div class="people-swatch" style="background:#888;opacity:0.5"></div>
-      <div class="wildlands-name">Дикари (Wildlands)</div>
-      <div class="wildlands-meta">~791 · 4583 кл. · неуправляемы</div>
-    </div>
-    <div class="wildlands-desc">Неандертальцы и денисовцы. Рассеяны по всему континенту, ~200 изолированных групп. Каждая группа — своя сигнальная система, не язык. Механически неуправляемы в Azgaar. Будут уничтожены или ассимилированы потомками Уллам.</div>
-  </div>
-
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="">
 </div>
 
 <nav class="mob-nav">
@@ -284,19 +151,181 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
     <a href="orbat_engine.html"><span>⚙</span>Движок</a>
   </div>
 </nav>
-<div class="lightbox" id="lightbox" onclick="closeLightbox()"><img id="lightbox-img" src="" alt=""></div>
+
 <script>
-function closeLightbox(){document.getElementById('lightbox').classList.remove('on');document.body.style.overflow='';}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLightbox();});
-document.querySelectorAll('.people-img-wrap').forEach(function(w){
-  w.addEventListener('click',function(){
-    var img=w.querySelector('img.loaded');
-    if(!img)return;
-    document.getElementById('lightbox-img').src=img.src;
-    document.getElementById('lightbox').classList.add('on');
-    document.body.style.overflow='hidden';
+// ── HELPERS ──────────────────────────────────────────────────────────────────
+function imgWrap(file) {
+  return '<div class="people-img-wrap">'
+    + '<img src="artifacts/'+file+'"'
+    + ' onload="this.classList.add(\'loaded\');this.nextElementSibling.classList.add(\'hidden\')"'
+    + ' onerror="this.style.display=\'none\'">'
+    + '<div class="people-img-ph"><div class="people-img-ph-icon">👤</div></div>'
+    + '</div>';
+}
+
+function header(img, color, name, meta) {
+  return '<div class="people-header">'
+    + imgWrap(img)
+    + '<div style="flex:1">'
+    + '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">'
+    + '<div class="people-swatch" style="background:'+color+'"></div>'
+    + '<div class="people-name">'+name+'</div>'
+    + '</div>'
+    + '<div class="people-meta" style="text-align:left;margin-left:0">'+meta+'</div>'
+    + '</div></div>';
+}
+
+function card(opts) {
+  var dead = opts.dead || false;
+  var cls = 'people-card' + (dead ? ' dead' : '');
+  var deadBadge = dead ? '<div class="dead-badge">⚰ '+opts.deadLabel+'</div>' : '';
+  return '<div class="'+cls+'">'
+    + deadBadge
+    + header(opts.img, opts.color, opts.name + (dead ? ' ⚰' : ''), opts.meta)
+    + '<div class="people-desc">'+opts.desc+'</div>'
+    + (opts.stats || '')
+    + (opts.lang || '')
+    + '</div>';
+}
+
+function stats(pop, type, origin, territory) {
+  return '<div class="stat-row">'
+    + '<div class="stat"><div class="l">Население</div><div class="v">'+pop+'</div></div>'
+    + '<div class="stat"><div class="l">Тип</div><div class="v">'+type+'</div></div>'
+    + '<div class="stat"><div class="l">Происхождение</div><div class="v">'+origin+'</div></div>'
+    + '<div class="stat"><div class="l">Территория</div><div class="v">'+territory+'</div></div>'
+    + '</div>';
+}
+
+function vocabGrid(words) {
+  return '<div class="vocab-grid">'
+    + words.map(function(w){
+        return '<div class="vocab-item"><span class="vocab-word">'+w[0]+'</span><span class="vocab-gloss">'+w[1]+'</span></div>';
+      }).join('')
+    + '</div>';
+}
+
+// ── DATA ─────────────────────────────────────────────────────────────────────
+
+var VOCAB_ULLAM = [
+  ['*улам','человек, свой'],['*алла','земля, почва'],['*атта','отец, старший'],
+  ['*амма','мать, старшая'],['*тии','огонь'],['*каан','вода, река'],
+  ['*анна','небо'],['*мир','зверь, дичь'],['*кала','камень, орудие'],
+  ['*тала','дерево, лес'],['*сула','путь, движение'],['*нула','холод, лёд'],
+  ['*вира','сила, жизнь'],['*пали','место стоянки'],['*рани','женщина'],
+  ['*кани','ребёнок'],['*тума','смерть'],['*саан','солнце'],
+  ['*миин','рыба'],['*куур','гора'],['*еел','птица']
+];
+
+var VOCAB_AALA = [
+  ['*аала','море'],['*миил','волна'],['*кааре','берег, бухта'],
+  ['*тула','плот, лодка'],['*санни','прибой'],['*вираан','прилив'],
+  ['*налу','глубина, дно'],['*пеела','морская птица'],
+  ['*тиисан','туман'],['*каарун','скала у воды']
+];
+
+var LANG_ULLAM = '<div class="lang-section">'
+  + '<div class="lang-title">Язык Уллам (реконструкция 1952)</div>'
+  + '<div class="lang-note">Праязык. Реконструкция лингвистов 1952 года — как праиндоевропейский для нас. Никто живой на нём не говорит.</div>'
+  + '<table class="lang-table">'
+  + '<tr><th>Категория</th><th>Звуки</th></tr>'
+  + '<tr><td>Краткие гласные</td><td>а е и у</td></tr>'
+  + '<tr><td>Долгие гласные</td><td>аа ее ии уу</td></tr>'
+  + '<tr><td>Ларингалы</td><td>Х₁ нейтральный · Х₂ велярный · Х₃ лабиовелярный</td></tr>'
+  + '<tr><td>Ретрофлексные</td><td>тт нн лл — архаичная черта</td></tr>'
+  + '<tr><td>Структура слога</td><td>CV · CVV · CVC — без скоплений</td></tr>'
+  + '<tr><td>Порядок слов</td><td>SOV</td></tr>'
+  + '</table>'
+  + '<div class="st">Краткий словарь</div>'
+  + vocabGrid(VOCAB_ULLAM)
+  + '</div>';
+
+var LANG_AALA = '<div class="lang-section">'
+  + '<div class="lang-title">Язык — дрейф от языка Уллам</div>'
+  + '<div class="lang-note">Ретрофлексные тт/нн/лл исчезли. Х₃ даёт о — первое о в ветви. Будущий тип: западная ветвь → эллинский.</div>'
+  + '<div class="st">Новые слова</div>'
+  + vocabGrid(VOCAB_AALA)
+  + '</div>';
+
+var WILDLANDS = '<div class="st">Фоновое население</div>'
+  + '<div class="wildlands">'
+  + '<div class="wildlands-header">'
+  + '<div class="people-swatch" style="background:#888;opacity:0.4"></div>'
+  + '<div class="wildlands-name">Дикари (Wildlands)</div>'
+  + '<div class="wildlands-meta">~791 · неуправляемы</div>'
+  + '</div>'
+  + '<div class="wildlands-desc">Неандертальцы и денисовцы. Рассеяны по всему континенту, ~200 изолированных групп. Сигнальные системы, не язык. Будут уничтожены или ассимилированы потомками Уллам.</div>'
+  + '</div>';
+
+var ERAS = {
+  e100k: {
+    label: "Эра Первых Людей · −100 000",
+    count: "1 культура · ~700 чел.",
+    render: function() {
+      return card({
+        img: 'people_ullam.png', color: '#C4855A',
+        name: 'Уллам', meta: 'Generic · ~700 чел. · Expansion 0.1',
+        desc: 'Единственная культура на континенте. Пришли с юга через юго-восточный перешеек — откуда именно и почему неизвестно, это останется загадкой в лоре. Европейский тип внешности. Вопрос «есть ли у тебя уллам?» — первый и главный критерий человека.',
+        stats: stats('~700', 'Generic', 'неизвестно', 'юг, 140 кл.'),
+        lang: LANG_ULLAM
+      }) + WILDLANDS;
+    }
+  },
+  e80k: {
+    label: "Эра Расхождения · −80 000",
+    count: "2 культуры · ~4 000 чел.",
+    render: function() {
+      return card({
+        img: 'people_ullam.png', color: '#C4855A',
+        name: 'Уллам', meta: 'Generic · ~3 000 чел. · Expansion 0.1',
+        desc: 'Ядро. Несколько родовых общин которые встречаются сезонно. Ритуал слияния огней *тии-куттам* держит номинальное единство.',
+        stats: stats('~3 000', 'Generic', 'неизвестно', 'юг, центр'),
+        lang: LANG_ULLAM
+      })
+      + card({
+        img: 'people_beregovye.png', color: '#4A8C7A',
+        name: 'Береговые Уллам', meta: 'Naval · ~800 чел. · Expansion 2.0',
+        desc: 'Откол от Уллам ок. −80 000. Западное побережье, движутся на запад вдоль берега. Самоназвание Аала — морские люди. Первые примитивные лодки.',
+        stats: stats('~800', 'Naval', 'Уллам', 'зап. берег'),
+        lang: LANG_AALA
+      })
+      + WILDLANDS;
+    }
+  }
+};
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+function setEra(era) {
+  document.querySelectorAll('.eb').forEach(function(b){
+    b.classList.toggle('on', b.dataset.era === era);
   });
+  document.getElementById('peoples-content').innerHTML = ERAS[era].render();
+  bindLightbox();
+}
+
+function bindLightbox() {
+  document.querySelectorAll('.people-img-wrap').forEach(function(w){
+    w.addEventListener('click', function(){
+      var img = w.querySelector('img.loaded');
+      if (!img) return;
+      document.getElementById('lightbox-img').src = img.src;
+      document.getElementById('lightbox').classList.add('on');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+}
+
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('on');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeLightbox(); });
+
+document.querySelectorAll('.eb').forEach(function(b){
+  b.addEventListener('click', function(){ setEra(b.dataset.era); });
 });
+
+setEra('e80k');
 </script>
 </body>
 </html>
