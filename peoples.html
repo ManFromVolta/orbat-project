@@ -132,7 +132,8 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
 <div class="epoch-bar">
   <div class="epoch-bar-inner">
     <button class="eb" data-era="e100k">−100 000<span>Эра Первых</span></button>
-    <button class="eb on" data-era="e80k">−80 000<span>Расхождение</span></button>
+    <button class="eb" data-era="e80k">−80 000<span>Расхождение</span></button>
+    <button class="eb on" data-era="e60k">−60 000<span>Эра Мёртвых</span></button>
   </div>
 </div>
 
@@ -247,6 +248,12 @@ var LANG_AALA = '<div class="lang-section">'
   + vocabGrid(VOCAB_AALA)
   + '</div>';
 
+
+var LANG_BOLOTNYYE = '<div class="lang-section">'
+  + '<div class="lang-title">Язык — архаичный изолят</div>'
+  + '<div class="lang-note">Самый консервативный из всех потомков языка Уллам. Ретрофлексные тт/нн/лл сохранились — у всех остальных исчезают. Ритуальный консерватизм запрещает менять язык мёртвых. Будущий тип — изолят.</div>'
+  + '</div>';
+
 var WILDLANDS = '<div class="st">Фоновое население</div>'
   + '<div class="wildlands">'
   + '<div class="wildlands-header">'
@@ -269,6 +276,35 @@ var ERAS = {
         stats: stats('~700', 'Generic', 'неизвестно', 'юг, 140 кл.'),
         lang: LANG_ULLAM
       }) + WILDLANDS;
+    }
+  },
+
+  e60k: {
+    label: "Эра Мёртвых · −60 000",
+    count: "3 культуры · ~10 000 чел.",
+    render: function() {
+      return card({
+        img: 'people_ullam_60k.png', color: '#C4855A',
+        name: 'Уллам', meta: 'Generic · ~8 000 чел. · Expansion 0.1',
+        desc: 'Ядро. Номинально единый народ, фактически несколько слабо связанных родовых групп. Ритуал слияния огней *тии-куттам* ещё держит единство — но это уже скорее традиция чем живая практика.',
+        stats: stats('~8 000', 'Generic', 'неизвестно', 'юг, центр'),
+        lang: LANG_ULLAM
+      })
+      + card({
+        img: 'people_beregovye_60k.png', color: '#4A8C7A',
+        name: 'Аала', meta: 'Naval · ~1 500 чел. · Expansion 2.0',
+        desc: 'Береговые Уллам, окончательно оформились как отдельная культура. Самоназвание Аала — морские люди. Первые полноценные лодки для каботажа вдоль берега. Контакт с ядром утрачен.',
+        stats: stats('~1 500', 'Naval', 'Уллам', 'зап. берег'),
+        lang: LANG_AALA
+      })
+      + card({
+        img: 'people_bolotnyye.png', color: '#4A5A38',
+        name: 'Болотные Уллам', meta: 'Generic · ~400 чел. · Expansion 0.1',
+        desc: 'Откол ок. −60 000. Ядро Уллам провело по ним похоронный обряд — они ушли в болота как мёртвые. Приняли это и построили вокруг этого всю культуру. Самоназвание *Тумаллам — в разработке. Старейший мёртвый важнее любого живого.',
+        stats: stats('~400', 'Изолят', 'Уллам', 'вост. болота'),
+        lang: LANG_BOLOTNYYE
+      })
+      + WILDLANDS;
     }
   },
   e80k: {
@@ -325,7 +361,7 @@ document.querySelectorAll('.eb').forEach(function(b){
   b.addEventListener('click', function(){ setEra(b.dataset.era); });
 });
 
-setEra('e80k');
+setEra('e60k');
 </script>
 </body>
 </html>
