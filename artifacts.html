@@ -35,16 +35,17 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
 .hdr h1{font-size:17px;font-weight:400;color:#f1efe8}
 .hdr p{font-size:12px;color:var(--text4);margin-top:3px;font-family:'JetBrains Mono',monospace}
 .content{padding:20px;max-width:860px}
+
 .section-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;
   color:var(--text4);text-transform:uppercase;margin-bottom:12px;
   display:flex;align-items:center;gap:10px}
 .section-label::after{content:'';flex:1;height:0.5px;background:var(--border2)}
 
-.article{margin-bottom:0;display:grid;grid-template-columns:1fr;gap:14px}
+/* ARTICLE — для находок */
+.article{margin-bottom:20px;display:grid;grid-template-columns:1fr;gap:14px}
 @media(min-width:560px){.article{grid-template-columns:200px 1fr}}
-
 .article-img-wrap{background:#111;border:0.5px solid var(--border);
-  border-radius:var(--radius);overflow:hidden;min-height:160px;align-self:start;
+  border-radius:var(--radius);overflow:hidden;align-self:start;
   cursor:pointer;display:flex;align-items:stretch}
 .article-img-wrap img{width:100%;object-fit:cover;display:none;transition:opacity 0.15s}
 .article-img-wrap img.loaded{display:block}
@@ -54,27 +55,48 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
   font-size:10px;text-align:center;padding:12px}
 .article-img-ph.hidden{display:none}
 .article-img-ph-icon{font-size:24px;opacity:0.15}
-
 .article-title{font-size:13px;font-weight:500;color:#f1efe8;margin-bottom:10px;line-height:1.5}
 .article-text{font-size:14px;color:var(--text2);line-height:1.85;
   font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif}
 .article-storage{font-size:11px;color:var(--text4);margin-top:10px;
   font-family:'JetBrains Mono',monospace;letter-spacing:0.06em}
 .article-divider{text-align:center;color:var(--text4);font-size:13px;
-  letter-spacing:0.3em;padding:28px 0;opacity:0.4}
+  letter-spacing:0.3em;padding:24px 0;opacity:0.4}
+
+/* RELIC — для реликвий */
+.relic{margin-bottom:20px;display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:560px){.relic{grid-template-columns:200px 1fr}}
+.relic-img-wrap{background:#111;border:0.5px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;align-self:start;
+  cursor:pointer;display:flex;align-items:stretch}
+.relic-img-wrap img{width:100%;object-fit:cover;display:none;transition:opacity 0.15s}
+.relic-img-wrap img.loaded{display:block}
+.relic-img-wrap:hover img.loaded{opacity:0.85}
+.relic-img-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  width:100%;min-height:160px;gap:6px;color:var(--text4);font-family:'JetBrains Mono',monospace;
+  font-size:10px;text-align:center;padding:12px}
+.relic-img-ph.hidden{display:none}
+.relic-img-ph-icon{font-size:24px;opacity:0.15}
+.relic-title{font-size:15px;font-weight:500;color:#f1efe8;margin-bottom:4px;line-height:1.4}
+.relic-sub{font-size:11px;color:var(--accent);font-family:'JetBrains Mono',monospace;
+  letter-spacing:0.06em;margin-bottom:10px}
+.relic-text{font-size:14px;color:var(--text2);line-height:1.85;
+  font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif}
+.relic-storage{font-size:11px;color:var(--text4);margin-top:10px;
+  font-family:'JetBrains Mono',monospace;letter-spacing:0.06em}
+
+.empty-state{padding:32px 0;text-align:center}
+.empty-icon{font-size:28px;opacity:0.15;margin-bottom:10px}
+.empty-title{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text4);
+  letter-spacing:0.08em;margin-bottom:5px}
+.empty-desc{font-size:12px;color:var(--text4);line-height:1.7;
+  font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;max-width:320px;margin:0 auto}
 
 .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);
   z-index:2000;align-items:center;justify-content:center;cursor:pointer;padding:24px}
 .lightbox.on{display:flex}
 .lightbox img{max-width:100%;max-height:100%;object-fit:contain;
   border-radius:var(--radius);box-shadow:0 4px 40px rgba(0,0,0,0.5)}
-
-.empty-state{padding:36px 20px;text-align:center}
-.empty-icon{font-size:30px;opacity:0.2;margin-bottom:12px}
-.empty-title{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text4);
-  letter-spacing:0.08em;margin-bottom:6px}
-.empty-desc{font-size:13px;color:var(--text4);line-height:1.7;
-  font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;max-width:320px;margin:0 auto}
 
 .mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:0.5px solid var(--border);z-index:1000}
 .mob-nav-inner{display:flex}
@@ -85,6 +107,7 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
 @media(max-width:600px){
   .nav a:not(.nav-logo){display:none}.nav-eng{display:none}
   .mob-nav{display:block}body{padding-bottom:54px}
+  .content{padding:16px}
 }
 </style>
 </head>
@@ -99,24 +122,24 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
 <div class="spacer"></div>
 <div class="hdr">
   <h1>Артефакты</h1>
-  <p>Находки · Сказки народов · Реликвии</p>
+  <p>Находки · Реликвии · Сказки</p>
 </div>
 
 <div class="content">
 
-  <div class="section-label">Реликвии</div>
+  <div class="section-label">Находки</div>
 
   <div class="article">
-    <div class="article-img-wrap" onclick="openLightbox('artifacts/artifact1.png')">
+    <div class="article-img-wrap">
       <img src="artifacts/artifact1.png"
         onload="this.classList.add('loaded');this.nextElementSibling.classList.add('hidden')"
         onerror="this.style.display='none'">
       <div class="article-img-ph">
         <div class="article-img-ph-icon">📷</div>
-        <div>artifacts/artifact1.png</div>
+        <div>artifact1.png</div>
       </div>
     </div>
-    <div class="article-body">
+    <div>
       <div class="article-title">Отпечаток ноги · Юго-восточное побережье — ок. −100 000</div>
       <div class="article-text">Отпечаток левой ступни взрослого человека в затвердевшей вулканической золе. Обнаружен при раскопках угольного горизонта на глубине 5.2 м. Размер соответствует современному 42-му. Давление на пятку незначительное — человек стоял или медленно шёл, не бежал. Направление — на север, в сторону ледника. Древнейший прямой след присутствия человека на континенте.</div>
       <div class="article-storage">Место хранения: Музей</div>
@@ -125,7 +148,33 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
 
   <div class="article-divider">· · ·</div>
 
-  <div class="section-label">Сказки</div>
+  <div class="article">
+    <div class="article-img-wrap">
+      <img src="artifacts/artifact2.png"
+        onload="this.classList.add('loaded');this.nextElementSibling.classList.add('hidden')"
+        onerror="this.style.display='none'">
+      <div class="article-img-ph">
+        <div class="article-img-ph-icon">📷</div>
+        <div>artifact2.png</div>
+      </div>
+    </div>
+    <div>
+      <div class="article-title">Составное копьё · Центральная часть южной полосы — ок. −80 000</div>
+      <div class="article-text">Кремниевый наконечник длиной 8 см с боковой канавкой под крепление. Древко не сохранилось. Следы растительного волокна в канавке указывают на намеренное связывание. Техника обработки камня отличается от всего что известно для этого периода в регионе — более тонкое скалывание, контроль формы. Первое составное орудие на континенте. Требовало предварительного замысла: три компонента изготавливались отдельно и собирались в единое целое.</div>
+      <div class="article-storage">Место хранения: Музей</div>
+    </div>
+  </div>
+
+  <div class="article-divider">· · ·</div>
+
+  <div class="section-label">Реликвии</div>
+  <div class="empty-state">
+    <div class="empty-icon">⚜️</div>
+    <div class="empty-title">Пока нет реликвий</div>
+    <div class="empty-desc">Предметы с именем и историческим весом появятся позже.</div>
+  </div>
+
+  <div class="section-label" style="margin-top:8px">Сказки</div>
   <div class="empty-state">
     <div class="empty-icon">📖</div>
     <div class="empty-title">Пока нет записанных преданий</div>
@@ -149,29 +198,18 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
 </nav>
 
 <script>
-function openLightbox(src) {
-  var img = document.getElementById('lightbox-img');
-  if (!img.src || img.src.indexOf('artifact') === -1) return;
-  img.src = src;
-  document.getElementById('lightbox').classList.add('on');
-  document.body.style.overflow = 'hidden';
-}
-function closeLightbox() {
+function closeLightbox(){
   document.getElementById('lightbox').classList.remove('on');
-  document.body.style.overflow = '';
+  document.body.style.overflow='';
 }
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeLightbox();
-});
-
-// Only open lightbox if image actually loaded
-document.querySelectorAll('.article-img-wrap').forEach(function(wrap) {
-  wrap.addEventListener('click', function() {
-    var img = wrap.querySelector('img.loaded');
-    if (!img) return;
-    document.getElementById('lightbox-img').src = img.src;
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLightbox();});
+document.querySelectorAll('.article-img-wrap,.relic-img-wrap').forEach(function(wrap){
+  wrap.addEventListener('click',function(){
+    var img=wrap.querySelector('img.loaded');
+    if(!img)return;
+    document.getElementById('lightbox-img').src=img.src;
     document.getElementById('lightbox').classList.add('on');
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow='hidden';
   });
 });
 </script>

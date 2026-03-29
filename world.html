@@ -30,7 +30,6 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
 .nav a.active{color:var(--accent) !important}
 .nav-eng{margin-left:auto}
 .nav-eng a{border:0.5px solid var(--border) !important;background:var(--bg2) !important}
-.nav-eng a:hover{border-color:#555 !important}
 .spacer{height:var(--nav)}
 .hdr{padding:18px 20px 0;border-bottom:0.5px solid var(--border2)}
 .hdr h1{font-size:17px;font-weight:400;color:#f1efe8;padding-bottom:14px}
@@ -41,42 +40,31 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
   white-space:nowrap;transition:all 0.15s}
 .tab:hover{color:var(--text)}
 .tab.on{color:#f1efe8;border-bottom-color:var(--accent)}
+.epoch-bar{display:flex;gap:6px;padding:10px 16px;background:var(--bg2);
+  border-bottom:0.5px solid var(--border2);flex-wrap:wrap;overflow-x:auto}
+.eb{padding:6px 14px;border:0.5px solid var(--border);border-radius:var(--radius);
+  cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:11px;background:var(--bg);
+  color:var(--text3);flex-shrink:0;display:flex;flex-direction:column;align-items:center;
+  gap:1px;transition:all 0.15s;min-height:40px;justify-content:center}
+.eb:hover{border-color:#555;color:var(--text)}
+.eb.on{background:var(--bg3);color:#f1efe8;border-color:#555}
+.eb span{font-size:10px;color:var(--text4)}
+.eb.on span{color:#888}
 .tab-panel{display:none}
 .tab-panel.on{display:block}
 .content{padding:20px;max-width:860px}
-
-/* CHRONO */
 .era-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;
   letter-spacing:0.14em;color:var(--accent);border:0.5px solid rgba(200,120,64,0.25);
   background:rgba(200,120,64,0.05);padding:3px 9px;border-radius:3px;margin-bottom:14px;text-transform:uppercase}
-.chrono-text{font-size:14px;color:var(--text2);line-height:1.85;margin-bottom:20px;
-  white-space:pre-line}
-.chrono-text strong{color:#f1efe8;font-weight:600}
+.chrono-text{font-size:14px;color:var(--text2);line-height:1.85;margin-bottom:20px}
 .st{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;color:var(--text4);
-  text-transform:uppercase;letter-spacing:0.14em;margin:22px 0 10px;padding-bottom:6px;
+  text-transform:uppercase;letter-spacing:0.14em;margin:20px 0 10px;padding-bottom:6px;
   border-bottom:0.5px solid var(--border2)}
-.climate-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px}
+.climate-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 @media(min-width:480px){.climate-grid{grid-template-columns:repeat(4,1fr)}}
 .cc{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);padding:10px 12px;text-align:center}
 .cc .l{font-size:10px;color:var(--text3);margin-bottom:4px;font-family:'JetBrains Mono',monospace;letter-spacing:0.06em;text-transform:uppercase}
 .cc .v{font-size:16px;font-weight:500;color:#a0c880;font-family:'JetBrains Mono',monospace}
-
-/* MARKERS */
-.marker{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);
-  padding:14px 16px;margin-bottom:10px}
-.marker-header{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px}
-.marker-emoji{font-size:18px;flex-shrink:0;margin-top:1px}
-.marker-meta{flex:1}
-.marker-id{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text4);
-  letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px}
-.marker-where{font-size:12px;color:var(--text3);margin-bottom:4px;font-family:'JetBrains Mono',monospace}
-.marker-title{font-size:15px;font-weight:500;color:#f1efe8}
-.marker-date{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);
-  margin-bottom:4px}
-.marker-desc{font-size:13px;color:var(--text2);line-height:1.75;
-  font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif}
-
-/* MAP */
 .map-wrap{background:#111;border:0.5px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:14px}
 .map-wrap img{width:100%;height:auto;display:block}
 .map-ph{display:flex;align-items:center;justify-content:center;min-height:220px;
@@ -84,7 +72,11 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
   font-family:'JetBrains Mono',monospace}
 .map-cap{font-size:12px;color:var(--text3);padding:8px 14px;border-top:0.5px solid var(--border2);
   background:#0e0e0c;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em}
-
+.marker{margin-bottom:0}
+.marker-emoji{font-size:18px;margin-bottom:6px}
+.marker-title{font-size:13px;font-weight:500;color:#f1efe8;margin-bottom:8px;line-height:1.5}
+.marker-desc{font-size:14px;color:var(--text2);line-height:1.85;font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif}
+.marker-divider{text-align:center;color:var(--text4);font-size:13px;letter-spacing:0.3em;padding:20px 0;opacity:0.4}
 .mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:0.5px solid var(--border);z-index:1000}
 .mob-nav-inner{display:flex}
 .mob-nav a{flex:1;text-decoration:none;display:flex;flex-direction:column;align-items:center;
@@ -115,84 +107,19 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
   <button class="tab" data-tab="markers">Находки</button>
 </div>
 
-<!-- ХРОНОЛОГИЯ -->
+<div class="epoch-bar">
+  <button class="eb on" data-era="e100k">−100 000<span>Эра Первых</span></button>
+  <button class="eb" data-era="e80k">−80 000<span>Расхождение</span></button>
+</div>
+
 <div class="tab-panel on" id="tab-chrono">
-  <div class="content">
-    <div class="era-badge">Эра Первых Людей</div>
-    <div class="chrono-text">Ок. -100 000. Эра Первых Людей.
-
-Ледниковый максимум. Континент непригоден для жизни за исключением южной прибрежной полосы. Первые люди — единая группа, ~700 человек, маршрут прихода предположительно через юго-восточный перешеек. Дикари присутствуют на континенте повсеместно, численность и распределение не поддаются точной оценке. Контакт неизбежен но не задокументирован для данного периода.</div>
-
-    <div class="st">Климат</div>
-    <div class="climate-grid">
-      <div class="cc"><div class="l">Экватор</div><div class="v">9°C</div></div>
-      <div class="cc"><div class="l">Сев. полюс</div><div class="v">−50°C</div></div>
-      <div class="cc"><div class="l">Юж. полюс</div><div class="v">−50°C</div></div>
-      <div class="cc"><div class="l">Осадки</div><div class="v">88%</div></div>
-    </div>
-  </div>
+  <div class="content" id="chrono-content"></div>
 </div>
-
-<!-- КАРТА -->
 <div class="tab-panel" id="tab-map">
-  <div class="content">
-    <div class="map-wrap">
-      <img src="maps/map_100k.png"
-        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="map-ph" style="display:none">
-        <div style="font-size:32px;opacity:0.2">🗺</div>
-        <div>Карта не загружена</div>
-        <div style="font-size:11px;opacity:0.5">maps/map_100k.png</div>
-      </div>
-      <div class="map-cap">Ок. -100 000 до н.э. · Эра Первых Людей · Ледниковый максимум</div>
-    </div>
-  </div>
+  <div class="content" id="map-content"></div>
 </div>
-
-<!-- НАХОДКИ -->
 <div class="tab-panel" id="tab-markers">
-  <div class="content">
-
-    <div class="marker">
-      <div class="marker-header">
-        <div class="marker-emoji">🔥</div>
-        <div class="marker-meta">
-          <div class="marker-id">УГОЛЬ-1</div>
-          <div class="marker-where">Юго-восточное побережье, точка входа</div>
-          <div class="marker-title">Первые кострища</div>
-        </div>
-      </div>
-      <div class="marker-date">Ок. −100 000</div>
-      <div class="marker-desc">Серия угольных горизонтов на глубине 4–6 м. Кострища небольшие, повторяющиеся — одно место использовалось многократно. Возможно ритуальное значение: точка входа на континент, место куда возвращались. Первое что Уллам сделали на новой земле — развели огонь.</div>
-    </div>
-
-    <div class="marker">
-      <div class="marker-header">
-        <div class="marker-emoji">🪨</div>
-        <div class="marker-meta">
-          <div class="marker-id">ИНВЕНТАРЬ-1</div>
-          <div class="marker-where">Устье реки, южная оконечность</div>
-          <div class="marker-title">Каменный инвентарь, ранний период</div>
-        </div>
-      </div>
-      <div class="marker-date">Ок. −100 000</div>
-      <div class="marker-desc">Скопление орудий единой технологической традиции. Техника обработки не встречается у дикарей региона — принесена извне. Река здесь выходит из-под ледника. Вероятно первый ориентир в незнакомой местности: идти вдоль воды.</div>
-    </div>
-
-    <div class="marker">
-      <div class="marker-header">
-        <div class="marker-emoji">⚔️</div>
-        <div class="marker-meta">
-          <div class="marker-id">КОНТАКТ-1</div>
-          <div class="marker-where">Западная часть южной полосы</div>
-          <div class="marker-title">Смешанный культурный слой</div>
-        </div>
-      </div>
-      <div class="marker-date">Ок. −100 000</div>
-      <div class="marker-desc">Орудия двух различных традиций в одном стратиграфическом горизонте. Следов насилия не обнаружено. Что именно произошло в этой точке — торговля, территориальный спор, простое соседство — установить невозможно. Первая и пока единственная точка где два мира оказались в одном месте одновременно.</div>
-    </div>
-
-  </div>
+  <div class="content" id="markers-content"></div>
 </div>
 
 <nav class="mob-nav">
@@ -206,14 +133,103 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
 </nav>
 
 <script>
+var ERAS = {
+  e100k: {
+    label: "Эра Первых Людей · −100 000",
+    cl: {eq:"9°C", np:"−50°C", sp:"−50°C", pr:"88%"},
+    chrono: [
+      "Ок. −100 000. Эра Первых Людей.",
+      "Ледниковый максимум. Континент непригоден для жизни за исключением южной прибрежной полосы. Первые люди — единая группа, ~700 человек, маршрут прихода предположительно через юго-восточный перешеек. Дикари присутствуют на континенте повсеместно, численность и распределение не поддаются точной оценке. Контакт неизбежен но не задокументирован для данного периода."
+    ],
+    map: {src:"maps/map_100k.png", cap:"Ок. −100 000 до н.э. · Эра Первых Людей · Ледниковый максимум"},
+    markers: [
+      {e:"🔥", t:"Первые кострища · Юго-восточное побережье — ок. −100 000",
+       d:"Серия угольных горизонтов на глубине 4–6 м. Кострища небольшие, повторяющиеся — одно место использовалось многократно. Возможно ритуальное значение: точка входа на континент, место куда возвращались. Первое что Уллам сделали на новой земле — развели огонь."},
+      {e:"🪨", t:"Каменный инвентарь, ранний период · Устье реки — ок. −100 000",
+       d:"Скопление орудий единой технологической традиции. Техника обработки не встречается у дикарей региона — принесена извне. Река здесь выходит из-под ледника. Вероятно первый ориентир в незнакомой местности: идти вдоль воды."},
+      {e:"⚔️", t:"Смешанный культурный слой · Западная часть южной полосы — ок. −100 000",
+       d:"Орудия двух различных традиций в одном стратиграфическом горизонте. Следов насилия не обнаружено. Что именно произошло в этой точке — торговля, территориальный спор, простое соседство — установить невозможно."}
+    ]
+  },
+  e80k: {
+    label: "Эра Расхождения · −80 000",
+    cl: {eq:"11°C", np:"−46°C", sp:"−46°C", pr:"90%"},
+    chrono: [
+      "Ок. −80 000. Эра Расхождения.",
+      "Климат потеплел. Ледник отступил на 200–300 км — южная полоса расширилась, стало больше леса и дичи. Уллам вырос с 700 до 3 000–5 000 человек за двадцать тысяч лет. Единая группа превратилась в несколько родовых общин которые встречаются сезонно и держатся через ритуал слияния огней. Первый раскол: береговая группа ушла на запад вдоль побережья и постепенно теряет контакт с ядром. Орудия усложнились — появилось составное копьё с кремниевым наконечником. Первое намеренное погребение с охрой."
+    ],
+    map: {src:"maps/map_80k.png", cap:"Ок. −80 000 до н.э. · Эра Расхождения · Ледник отступил"},
+    markers: [
+      {e:"🪨", t:"Составное копьё · Центральная часть южной полосы — ок. −80 000",
+       d:"Кремниевый наконечник с боковой канавкой под крепление. Следы растительного волокна. Первое составное орудие на континенте — три компонента изготавливались отдельно и собирались в единое целое. Требовало предварительного замысла."},
+      {e:"⚰️", t:"Охровое захоронение · Восточная часть южной полосы — ок. −80 000",
+       d:"Тело взрослого мужчины в согнутом положении, посыпанное красной охрой. Охра доставлена с расстояния не менее 40 км — намеренный выбор материала. Первое задокументированное погребение с ритуальным элементом на континенте."},
+      {e:"🕳️", t:"Ловушечная яма · Западная часть южной полосы, у водопоя — ок. −80 000",
+       d:"Остатки ямы глубиной 1.8 м с обугленными кольями по периметру. Расположена на регулярном маршруте крупных животных к водопою. Первое свидетельство охоты ожиданием а не преследованием."}
+    ]
+  }
+};
+
+var curEra = "e100k";
+
+function renderChrono(era) {
+  var d = ERAS[era];
+  var paras = d.chrono.map(function(p){ return '<p>'+p+'</p>'; }).join('');
+  return '<div class="era-badge">'+d.label+'</div>'
+    + paras
+    + '<div class="st">Климат</div>'
+    + '<div class="climate-grid">'
+    + '<div class="cc"><div class="l">Экватор</div><div class="v">'+d.cl.eq+'</div></div>'
+    + '<div class="cc"><div class="l">Сев. полюс</div><div class="v">'+d.cl.np+'</div></div>'
+    + '<div class="cc"><div class="l">Юж. полюс</div><div class="v">'+d.cl.sp+'</div></div>'
+    + '<div class="cc"><div class="l">Осадки</div><div class="v">'+d.cl.pr+'</div></div>'
+    + '</div>';
+}
+
+function renderMap(era) {
+  var m = ERAS[era].map;
+  return '<div class="map-wrap">'
+    + '<img src="'+m.src+'" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">'
+    + '<div class="map-ph" style="display:none"><div style="font-size:32px;opacity:0.2">🗺</div>'
+    + '<div>Карта не загружена</div><div style="font-size:11px;opacity:0.5">'+m.src+'</div></div>'
+    + '<div class="map-cap">'+m.cap+'</div></div>';
+}
+
+function renderMarkers(era) {
+  return ERAS[era].markers.map(function(m, i){
+    return (i > 0 ? '<div class="marker-divider">· · ·</div>' : '')
+      + '<div class="marker">'
+      + '<div class="marker-emoji">'+m.e+'</div>'
+      + '<div class="marker-title">'+m.t+'</div>'
+      + '<div class="marker-desc">'+m.d+'</div>'
+      + '</div>';
+  }).join('');
+}
+
+function setEra(era) {
+  curEra = era;
+  document.querySelectorAll('.eb').forEach(function(b){
+    b.classList.toggle('on', b.dataset.era === era);
+  });
+  document.getElementById('chrono-content').innerHTML = renderChrono(era);
+  document.getElementById('map-content').innerHTML = renderMap(era);
+  document.getElementById('markers-content').innerHTML = renderMarkers(era);
+}
+
+document.querySelectorAll('.eb').forEach(function(b){
+  b.addEventListener('click', function(){ setEra(b.dataset.era); });
+});
+
 document.querySelectorAll('.tab').forEach(function(t){
-  t.addEventListener('click',function(){
-    document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on')});
-    document.querySelectorAll('.tab-panel').forEach(function(x){x.classList.remove('on')});
+  t.addEventListener('click', function(){
+    document.querySelectorAll('.tab').forEach(function(x){ x.classList.remove('on'); });
+    document.querySelectorAll('.tab-panel').forEach(function(x){ x.classList.remove('on'); });
     t.classList.add('on');
-    document.getElementById('tab-'+t.dataset.tab).classList.add('on');
+    document.getElementById('tab-' + t.dataset.tab).classList.add('on');
   });
 });
+
+setEra('e100k');
 </script>
 </body>
 </html>
