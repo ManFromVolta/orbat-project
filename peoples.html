@@ -101,6 +101,11 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
 .lightbox.on{display:flex}
 .lightbox img{max-width:100%;max-height:100%;object-fit:contain;border-radius:var(--radius)}
 .people-card{margin-bottom:16px}
+.people-card.dead{opacity:0.45;pointer-events:none}
+.people-card.dead .people-img-wrap{filter:grayscale(1)}
+.dead-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:0.1em;color:#666;border:0.5px solid #333;background:#111;
+  padding:2px 8px;border-radius:3px;margin-bottom:10px;text-transform:uppercase}
 .mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:0.5px solid var(--border);z-index:1000}
 .mob-nav-inner{display:flex}
 .mob-nav a{flex:1;text-decoration:none;display:flex;flex-direction:column;align-items:center;
@@ -142,10 +147,10 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
       </div>
       <div style="flex:1">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
-          <div class="people-swatch" style="background:#C4855A"></div>
-          <div class="people-name">Уллам</div>
+          <div class="people-swatch" style="background:#C4855A;opacity:0.4"></div>
+          <div class="people-name">Уллам ⚰</div>
         </div>
-        <div class="people-meta" style="text-align:left;margin-left:0">Generic · ~3 000 чел.<br>Expansion 0.1</div>
+        <div class="people-meta" style="text-align:left;margin-left:0">Generic · праматерь<br>Растворился в дочерних культурах</div>
       </div>
     </div>
     <div class="people-desc">Единственная культура на континенте. Пришли с юга через юго-восточный перешеек — откуда именно и почему неизвестно, это останется загадкой в лоре. Европейский тип внешности. Вопрос «есть ли у тебя уллам?» — первый и главный критерий человека. Дикари для них не уллам.</div>
