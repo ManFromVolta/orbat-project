@@ -14,7 +14,7 @@
   --bg:#1a1a18;--bg2:#202020;--bg3:#282826;--bg4:#111110;
   --border:#2e2e2c;--border2:#252523;
   --text:#d4d2cc;--text2:#b0aea8;--text3:#777;--text4:#444;
-  --accent:#c87840;--radius:5px;--nav:52px;
+  --accent:#c87840;--radius:5px;--nav:52px;--maxw:860px;
 }
 html{font-size:15px;-webkit-text-size-adjust:100%}
 body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.7}
@@ -34,7 +34,7 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
 .hdr{padding:18px 20px 16px;border-bottom:0.5px solid var(--border2)}
 .hdr h1{font-size:17px;font-weight:400;color:#f1efe8}
 .hdr p{font-size:12px;color:var(--text4);margin-top:3px;font-family:'JetBrains Mono',monospace}
-.content{padding:20px;max-width:860px}
+.content{padding:20px;max-width:var(--maxw);margin:0 auto}
 .st{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;color:var(--text4);
   text-transform:uppercase;letter-spacing:0.14em;margin:22px 0 10px;padding-bottom:6px;
   border-bottom:0.5px solid var(--border2)}
@@ -42,15 +42,16 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
 
 /* PEOPLE CARD */
 .people-card{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin-bottom:16px}
-.people-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.people-header{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:nowrap}
 .people-swatch{width:14px;height:14px;border-radius:3px;flex-shrink:0;border:0.5px solid rgba(255,255,255,0.1)}
 .people-name{font-size:18px;font-weight:400;color:#f1efe8}
 .people-meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);margin-left:auto;text-align:right;line-height:1.5}
 .people-desc{font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:16px}
-.people-img-wrap{background:#111;border-radius:var(--radius) var(--radius) 0 0;
-  overflow:hidden;margin:-18px -20px 16px;border-bottom:0.5px solid var(--border2)}
-.people-img-wrap img{width:100%;height:auto;object-fit:contain;display:none}
+.people-img-wrap{background:#111;border-radius:var(--radius);overflow:hidden;
+  cursor:pointer;width:90px;height:90px;flex-shrink:0;position:relative}
+.people-img-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;transition:opacity 0.15s}
 .people-img-wrap img.loaded{display:block}
+.people-img-wrap:hover img.loaded{opacity:0.9}
 .people-img-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;
   width:100%;min-height:160px;gap:5px;color:var(--text4);font-family:'JetBrains Mono',monospace;
   font-size:9px;text-align:center;padding:10px;border-bottom:0.5px solid var(--border2)}
@@ -95,6 +96,11 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
 .wildlands-desc{font-size:13px;color:var(--text3);line-height:1.7;
   font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif}
 
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);
+  z-index:2000;align-items:center;justify-content:center;cursor:pointer;padding:24px}
+.lightbox.on{display:flex}
+.lightbox img{max-width:100%;max-height:100%;object-fit:contain;border-radius:var(--radius)}
+.people-card{margin-bottom:16px}
 .mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:0.5px solid var(--border);z-index:1000}
 .mob-nav-inner{display:flex}
 .mob-nav a{flex:1;text-decoration:none;display:flex;flex-direction:column;align-items:center;
@@ -117,27 +123,30 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
   <div class="nav-eng"><a href="orbat_engine.html">⚙ Движок</a></div>
 </nav>
 <div class="spacer"></div>
-<div class="hdr">
+<div class="hdr"><div style="max-width:var(--maxw);margin:0 auto">
   <h1>Народы</h1>
   <p>Эра Расхождения · −80 000 до н.э. · 2 культуры</p>
-</div>
+</div></div>
 
 <div class="content">
 
   <div class="people-card">
-    <div class="people-img-wrap">
-      <img src="artifacts/people_ullam.png"
-        onload="this.classList.add('loaded');this.nextElementSibling.classList.add('hidden')"
-        onerror="this.style.display='none'">
-      <div class="people-img-ph">
-        <div class="people-img-ph-icon">👤</div>
-        <div>people_ullam.png</div>
-      </div>
-    </div>
     <div class="people-header">
-      <div class="people-swatch" style="background:#C4855A"></div>
-      <div class="people-name">Уллам</div>
-      <div class="people-meta">Generic · ~700 чел.<br>Expansion 0.1</div>
+      <div class="people-img-wrap">
+        <img src="artifacts/people_ullam.png"
+          onload="this.classList.add('loaded');this.nextElementSibling.classList.add('hidden')"
+          onerror="this.style.display='none'">
+        <div class="people-img-ph">
+          <div class="people-img-ph-icon">👤</div>
+        </div>
+      </div>
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <div class="people-swatch" style="background:#C4855A"></div>
+          <div class="people-name">Уллам</div>
+        </div>
+        <div class="people-meta" style="text-align:left;margin-left:0">Generic · ~3 000 чел.<br>Expansion 0.1</div>
+      </div>
     </div>
     <div class="people-desc">Единственная культура на континенте. Пришли с юга через юго-восточный перешеек — откуда именно и почему неизвестно, это останется загадкой в лоре. Европейский тип внешности. Вопрос «есть ли у тебя уллам?» — первый и главный критерий человека. Дикари для них не уллам.</div>
 
@@ -149,7 +158,7 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
     </div>
 
     <div class="lang-section">
-      <div class="lang-title">Язык Уллам (Прото-Уллам)</div>
+      <div class="lang-title">Язык Уллам (язык Уллам)</div>
       <div class="lang-note" style="margin-bottom:10px">Язык Уллам — реконструкция лингвистов 1952 года. Как праиндоевропейский для нас. Никто живой на нём не говорит. Неточности и лакуны допустимы.</div>
       <table class="lang-table">
         <tr><th>Категория</th><th>Звуки / описание</th></tr>
@@ -203,21 +212,24 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
   <div class="st">Береговые Уллам</div>
 
   <div class="people-card">
-    <div class="people-img-wrap">
-      <img src="artifacts/people_beregovye.png"
-        onload="this.classList.add('loaded');this.nextElementSibling.classList.add('hidden')"
-        onerror="this.style.display='none'">
-      <div class="people-img-ph">
-        <div class="people-img-ph-icon">👤</div>
-        <div>people_beregovye.png</div>
+    <div class="people-header">
+      <div class="people-img-wrap">
+        <img src="artifacts/people_beregovye.png"
+          onload="this.classList.add('loaded');this.nextElementSibling.classList.add('hidden')"
+          onerror="this.style.display='none'">
+        <div class="people-img-ph">
+          <div class="people-img-ph-icon">👤</div>
+        </div>
+      </div>
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <div class="people-swatch" style="background:#4A8C7A"></div>
+          <div class="people-name">Береговые Уллам</div>
+        </div>
+        <div class="people-meta" style="text-align:left;margin-left:0">Naval · ~800 чел.<br>Expansion 2.0</div>
       </div>
     </div>
-    <div class="people-header">
-      <div class="people-swatch" style="background:#4A8C7A"></div>
-      <div class="people-name">Береговые Уллам</div>
-      <div class="people-meta">Naval · ~800 чел.<br>Expansion 2.0</div>
-    </div>
-    <div class="people-desc">Откол от ядра Уллам ок. −80 000. Группа двинулась на запад вдоль южного побережья. Первые кто увидел открытое море. Ещё считают себя Уллам — самоназвание появится позже. Первое слово вне Корня: <em>*аала</em> — море.</div>
+    <div class="people-desc">Откол от ядра Уллам ок. −80 000. Группа двинулась на запад вдоль южного побережья. Первые кто увидел открытое море. Ещё считают себя Уллам — самоназвание появится позже. Первое слово вне языка Уллам: <em>*аала</em> — море.</div>
 
     <div class="stat-row">
       <div class="stat"><div class="l">Население</div><div class="v">~800</div></div>
@@ -227,8 +239,8 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
     </div>
 
     <div class="lang-section">
-      <div class="lang-title">Язык — дрейф от Корня</div>
-      <div class="lang-note" style="margin-bottom:10px">База — Прото-Уллам. Изменения начались но незначительны. Главное новшество — морская лексика которой нет у ядра.</div>
+      <div class="lang-title">Язык — дрейф от языка Уллам</div>
+      <div class="lang-note" style="margin-bottom:10px">База — язык Уллам. Изменения начались но незначительны. Главное новшество — морская лексика которой нет у ядра.</div>
 
       <div class="st">Новые слова</div>
       <div class="vocab-grid">
@@ -267,5 +279,19 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
     <a href="orbat_engine.html"><span>⚙</span>Движок</a>
   </div>
 </nav>
+<div class="lightbox" id="lightbox" onclick="closeLightbox()"><img id="lightbox-img" src="" alt=""></div>
+<script>
+function closeLightbox(){document.getElementById('lightbox').classList.remove('on');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLightbox();});
+document.querySelectorAll('.people-img-wrap').forEach(function(w){
+  w.addEventListener('click',function(){
+    var img=w.querySelector('img.loaded');
+    if(!img)return;
+    document.getElementById('lightbox-img').src=img.src;
+    document.getElementById('lightbox').classList.add('on');
+    document.body.style.overflow='hidden';
+  });
+});
+</script>
 </body>
 </html>
