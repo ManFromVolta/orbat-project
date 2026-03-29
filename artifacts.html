@@ -14,7 +14,7 @@
   --bg:#1a1a18;--bg2:#202020;--bg3:#282826;--bg4:#111110;
   --border:#2e2e2c;--border2:#252523;
   --text:#d4d2cc;--text2:#b0aea8;--text3:#777;--text4:#444;
-  --accent:#c87840;--radius:5px;--nav:52px;
+  --accent:#c87840;--radius:5px;--nav:52px;--maxw:860px;
 }
 html{font-size:15px;-webkit-text-size-adjust:100%}
 body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.7}
@@ -34,7 +34,7 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
 .hdr{padding:18px 20px 16px;border-bottom:0.5px solid var(--border2)}
 .hdr h1{font-size:17px;font-weight:400;color:#f1efe8}
 .hdr p{font-size:12px;color:var(--text4);margin-top:3px;font-family:'JetBrains Mono',monospace}
-.content{padding:20px;max-width:860px}
+.content{padding:20px;max-width:var(--maxw);margin:0 auto}
 
 .section-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;
   color:var(--text4);text-transform:uppercase;margin-bottom:12px;
@@ -42,23 +42,24 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
 .section-label::after{content:'';flex:1;height:0.5px;background:var(--border2)}
 
 /* ARTICLE — для находок */
-.article{margin-bottom:20px;display:grid;grid-template-columns:1fr;gap:14px}
-@media(min-width:560px){.article{grid-template-columns:200px 1fr}}
+.article{margin-bottom:0;display:flex;gap:16px;align-items:flex-start}
 .article-img-wrap{background:#111;border:0.5px solid var(--border);
-  border-radius:var(--radius);overflow:hidden;align-self:start;
-  cursor:pointer;display:flex;align-items:stretch}
-.article-img-wrap img{width:100%;object-fit:cover;display:none;transition:opacity 0.15s}
+  border-radius:var(--radius);overflow:hidden;cursor:pointer;
+  width:110px;height:110px;flex-shrink:0;position:relative}
+.article-img-wrap img{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;display:none;transition:opacity 0.15s}
 .article-img-wrap img.loaded{display:block}
 .article-img-wrap:hover img.loaded{opacity:0.85}
 .article-img-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;
-  width:100%;min-height:160px;gap:6px;color:var(--text4);font-family:'JetBrains Mono',monospace;
-  font-size:10px;text-align:center;padding:12px}
+  position:absolute;inset:0;gap:5px;color:var(--text4);font-family:'JetBrains Mono',monospace;
+  font-size:9px;text-align:center;padding:8px}
 .article-img-ph.hidden{display:none}
-.article-img-ph-icon{font-size:24px;opacity:0.15}
-.article-title{font-size:13px;font-weight:500;color:#f1efe8;margin-bottom:10px;line-height:1.5}
+.article-img-ph-icon{font-size:20px;opacity:0.15}
+.article-body{flex:1}
+.article-title{font-size:13px;font-weight:500;color:#f1efe8;margin-bottom:8px;line-height:1.5}
 .article-text{font-size:14px;color:var(--text2);line-height:1.85;
   font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif}
-.article-storage{font-size:11px;color:var(--text4);margin-top:10px;
+.article-storage{font-size:11px;color:var(--text4);margin-top:8px;
   font-family:'JetBrains Mono',monospace;letter-spacing:0.06em}
 .article-divider{text-align:center;color:var(--text4);font-size:13px;
   letter-spacing:0.3em;padding:24px 0;opacity:0.4}
@@ -92,11 +93,10 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
 .empty-desc{font-size:12px;color:var(--text4);line-height:1.7;
   font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;max-width:320px;margin:0 auto}
 
-.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);
   z-index:2000;align-items:center;justify-content:center;cursor:pointer;padding:24px}
 .lightbox.on{display:flex}
-.lightbox img{max-width:100%;max-height:100%;object-fit:contain;
-  border-radius:var(--radius);box-shadow:0 4px 40px rgba(0,0,0,0.5)}
+.lightbox img{max-width:100%;max-height:100%;object-fit:contain;border-radius:var(--radius)}
 
 .mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:0.5px solid var(--border);z-index:1000}
 .mob-nav-inner{display:flex}
@@ -136,10 +136,9 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
         onerror="this.style.display='none'">
       <div class="article-img-ph">
         <div class="article-img-ph-icon">📷</div>
-        <div>artifact1.png</div>
       </div>
     </div>
-    <div>
+    <div class="article-body">
       <div class="article-title">Отпечаток ноги · Юго-восточное побережье — ок. −100 000</div>
       <div class="article-text">Отпечаток левой ступни взрослого человека в затвердевшей вулканической золе. Обнаружен при раскопках угольного горизонта на глубине 5.2 м. Размер соответствует современному 42-му. Давление на пятку незначительное — человек стоял или медленно шёл, не бежал. Направление — на север, в сторону ледника. Древнейший прямой след присутствия человека на континенте.</div>
       <div class="article-storage">Место хранения: Музей</div>
@@ -155,10 +154,9 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
         onerror="this.style.display='none'">
       <div class="article-img-ph">
         <div class="article-img-ph-icon">📷</div>
-        <div>artifact2.png</div>
       </div>
     </div>
-    <div>
+    <div class="article-body">
       <div class="article-title">Составное копьё · Центральная часть южной полосы — ок. −80 000</div>
       <div class="article-text">Кремниевый наконечник длиной 8 см с боковой канавкой под крепление. Древко не сохранилось. Следы растительного волокна в канавке указывают на намеренное связывание. Техника обработки камня отличается от всего что известно для этого периода в регионе — более тонкое скалывание, контроль формы. Первое составное орудие на континенте. Требовало предварительного замысла: три компонента изготавливались отдельно и собирались в единое целое.</div>
       <div class="article-storage">Место хранения: Музей</div>
@@ -198,14 +196,11 @@ body{font-family:'Spectral',Georgia,serif;background:var(--bg);color:var(--text)
 </nav>
 
 <script>
-function closeLightbox(){
-  document.getElementById('lightbox').classList.remove('on');
-  document.body.style.overflow='';
-}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('on');document.body.style.overflow='';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLightbox();});
-document.querySelectorAll('.article-img-wrap,.relic-img-wrap').forEach(function(wrap){
-  wrap.addEventListener('click',function(){
-    var img=wrap.querySelector('img.loaded');
+document.querySelectorAll('.article-img-wrap').forEach(function(w){
+  w.addEventListener('click',function(){
+    var img=w.querySelector('img.loaded');
     if(!img)return;
     document.getElementById('lightbox-img').src=img.src;
     document.getElementById('lightbox').classList.add('on');
