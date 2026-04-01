@@ -13,23 +13,16 @@
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;font-size:15px;line-height:1.7}
-
   .topnav{display:flex;align-items:center;gap:16px;padding:14px 32px;border-bottom:1px solid var(--border);background:var(--surface);position:sticky;top:0;z-index:100}
-  .topnav a{color:var(--text-dim);text-decoration:none;font-size:13px}
-  .topnav a:hover{color:var(--text-bright)}
-  .topnav .sep{color:var(--border)}
-  .topnav .title{color:var(--text-bright);font-weight:600}
-
+  .topnav a{color:var(--text-dim);text-decoration:none;font-size:13px}.topnav a:hover{color:var(--text-bright)}
+  .topnav .sep{color:var(--border)}.topnav .title{color:var(--text-bright);font-weight:600}
   .layout{display:grid;grid-template-columns:230px 1fr;max-width:1200px;margin:0 auto;min-height:calc(100vh - 53px)}
-
   .sidebar{border-right:1px solid var(--border);padding:24px 0;position:sticky;top:53px;height:calc(100vh - 53px);overflow-y:auto}
   .sidebar-section{padding:4px 16px;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-dim);margin-top:16px;margin-bottom:4px}
   .sidebar a{display:block;padding:5px 16px;color:var(--text-dim);text-decoration:none;font-size:13px;border-left:2px solid transparent;transition:all .15s}
   .sidebar a:hover{color:var(--text-bright);background:var(--surface2)}
   .sidebar a.active{color:var(--accent);border-left-color:var(--accent);background:rgba(74,158,255,.07)}
-
   main{padding:40px 48px;max-width:860px}
-
   .hero{margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid var(--border)}
   .hero-eyebrow{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px}
   .hero h1{font-size:32px;font-weight:700;color:var(--text-bright);margin-bottom:8px}
@@ -39,22 +32,18 @@
   .badge.blue{background:rgba(74,158,255,.1);color:var(--accent);border-color:rgba(74,158,255,.3)}
   .badge.green{background:rgba(63,185,80,.1);color:var(--green);border-color:rgba(63,185,80,.3)}
   .badge.amber{background:rgba(210,153,34,.1);color:var(--yellow);border-color:rgba(210,153,34,.3)}
-
   section{margin-bottom:56px;scroll-margin-top:70px}
   h2{font-size:22px;font-weight:700;color:var(--text-bright);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
   h2 .num{font-size:12px;color:var(--text-dim);font-weight:400}
   h3{font-size:16px;font-weight:600;color:var(--text-bright);margin:24px 0 12px}
   p{margin-bottom:12px;color:var(--text)}
-
   .callout{border-left:3px solid var(--accent);padding:12px 16px;background:rgba(74,158,255,.06);border-radius:0 6px 6px 0;font-size:14px;color:var(--text-dim);font-style:italic;margin:16px 0}
   .callout.warn{border-left-color:var(--yellow);background:rgba(210,153,34,.06)}
   .callout.todo{border-left-color:var(--accent3);background:rgba(232,164,74,.06)}
-
   pre{background:var(--code-bg);border:1px solid var(--border);border-radius:8px;padding:16px 20px;overflow-x:auto;font-family:'Cascadia Code','Fira Code','Consolas',monospace;font-size:13px;line-height:1.65;color:#a5d6ff;margin:12px 0}
   pre .cm{color:var(--text-dim);font-style:italic}
   pre .op{color:var(--accent2)}
   pre .hl{color:var(--accent3)}
-
   .tbl-wrap{overflow-x:auto;margin:16px 0}
   table{width:100%;border-collapse:collapse;font-size:13.5px}
   th{background:var(--surface2);color:var(--text-bright);font-weight:600;padding:9px 14px;text-align:left;border:1px solid var(--border);font-size:12px}
@@ -62,53 +51,51 @@
   tr:nth-child(even) td{background:rgba(255,255,255,.02)}
   td.mono{color:var(--text-bright);font-weight:500;font-family:monospace;font-size:13px}
 
-  /* Scale cards */
+  /* SALUTE */
+  .salute-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0}
+  .salute-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px}
+  .salute-letter{font-size:22px;font-weight:800;font-family:monospace;margin-bottom:4px}
+  .salute-name{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px}
+  .salute-desc{font-size:12px;color:var(--text-dim);line-height:1.5}
+  .s-s{color:var(--accent)}
+  .s-a{color:var(--accent2)}
+  .s-l{color:var(--green)}
+  .s-u{color:var(--accent3)}
+  .s-t{color:var(--text-dim)}
+  .s-e{color:var(--red)}
+
+  /* Confidence bars */
+  .conf-row{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+  .conf-label{width:20px;font-size:13px;font-weight:800;font-family:monospace}
+  .conf-track{flex:1;height:8px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden}
+  .conf-fill{height:100%;border-radius:4px;transition:width .3s}
+  .conf-val{font-size:12px;font-family:monospace;min-width:36px;color:var(--text-bright)}
+  .conf-note{font-size:11px;color:var(--text-dim)}
+
+  /* Comms layers */
+  .comms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+  .comms-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px}
+  .comms-name{font-size:12px;font-weight:700;margin-bottom:6px}
+  .comms-stat{font-size:11px;color:var(--text-dim);margin-bottom:3px}
+
+  /* Scale / ability / order grids */
   .scale-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
   .scale-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px}
   .scale-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
-  .scale-label.global{color:var(--accent)}
-  .scale-label.local{color:var(--accent2)}
-  .scale-label.personal{color:var(--accent3)}
+  .scale-label.global{color:var(--accent)}.scale-label.local{color:var(--accent2)}.scale-label.personal{color:var(--accent3)}
   .scale-unit{font-size:13px;color:var(--text-bright);font-weight:600;margin-bottom:6px}
   .scale-desc{font-size:12px;color:var(--text-dim);line-height:1.5}
-
-  /* Formation vs Composite */
-  .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
-  .compare-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px}
-  .compare-title{font-weight:700;font-size:13px;margin-bottom:10px}
-
-  /* Two-profile */
-  .profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
-  .profile-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px}
-  .profile-box .pt{font-weight:700;font-size:13px;margin-bottom:6px}
-  .profile-box .ps{font-size:12px;color:var(--text-dim);margin-bottom:8px}
-  .profile-box .pe{font-size:12px;color:var(--accent2);font-family:monospace}
-
-  /* Ability grid */
   .ability-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:16px 0}
   .ability-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px}
   .ability-name{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
-  .ability-name.move{color:var(--accent)}
-  .ability-name.see{color:var(--accent2)}
-  .ability-name.shoot{color:var(--red)}
-  .ability-name.blast{color:var(--accent3)}
+  .ability-name.move{color:var(--accent)}.ability-name.see{color:var(--accent2)}.ability-name.shoot{color:var(--red)}.ability-name.blast{color:var(--accent3)}
   .ability-desc{font-size:12px;color:var(--text-dim);line-height:1.5}
-
-  /* Asset pills */
-  .pill{display:inline-block;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;font-family:monospace;margin:1px}
-  .pill.inv{background:rgba(74,158,255,.15);color:var(--accent)}
-  .pill.cont{background:rgba(88,196,160,.15);color:var(--accent2)}
-  .pill.mut{background:rgba(232,164,74,.15);color:var(--accent3)}
-
-  /* Cascade diagram */
-  .cascade{display:flex;flex-direction:column;gap:0;margin:16px 0}
-  .cascade-row{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--surface);border:1px solid var(--border);margin-bottom:-1px}
-  .cascade-row:first-child{border-radius:8px 8px 0 0}
-  .cascade-row:last-child{border-radius:0 0 8px 8px;margin-bottom:0}
-  .cascade-icon{font-size:16px;width:24px;text-align:center;flex-shrink:0}
-  .cascade-label{font-weight:600;color:var(--text-bright);font-size:13px;width:120px;flex-shrink:0}
-  .cascade-arrow{color:var(--accent2);font-size:12px;flex-shrink:0}
-  .cascade-desc{font-size:13px;color:var(--text-dim)}
+  .order-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0}
+  .order-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px}
+  .order-type{font-weight:700;font-family:monospace;font-size:15px;margin-bottom:6px}
+  .order-type.move{color:var(--accent)}.order-type.hold{color:var(--accent2)}.order-type.support{color:var(--accent3)}.order-type.spot{color:var(--green)}
+  .order-desc{font-size:13px;color:var(--text-dim);line-height:1.5}
+  .order-new{border-color:rgba(63,185,80,.4);background:rgba(63,185,80,.04)}
 
   /* Mod stack */
   .mod-stack{margin:16px 0}
@@ -116,13 +103,11 @@
   .mod-label{width:160px;font-size:12px;color:var(--text-dim);font-family:monospace;padding:6px 10px;background:var(--surface);border:1px solid var(--border);border-radius:6px 0 0 6px;display:flex;align-items:center;flex-shrink:0}
   .mod-bar-wrap{flex:1;background:rgba(255,255,255,.03);border:1px solid var(--border);border-left:none;border-radius:0 6px 6px 0;padding:6px 10px;display:flex;align-items:center;gap:8px}
   .mod-bar{height:8px;border-radius:4px}
-  .bar-base{background:rgba(74,158,255,.5)}
-  .bar-minus{background:rgba(248,81,73,.6)}
-  .bar-result{background:var(--accent)}
+  .bar-base{background:rgba(74,158,255,.5)}.bar-minus{background:rgba(248,81,73,.6)}.bar-result{background:var(--accent)}
   .mod-val{font-size:12px;font-family:monospace;color:var(--text-bright);min-width:36px}
   .mod-src{font-size:11px;color:var(--text-dim)}
 
-  /* Priority */
+  /* Priority / zone / dtree */
   .priority-row{display:flex;align-items:center;gap:16px;padding:12px 16px;border:1px solid var(--border);border-radius:8px;margin-bottom:8px;background:var(--surface)}
   .priority-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0}
   .p1{background:rgba(248,81,73,.2);color:var(--red);border:1px solid rgba(248,81,73,.4)}
@@ -130,25 +115,10 @@
   .p3{background:rgba(88,196,160,.2);color:var(--accent2);border:1px solid rgba(88,196,160,.4)}
   .priority-label{font-weight:600;color:var(--text-bright);width:120px;flex-shrink:0}
   .priority-desc{color:var(--text-dim);font-size:13.5px}
-
-  /* Zone */
   .zone{display:inline-block;padding:2px 10px;border-radius:20px;font-size:12px;font-weight:700}
   .zone.green{background:rgba(63,185,80,.15);color:var(--green)}
   .zone.yellow{background:rgba(210,153,34,.15);color:var(--yellow)}
   .zone.red{background:rgba(248,81,73,.15);color:var(--red)}
-
-  /* Order cards */
-  .order-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0}
-  .order-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px}
-  .order-type{font-weight:700;font-family:monospace;font-size:15px;margin-bottom:6px}
-  .order-type.move{color:var(--accent)}
-  .order-type.hold{color:var(--accent2)}
-  .order-type.support{color:var(--accent3)}
-  .order-type.spot{color:var(--green)}
-  .order-desc{font-size:13px;color:var(--text-dim);line-height:1.5}
-  .order-new{border-color:rgba(63,185,80,.4);background:rgba(63,185,80,.04)}
-
-  /* Decision tree */
   .dtree{margin:12px 0}
   .dstep{display:flex;gap:12px;margin-bottom:4px}
   .dstep-num{width:24px;height:24px;background:var(--surface2);border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--text-dim);flex-shrink:0;margin-top:2px}
@@ -157,32 +127,25 @@
   .dstep-code{background:var(--code-bg);border:1px solid var(--border);border-radius:6px;padding:10px 14px;font-family:monospace;font-size:12.5px;color:#a5d6ff;line-height:1.7;margin-bottom:10px}
   .arr{color:var(--accent2)}
   .dstep-new .dstep-num{background:rgba(88,196,160,.15);color:var(--accent2);border-color:rgba(88,196,160,.4)}
-
-  /* Status */
+  .pill{display:inline-block;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;font-family:monospace;margin:1px}
+  .pill.inv{background:rgba(74,158,255,.15);color:var(--accent)}
+  .pill.cont{background:rgba(88,196,160,.15);color:var(--accent2)}
+  .pill.mut{background:rgba(232,164,74,.15);color:var(--accent3)}
   .status{display:inline-flex;align-items:center;gap:5px;font-size:12px}
   .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-  .dot.done{background:var(--green)}
-  .dot.wip{background:var(--yellow)}
-  .dot.todo{background:var(--red)}
-
+  .dot.done{background:var(--green)}.dot.wip{background:var(--yellow)}.dot.todo{background:var(--red)}
   @media(max-width:768px){
-    .layout{grid-template-columns:1fr}
-    .sidebar{display:none}
-    main{padding:24px 20px}
-    .scale-grid,.compare-grid,.profile-grid,.order-grid,.ability-grid{grid-template-columns:1fr}
+    .layout{grid-template-columns:1fr}.sidebar{display:none}main{padding:24px 20px}
+    .salute-grid,.scale-grid,.comms-grid,.ability-grid,.order-grid{grid-template-columns:1fr}
   }
 </style>
 </head>
 <body>
-
 <nav class="topnav">
-  <a href="index.html">← Главная</a>
-  <span class="sep">·</span>
-  <span class="title">ORBAT Engine</span>
-  <span class="sep">·</span>
-  <span style="color:var(--text-dim);font-size:13px">Дизайн-документ v0.5.2</span>
+  <a href="index.html">← Главная</a><span class="sep">·</span>
+  <span class="title">ORBAT Engine</span><span class="sep">·</span>
+  <span style="color:var(--text-dim);font-size:13px">Дизайн-документ v0.5.3</span>
 </nav>
-
 <div class="layout">
 <aside class="sidebar">
   <div class="sidebar-section">Обзор</div>
@@ -195,11 +158,14 @@
   <a href="#unit">Юнит</a>
   <a href="#composite">Composite Unit</a>
   <a href="#assets">Ассеты</a>
+  <div class="sidebar-section">Восприятие</div>
+  <a href="#perception">SALUTE модель</a>
+  <a href="#comms">Каналы коммуникации</a>
+  <a href="#contacts">Управление контактами</a>
   <div class="sidebar-section">Приказы</div>
   <a href="#orders">Четыре приказа</a>
   <a href="#l5">Logistics directive</a>
   <div class="sidebar-section">Системы</div>
-  <a href="#perception">Восприятие</a>
   <a href="#priorities">Приоритеты</a>
   <a href="#worlddata">World Data & ZoneMap</a>
   <a href="#roe">ROE</a>
@@ -208,7 +174,6 @@
   <div class="sidebar-section">Статус</div>
   <a href="#backlog">Что не закрыто</a>
 </aside>
-
 <main>
 
   <div class="hero">
@@ -219,7 +184,7 @@
       <span class="badge blue">Godot Engine 4.x</span>
       <span class="badge blue">GDScript</span>
       <span class="badge green">Игронезависимая логика</span>
-      <span class="badge amber">v0.5.2 — В разработке</span>
+      <span class="badge amber">v0.5.3 — В разработке</span>
     </div>
   </div>
 
@@ -228,322 +193,266 @@
     <h2><span class="num">01</span> Концепция</h2>
     <p>ORBAT — игронезависимый фреймворк управления боем двух и более сторон. Логика боя полностью абстрагирована от движка и ассетов.</p>
     <div class="callout">Принцип: одна и та же логика должна описывать и общевойсковой бой дивизии NATO, и битву при Хельмовой пади.</div>
-    <p>ORBAT разрабатывается как самостоятельная стратегическая игра-песочница на <strong>Godot Engine</strong>. Мир — <strong>Оррим</strong>, эпоха 1952 н.э.</p>
-    <h3>Граф командования</h3>
+    <p>Самостоятельная стратегическая игра-песочница на <strong>Godot Engine</strong>. Мир — <strong>Оррим</strong>, эпоха 1952 н.э.</p>
     <pre><span style="color:var(--accent);font-weight:700">BattleState</span>
-└── <span style="color:var(--accent);font-weight:700">HQ</span>
-     └── <span style="color:var(--accent);font-weight:700">Formation</span>         <span class="cm">← оперативный уровень (GLOBAL)</span>
-          └── <span style="color:var(--accent);font-weight:700">Commander</span>     <span class="cm">← роль в каждом юните</span>
-               └── <span style="color:var(--text-bright)">Unit / CompositeUnit</span>  <span class="cm">← тактический уровень (LOCAL)</span>
-                    ├── <span style="color:var(--accent2)">Order</span>      <span class="cm">намерение + опц. директива (L5)</span>
-                    ├── <span style="color:var(--accent2)">ROE</span>        <span class="cm">поведение при выполнении</span>
-                    ├── <span style="color:var(--accent2)">Perception</span> <span class="cm">что знает юнит</span>
-                    └── <span style="color:var(--accent2)">Assets</span>     <span class="cm">inventory / container / mutable</span></pre>
+└── <span style="color:var(--accent);font-weight:700">Formation</span>         <span class="cm">← оперативный уровень (GLOBAL)</span>
+     └── <span style="color:var(--accent);font-weight:700">Commander</span>     <span class="cm">← роль в каждом юните</span>
+          └── <span style="color:var(--text-bright)">Unit / CompositeUnit</span>  <span class="cm">← тактический уровень (LOCAL)</span>
+               ├── <span style="color:var(--accent2)">Order</span>      <span class="cm">намерение + опц. L5</span>
+               ├── <span style="color:var(--accent2)">ROE</span>
+               ├── <span style="color:var(--accent2)">Perception</span> <span class="cm">SALUTE модель</span>
+               └── <span style="color:var(--accent2)">Assets</span>     <span class="cm">inventory / container / mutable</span></pre>
   </section>
 
   <!-- МАСШТАБЫ -->
   <section id="scale">
     <h2><span class="num">02</span> Масштабы симуляции</h2>
     <div class="scale-grid">
-      <div class="scale-card">
-        <div class="scale-label global">GLOBAL</div>
-        <div class="scale-unit">Formation</div>
-        <div class="scale-desc">Свёрнутая симуляция. Агрегированные abilities, фронтовые линии, логистика. Полная симуляция — по явному флагу.</div>
-      </div>
-      <div class="scale-card">
-        <div class="scale-label local">LOCAL</div>
-        <div class="scale-unit">Unit / CompositeUnit</div>
-        <div class="scale-desc">Полная симуляция в реальном времени. Отдельные юниты, физика, боевые машины с экипажами.</div>
-      </div>
-      <div class="scale-card">
-        <div class="scale-label personal">PERSONAL</div>
-        <div class="scale-unit">Перспектива игрока</div>
-        <div class="scale-desc">LOCAL с фокусом внутри конкретного юнита. Отдельного масштаба боевой логики не образует.</div>
-      </div>
+      <div class="scale-card"><div class="scale-label global">GLOBAL</div><div class="scale-unit">Formation</div><div class="scale-desc">Свёрнутая симуляция. Агрегированные abilities, фронт, логистика.</div></div>
+      <div class="scale-card"><div class="scale-label local">LOCAL</div><div class="scale-unit">Unit / CompositeUnit</div><div class="scale-desc">Полная симуляция в реальном времени.</div></div>
+      <div class="scale-card"><div class="scale-label personal">PERSONAL</div><div class="scale-unit">Перспектива игрока</div><div class="scale-desc">LOCAL с фокусом внутри юнита. Отдельной боевой логики нет.</div></div>
     </div>
-
-    <h3>Каскад Order → Objective</h3>
-    <div class="cascade">
-      <div class="cascade-row"><div class="cascade-icon">🌍</div><div class="cascade-label" style="color:var(--accent)">GLOBAL</div><div class="cascade-arrow">→</div><div class="cascade-desc">Commander отдаёт <strong>Order</strong> Formation: <code style="color:var(--accent2)">MOVE, позиция_X, 72h</code></div></div>
-      <div class="cascade-row"><div class="cascade-icon">↓</div><div class="cascade-label" style="color:var(--text-dim)">переход</div><div class="cascade-arrow"></div><div class="cascade-desc">Order сверху становится <strong>Objective</strong> снизу. Рекурсивно на любую глубину.</div></div>
-      <div class="cascade-row"><div class="cascade-icon">🗺</div><div class="cascade-label" style="color:var(--accent2)">LOCAL</div><div class="cascade-arrow">→</div><div class="cascade-desc">HQ Formation получает Objective <strong>через Net Data</strong> → распределяет Orders самостоятельно</div></div>
-    </div>
-    <div class="callout">Трансляция GLOBAL Order → LOCAL Objective идёт через Net Data. Локальный Commander периодически обращается к net_data для отслеживания изменений Objective. Латентность = реалистичная задержка коммуникации.</div>
-
-    <h3>Агрегирование LOCAL → GLOBAL</h3>
-    <div class="tbl-wrap">
-      <table>
-        <tr><th>Триггер</th><th>Описание</th></tr>
-        <tr><td>По расписанию</td><td>Базовый режим. Период задаётся в конфигурации Formation.</td></tr>
-        <tr><td>По явному запросу</td><td>Принудительное обновление в любой момент.</td></tr>
-        <tr><td>При значимом изменении combat_power</td><td>Если изменение превышает <code>formation.sync_threshold</code> — немедленное обновление. Порог задаётся per-Formation.</td></tr>
-      </table>
-    </div>
+    <div class="callout">Order сверху → Objective снизу. Трансляция GLOBAL→LOCAL через Net Data с реалистичной задержкой.</div>
   </section>
 
   <!-- FORMATION -->
   <section id="formation">
     <h2><span class="num">03</span> Formation</h2>
-    <p>Formation — организационная единица командной иерархии на оперативном уровне. <strong>Не является CompositeUnit.</strong> Formation — это граф подчинённых юнитов и формирований под единым командованием.</p>
-
-    <div class="compare-grid">
-      <div class="compare-card">
-        <div class="compare-title" style="color:var(--accent2)">CompositeUnit</div>
-        <p style="font-size:13px;color:var(--text-dim)">Основа — физический контейнер. Тактический уровень. Конкретные юниты в физических слотах. Распадается при потере crew_threshold.</p>
-      </div>
-      <div class="compare-card">
-        <div class="compare-title" style="color:var(--accent)">Formation</div>
-        <p style="font-size:13px;color:var(--text-dim)">Основа — организационный номер. Оперативный уровень. Граф подчинённых Formation и юнитов. На GLOBAL физический слой отсутствует.</p>
-      </div>
-    </div>
-
-    <div class="callout">echelon — дескриптивный тег, не жёсткий тип: squad | platoon | company | battalion | regiment | division | ... Произвольная строка. Позволяет описывать любую армейскую структуру любой эпохи.</div>
-
-    <h3>Контракт Formation</h3>
+    <p>Организационная единица оперативного уровня. <strong>Не CompositeUnit.</strong> <code style="color:var(--accent2)">echelon</code> — произвольный дескриптор (squad, platoon, battalion...), не жёсткий тип.</p>
     <pre>Formation {
-  id                      <span class="cm"># организационный, стабильный</span>
-  designation             <span class="cm"># '151-й гвардейский мотострелковый полк...'</span>
-  echelon                 <span class="cm"># произвольный дескриптор</span>
-  side
-
-  command_graph {
-    hq_unit_id            <span class="cm"># текущий Commander в LOCAL</span>
-                          <span class="cm"># = наибольший по иерархии доступный Commander</span>
-    officer_list []       <span class="cm"># действующий офицерский состав</span>
-    sub_formations []     <span class="cm"># подчинённые Formation</span>
-  }
-
-  aggregate {             <span class="cm"># пересчитывается из LOCAL при sync</span>
-    strength              <span class="cm"># % от штатного состава</span>
-    combat_power          <span class="cm"># 0.0–1.0</span>
-    supply                <span class="cm"># 0.0–1.0</span>
-    abilities { move, see, shoot, blast }
-  }
-
-  asset_registry { vehicles[], weapons[], supplies{} }
-
-  perception_summary {
-    known_enemies [], zone_map_slice
-    confidence, last_updated
-  }
-
-  position, area_of_operations
-  objective               <span class="cm"># от вышестоящего Formation, через Net Data</span>
-  order
-  sync_threshold: float   <span class="cm"># порог значимого изменения combat_power</span>
+  id, designation, echelon, side
+  command_graph { hq_unit_id, officer_list[], sub_formations[] }
+  aggregate { strength, combat_power, supply, abilities{move,see,shoot,blast} }
+  perception_summary { known_contacts[], zone_map_slice, confidence, last_updated }
+  sync_threshold: float     <span class="cm"># порог немедленного обновления</span>
 }</pre>
-
-    <h3>Агрегирование abilities на GLOBAL</h3>
-    <pre><span class="cm"># MOVE: оперативная мобильность, не тактическая скорость</span>
-formation.abilities.move = mean(unit.abilities.move) * logistics_factor * terrain_factor
-
-<span class="cm"># SEE: разведывательный потенциал AO (доминируют recon юниты)</span>
-formation.abilities.see = max_weighted(recon_units.abilities.see)
-
-<span class="cm"># SHOOT / BLAST: совокупная огневая мощь</span>
-formation.abilities.shoot = weighted_mean(...)
-formation.abilities.blast  = weighted_mean(...)</pre>
   </section>
 
   <!-- ДВА ПРОФИЛЯ -->
   <section id="profiles">
     <h2><span class="num">04</span> Два профиля: физический и логический</h2>
-    <p>Каждая сущность (юнит, ассет) имеет два профиля. Они хранятся и изменяются независимо, но связаны через modifiers стек.</p>
-
-    <div class="profile-grid">
-      <div class="profile-box">
-        <div class="pt" style="color:var(--accent2)">physical_profile</div>
-        <div class="ps">Используется движком на LOCAL / PERSONAL. Конкретные физические характеристики.</div>
-        <div class="pe">move_speed_mps, hp_max,<br>attack_range_m, damage,<br>armor_mm, weight_kg...<br><em style="color:var(--text-dim)">(перечень уточняется)</em></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px">
+        <div style="font-weight:700;font-size:13px;color:var(--accent2);margin-bottom:6px">physical_profile</div>
+        <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px">Движок на LOCAL/PERSONAL</div>
+        <div style="font-size:12px;color:var(--accent2);font-family:monospace">hp_max, move_speed_mps,<br>damage, attack_range_m...<br><em style="color:var(--text-dim)">(перечень уточняется)</em></div>
       </div>
-      <div class="profile-box">
-        <div class="pt" style="color:var(--accent)">logical_profile</div>
-        <div class="ps">Используется ORBAT на всех масштабах. Пересчитывается каждый тик.</div>
-        <div class="pe">base_abilities { move, see,<br>shoot, blast } (из XML)<br>+ modifiers[] стек</div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px">
+        <div style="font-weight:700;font-size:13px;color:var(--accent);margin-bottom:6px">logical_profile</div>
+        <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px">ORBAT на всех масштабах. Пересчёт каждый тик.</div>
+        <div style="font-size:12px;color:var(--accent2);font-family:monospace">base_abilities {move,see,<br>shoot,blast} из XML<br>+ modifiers[] стек</div>
       </div>
     </div>
-
-    <div class="callout">base_abilities задаются явно в XML-файле. Modifiers стек пересчитывается каждый тик и учитывает физические повреждения, меняющиеся состояния и внешние обстоятельства.</div>
-    <div class="callout todo">TODO: отдельное руководство по модификации ассетов — баланс между профилями, правила заполнения XML-файлов.</div>
-
-    <h3>Юнит как физический ассет</h3>
-    <pre><span class="cm"># В Godot:</span>
-UnitNode (CharacterBody3D)        <span class="cm">← физическое тело в сцене</span>
-  └── OrbatAgent (GDScript)       <span class="cm">← логический агент ORBAT</span>
-        ├── logical_profile       <span class="cm">abilities, modifiers...</span>
-        └── ссылка на physical_profile</pre>
-
-    <h3>XML-файлы архетипов</h3>
-    <p>Все юниты и ассеты описываются в отдельных XML-файлах. Godot читает их при загрузке через <code style="color:var(--accent2)">XMLParser</code>. Поддерживает моддинг: новый файл в директории подхватывается без изменений кода.</p>
-    <pre>/data/units/infantry_rifleman.xml
-/data/assets/weapons/rifle_kaverGewehr.xml
-/data/assets/vehicles/panzer14.xml
-
-<span class="cm">&lt;!-- Структура файла не окончательная, будет уточняться: --&gt;</span>
-&lt;unit id="infantry_rifleman"&gt;
-  &lt;physical&gt;
-    &lt;hp_max&gt;100&lt;/hp_max&gt;
-    &lt;move_speed_mps&gt;1.4&lt;/move_speed_mps&gt;
-  &lt;/physical&gt;
-  &lt;logical&gt;
-    &lt;base_abilities move="0.7" see="0.6" shoot="0.6" blast="0.0"/&gt;
-    &lt;domain&gt;ground&lt;/domain&gt;
-  &lt;/logical&gt;
-  &lt;default_inventory&gt;
-    &lt;asset ref="rifle_kaverGewehr"/&gt;
-  &lt;/default_inventory&gt;
-&lt;/unit&gt;</pre>
-
-    <h3>Смерть юнита и разрушение ассетов</h3>
-    <p>При уничтожении юнита: физический ассет (тело) остаётся в сцене, логический агент деактивируется. Инвентарные ассеты освобождаются и потенциально доступны для подбора.</p>
-    <p>Ассеты могут быть частично или полностью уничтожены. При частичном уничтожении CompositeUnit (боевой машины) учитываются потенциально доступные ассеты из останков: остаток топлива, часть боекомплекта, запасные части.</p>
-    <div class="callout warn">Модель распределения выживших ассетов при уничтожении открыта до реализации механики урона на LOCAL уровне.</div>
+    <div class="callout todo">TODO: руководство по модификации ассетов — баланс между профилями, правила XML.</div>
   </section>
 
   <!-- ЮНИТ -->
   <section id="unit">
     <h2><span class="num">05</span> Архитектура юнита</h2>
-    <p>Юнит — листовой узел. Атомарная единица исполнения приказов. <strong>Техника — ассеты-контейнеры. Юнитом является экипаж.</strong> Принадлежность к типу хранится в <code style="color:var(--accent2)">profile</code> — для UI, не для логики.</p>
+    <p><strong>Техника — ассеты-контейнеры. Юнитом является экипаж.</strong> Тип (пехота, танк...) — в <code style="color:var(--accent2)">profile</code>, для UI, не для логики.</p>
     <div class="ability-grid">
-      <div class="ability-card"><div class="ability-name move">MOVE</div><div class="ability-desc">Перемещение. Пехота, танки, кавалерия, корабли.</div></div>
-      <div class="ability-card"><div class="ability-name see">SEE</div><div class="ability-desc">Обнаружение в радиусе. Разведка, наблюдатель, БПЛА.</div></div>
-      <div class="ability-card"><div class="ability-name shoot">SHOOT</div><div class="ability-desc">Атака прямым огнём (LOS). Стрелки, танки, лучники.</div></div>
-      <div class="ability-card"><div class="ability-name blast">BLAST</div><div class="ability-desc">Атака зоны без LOS. Артиллерия, миномёты, авиация.</div></div>
+      <div class="ability-card"><div class="ability-name move">MOVE</div><div class="ability-desc">Перемещение. Пехота, танки, кавалерия.</div></div>
+      <div class="ability-card"><div class="ability-name see">SEE</div><div class="ability-desc">Обнаружение в радиусе. Разведка, БПЛА.</div></div>
+      <div class="ability-card"><div class="ability-name shoot">SHOOT</div><div class="ability-desc">Атака прямым огнём (LOS).</div></div>
+      <div class="ability-card"><div class="ability-name blast">BLAST</div><div class="ability-desc">Атака зоны без LOS. Артиллерия.</div></div>
     </div>
+    <pre>abilities = clamp(base_abilities + sum(modifiers), 0.0, 1.0)  <span class="cm"># каждый тик</span>
 
-    <h3>Система abilities: base + modifiers</h3>
-    <pre>base_abilities { move, see, shoot, blast }   <span class="cm"># из XML, не меняются в runtime</span>
-modifiers[] { source, move, see, shoot, blast, expires }
-abilities = clamp(base + sum(modifiers), 0.0, 1.0)   <span class="cm"># каждый тик</span></pre>
-
-    <h3>Пример стека MOVE: пехота под огнём в городе</h3>
-    <div class="mod-stack">
-      <div class="mod-row"><div class="mod-label">base</div><div class="mod-bar-wrap"><div class="mod-bar bar-base" style="width:56px"></div><span class="mod-val">0.70</span><span class="mod-src">из XML</span></div></div>
-      <div class="mod-row"><div class="mod-label">suppressed</div><div class="mod-bar-wrap"><div class="mod-bar bar-minus" style="width:40px"></div><span class="mod-val" style="color:var(--red)">−0.50</span><span class="mod-src">подавляющий огонь</span></div></div>
-      <div class="mod-row"><div class="mod-label">terrain:urban</div><div class="mod-bar-wrap"><div class="mod-bar bar-minus" style="width:12px"></div><span class="mod-val" style="color:var(--red)">−0.15</span><span class="mod-src">застройка</span></div></div>
-      <div class="mod-row" style="border-top:1px solid var(--border);padding-top:4px;margin-top:4px"><div class="mod-label" style="color:var(--text-bright);font-weight:700">→ abilities.move</div><div class="mod-bar-wrap"><div class="mod-bar bar-result" style="width:4px;min-width:4px"></div><span class="mod-val" style="color:var(--accent);font-weight:700">0.05</span><span class="mod-src">ползком</span></div></div>
-    </div>
+unit.comms_channels {
+  direct_comms {
+    voice_range: float    <span class="cm"># ~10–30 м, работает при offline</span>
+    radio_short: float    <span class="cm"># ~200–500 м, требует comms != offline</span>
+  }
+  comms_quality: float    <span class="cm"># 0.0–1.0, для net_data pipeline</span>
+}</pre>
   </section>
 
   <!-- COMPOSITE -->
   <section id="composite">
     <h2><span class="num">06</span> Composite Unit</h2>
-    <p>Образуется когда контейнер укомплектован выше <code style="color:var(--accent2)">crew_threshold</code>. <strong>Идентифицируется по контейнеру — смена экипажа не меняет id.</strong></p>
-    <div class="callout">БМП идентифицируется по корпусу машины, не по составу экипажа.</div>
-    <pre>CompositeUnit { id = f(container.id), composite { container_id, crew[], cargo_units[], cargo_assets[] } }
-
-<span class="cm"># Образование / растворение:</span>
-crew_filled / required &gt;= crew_threshold <span class="arr">→</span> form composite
-crew_filled / required &lt;  crew_threshold <span class="arr">→</span> dissolve → crew как отдельные юниты
-
-combat_power = mean(unit.hp * mean(abilities.move, .shoot, .blast) * fill_ratio
-               for unit in group.effective_units where state != dead)</pre>
-
-    <h3>Жизненный цикл: БМП</h3>
-    <div class="tbl-wrap">
-      <table>
-        <tr><th>Состояние</th><th>Commander видит</th><th>Логика</th></tr>
-        <tr><td>Экипаж 3/3 + десант 8</td><td style="color:var(--accent2);font-family:monospace;font-size:12px">БМП-1 [crew:3 cargo:8]</td><td>composite, domain: ground</td></tr>
-        <tr><td>Десант высадился</td><td style="color:var(--accent2);font-family:monospace;font-size:12px">БМП-1 [crew:3] + Отд. А</td><td>БМП остаётся composite</td></tr>
-        <tr><td>Убит водитель</td><td style="color:var(--yellow);font-family:monospace;font-size:12px">dissolve → crew + asset</td><td>Ниже threshold → распался</td></tr>
-        <tr><td>Экипаж убит</td><td style="color:var(--red);font-family:monospace;font-size:12px">asset:БМП [uncrewed]</td><td>Не юнит — физический ассет</td></tr>
-      </table>
-    </div>
+    <div class="callout">id = f(container.id). БМП идентифицируется по корпусу, не по составу экипажа.</div>
+    <div class="tbl-wrap"><table>
+      <tr><th>Состояние</th><th>Что происходит</th></tr>
+      <tr><td>crew >= crew_threshold</td><td>form composite — Commander видит одну боевую единицу</td></tr>
+      <tr><td>Десант высадился</td><td>БМП остаётся composite (crew цел)</td></tr>
+      <tr><td>Убит обязательный crew</td><td>dissolve → crew отдельно, контейнер = ассет</td></tr>
+      <tr><td>Весь crew убит</td><td>asset:БМП [uncrewed] — физический ассет в сцене</td></tr>
+    </table></div>
   </section>
 
   <!-- АССЕТЫ -->
   <section id="assets">
     <h2><span class="num">07</span> Ассеты</h2>
-    <div class="tbl-wrap">
-      <table>
-        <tr><th>Subtype</th><th>Определение</th><th>Примеры</th></tr>
-        <tr><td><span class="pill inv">inventory</span></td><td>Используется юнитом, меняет характеристики</td><td>Оружие, броня, боеприпасы, бинокль</td></tr>
-        <tr><td><span class="pill cont">container</span></td><td>Принимает юниты/ассеты, образует CompositeUnit</td><td>Танк, БМП, корабль, орудийная позиция</td></tr>
-        <tr><td><span class="pill mut">mutable</span></td><td>Переключается inventory ↔ container (stowed/deployed)</td><td>Станковый пулемёт, буксируемая пушка</td></tr>
-      </table>
+    <div class="tbl-wrap"><table>
+      <tr><th>Subtype</th><th>Роль</th><th>Behavior</th></tr>
+      <tr><td><span class="pill inv">inventory</span></td><td>Используется юнитом, меняет характеристики</td><td>consumable / attached / static</td></tr>
+      <tr><td><span class="pill cont">container</span></td><td>Принимает юниты/ассеты, образует CompositeUnit</td><td>consumable / attached / static</td></tr>
+      <tr><td><span class="pill mut">mutable</span></td><td>stowed (inventory) ↔ deployed (container)</td><td>consumable / attached / static</td></tr>
+    </table></div>
+    <p>В stowed: все ability_modifiers = 0.0. Ассеты могут частично или полностью уничтожиться вместе с юнитом.</p>
+  </section>
+
+  <!-- SALUTE -->
+  <section id="perception">
+    <h2><span class="num">08</span> Восприятие: SALUTE модель</h2>
+    <p>Репорт юнита структурирован вокруг военного стандарта SALUTE. Каждое поле имеет <strong>собственную достоверность</strong> — информация собирается неравномерно.</p>
+
+    <div class="salute-grid">
+      <div class="salute-card"><div class="salute-letter s-s">S</div><div class="salute-name">Size</div><div class="salute-desc">Численность и масштаб группы. count_estimate, scale (squad/platoon/...)</div></div>
+      <div class="salute-card"><div class="salute-letter s-a">A</div><div class="salute-name">Activity</div><div class="salute-desc">Что делает прямо сейчас. stationary / moving / engaging / deploying / retreating...</div></div>
+      <div class="salute-card"><div class="salute-letter s-l">L</div><div class="salute-name">Location</div><div class="salute-desc">Позиция и её достоверность. Проще всего для обнаружения.</div></div>
+      <div class="salute-card"><div class="salute-letter s-u">U</div><div class="salute-name">Unit</div><div class="salute-desc">Тип и предполагаемая принадлежность. classification, unit_id_estimate.</div></div>
+      <div class="salute-card"><div class="salute-letter s-t">T</div><div class="salute-name">Time</div><div class="salute-desc">Когда наблюдалось. Совпадает с report.timestamp.</div></div>
+      <div class="salute-card"><div class="salute-letter s-e">E</div><div class="salute-name">Equipment</div><div class="salute-desc">Оснащение. Требует высокого abilities.see и близости к контакту.</div></div>
     </div>
-    <pre>payload {
-  <span class="cm"># Физический слой (движок):</span>
-  <span class="cm"># weight_kg, armor_mm, damage, attack_range_m... (уточняется)</span>
 
-  <span class="cm"># Логический слой (ORBAT):</span>
-  speed_bonus, supply_amount, armor, comms_bonus
-  ability_modifiers { move, see, shoot, blast }  <span class="cm"># delta, = 0 если stowed</span>
-}
+    <h3>Структура spotted_contact</h3>
+    <pre>spotted_contact {
+  contact_id        <span class="cm"># уникальный ID, присваивается первым обнаружившим</span>
+  origin_unit, last_updated
 
-on_detach(unit): unit.modifiers.remove(source: self.id)  <span class="cm"># abilities пересчитываются</span></pre>
+  salute {
+    S { count_estimate: int|null, scale: enum, confidence: float }
+    A { activity_type: enum, direction: Vector3|null, confidence: float }
+    L { position: Vector3, position_confidence: float }
+    U { classification: string, unit_id_estimate: string|null, confidence: float }
+    T: timestamp
+    E { observed_assets: [], weapon_estimate: string|null, confidence: float }
+  }
+  stale: bool     <span class="cm"># помечается — не удаляется</span>
+  expires: int    <span class="cm"># тиков до пометки stale</span>
+}</pre>
+
+    <h3>Per-field confidence: пример наблюдения в условиях неопределённости</h3>
+    <p style="font-size:13px;color:var(--text-dim);margin-bottom:12px">Пехотинец наблюдает колонну в тумане войны:</p>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;margin:12px 0">
+      <div class="conf-row"><span class="conf-label s-l">L</span><div class="conf-track"><div class="conf-fill" style="width:90%;background:var(--green)"></div></div><span class="conf-val">0.90</span><span class="conf-note">вот они — позиция точна</span></div>
+      <div class="conf-row"><span class="conf-label s-a">A</span><div class="conf-track"><div class="conf-fill" style="width:80%;background:var(--accent2)"></div></div><span class="conf-val">0.80</span><span class="conf-note">двигаются на север — движение заметно</span></div>
+      <div class="conf-row"><span class="conf-label s-s">S</span><div class="conf-track"><div class="conf-fill" style="width:60%;background:var(--accent)"></div></div><span class="conf-val">0.60</span><span class="conf-note">человек десять? — оценка грубая</span></div>
+      <div class="conf-row"><span class="conf-label s-u">U</span><div class="conf-track"><div class="conf-fill" style="width:30%;background:var(--yellow)"></div></div><span class="conf-val">0.30</span><span class="conf-note">пехота или разведка — неясно</span></div>
+      <div class="conf-row"><span class="conf-label s-e">E</span><div class="conf-track"><div class="conf-fill" style="width:10%;background:var(--red)"></div></div><span class="conf-val">0.10</span><span class="conf-note">что-то несут — не разобрать</span></div>
+    </div>
+
+    <h3>Формулы per-field confidence</h3>
+    <pre>qualification = base_skill * unit.hp <span class="hl">* abilities.see</span> * (1-threat) * logistics.supply
+
+L.position_confidence = qualification * 1.0     <span class="cm"># самое доступное</span>
+A.confidence          = qualification * 0.9     <span class="cm"># движение заметно хорошо</span>
+S.confidence          = qualification * 0.8
+U.confidence          = qualification * recognition_factor
+E.confidence          = qualification * proximity_factor   <span class="cm"># требует близости</span>
+
+<span class="cm"># abilities.see → 0: report генерируется, все confidence → 0</span>
+<span class="cm"># 'ничего не вижу' — тоже разведывательная информация</span></pre>
+  </section>
+
+  <!-- КАНАЛЫ КОММУНИКАЦИИ -->
+  <section id="comms">
+    <h2><span class="num">09</span> Каналы коммуникации</h2>
+    <p>Трёхуровневая модель. Уровни не заменяют, а дополняют друг друга.</p>
+    <div class="comms-grid">
+      <div class="comms-card" style="border-color:rgba(63,185,80,.4);background:rgba(63,185,80,.04)">
+        <div class="comms-name" style="color:var(--green)">voice_range</div>
+        <div class="comms-stat">📏 10–30 м</div>
+        <div class="comms-stat">⚡ Мгновенно</div>
+        <div class="comms-stat">✓ Работает при offline</div>
+        <p style="font-size:12px;color:var(--text-dim);margin-top:8px">Крик, сигналы. Даже при полном глушении связи.</p>
+      </div>
+      <div class="comms-card" style="border-color:rgba(74,158,255,.4);background:rgba(74,158,255,.04)">
+        <div class="comms-name" style="color:var(--accent)">radio_short</div>
+        <div class="comms-stat">📏 200–500 м</div>
+        <div class="comms-stat">⚡ Мгновенно</div>
+        <div class="comms-stat">⚠ comms != offline</div>
+        <p style="font-size:12px;color:var(--text-dim);margin-top:8px">Ближняя рация отделения/взвода.</p>
+      </div>
+      <div class="comms-card" style="border-color:rgba(232,164,74,.4);background:rgba(232,164,74,.04)">
+        <div class="comms-name" style="color:var(--accent3)">net_data</div>
+        <div class="comms-stat">📏 Неограниченно</div>
+        <div class="comms-stat">🕐 Latency + degradation</div>
+        <div class="comms-stat">⚠ radio / physical carrier</div>
+        <p style="font-size:12px;color:var(--text-dim);margin-top:8px">Штатная сеть управления. Может деградировать и прерываться.</p>
+      </div>
+    </div>
+
+    <h3>direct_comms_radius: мгновенная синхронизация</h3>
+    <p>В пределах voice_range или radio_short все союзные юниты мгновенно получают contact_id и актуальный SALUTE-репорт. Достоверность = максимальная среди юнитов в радиусе, <strong>по каждому полю независимо</strong>.</p>
+    <pre><span class="cm"># Снайпер с высоким abilities.see в радиусе:</span>
+contact.salute.E.confidence = max(u.salute.E.confidence for u in radius_group)
+<span class="cm"># Немедленно делится зрением с отделением — без Net Data pipeline</span>
+
+<span class="cm"># На GLOBAL прямой коммуникации нет — только net_data</span></pre>
+    <div class="callout">При comms = offline: voice_range работает, radio_short — нет. Глушение связи изолирует по рации, но не лишает юнитов голосовой координации вплотную.</div>
+  </section>
+
+  <!-- УПРАВЛЕНИЕ КОНТАКТАМИ -->
+  <section id="contacts">
+    <h2><span class="num">10</span> Управление контактами</h2>
+    <h3>contact_id: гибридный подход</h3>
+    <pre><span class="cm"># Первое обнаружение:</span>
+contact_id = generate()
+contact.origin_unit = unit_id
+<span class="cm"># Синхронизация внутри direct_comms_radius — мгновенно</span>
+<span class="cm"># Распространение за пределы радиуса — через net_data с задержкой</span></pre>
+    <div class="callout">Деконфликтация — задача штаба (Commander), не юнитов. Юниты создают contact_id независимо. Commander объединяет по proximity.</div>
+
+    <h3>Деконфликтация у Commander</h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>Шаг</th><th>Условие</th><th>Действие</th></tr>
+      <tr><td>1 — Верификация</td><td>Есть свободный юнит с abilities.see > threshold</td><td>SPOT(спорная_зона), пометить unverified</td></tr>
+      <tr><td>2 — Агрегирование</td><td>Несколько репортов по одному контакту</td><td>Per-field: winner = max(confidence) для каждого поля SALUTE</td></tr>
+      <tr><td>3 — Слияние contact_id</td><td>Два ID с близким L.position + совпадающий U.classification</td><td>Proximity-проверка по contact_proximity_merge из roe_overrides</td></tr>
+      <tr><td>4 — Неопределённость</td><td>Данные критичны, конфликт неразрешим</td><td>planning_uncertainty = true, худший сценарий</td></tr>
+    </table></div>
+
+    <h3>Stale данные: скорость устаревания per-field</h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>Поле</th><th>Скорость устаревания</th><th>Логика</th></tr>
+      <tr><td class="mono s-l">L</td><td>Быстро</td><td>Противник мог переместиться</td></tr>
+      <tr><td class="mono s-a">A</td><td>Быстро</td><td>Мог сменить активность</td></tr>
+      <tr><td class="mono s-s">S</td><td>Медленно</td><td>Численность меняется реже</td></tr>
+      <tr><td class="mono s-u">U</td><td>Очень медленно</td><td>Тип юнита стабилен</td></tr>
+      <tr><td class="mono s-e">E</td><td>Медленно</td><td>Снаряжение меняется редко</td></tr>
+    </table></div>
   </section>
 
   <!-- ПРИКАЗЫ -->
   <section id="orders">
-    <h2><span class="num">08</span> Четыре базовых приказа</h2>
-    <div class="callout">Приказ = намерение. Поведение определяет ROE. Одинаково применимы на LOCAL и GLOBAL (где юнитом считается Formation).</div>
+    <h2><span class="num">11</span> Четыре базовых приказа</h2>
+    <div class="callout">Приказ = намерение. SPOT генерирует полный SALUTE-репорт. Пассивный contact может быть неполным.</div>
     <div class="order-grid">
-      <div class="order-card"><div class="order-type move">MOVE</div><div class="order-desc">Выдвинуться в точку.<br><code style="font-size:11px;color:var(--text-dim)">target: Vector3</code></div></div>
-      <div class="order-card"><div class="order-type hold">HOLD</div><div class="order-desc">Удерживать точку.<br><code style="font-size:11px;color:var(--text-dim)">target: Vector3</code></div></div>
-      <div class="order-card"><div class="order-type support">SUPPORT</div><div class="order-desc">Поддержать юнит или зону. Барраж = SUPPORT с зоной.<br><code style="font-size:11px;color:var(--text-dim)">target: unit_id | Vector3, radius</code></div></div>
-      <div class="order-card order-new"><div class="order-type spot">SPOT</div><div class="order-desc">Разведать <strong>без перемещения</strong>. Результат → spot_result (priority 1).<br><code style="font-size:11px;color:var(--text-dim)">target: Vector3 | unit_id, radius</code></div></div>
-    </div>
-    <div class="tbl-wrap">
-      <table>
-        <tr><th>Свойство SPOT</th><th>Значение</th></tr>
-        <tr><td>abilities.see → 0</td><td>Выполним. confidence → 0. «Ничего не вижу» — тоже разведывательная информация.</td></tr>
-        <tr><td>abilities.see &lt; threshold</td><td>Выполним. Confidence низкий, вплоть до stale.</td></tr>
-        <tr><td>ROE</td><td>Юнит не переходит в ENGAGE (если только Survival не форсирует)</td></tr>
-      </table>
+      <div class="order-card"><div class="order-type move">MOVE</div><div class="order-desc">Выдвинуться в точку.</div></div>
+      <div class="order-card"><div class="order-type hold">HOLD</div><div class="order-desc">Удерживать точку.</div></div>
+      <div class="order-card"><div class="order-type support">SUPPORT</div><div class="order-desc">Поддержать юнит или зону. Барраж = SUPPORT с зоной.</div></div>
+      <div class="order-card order-new"><div class="order-type spot">SPOT</div><div class="order-desc">Разведать <strong>без перемещения</strong>. Полный SALUTE → spot_result (priority 1). abilities.see=0 — выполним, confidence→0.</div></div>
     </div>
   </section>
 
   <!-- L5 -->
   <section id="l5">
-    <h2><span class="num">09</span> Logistics directive (L5)</h2>
-    <p>Опциональный параметр приказа. Без него ROE вычисляет логистику самостоятельно. С ним — Commander управляет явно, ROE не переопределяет (только Survival прерывает).</p>
-    <pre>L5: { action: MOUNT|DISMOUNT|LOAD|UNLOAD|DEPLOY|STOW, asset_id, timing: before|on_arrival|after }
+    <h2><span class="num">12</span> Logistics directive (L5)</h2>
+    <p>Опциональный параметр приказа. Без него ROE вычисляет логистику автоматически. С ним — Commander управляет явно (только Survival прерывает).</p>
+    <pre>L5: { action: MOUNT|DISMOUNT|LOAD|UNLOAD|DEPLOY|STOW,
+      asset_id, timing: before|on_arrival|after }
 
-<span class="cm"># Экипаж покидает машину по прибытии:</span>
-{ L1: MOVE, L2: pos_X, L5: { action: DISMOUNT, timing: on_arrival } }
-
-<span class="cm"># Поднять БПЛА, разведать зону Q, не двигаясь:</span>
-{ L1: SPOT, L2: zone_Q, L3: 800, L5: { action: MOUNT, asset_id: uav_7, timing: before } }</pre>
-  </section>
-
-  <!-- ВОСПРИЯТИЕ -->
-  <section id="perception">
-    <h2><span class="num">10</span> Восприятие (Perception)</h2>
-    <div class="tbl-wrap">
-      <table>
-        <tr><th>Источник</th><th>Что даёт</th></tr>
-        <tr><td>Себя (self)</td><td>Позиция, supply, state, abilities, location — всегда</td></tr>
-        <tr><td>Прямое (SEE)</td><td>spotted[] в vision_range × abilities.see</td></tr>
-        <tr><td>Сеть (net_data)</td><td>Report'ы юнитов, spot_result от разведки, <strong>Objective от глобального командования</strong></td></tr>
-      </table>
-    </div>
-    <pre>spotted_object {
-  position, type, classification       <span class="cm"># перцептивный слой</span>
-  confidence, side, side_confidence
-  is_container, contents_visible
-  contents_estimate { crew_present, cargo_estimate, confidence }
-}</pre>
-    <div class="callout">Autonomous — инициатива снизу. Юнит без связи действует только по ROE и тому что сам видит.</div>
+{ L1: SPOT, L2: zone_Q, L5: { action: MOUNT, asset_id: uav_7, timing: before } }</pre>
   </section>
 
   <!-- ПРИОРИТЕТЫ -->
   <section id="priorities">
-    <h2><span class="num">11</span> Система приоритетов</h2>
+    <h2><span class="num">13</span> Система приоритетов</h2>
     <div style="margin:20px 0">
-      <div class="priority-row"><div class="priority-num p1">1</div><div class="priority-label">Objective</div><div class="priority-desc">На LOCAL = Order сверху, полученный через Net Data от глобального командования. Не меняется без смены Objective.</div></div>
+      <div class="priority-row"><div class="priority-num p1">1</div><div class="priority-label">Objective</div><div class="priority-desc">Order сверху через Net Data. Не меняется без смены Objective.</div></div>
       <div class="priority-row"><div class="priority-num p2">2</div><div class="priority-label">Order</div><div class="priority-desc">Текущий приказ от локального Commander'а.</div></div>
-      <div class="priority-row"><div class="priority-num p3">3</div><div class="priority-label">Survival</div><div class="priority-desc">Только когда выполнение физически невозможно. Может прервать L5 директиву.</div></div>
+      <div class="priority-row"><div class="priority-num p3">3</div><div class="priority-label">Survival</div><div class="priority-desc">Только когда выполнение физически невозможно. Прерывает L5.</div></div>
     </div>
-    <div class="callout">Survival не перебивает Objective. Юнит не убегает при первом выстреле.</div>
   </section>
 
   <!-- WORLD DATA -->
   <section id="worlddata">
-    <h2><span class="num">12</span> World Data и ZoneMap</h2>
-    <p>World Data двухуровневый: глобальная карта (GLOBAL) и локальная AO (LOCAL). ZoneMap двухуровневая аналогично.</p>
-    <pre>Иерархия ZoneMap: global_zone_map → formation.zone_map → unit.zone_cache
-spotted[] всегда перекрывает zone_cache.</pre>
+    <h2><span class="num">14</span> World Data и ZoneMap</h2>
+    <p>Двухуровневые: GLOBAL карта + LOCAL AO. ZoneMap — субъективная, своя у каждой стороны.</p>
+    <pre>Иерархия: global_zone_map → formation.zone_map → unit.zone_cache
+spotted_contacts[] всегда перекрывают zone_cache.</pre>
     <div style="display:flex;gap:12px;margin:16px 0;flex-wrap:wrap">
       <div style="flex:1;min-width:130px;padding:12px;border:1px solid rgba(63,185,80,.3);border-radius:8px;background:rgba(63,185,80,.05)"><div class="zone green">Green</div><p style="margin-top:8px;font-size:13px;color:var(--text-dim)">Pull по расписанию</p></div>
       <div style="flex:1;min-width:130px;padding:12px;border:1px solid rgba(210,153,34,.3);border-radius:8px;background:rgba(210,153,34,.05)"><div class="zone yellow">Yellow</div><p style="margin-top:8px;font-size:13px;color:var(--text-dim)">Push по событиям</p></div>
@@ -553,89 +462,79 @@ spotted[] всегда перекрывает zone_cache.</pre>
 
   <!-- ROE -->
   <section id="roe">
-    <h2><span class="num">13</span> ROE — Правила применения силы</h2>
-    <div class="callout">ROE работает одинаково на LOCAL и GLOBAL (где «юнитом» считается Formation с агрегированными abilities).</div>
-    <h3>Дерево решений</h3>
+    <h2><span class="num">15</span> ROE — Правила применения силы</h2>
+    <div class="callout">Каскад HQ → Commander → Unit. Работает одинаково на LOCAL и GLOBAL.</div>
     <div class="dtree">
       <div class="dstep"><div class="dstep-num">0</div><div class="dstep-body"><div class="dstep-title">Нет приказа + offline</div><div class="dstep-code">initiative > 0.7 and priority_delta > 0.6 <span class="arr">→</span> AUTO_ORDER  else <span class="arr">→</span> HOLD</div></div></div>
-      <div class="dstep dstep-new"><div class="dstep-num">1</div><div class="dstep-body"><div class="dstep-title">Есть явная L5 директива?</div><div class="dstep-code">выполнить в указанный timing <span class="cm"># только Survival прерывает</span></div></div></div>
-      <div class="dstep"><div class="dstep-num">2</div><div class="dstep-body"><div class="dstep-title">Можем выполнить?</div><div class="dstep-code">can_execute > 0.6 and perceived &lt; 0.7 <span class="arr">→</span> EXECUTE</div></div></div>
-      <div class="dstep"><div class="dstep-num">3</div><div class="dstep-body"><div class="dstep-title">Почему не можем?</div><div class="dstep-code">supply &lt; threshold          <span class="arr">→</span> SEEK_ASSET
-path blocked                <span class="arr">→</span> FIND_ALT_PATH
-ability &lt; threshold        <span class="arr">→</span> HOLD
-container_crew &lt; threshold <span class="arr">→</span> SEEK_CREW / DISMOUNT
-mutable.mode = stowed       <span class="arr">→</span> DEPLOY
-search_drive > 0.3          <span class="arr">→</span> MOVE(search_area)</div></div></div>
-      <div class="dstep"><div class="dstep-num">4</div><div class="dstep-body"><div class="dstep-title">Угроза перевешивает?</div><div class="dstep-code">perceived > 0.7 and can_execute > 0.5 <span class="arr">→</span> ENGAGE
-perceived > 0.7 and can_execute &lt; 0.5 <span class="arr">→</span> FALLBACK
-  <span class="cm"># composite: DISMOUNT vs транспорт</span></div></div></div>
+      <div class="dstep dstep-new"><div class="dstep-num">1</div><div class="dstep-body"><div class="dstep-title">Есть L5 директива?</div><div class="dstep-code">выполнить в timing <span class="cm"># Survival прерывает</span></div></div></div>
+      <div class="dstep"><div class="dstep-num">2</div><div class="dstep-body"><div class="dstep-title">can_execute > 0.6 and perceived &lt; 0.7</div><div class="dstep-code"><span class="arr">→</span> EXECUTE</div></div></div>
+      <div class="dstep"><div class="dstep-num">3</div><div class="dstep-body"><div class="dstep-title">Почему не можем?</div><div class="dstep-code">supply &lt; threshold / path blocked / ability &lt; threshold
+container_crew &lt; threshold / mutable stowed / search_drive > 0.3</div></div></div>
+      <div class="dstep"><div class="dstep-num">4</div><div class="dstep-body"><div class="dstep-title">Угроза</div><div class="dstep-code">perceived > 0.7 → ENGAGE / FALLBACK</div></div></div>
       <div class="dstep"><div class="dstep-num">5</div><div class="dstep-body"><div class="dstep-title">Что-то важнее?</div><div class="dstep-code">social_delta > order.weight <span class="arr">→</span> SUPPORT/MOVE</div></div></div>
-      <div class="dstep"><div class="dstep-num">6</div><div class="dstep-body"><div class="dstep-title">Comms offline</div><div class="dstep-code">initiative * can_execute > 0.5 <span class="arr">→</span> автономно (шаги 2–5)  else <span class="arr">→</span> HOLD</div></div></div>
+      <div class="dstep"><div class="dstep-num">6</div><div class="dstep-body"><div class="dstep-title">Offline</div><div class="dstep-code">initiative * can_execute > 0.5 <span class="arr">→</span> автономно  else <span class="arr">→</span> HOLD</div></div></div>
     </div>
   </section>
 
   <!-- COMMANDER -->
   <section id="commander">
-    <h2><span class="num">14</span> Commander</h2>
-    <p>Роль в каждом юните. При гибели — следующий по rank принимает командование. На LOCAL роль HQ Formation = наибольший по иерархии доступный Commander.</p>
-    <div class="callout">Уничтожение командиров — легитимная тактика. Система деградирует органически.</div>
+    <h2><span class="num">16</span> Commander</h2>
+    <p>Роль в каждом юните. При гибели — следующий по rank. На LOCAL: HQ Formation = наибольший по иерархии доступный Commander.</p>
     <pre>CommanderRole { is_commander, rank, group_id, baseline_threat,
-  roe_overrides { ability_threshold, require_mounted: bool } }
-next = max(rank) среди unit.state != dead в group_id</pre>
+  roe_overrides {
+    ability_threshold
+    require_mounted:         bool
+    contact_proximity_merge: float  <span class="cm"># порог деконфликтации contact_id</span>
+  }
+}</pre>
   </section>
 
   <!-- NET DATA -->
   <section id="netdata">
-    <h2><span class="num">15</span> Net Data</h2>
-    <p>Общая память группы. <strong>Канал трансляции GLOBAL Order → LOCAL Objective.</strong> Локальный Commander периодически обращается к net_data для отслеживания изменений Objective от глобального командования.</p>
-    <pre>qualification = base_skill * unit.hp <span class="hl">* abilities.see</span> * (1-threat_level) * logistics.supply
-<span class="cm"># abilities.see → 0: report генерируется, confidence → 0</span></pre>
-    <h3>Типы report</h3>
-    <div class="tbl-wrap">
-      <table>
-        <tr><th>type</th><th>Описание</th><th>priority</th></tr>
-        <tr><td class="mono">push_event:contact</td><td>Пассивное обнаружение</td><td style="text-align:center">2</td></tr>
-        <tr><td class="mono">spot_result</td><td>Результат приказа SPOT</td><td style="text-align:center;color:var(--red);font-weight:700">1</td></tr>
-        <tr><td class="mono">composite_formed/dissolved</td><td>Изменение статуса CompositeUnit</td><td style="text-align:center">2 / 1</td></tr>
-        <tr><td class="mono">unit_mounted/dismounted</td><td>Смена location юнита</td><td style="text-align:center">3</td></tr>
-        <tr><td class="mono">asset_deployed/stowed</td><td>mutable сменил режим</td><td style="text-align:center">2 / 3</td></tr>
-        <tr><td class="mono">commander_down</td><td>Commander выведен из строя</td><td style="text-align:center;color:var(--red);font-weight:700">1</td></tr>
-        <tr><td class="mono">objective_update</td><td>Глобальное командование изменило Objective</td><td style="text-align:center;color:var(--red);font-weight:700">1</td></tr>
-        <tr><td class="mono">pull_response</td><td>Ответ на плановый запрос</td><td style="text-align:center">3</td></tr>
-      </table>
-    </div>
+    <h2><span class="num">17</span> Net Data</h2>
+    <p>Общая память группы. Канал GLOBAL Order → LOCAL Objective. Структурирована вокруг SALUTE для contact-репортов.</p>
+    <div class="tbl-wrap"><table>
+      <tr><th>type</th><th>Описание</th><th>priority</th></tr>
+      <tr><td class="mono">push_event:contact</td><td>Пассивное обнаружение, частичный SALUTE</td><td style="text-align:center">2</td></tr>
+      <tr><td class="mono">spot_result</td><td>Результат SPOT, полный SALUTE</td><td style="text-align:center;color:var(--red);font-weight:700">1</td></tr>
+      <tr><td class="mono">contact_update</td><td>Обновление contact_id через direct_comms или net_data</td><td style="text-align:center">2</td></tr>
+      <tr><td class="mono">composite_formed/dissolved</td><td>Статус CompositeUnit изменился</td><td style="text-align:center">2 / 1</td></tr>
+      <tr><td class="mono">commander_down</td><td>Commander выведен из строя</td><td style="text-align:center;color:var(--red);font-weight:700">1</td></tr>
+      <tr><td class="mono">objective_update</td><td>Глобальное командование изменило Objective</td><td style="text-align:center;color:var(--red);font-weight:700">1</td></tr>
+      <tr><td class="mono">pull_response</td><td>Ответ на плановый запрос</td><td style="text-align:center">3</td></tr>
+    </table></div>
   </section>
 
   <!-- BACKLOG -->
   <section id="backlog">
-    <h2><span class="num">16</span> Что ещё не закрыто</h2>
-    <div class="tbl-wrap">
-      <table>
-        <tr><th>Компонент</th><th>Статус</th></tr>
-        <tr><td>BattleState (scale-aware)</td><td><span class="status"><span class="dot todo"></span> Не начат — управление GLOBAL и LOCAL состояниями</span></td></tr>
-        <tr><td>Formation агрегирование</td><td><span class="status"><span class="dot todo"></span> Описано — не реализовано</span></td></tr>
-        <tr><td>Свёрнутая симуляция GLOBAL</td><td><span class="status"><span class="dot todo"></span> Условия полной симуляции открыты</span></td></tr>
-        <tr><td>HQ модуль</td><td><span class="status"><span class="dot todo"></span> Не начат — ZoneMap, отслеживание Formation</span></td></tr>
-        <tr><td>Pathfinding</td><td><span class="status"><span class="dot wip"></span> NavigationServer3D подключён, алгоритм не написан</span></td></tr>
-        <tr><td>ROE ability_threshold</td><td><span class="status"><span class="dot wip"></span> Описан — не реализован</span></td></tr>
-        <tr><td>Modifiers stack runtime</td><td><span class="status"><span class="dot todo"></span> Описан — не реализован</span></td></tr>
-        <tr><td>Composite unit formation/dissolution</td><td><span class="status"><span class="dot todo"></span> Описан — не реализован</span></td></tr>
-        <tr><td>Mutable asset state machine</td><td><span class="status"><span class="dot todo"></span> Описан — не реализован</span></td></tr>
-        <tr><td>LogisticsActions runtime (L5 + авто)</td><td><span class="status"><span class="dot todo"></span> Описан — не реализован</span></td></tr>
-        <tr><td>Physical damage → modifiers</td><td><span class="status"><span class="dot todo"></span> Принцип описан, модель урона открыта</span></td></tr>
-        <tr><td>Asset survival при уничтожении</td><td><span class="status"><span class="dot todo"></span> Принцип описан, модель открыта</span></td></tr>
-        <tr><td>XML загрузчик архетипов</td><td><span class="status"><span class="dot todo"></span> Не начат</span></td></tr>
-        <tr><td>Godot адаптер</td><td><span class="status"><span class="dot todo"></span> Не начат</span></td></tr>
-        <tr><td>BattleState ↔ Godot sync</td><td><span class="status"><span class="dot todo"></span> Не начат</span></td></tr>
-        <tr><td>Руководство по модификации ассетов</td><td><span class="status"><span class="dot todo"></span> TODO</span></td></tr>
-      </table>
-    </div>
-    <p style="margin-top:24px;font-size:13px;color:var(--text-dim);text-align:center">— конец документа v0.5.2 —</p>
+    <h2><span class="num">18</span> Что ещё не закрыто</h2>
+    <div class="tbl-wrap"><table>
+      <tr><th>Компонент</th><th>Статус</th></tr>
+      <tr><td>BattleState (scale-aware)</td><td><span class="status"><span class="dot todo"></span> Не начат</span></td></tr>
+      <tr><td>Formation агрегирование</td><td><span class="status"><span class="dot todo"></span> Описано — не реализовано</span></td></tr>
+      <tr><td>Свёрнутая симуляция GLOBAL</td><td><span class="status"><span class="dot todo"></span> Условия полной симуляции открыты</span></td></tr>
+      <tr><td>HQ модуль</td><td><span class="status"><span class="dot todo"></span> Не начат</span></td></tr>
+      <tr><td>Pathfinding</td><td><span class="status"><span class="dot wip"></span> NavigationServer3D подключён, алгоритм не написан</span></td></tr>
+      <tr><td>SALUTE perception runtime</td><td><span class="status"><span class="dot todo"></span> Описан — не реализован</span></td></tr>
+      <tr><td>direct_comms_radius runtime</td><td><span class="status"><span class="dot todo"></span> Описан — не реализован</span></td></tr>
+      <tr><td>contact_id deconfliction</td><td><span class="status"><span class="dot todo"></span> Описан — не реализован</span></td></tr>
+      <tr><td>Per-field stale logic</td><td><span class="status"><span class="dot todo"></span> Описана — не реализована</span></td></tr>
+      <tr><td>ROE ability_threshold</td><td><span class="status"><span class="dot wip"></span> Задан — не реализован</span></td></tr>
+      <tr><td>Modifiers stack runtime</td><td><span class="status"><span class="dot todo"></span> Описан — не реализован</span></td></tr>
+      <tr><td>Composite unit formation/dissolution</td><td><span class="status"><span class="dot todo"></span> Описан — не реализован</span></td></tr>
+      <tr><td>Mutable asset state machine</td><td><span class="status"><span class="dot todo"></span> Описан — не реализован</span></td></tr>
+      <tr><td>LogisticsActions runtime (L5 + авто)</td><td><span class="status"><span class="dot todo"></span> Описан — не реализован</span></td></tr>
+      <tr><td>Physical damage → modifiers</td><td><span class="status"><span class="dot todo"></span> Принцип описан, модель открыта</span></td></tr>
+      <tr><td>Asset survival при уничтожении</td><td><span class="status"><span class="dot todo"></span> Принцип описан, модель открыта</span></td></tr>
+      <tr><td>XML загрузчик архетипов</td><td><span class="status"><span class="dot todo"></span> Не начат</span></td></tr>
+      <tr><td>Godot адаптер</td><td><span class="status"><span class="dot todo"></span> Не начат</span></td></tr>
+      <tr><td>Руководство по модификации ассетов</td><td><span class="status"><span class="dot todo"></span> TODO</span></td></tr>
+    </table></div>
+    <p style="margin-top:24px;font-size:13px;color:var(--text-dim);text-align:center">— конец документа v0.5.3 —</p>
   </section>
 
 </main>
 </div>
-
 <script>
   const sections = document.querySelectorAll('section[id]');
   const links = document.querySelectorAll('.sidebar a');
