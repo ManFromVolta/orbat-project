@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<units version="1">
+  <unit id="unit.rifleman.red" display_name="Red Rifleman">
+	<runtime team="red" hp="1" move_speed="5.4" aggro_range="15.0" attack_range="3.0" respawn_sec="8.0" />
+	<assets>
+	  <asset_ref id="core.rifleman.human" role="platform" required="true" />
+	  <asset_ref id="weapon.rifle.basic" role="primary_weapon" required="true" />
+	  <asset_ref id="inventory.ammo.small" role="ammo" required="false" />
+	</assets>
+  </unit>
+
+  <unit id="unit.rifleman.blue" display_name="Blue Rifleman">
+	<runtime team="blue" hp="1" move_speed="5.4" aggro_range="15.0" attack_range="3.0" respawn_sec="8.0" />
+	<assets>
+	  <asset_ref id="core.rifleman.human" role="platform" required="true" />
+	  <asset_ref id="weapon.rifle.basic" role="primary_weapon" required="true" />
+	  <asset_ref id="inventory.ammo.small" role="ammo" required="false" />
+	</assets>
+  </unit>
+</units>

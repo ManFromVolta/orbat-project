@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <units version="1">
-  <!--
-    Unit is a logical contract that references a set of assets.
-    Runtime can use one scene for visuals, but data remains two-level:
-    UnitDefinition -> AssetDefinition references.
-  -->
   <unit id="unit.rifleman.red" display_name="Red Rifleman">
-    <runtime team="red" hp="1" move_speed="5.4" aggro_range="40.0" attack_range="28.0" respawn_sec="8.0" />
+    <runtime team="red" hp="1" move_speed="5.4" aggro_range="40.0" attack_range="10.0" respawn_sec="8.0" />
     <assets>
       <asset_ref id="core.rifleman.human" role="platform" required="true" />
       <asset_ref id="weapon.rifle.basic" role="primary_weapon" required="true" />
@@ -15,7 +10,7 @@
   </unit>
 
   <unit id="unit.rifleman.blue" display_name="Blue Rifleman">
-    <runtime team="blue" hp="1" move_speed="5.4" aggro_range="40.0" attack_range="28.0" respawn_sec="8.0" />
+    <runtime team="blue" hp="1" move_speed="5.4" aggro_range="40.0" attack_range="10.0" respawn_sec="8.0" />
     <assets>
       <asset_ref id="core.rifleman.human" role="platform" required="true" />
       <asset_ref id="weapon.rifle.basic" role="primary_weapon" required="true" />
