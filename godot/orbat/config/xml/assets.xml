@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assets version="1">
+  <asset id="core.rifleman.human" type="core" display_name="Rifleman Body">
+	<stats mass="82.0" durability="1.0" />
+	<visual scene="res://scenes/unit/unit_node.tscn" />
+  </asset>
+
+  <asset id="weapon.rifle.basic" type="weapon" display_name="Basic Rifle">
+	<weapon projectile_scene="res://scenes/projectile/projectile.tscn"
+			fire_rate="1.2"
+			projectile_speed="10.0"
+			range="28.0" />
+  </asset>
+
+  <asset id="container.squad.slot" type="container" display_name="Squad Slot">
+	<capacity slots="1" />
+  </asset>
+
+  <asset id="inventory.ammo.small" type="inventory" display_name="Small Ammo Pack">
+	<inventory capacity="120" item_kind="ammo" />
+  </asset>
+</assets>
