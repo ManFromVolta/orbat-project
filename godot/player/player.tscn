@@ -1,0 +1,41 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_g1dw6"]
+[ext_resource type="PackedScene" path="res://mannequin/mannequin.tscn" id="2_yw30f"]
+[ext_resource type="Script" path="res://mannequin/mannequin.gd" id="3_qjkh3"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g6k8r"]
+radius = 0.3
+height = 1.75
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_boad6"]
+radius = 0.15
+
+[node name="Player" type="CharacterBody3D" unique_id=846615016]
+script = ExtResource("1_g1dw6")
+
+[node name="Collision" type="CollisionShape3D" parent="." unique_id=1090496237]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)
+shape = SubResource("CapsuleShape3D_g6k8r")
+
+[node name="Model" type="Node3D" parent="." unique_id=1670972195]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="Mannequin" type="Node3D" parent="Model" unique_id=1530371239 instance=ExtResource("2_yw30f")]
+script = ExtResource("3_qjkh3")
+
+[node name="CameraYaw" type="Node3D" parent="." unique_id=1393598470]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0)
+
+[node name="Pitch" type="Node3D" parent="CameraYaw" unique_id=1365207454]
+
+[node name="Shoulder" type="Node3D" parent="CameraYaw/Pitch" unique_id=1046913529]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraYaw/Pitch/Shoulder" unique_id=1349725938]
+shape = SubResource("SphereShape3D_boad6")
+spring_length = 2.4
+margin = 0.2
+
+[node name="Camera3D" type="Camera3D" parent="CameraYaw/Pitch/Shoulder/SpringArm3D" unique_id=97831534]
+fov = 65.0
