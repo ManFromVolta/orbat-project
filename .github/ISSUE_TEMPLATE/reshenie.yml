@@ -1,0 +1,28 @@
+name: "Решение"
+description: "Надо решить, а не сделать"
+labels: ["решение"]
+body:
+  - type: markdown
+    attributes:
+      value: "Для открытых вопросов дизайна. Когда решение принято, пишем его итогом в комментарий и закрываем issue. Трек (лор, движок, анимация-ассеты, доки), этап и приоритет выставляются после создания."
+  - type: textarea
+    id: question
+    attributes:
+      label: Вопрос
+      description: Что именно нужно решить.
+    validations:
+      required: true
+  - type: textarea
+    id: options
+    attributes:
+      label: Варианты
+      description: Что рассматриваем, с плюсами и минусами.
+    validations:
+      required: false
+  - type: textarea
+    id: depends
+    attributes:
+      label: Что от этого зависит
+      description: Какие задачи и системы упрутся в это решение.
+    validations:
+      required: false

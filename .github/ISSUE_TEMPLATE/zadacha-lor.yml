@@ -1,0 +1,29 @@
+name: "Лор: задача"
+description: "Мир, культуры, полития, фракции"
+labels: ["трек: лор"]
+body:
+  - type: markdown
+    attributes:
+      value: "Один issue — один проверяемый результат. Этап (milestone) и приоритет выставляются после создания. Исполнителя не назначаем: задачу берёт тот, кто возьмётся."
+  - type: textarea
+    id: result
+    attributes:
+      label: Результат
+      description: Что должно существовать, когда задача закрыта. Одним-двумя предложениями.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Приёмка
+      description: Чеклист. По нему видно, что задача действительно закрыта.
+      value: "- [ ] "
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Контекст
+      description: Откуда задача, от чего зависит, ссылки на Wiki, issues, файлы.
+    validations:
+      required: false

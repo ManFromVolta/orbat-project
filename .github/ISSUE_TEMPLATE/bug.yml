@@ -1,0 +1,35 @@
+name: "Баг"
+description: "Сломано то, что уже сделано"
+labels: ["баг"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: Что сломано
+      description: Что происходит и что должно происходить.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Как повторить
+      description: Шаги по порядку. Если баг плавающий, напиши, как часто.
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Окружение
+      description: Версия Godot, ветка или коммит, сцена.
+    validations:
+      required: false
+  - type: textarea
+    id: extra
+    attributes:
+      label: Логи и скриншоты
+    validations:
+      required: false
